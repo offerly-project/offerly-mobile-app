@@ -5,39 +5,34 @@ import Checkbox from "expo-checkbox";
 import { Link } from "expo-router";
 import LottieView from "lottie-react-native";
 
-export default function Signup() {
+export default function ResetPassword() {
   return (
     <View className="flex-1 bg-gray-900 items-center justify-between ">
-      <View className="w-4/5 rounded-3xl p-6 shadow-lg mt-auto">
+      <View className="w-4/5 rounded-3xl p-6 shadow-lg mt-auto gap-2">
         {/* Header */}
-        <Text className="text-2xl font-bold text-center text-white mb-4">
-          Create a new account.
-        </Text>
-        <Text className="text-center text-gray-200 text-sm mb-6">
-          By signing up you are agreeing to our{" "}
-          <Link href="/" className="text-blue-500 underline">
-            Term and privacy policy
-          </Link>
+        <Text className="text-2xl font-bold text-white mb-5">
+            Set new password
         </Text>
 
-        {/* Signup Form */}
         <View className="gap-10">
-          {/* Email Field */}
-          <View className="flex-row items-center border-b border-gray-300 pb-1">
-            <Feather name="mail" size={20} color="#e5e7eb" className="mr-2" />
-            <TextInput
-              placeholder="Email Address"
-              placeholderTextColor="#e5e7eb"
-              className="flex-1 text-white"
-              keyboardType="email-address"
-            />
-          </View>
-
-          {/* Password Field */}
+          {/* New password field */}
           <View className="flex-row items-center border-b border-gray-300 pb-1">
           <MaterialCommunityIcons name="lock-outline"  className="mr-1" color="lightgray" size={22}  />
             <TextInput
-              placeholder="Password"
+              placeholder="New password"
+              placeholderTextColor="#e5e7eb"
+              className="flex-1 text-white"
+              secureTextEntry={true}
+            />
+            <TouchableOpacity>
+              <Feather name="eye" size={20} color="gray" />
+            </TouchableOpacity>
+          </View>
+          {/* Confirm password field */}
+          <View className="flex-row items-center border-b border-gray-300 pb-1">
+          <MaterialCommunityIcons name="lock-check-outline"  className="mr-1" color="lightgray" size={22}  />
+            <TextInput
+              placeholder="Confirm new password"
               placeholderTextColor="#e5e7eb"
               className="flex-1 text-white"
               secureTextEntry={true}
@@ -48,24 +43,17 @@ export default function Signup() {
           </View>
         </View>
 
-        {/* Signup Button */}
+        {/* Reset password button */}
         <TouchableOpacity className="bg-blue-500 mt-6 rounded-full py-4">
           <Link href="/" className="text-center text-white font-semibold">
-            Sign up
+            Reset password
           </Link>
         </TouchableOpacity>
-        <View className="mt-4 ">
-          <Text className="text-white text-center">
-            Already have an account?{" "}
-            <Link href="/" className="text-blue-500">
-              Sign in
-            </Link>
-          </Text>
-        </View>
       </View>
+      {/* animation */}
       <View className="w-full h-96">
         <LottieView
-          source={require("../assets/animation/animation-signup.json")}
+          source={require("../assets/animation/animation-resetPassword.json")}
           style={{
             width: "100%",
             height: "100%",

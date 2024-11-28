@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "expo-router";
 import LottieView from "lottie-react-native";
 import Checkbox from "expo-checkbox";
-import { Feather } from "@expo/vector-icons";
+import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function Login() {
   return (
@@ -35,7 +35,7 @@ export default function Login() {
 
           {/* Password Field */}
           <View className="flex-row items-center border-b border-gray-300 pb-1">
-            <Feather name="lock" size={20} color="lightgray" className="mr-2" />
+          <MaterialCommunityIcons name="lock-outline"  className="mr-1" color="lightgray" size={22}  />
             <TextInput
               placeholder="Password"
               placeholderTextColor="#e5e7eb"
@@ -83,7 +83,7 @@ export default function Login() {
 
       <View className="w-full h-96">
         <LottieView
-          source={require("../assets/images/animation-login.json")}
+          source={require("../assets/animation/animation-login.json")}
           style={{
             width: "100%",
             height: "100%",
