@@ -1,4 +1,4 @@
-import Login from "@/features/Login";
+import Login from "@/templates/Login";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export const LoginScreen = () => {
