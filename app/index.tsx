@@ -1,14 +1,14 @@
-import { Text, View } from "react-native";
+import { userStore } from "@/stores";
+import { Redirect } from "expo-router";
+import { observer } from "mobx-react-lite";
 import "../global.css";
 
-export default function Home() {
-  return (
-    <View className="flex-1 justify-center px-10">
-      <Text >
-        Replace this {"<Text />"}tag with {"<Signup />"} or {"<Login />"} to see
-        pages .
-        screen templates are in /templates
-      </Text>
-    </View>
-  );
-}
+export const Home = observer(() => {
+	const authenticated = userStore().authenticated;
+
+	return (
+		<Redirect href={authenticated ? "./(private)/tabs" : "./(public)/login"} />
+	);
+});
+
+export default Home;
