@@ -5,8 +5,8 @@
   "scripts": {
     "dev:ios": "npx expo run:ios",
     "dev:android": "npx expo run:android",
-    "build:ios": "npx expo prebuild --ios",
-    "build:android": "npx expo prebuild --android",
+    "build:ios": "npx expo prebuild --platform ios",
+    "build:android": "npx expo prebuild --platform android",
     "prepare": "husky"
   },
   "jest": {
