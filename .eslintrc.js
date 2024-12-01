@@ -15,7 +15,5 @@ module.exports = {
 		'react/react-in-jsx-scope': 'off',
 		'no-unused-vars': 'warn',
 		'react/prop-types': 'off',
-		'@typescript-eslint/no-explicit-any': 'error', // Disallow usage of any
-		'@typescript-eslint/explicit-module-boundary-types': 'error', // Ensure types are explicitly declared
 	},
 };

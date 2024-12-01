@@ -3,6 +3,7 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
+    "dev": "npx expo start -c",
     "dev:ios": "npx expo run:ios",
     "dev:android": "npx expo run:android",
     "build:ios": "npx expo prebuild --platform ios",

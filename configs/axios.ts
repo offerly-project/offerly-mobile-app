@@ -1,7 +1,12 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const axiosInstance = axios.create({
 	baseURL: process.env.EXPO_PUBLIC_BASE_API_URL,
+});
+
+axiosInstance.interceptors.request.use((config) => {
+	console.log(config.baseURL, config.url);
+	return config;
 });
 
 export class AxiosAuthInterceptorManager {
