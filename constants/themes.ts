@@ -2,17 +2,17 @@ import { vars } from "nativewind";
 
 export const themes = {
 	dark: vars({
-		"--primary": "#000",
+		"--primary": "rebeccapurple",
 		"--secondary": "#fff",
 		"--background": "#000",
-		"--text": "red",
-		"--text-muted": "#999",
+		"--text": "white",
+		"--text-muted": "red",
 	}),
 	light: vars({
-		"--primary": "#fff",
+		"--primary": "rebeccapurple",
 		"--secondary": "#000",
 		"--background": "#fff",
-		"--text": "blue",
-		"--text-muted": "#666",
+		"--text": "white",
+		"--text-muted": "red",
 	}),
 };
