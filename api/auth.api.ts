@@ -14,11 +14,24 @@ export class AuthApi {
 		return data!;
 	};
 
-	static signup(email: string, password: string, full_name: string) {
-		return axiosInstance.post("/user/auth/signup", {
-			email,
-			password,
-			full_name,
-		});
-	}
+	static checkAuth = async () => {
+		return axiosInstance.get("/user/auth").then((res) => res.data);
+	};
+
+	static forgotPassword = async (email: string) => {
+		return axiosInstance
+			.post("/user/auth/forgot-password", {
+				email,
+			})
+			.then((res: AxiosResponse<{ timer: number }>) => res.data.timer);
+	};
+
+	static resetPassword = async (email: string, password: string) => {
+		return axiosInstance
+			.post("/user/auth/reset-password", {
+				email,
+				password,
+			})
+			.then((req: AxiosResponse<{ token: string }>) => req.data.token);
+	};
 }
