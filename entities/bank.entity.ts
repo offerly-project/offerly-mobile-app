@@ -1,4 +1,5 @@
 import { EntityStatus } from "@/ts/entity.types";
+import { ITranslation } from "@/ts/translation.types";
 import { formatUploadPath } from "@/utils/utils";
 import { computed, makeAutoObservable, observable } from "mobx";
 
@@ -7,7 +8,7 @@ export type BankType = "regular" | "digital-card" | "digital-wallet";
 export interface IBank {
 	country: string;
 	status: EntityStatus;
-	name: string;
+	name: ITranslation;
 	logo: string;
 	id: string;
 	type: BankType;
@@ -16,7 +17,7 @@ export interface IBank {
 export class Bank {
 	@observable country: string;
 	@observable status: EntityStatus;
-	@observable name: string;
+	@observable name: ITranslation;
 	@observable private _logo: string;
 	@observable id: string;
 	@observable type: BankType;
