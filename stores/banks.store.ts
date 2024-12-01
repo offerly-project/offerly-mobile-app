@@ -1,11 +1,12 @@
 import { BanksApi } from "@/api/banks.api";
 import { Bank } from "@/entities/bank.entity";
-import { computed, makeAutoObservable, observable } from "mobx";
+import { computed, makeAutoObservable, observable, runInAction } from "mobx";
 import { RootStore } from ".";
 
 export class BanksStore {
 	rootStore: RootStore;
 	@observable private _banks: Record<string, Bank> = {};
+	@observable loading = false;
 
 	constructor(rootStore: RootStore) {
 		this.rootStore = rootStore;
@@ -13,12 +14,21 @@ export class BanksStore {
 	}
 	fetchBanks = async () => {
 		try {
+			runInAction(() => {
+				this.loading = true;
+			});
 			const banks = await BanksApi.fetchBanks();
-			banks.forEach((bank) => {
-				this._banks[bank.id] = new Bank(bank);
+			runInAction(() => {
+				banks.forEach((bank) => {
+					this._banks[bank.id] = new Bank(bank);
+				});
 			});
 		} catch (e) {
 			console.log(e);
+		} finally {
+			runInAction(() => {
+				this.loading = false;
+			});
 		}
 	};
 
