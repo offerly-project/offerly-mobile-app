@@ -17,7 +17,6 @@ export class UserStore {
 	login = async (email: string, password: string) => {
 		try {
 			const { user, token } = await AuthApi.login(email, password);
-
 			runInAction(() => {
 				this.authenticated = true;
 				this.user = new User(user, token);

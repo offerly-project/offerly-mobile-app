@@ -1,5 +1,5 @@
 import { userStore } from "@/stores";
-import { Redirect, Stack } from "expo-router";
+import { Redirect, Stack, Tabs } from "expo-router";
 import { observer } from "mobx-react-lite";
 
 export const PrivateLayout = observer(() => {
@@ -10,9 +10,10 @@ export const PrivateLayout = observer(() => {
 	}
 
 	return (
-		<Stack>
+		<Tabs>
 			<Stack.Screen name="tabs" />
-		</Stack>
+			{/* <Stack.Screen name="tabs" /> */}
+		</Tabs>
 	);
 });
 

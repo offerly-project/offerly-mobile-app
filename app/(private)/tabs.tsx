@@ -1,11 +1,9 @@
 import { Tabs } from "expo-router";
+import { Text } from "react-native";
 
 export const TabsScreen = () => {
 	return (
-		<Tabs>
-			<Tabs.Screen name="home" />
-			<Tabs.Screen name="cards" />
-		</Tabs>
+		<Text>Helo</Text>
 	);
 };
 

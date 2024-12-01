@@ -78,11 +78,12 @@ export default function Login() {
 				</View>
 
 				{/* Login Button */}
-				<TouchableOpacity className="bg-blue-500 mt-6 rounded-full py-4">
+				<TouchableOpacity
+					onPress={() => {
+						login("testuser.offerly@gmail.com", "t3stus3r@offerly");
+					}} className="bg-blue-500 mt-6 rounded-full py-4">
 					<Text
-						onPress={() => {
-							login(email, password);
-						}}
+					
 						className="text-center text-white font-semibold"
 					>
 						Login
