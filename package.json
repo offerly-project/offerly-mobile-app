@@ -7,7 +7,9 @@
     "dev:android": "npx expo run:android",
     "build:ios": "npx expo prebuild --platform ios",
     "build:android": "npx expo prebuild --platform android",
-    "prepare": "husky"
+    "prepare": "husky",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "jest": {
     "preset": "jest-expo"
