@@ -9,8 +9,9 @@ export default function Login() {
 	const { login } = userStore();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+
 	return (
-		<View className="flex-1 bg-gray-900 items-center justify-between ">
+		<View className="flex-1 bg-background items-center justify-between ">
 			<View className="w-4/5 rounded-3xl p-6 shadow-lg mt-auto">
 				{/* Header */}
 				<Text className="text-2xl font-bold text-center text-white mb-4">
@@ -81,13 +82,10 @@ export default function Login() {
 				<TouchableOpacity
 					onPress={() => {
 						login("testuser.offerly@gmail.com", "t3stus3r@offerly");
-					}} className="bg-blue-500 mt-6 rounded-full py-4">
-					<Text
-					
-						className="text-center text-white font-semibold"
-					>
-						Login
-					</Text>
+					}}
+					className="bg-blue-500 mt-6 rounded-full py-4"
+				>
+					<Text className="text-center text-white font-semibold">Login</Text>
 				</TouchableOpacity>
 				<View className="mt-4 ">
 					<Text className="text-white text-center">

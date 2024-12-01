@@ -4,13 +4,13 @@ import { AxiosResponse } from "axios";
 
 export class AuthApi {
 	static login = async (email: string, password: string) => {
-		console.log(email,password)
 		const data = await axiosInstance
 			.post("/user/auth/login", {
 				email,
 				password,
 			})
-			.then((res: AxiosResponse<{ user: IUser; token: string }>) => res.data).catch(err=>console.log(err.response));
+			.then((res: AxiosResponse<{ user: IUser; token: string }>) => res.data);
+
 		return data!;
 	};
 
