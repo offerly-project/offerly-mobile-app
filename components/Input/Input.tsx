@@ -1,18 +1,9 @@
-import { Feather } from '@expo/vector-icons';
-import React, { useState } from 'react';
-import {
-	TextInput,
-	TextInputProps,
-	View,
-	GestureResponderEvent,
-	TouchableOpacity,
-} from 'react-native';
+import React from 'react';
+import { TextInput, TextInputProps, View } from 'react-native';
 
 const COLORING = {
-	primary: 'border-primary',
-	secondary: 'border-secondary',
-	success: 'border-success',
-	danger: 'border-danger',
+	primary: 'border-primary-1',
+	secondary: 'border-secondary-1',
 };
 
 const BORDER_STYLE = {
@@ -20,22 +11,24 @@ const BORDER_STYLE = {
 	underlined: 'border-b-2 px-1 py-2',
 };
 
+type Variants = 'primary' | 'secondary';
+
+type BorderVariants = 'outlined' | 'underlined';
+
 interface InputProps extends Omit<TextInputProps, 'onChange'> {
 	type?: 'text' | 'password' | 'number';
-	color?: 'primary' | 'secondary' | 'success' | 'danger';
-	borderStyle?: 'outlined' | 'underlined';
+	variant?: Variants;
+	borderStyle?: BorderVariants;
 	placeholder?: string;
 	value?: string;
-	onChangeText?: (text: string) => void;
 	disabled?: boolean;
-	leadingIcon?: React.ReactNode;
-	trailingIcon?: React.ReactNode | 'showHidePasswordButton';
-	onTrailingIconPress?: (event: GestureResponderEvent) => void;
+	leadingIcon?: () => React.ReactNode;
+	trailingIcon?: () => React.ReactNode;
 }
 
 const Input: React.FC<InputProps> = ({
-	type = 'password',
-	color = 'primary',
+	type = 'text',
+	variant: color = 'primary',
 	borderStyle = 'underlined',
 	placeholder = '',
 	value,
@@ -43,9 +36,8 @@ const Input: React.FC<InputProps> = ({
 	disabled = false,
 	leadingIcon,
 	trailingIcon,
-	onTrailingIconPress,
+	...rest
 }) => {
-	const [isPasswordHidden, setPasswordHidden] = useState(type === 'password');
 	const inputStyles = `flex-1 text-black mx-3`;
 	const containerStyles = `flex-row items-center ${BORDER_STYLE[borderStyle]} ${COLORING[color]} ${disabled && 'opacity-40'}`;
 
@@ -60,37 +52,20 @@ const Input: React.FC<InputProps> = ({
 		}
 	};
 
-	const handleTrailingIconPress = (event: GestureResponderEvent) => {
-		if (type === 'password') {
-			setPasswordHidden(!isPasswordHidden);
-		}
-		if (onTrailingIconPress) {
-			onTrailingIconPress(event); // Call the user's custom press handler if provided
-		}
-	};
-
 	return (
 		<View className={containerStyles}>
-			{leadingIcon && leadingIcon}
+			{leadingIcon && leadingIcon()}
 			<TextInput
-				className={inputStyles}
 				placeholder={placeholder}
 				placeholderTextColor='lightgray'
 				value={value}
 				onChangeText={onChangeText}
 				editable={!disabled}
-				secureTextEntry={isPasswordHidden}
 				keyboardType={getKeyboardType()}
+				{...rest}
+				className={[inputStyles, rest.className].join(' ')}
 			/>
-			{trailingIcon != 'showHidePasswordButton' ? (
-				<TouchableOpacity onPress={handleTrailingIconPress} disabled={!onTrailingIconPress}>
-					{trailingIcon}
-				</TouchableOpacity>
-			) : (
-				<TouchableOpacity>
-					<Feather onPress={handleTrailingIconPress} name='eye' size={20} color='gray' />
-				</TouchableOpacity>
-			)}
+			{trailingIcon && trailingIcon()}
 		</View>
 	);
 };
