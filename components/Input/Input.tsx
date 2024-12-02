@@ -1,10 +1,10 @@
-import { useThemeStyles } from '@/hooks/useThemeStyles';
+import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import React from 'react';
 import { TextInput, TextInputProps, View } from 'react-native';
 
 const COLORING = {
-	primary: 'primary-1',
-	secondary: 'secondary-1',
+	primary: 'border-primary-1',
+	secondary: 'border-secondary-1',
 };
 
 const BORDER_STYLE = {
@@ -25,22 +25,24 @@ interface InputProps extends Omit<TextInputProps, 'onChange'> {
 	disabled?: boolean;
 	leadingIcon?: () => React.ReactNode;
 	trailingIcon?: () => React.ReactNode;
+	sheeted?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
 	type = 'text',
-	variant = 'primary',
-	borderStyle = 'underlined',
+	variant: color = 'primary',
+	borderStyle = 'outlined',
 	placeholder = '',
 	value,
 	onChangeText,
 	disabled = false,
 	leadingIcon,
 	trailingIcon,
+	sheeted,
 	...rest
 }) => {
 	const inputStyles = `flex-1 text-black mx-3`;
-	const containerStyles = `bg-transparent flex-row items-center ${BORDER_STYLE[borderStyle]} border-${COLORING[variant]} ${disabled ? 'opacity-40' : ''}`;
+	const containerStyles = `bg-transparent flex-row items-center ${BORDER_STYLE[borderStyle]} ${COLORING[color]} ${disabled ? 'opacity-40' : ''}`;
 
 	const getKeyboardType = () => {
 		switch (type) {
@@ -53,18 +55,17 @@ const Input: React.FC<InputProps> = ({
 		}
 	};
 
-	const theme = useThemeStyles();
+	const Comp = sheeted ? BottomSheetTextInput : TextInput;
 
 	return (
 		<View className={containerStyles}>
 			{leadingIcon && leadingIcon()}
-			<TextInput
+			<Comp
 				placeholder={placeholder}
 				placeholderTextColor='lightgray'
 				value={value}
 				onChangeText={onChangeText}
 				editable={!disabled}
-				selectionColor={theme['--primary-1']}
 				keyboardType={getKeyboardType()}
 				{...rest}
 				className={[inputStyles, rest.className].join(' ')}
