@@ -1,4 +1,5 @@
 import { themes } from '@/constants/themes';
+import { vars } from 'nativewind';
 import { createContext, useContext, useState } from 'react';
 import { useColorScheme, View } from 'react-native';
 
@@ -17,11 +18,11 @@ type Props = {
 
 export const ThemeContextProvider = ({ children }: Props) => {
 	const scheme = useColorScheme();
-	const [theme, setTheme] = useState<ThemeNameType>(scheme as ThemeNameType);
+	const [theme, setTheme] = useState<ThemeNameType>('dark' || (scheme as ThemeNameType));
 
 	return (
 		<ThemeContext.Provider value={{ theme, switchTheme: setTheme }}>
-			<View className='flex-1' style={themes[theme]}>
+			<View className='flex-1' style={vars(themes[theme])}>
 				{children}
 			</View>
 		</ThemeContext.Provider>

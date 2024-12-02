@@ -1,8 +1,8 @@
-import { themes } from '@/constants/themes';
+import { themes, ThemeStyle } from '@/constants/themes';
 import { useThemeContext } from '@/contexts/ThemeContext';
 
 export const useThemeStyles = () => {
 	const { theme } = useThemeContext();
 
-	return themes[theme];
+	return themes[theme] as ThemeStyle;
 };
