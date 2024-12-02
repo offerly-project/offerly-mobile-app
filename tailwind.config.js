@@ -1,15 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-	content: ["./app/**/*.{js,jsx,ts,tsx}", "./templates/*.{js,jsx,ts,tsx}","./components/ui/*.{js,jsx,ts,tsx}"],
-	presets: [require("nativewind/preset")],
+	content: ['./**/*.{js,jsx,ts,tsx}', '!./node_modules', '!./dist', '!./ios', '!./android'],
+	presets: [require('nativewind/preset')],
 	theme: {
 		extend: {
 			colors: {
-				primary: "var(--primary)",
-				secondary: "var(--secondary)",
-				background: "var(--background)",
-				text: "var(--text)",
-				"text-muted": "var(--text-muted)",
+				'primary-1': 'var(--primary-1)',
+				'primary-2': 'var(--primary-2)',
+				'primary-3': 'var(--primary-3)',
+				'secondary-1': 'var(--secondary-1)',
+				'secondary-2': 'var(--secondary-2)',
 			},
 		},
 	},

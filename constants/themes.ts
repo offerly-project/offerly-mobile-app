@@ -1,18 +1,20 @@
-import { vars } from "nativewind";
+import { vars } from 'nativewind';
 
 export const themes = {
 	dark: vars({
-		"--primary": "rebeccapurple",
-		"--secondary": "#fff",
-		"--background": "#000",
-		"--text": "white",
-		"--text-muted": "red",
+		'--primary-1': '#6633cc',
+		'--primary-2': '#312165',
+		'--primary-3': '#fb8610',
+		'--secondary-1': '#8188d9',
+		'--secondary-2': '#fedebe',
 	}),
 	light: vars({
-		"--primary": "rebeccapurple",
-		"--secondary": "#000",
-		"--background": "#fff",
-		"--text": "white",
-		"--text-muted": "red",
+		'--primary-1': '#d3bfff',
+		'--primary-2': '#cdb8eb',
+		'--primary-3': '#fff1d4',
+		'--secondary-1': '#e0e3f5',
+		'--secondary-2': '#fffbf5',
 	}),
 };
+
+export type ThemeStyle = (typeof themes)['dark'] & (typeof themes)['light'];

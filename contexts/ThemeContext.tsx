@@ -1,8 +1,8 @@
-import { themes } from "@/constants/themes";
-import { createContext, useContext, useState } from "react";
-import { useColorScheme, View } from "react-native";
+import { themes } from '@/constants/themes';
+import { createContext, useContext, useState } from 'react';
+import { useColorScheme, View } from 'react-native';
 
-type ThemeNameType = "light" | "dark";
+type ThemeNameType = 'light' | 'dark';
 
 type Context = {
 	theme: ThemeNameType;
@@ -18,9 +18,10 @@ type Props = {
 export const ThemeContextProvider = ({ children }: Props) => {
 	const scheme = useColorScheme();
 	const [theme, setTheme] = useState<ThemeNameType>(scheme as ThemeNameType);
+
 	return (
 		<ThemeContext.Provider value={{ theme, switchTheme: setTheme }}>
-			<View className="flex-1" style={themes[theme]}>
+			<View className='flex-1' style={themes[theme]}>
 				{children}
 			</View>
 		</ThemeContext.Provider>
