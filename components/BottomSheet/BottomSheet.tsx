@@ -1,11 +1,12 @@
+import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { default as BS, BottomSheetView } from '@gorhom/bottom-sheet';
 import { ComponentProps, useEffect, useRef } from 'react';
 import { Keyboard, Pressable } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 type Props = {
 	open?: boolean;
-	children: React.ReactNode;
-} & ComponentProps<typeof BS>;
+	children: (closeHandler: () => void) => React.ReactNode;
+} & Omit<ComponentProps<typeof BS>, 'children'>;
 
 type BackdropProps = {
 	onPress: () => void;
@@ -27,7 +28,9 @@ const BottomSheet = ({ open, children, ...rest }: Props) => {
 		}
 	}, [open]);
 	const ref = useRef<BS>(null);
-	const { bottom: bottomInsets } = useSafeAreaInsets();
+	const insets = useSafeAreaInsets();
+
+	const theme = useThemeStyles();
 
 	return (
 		open && (
@@ -38,16 +41,23 @@ const BottomSheet = ({ open, children, ...rest }: Props) => {
 				ref={ref}
 				keyboardBehavior='interactive'
 				keyboardBlurBehavior='restore'
-				containerStyle={{ zIndex: 10 }}
+				containerStyle={{
+					zIndex: 10,
+					marginLeft: insets.left,
+					marginRight: insets.right,
+				}}
+				enablePanDownToClose
+				topInset={insets.top}
+				handleIndicatorStyle={{ backgroundColor: theme['--primary-1'] }}
 				{...rest}
 			>
 				<BottomSheetView
 					className={`px-6`}
 					style={{
-						paddingBottom: bottomInsets,
+						paddingBottom: insets.bottom,
 					}}
 				>
-					{children}
+					{children(() => ref.current?.close())}
 				</BottomSheetView>
 			</BS>
 		)

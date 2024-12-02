@@ -4,10 +4,16 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
+import { Text } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import '../global.css';
 
 SplashScreen.preventAutoHideAsync();
+
+//@ts-ignore
+Text.defaultProps = {
+	allowFontScaling: false,
+};
 
 export default function RootLayout() {
 	const [loaded, error] = useFonts({
