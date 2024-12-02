@@ -5,6 +5,7 @@ export const themes = {
 		'--primary-3': '#fb8610',
 		'--secondary-1': '#8188d9',
 		'--secondary-2': '#fedebe',
+		'--background': '#F5F5F5',
 	},
 	light: {
 		'--primary-1': '#d3bfff',
@@ -12,6 +13,7 @@ export const themes = {
 		'--primary-3': '#fff1d4',
 		'--secondary-1': '#e0e3f5',
 		'--secondary-2': '#fffbf5',
+		'--background': '#F5F5F5',
 	},
 };
 

@@ -1,8 +1,9 @@
-import { Tabs } from "expo-router";
-import { ComponentProps } from "react";
+import { ThemeStyle } from './themes';
 
-export type ScreenOptions = ComponentProps<typeof Tabs>["screenOptions"];
-
-export const DEFAULT_SCREEN_LAYOUT = {
-	headerShown: false,
+export const getBaseScreenLayout = (theme: ThemeStyle): object => {
+	return {
+		backgroundColor: theme['--background'],
+		headerShown: false,
+		flex: 1,
+	};
 };

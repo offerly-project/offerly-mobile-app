@@ -10,6 +10,7 @@ module.exports = {
 				'primary-3': 'var(--primary-3)',
 				'secondary-1': 'var(--secondary-1)',
 				'secondary-2': 'var(--secondary-2)',
+				background: 'var(--background)',
 			},
 		},
 	},

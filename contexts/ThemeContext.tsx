@@ -1,4 +1,4 @@
-import { themes } from '@/constants/themes';
+import { themes, ThemeStyle } from '@/constants/themes';
 import { vars } from 'nativewind';
 import { createContext, useContext, useState } from 'react';
 import { useColorScheme, View } from 'react-native';
@@ -13,7 +13,7 @@ type Context = {
 const ThemeContext = createContext<Context>({} as Context);
 
 type Props = {
-	children: React.ReactNode;
+	children: (theme: ThemeStyle) => React.ReactNode;
 };
 
 export const ThemeContextProvider = ({ children }: Props) => {
@@ -23,7 +23,7 @@ export const ThemeContextProvider = ({ children }: Props) => {
 	return (
 		<ThemeContext.Provider value={{ theme, switchTheme: setTheme }}>
 			<View className='flex-1' style={vars(themes[theme])}>
-				{children}
+				{children(themes[theme])}
 			</View>
 		</ThemeContext.Provider>
 	);

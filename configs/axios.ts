@@ -4,8 +4,16 @@ export const axiosInstance = axios.create({
 	baseURL: process.env.EXPO_PUBLIC_BASE_API_URL,
 });
 
+// Log requests and URLs
 axiosInstance.interceptors.request.use((config) => {
-	console.log(config.baseURL, config.url);
+	console.log(`Request URL: ${config.baseURL}${config.url}`);
+	console.log(`Request Method: ${config.method}`);
+	if (config.headers) {
+		console.log('Request Headers:', config.headers);
+	}
+	if (config.data) {
+		console.log('Request Data:', config.data);
+	}
 	return config;
 });
 

@@ -18,7 +18,7 @@ const PasswordInput = (props: Props) => {
 						setPasswordHidden(!passwordHidden);
 					}}
 					size={20}
-					color={theme['--primary-1']}
+					color={theme['--secondary-1']}
 					name={passwordHidden ? 'eye' : 'eye-off'}
 				/>
 			)}

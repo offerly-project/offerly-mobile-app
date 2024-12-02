@@ -1,6 +1,7 @@
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import React from 'react';
 import { TextInput, TextInputProps, View } from 'react-native';
+import Typography from '../Typography/Typography';
 
 const COLORING = {
 	primary: 'border-primary-1',
@@ -26,6 +27,7 @@ interface InputProps extends Omit<TextInputProps, 'onChange'> {
 	leadingIcon?: () => React.ReactNode;
 	trailingIcon?: () => React.ReactNode;
 	sheeted?: boolean;
+	error?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -39,6 +41,7 @@ const Input: React.FC<InputProps> = ({
 	leadingIcon,
 	trailingIcon,
 	sheeted,
+	error,
 	...rest
 }) => {
 	const inputStyles = `flex-1 text-black mx-3`;
@@ -58,20 +61,27 @@ const Input: React.FC<InputProps> = ({
 	const Comp = sheeted ? BottomSheetTextInput : TextInput;
 
 	return (
-		<View className={containerStyles}>
-			{leadingIcon && leadingIcon()}
-			<Comp
-				placeholder={placeholder}
-				placeholderTextColor='lightgray'
-				value={value}
-				onChangeText={onChangeText}
-				editable={!disabled}
-				keyboardType={getKeyboardType()}
-				{...rest}
-				className={[inputStyles, rest.className].join(' ')}
-			/>
-			{trailingIcon && trailingIcon()}
-		</View>
+		<>
+			<View className={containerStyles}>
+				{leadingIcon && leadingIcon()}
+				<Comp
+					placeholder={placeholder}
+					placeholderTextColor='lightgray'
+					value={value}
+					onChangeText={onChangeText}
+					editable={!disabled}
+					keyboardType={getKeyboardType()}
+					{...rest}
+					className={[inputStyles, rest.className].join(' ')}
+				/>
+				{trailingIcon && trailingIcon()}
+			</View>
+			{error && (
+				<Typography color='red' variant='caption'>
+					{error}
+				</Typography>
+			)}
+		</>
 	);
 };
 

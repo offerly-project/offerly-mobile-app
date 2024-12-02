@@ -1,4 +1,4 @@
-import { DEFAULT_SCREEN_LAYOUT } from '@/constants/screens';
+import { getBaseScreenLayout } from '@/constants/screens';
 import { ThemeContextProvider } from '@/contexts/ThemeContext';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useFonts } from 'expo-font';
@@ -34,14 +34,16 @@ export default function RootLayout() {
 
 	return (
 		<ThemeContextProvider>
-			<GestureHandlerRootView style={{ flex: 1 }}>
-				<BottomSheetModalProvider>
-					<Stack screenOptions={DEFAULT_SCREEN_LAYOUT}>
-						<Stack.Screen name='(public)' />
-						<Stack.Screen name='(private)' />
-					</Stack>
-				</BottomSheetModalProvider>
-			</GestureHandlerRootView>
+			{(theme) => (
+				<GestureHandlerRootView style={{ flex: 1 }}>
+					<BottomSheetModalProvider>
+						<Stack screenOptions={{ ...getBaseScreenLayout(theme), animation: 'fade' }}>
+							<Stack.Screen name='(public)' />
+							<Stack.Screen name='(private)' />
+						</Stack>
+					</BottomSheetModalProvider>
+				</GestureHandlerRootView>
+			)}
 		</ThemeContextProvider>
 	);
 }

@@ -1,18 +1,19 @@
-import { DEFAULT_SCREEN_LAYOUT } from "@/constants/screens";
-import { userStore } from "@/stores";
-import { Redirect, Stack } from "expo-router";
-import { observer } from "mobx-react-lite";
+import { getBaseScreenLayout } from '@/constants/screens';
+import { useThemeStyles } from '@/hooks/useThemeStyles';
+import { userStore } from '@/stores';
+import { Redirect, Stack } from 'expo-router';
+import { observer } from 'mobx-react-lite';
 
 export const PublicLayout = observer(() => {
 	const { authenticated } = userStore();
-
+	const theme = useThemeStyles();
 	if (authenticated) {
-		return <Redirect href={"/(private)/tabs"} />;
+		return <Redirect href={'/(private)/tabs'} />;
 	}
 
 	return (
-		<Stack screenOptions={DEFAULT_SCREEN_LAYOUT}>
-			<Stack.Screen name="login" />
+		<Stack screenOptions={getBaseScreenLayout(theme)}>
+			<Stack.Screen name='login' />
 		</Stack>
 	);
 });
