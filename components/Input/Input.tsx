@@ -1,5 +1,5 @@
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TextInput, TextInputProps, View } from 'react-native';
 import Typography from '../Typography/Typography';
 
@@ -28,6 +28,7 @@ interface InputProps extends Omit<TextInputProps, 'onChange'> {
 	trailingIcon?: () => React.ReactNode;
 	sheeted?: boolean;
 	error?: string;
+	focused?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -42,10 +43,20 @@ const Input: React.FC<InputProps> = ({
 	trailingIcon,
 	sheeted,
 	error,
+	focused,
 	...rest
 }) => {
 	const inputStyles = `flex-1 text-black mx-3`;
 	const containerStyles = `bg-transparent flex-row items-center ${BORDER_STYLE[borderStyle]} ${COLORING[color]} ${disabled ? 'opacity-40' : ''}`;
+
+	const ref = React.useRef<TextInput>(null);
+	useEffect(() => {
+		if (focused) {
+			ref.current?.focus();
+		} else {
+			ref.current?.blur();
+		}
+	}, [focused]);
 
 	const getKeyboardType = () => {
 		switch (type) {
@@ -65,6 +76,7 @@ const Input: React.FC<InputProps> = ({
 			<View className={containerStyles}>
 				{leadingIcon && leadingIcon()}
 				<Comp
+					ref={ref as any}
 					placeholder={placeholder}
 					placeholderTextColor='lightgray'
 					value={value}

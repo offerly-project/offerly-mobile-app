@@ -13,10 +13,14 @@ export default function TabLayout() {
 				screenOptions={{
 					tabBarActiveTintColor: theme['--primary-1'],
 					headerShown: false,
+					sceneStyle: {
+						backgroundColor: theme['--background'],
+					},
 				}}
+				initialRouteName='cards'
 			>
 				<Tabs.Screen
-					name='index'
+					name='home'
 					options={{
 						title: 'Home',
 						tabBarIcon: ({ color }) => <Ionicons size={28} name='home' color={color} />,

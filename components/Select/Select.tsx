@@ -1,33 +1,57 @@
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { Ionicons } from '@expo/vector-icons';
-import { useState } from 'react';
-import { Pressable, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Pressable, StyleProp, View, ViewStyle } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import BottomSheet from '../BottomSheet/BottomSheet';
+import Input from '../Input/Input';
 import Typography from '../Typography/Typography';
 
 type ItemType<T> = {
 	name: string;
 	value: string;
-	extra: T;
+	data: T;
 };
 
 type Props<T> = {
-	value?: string;
+	value?: string | null;
 	onChange?: (value: string) => void;
 	placeHolder?: string;
 	items: ItemType<T>[];
-	itemRenderer?: (item: ItemType<T>, index: number, selected: boolean) => JSX.Element;
+	itemRenderer?: (item: ItemType<T>, index: number, closeHandler: () => void) => JSX.Element;
+	className?: string;
+	styles?: StyleProp<ViewStyle>;
+	searchResolver?: (item: ItemType<T>, search: string) => boolean;
 };
 
-const Select = <T = unknown,>({ value, onChange, items, placeHolder, itemRenderer }: Props<T>) => {
+const Select = <T = unknown,>({
+	className = '',
+	styles,
+	value,
+	onChange,
+	items,
+	placeHolder,
+	itemRenderer,
+	searchResolver,
+}: Props<T>) => {
 	const theme = useThemeStyles();
 	const [open, setOpen] = useState(false);
 	const boxContent = items.find((item) => item.value === value)?.name;
+	const [search, setSearch] = useState('');
+	const [focused, setFocused] = useState(true);
+	useEffect(() => {
+		if (open) {
+			setFocused(true);
+		}
+	}, [open]);
+
+	const listItems = items.filter((item) => searchResolver?.(item, search));
+
 	return (
 		<>
 			<Pressable
-				className='rounded-full bg-primary-1 p-4 flex flex-row justify-between items-center'
+				className={`rounded-full bg-primary-1 px-4 flex flex-row justify-between items-center ${className}`}
+				style={styles}
 				onPress={() => {
 					setOpen(true);
 				}}
@@ -38,41 +62,62 @@ const Select = <T = unknown,>({ value, onChange, items, placeHolder, itemRendere
 				<Ionicons name='caret-down' size={14} color={theme['--secondary-2']} />
 			</Pressable>
 			<BottomSheet
-				snapPoints={['50%']}
+				snapPoints={['100%']}
 				enableDynamicSizing={false}
 				open={open}
-				onClose={() => setOpen(false)}
+				onDismiss={() => {
+					setOpen(false);
+					setSearch('');
+				}}
 			>
 				{(closeHandler) => (
-					<FlatList
-						data={items}
-						renderItem={({ item, index }) => (
-							<View key={item.value}>
-								{itemRenderer ? (
-									itemRenderer(item, index, item.value === value)
-								) : (
-									<Pressable
-										className='p-4 flex flex-row justify-between'
-										onPress={() => {
-											closeHandler();
-											if (onChange) {
-												onChange(item.value);
-											}
-										}}
-									>
-										<Typography>{item.name}</Typography>
-										{item.value === value && (
-											<Ionicons
-												name='checkmark'
-												size={16}
-												color={theme['--primary-1']}
-											/>
-										)}
-									</Pressable>
-								)}
-							</View>
+					<View className='gap-8 h-full'>
+						{searchResolver && (
+							<Input
+								placeholder='Search...'
+								borderStyle='underlined'
+								value={search}
+								onChangeText={setSearch}
+								focused={focused}
+								onFocus={() => setFocused(true)}
+								onBlur={() => setFocused(false)}
+								sheeted
+							/>
 						)}
-					/>
+						<FlatList
+							data={listItems}
+							onTouchStart={() => {
+								setFocused(false);
+							}}
+							keyboardShouldPersistTaps='always'
+							renderItem={({ item, index }) => (
+								<View key={item.value}>
+									{itemRenderer ? (
+										itemRenderer(item, index, closeHandler)
+									) : (
+										<Pressable
+											className='p-4 flex flex-row justify-between'
+											onPress={() => {
+												closeHandler();
+												if (onChange) {
+													onChange(item.value);
+												}
+											}}
+										>
+											<Typography>{item.name}</Typography>
+											{item.value === value && (
+												<Ionicons
+													name='checkmark'
+													size={16}
+													color={theme['--primary-1']}
+												/>
+											)}
+										</Pressable>
+									)}
+								</View>
+							)}
+						/>
+					</View>
 				)}
 			</BottomSheet>
 		</>

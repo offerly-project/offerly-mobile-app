@@ -1,7 +1,7 @@
-import { EntityStatus } from "@/ts/entity.types";
-import { ITranslation } from "@/ts/translation.types";
+import { EntityStatus } from '@/ts/entity.types';
+import { ITranslation } from '@/ts/translation.types';
 
-export type BankType = "regular" | "digital-card" | "digital-wallet";
+export type BankType = 'regular' | 'digital' | 'digital-wallet';
 
 export interface IBank {
 	country: string;

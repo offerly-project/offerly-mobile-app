@@ -6,6 +6,7 @@ import Typography from '@/components/Typography/Typography';
 import { useForm } from '@/hooks/useForm';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { userStore } from '@/stores';
+import { useEffect } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import z from 'zod';
 
@@ -38,6 +39,9 @@ const LoginForm = (props: Props) => {
 	const onInputChange = (key: keyof FormValues) => (value: string) => {
 		setValues((prev) => ({ ...prev, [key]: value }));
 	};
+	useEffect(() => {
+		handleSubmit();
+	}, []);
 
 	return (
 		<View className='gap-4 flex flex-col'>
