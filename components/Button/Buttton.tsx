@@ -28,7 +28,7 @@ const Button: React.FC<ButtonProps> = ({
 	...rest
 }) => {
 	const isDisabled = disabled || loading;
-	const buttonStyles = `rounded-2xl ${COLORING[variant]} ${isDisabled ? 'opacity-40' : ''} p-4 flex flex-row align-middle justify-center`;
+	const buttonStyles = `rounded-2xl ${COLORING[variant]} ${isDisabled ? 'opacity-60' : ''} p-4 flex flex-row align-middle justify-center`;
 
 	const handlePress = (event: GestureResponderEvent) => {
 		if (hapticFeedback) {

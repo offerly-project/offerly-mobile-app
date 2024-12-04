@@ -1,10 +1,10 @@
-import { CardsApi } from "@/api/cards.api";
-import { Card, ICard } from "@/entities/card.entity";
-import { action, computed, observable, runInAction } from "mobx";
-import { RootStore } from ".";
+import { CardsApi } from '@/api/cards.api';
+import { ICard } from '@/entities/card.entity';
+import { action, computed, observable, runInAction } from 'mobx';
+import { RootStore } from '.';
 
 export class CardsStore {
-	@observable private _cards: Record<string, Card> = {};
+	@observable private _cards: Record<string, ICard> = {};
 	rootStore: RootStore;
 	constructor(rootStore: RootStore) {
 		this.rootStore = rootStore;
@@ -14,7 +14,7 @@ export class CardsStore {
 		const cards = await CardsApi.getUserCards();
 		runInAction(() => {
 			cards.forEach((card) => {
-				this._cards[card.id] = new Card(card);
+				this._cards[card.id] = card;
 			});
 		});
 	};
@@ -39,7 +39,7 @@ export class CardsStore {
 		await CardsApi.patchUserCards(cards.map((card) => card.id));
 		runInAction(() => {
 			cards.forEach((card) => {
-				this._cards[card.id] = new Card(card);
+				this._cards[card.id] = card;
 			});
 		});
 	};
