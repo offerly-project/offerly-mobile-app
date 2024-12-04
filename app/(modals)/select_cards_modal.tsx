@@ -14,7 +14,7 @@ import { ICard } from '@/entities/card.entity';
 import CardCard from '@/features/Cards/CardCard';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { cardsStore } from '@/stores';
-import { formatBankType, formatUploadPath } from '@/utils/utils';
+import { formatBankType, formatUploadPath, wait } from '@/utils/utils';
 import { router } from 'expo-router';
 import { FlatList } from 'react-native-gesture-handler';
 
@@ -36,7 +36,9 @@ const SelectCardsModal = () => {
 				const bankList = await BanksApi.fetchBanks();
 				setBanks(bankList);
 			} finally {
-				setLoading((prev) => ({ ...prev, banks: false }));
+				wait(2000).then(() => {
+					setLoading((prev) => ({ ...prev, banks: false }));
+				});
 			}
 		};
 		fetchBanks();

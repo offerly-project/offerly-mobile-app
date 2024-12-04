@@ -1,18 +1,21 @@
 import { CardsApi } from '@/api/cards.api';
 import { ICard } from '@/entities/card.entity';
-import { action, computed, observable, runInAction } from 'mobx';
+import { action, computed, makeAutoObservable, observable, runInAction } from 'mobx';
 import { RootStore } from '.';
 
 export class CardsStore {
 	@observable private _cards: Record<string, ICard> = {};
 	rootStore: RootStore;
 	constructor(rootStore: RootStore) {
+		makeAutoObservable(this);
 		this.rootStore = rootStore;
 	}
 
+	@action
 	fetchUserCards = async () => {
 		const cards = await CardsApi.getUserCards();
 		runInAction(() => {
+			this._cards = {};
 			cards.forEach((card) => {
 				this._cards[card.id] = card;
 			});

@@ -8,16 +8,22 @@ import { Pressable, StyleSheet, View } from 'react-native';
 type Props = {
 	card: ICard;
 	onPress: () => void;
-	selected: boolean;
-	disabled: boolean;
+	selected?: boolean;
+	disabled?: boolean;
 };
 
 const CardCard = ({ card, onPress, selected, disabled }: Props) => {
 	const theme = useThemeStyles();
+
 	return (
 		<Pressable
-			className={`w-full bg-[rgba(255,255,255,1)] border-solid border-[${selected ? 'rgba(0,0,0,0.2)' : 'transparent'}] border-2 p-8 rounded-2xl gap-8 ${disabled ? 'opacity-50' : ''}`}
+			className={`w-full bg-[rgba(255,255,255,1)]  p-8 rounded-2xl gap-8 ${disabled ? 'opacity-50' : ''}`}
 			disabled={disabled}
+			style={{
+				borderStyle: 'solid',
+				borderWidth: 1,
+				borderColor: selected ? theme['--primary-3'] : 'transparent',
+			}}
 			onPress={onPress}
 		>
 			<Image source={formatUploadPath(card.logo)} style={styles.cardLogo} />
