@@ -125,7 +125,9 @@ const SelectCardsModal = () => {
 				}
 			/>
 			<FlatList
-				data={bankCards}
+				data={bankCards.filter(
+					(card) => !userCardsList.some((userCard) => userCard.id === card.id),
+				)}
 				contentContainerStyle={{ gap: 40, padding: 8 }}
 				indicatorStyle='black'
 				renderItem={({ item }) => (
@@ -143,7 +145,6 @@ const SelectCardsModal = () => {
 							selectedCards.includes(item.id) ||
 							userCardsList.some((card) => card.id === item.id)
 						}
-						disabled={userCardsList.some((card) => card.id === item.id)}
 					/>
 				)}
 				keyExtractor={(item) => item.id}
