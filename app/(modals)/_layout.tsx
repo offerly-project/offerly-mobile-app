@@ -18,8 +18,7 @@ export default function ModalsLayout() {
 				<Stack.Screen
 					name='select_cards_modal'
 					options={{
-						headerShown: true,
-						headerTitle: 'Select Cards',
+						headerShown: false,
 					}}
 				/>
 			</Stack>

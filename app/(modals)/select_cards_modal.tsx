@@ -2,32 +2,48 @@ import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Pressable, StyleSheet, View } from 'react-native';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { BanksApi } from '@/api/banks.api';
 import { CardsApi } from '@/api/cards.api';
-import Button from '@/components/Button/Buttton';
+import HapticPress from '@/components/HapticPress/HapticPress';
 import Select from '@/components/Select/Select';
 import Typography from '@/components/Typography/Typography';
 import { IBank } from '@/entities/bank.entity';
 import { ICard } from '@/entities/card.entity';
 import CardCard from '@/features/Cards/CardCard';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import CardsGridLayout from '@/layouts/CardsGridLayout';
 import { cardsStore } from '@/stores';
-import { formatBankType, formatUploadPath, wait } from '@/utils/utils';
+import { formatUploadPath } from '@/utils/utils';
 import { router } from 'expo-router';
-import { FlatList } from 'react-native-gesture-handler';
 
 const SelectCardsModal = () => {
-	const [loading, setLoading] = useState({ banks: true, cards: false });
+	const [loading, setLoading] = useState({ banks: true, cards: false, adding: false });
 	const [banks, setBanks] = useState<IBank[]>([]);
 	const [bankCards, setBankCards] = useState<ICard[]>([]);
 	const [selectedBank, setSelectedBank] = useState<string | null>(null);
 	const [selectedCards, setSelectedCards] = useState<string[]>([]);
 
+	const theme = useThemeStyles();
 	const { userCardsList } = cardsStore();
 
-	const theme = useThemeStyles();
+	// Shared value for opacity animation
+	const opacity = useSharedValue(0);
+
+	// Fade-in animation for the "Add" button
+	useEffect(() => {
+		opacity.value =
+			selectedCards.length > 0
+				? withSpring(1, { damping: 15, stiffness: 120 })
+				: withSpring(0, { damping: 15, stiffness: 120 });
+	}, [selectedCards, opacity]);
+
+	// Animated style for the "Add" button
+	const animatedStyle = useAnimatedStyle(() => ({
+		opacity: opacity.value,
+	}));
 
 	useEffect(() => {
 		const fetchBanks = async () => {
@@ -36,9 +52,7 @@ const SelectCardsModal = () => {
 				const bankList = await BanksApi.fetchBanks();
 				setBanks(bankList);
 			} finally {
-				wait(2000).then(() => {
-					setLoading((prev) => ({ ...prev, banks: false }));
-				});
+				setLoading((prev) => ({ ...prev, banks: false }));
 			}
 		};
 		fetchBanks();
@@ -76,9 +90,6 @@ const SelectCardsModal = () => {
 					<Typography variant='body' color={theme['--primary-2']}>
 						{item.data.name.en}
 					</Typography>
-					<Typography variant='body' color={theme['--primary-3']}>
-						{formatBankType(item.data.type)}
-					</Typography>
 				</View>
 			</View>
 			{item.value === selectedBank && (
@@ -89,15 +100,17 @@ const SelectCardsModal = () => {
 
 	const disabled = !selectedBank || selectedCards.length === 0;
 
-	const onAdd = () => {
-		CardsApi.patchUserCards(selectedCards)
-			.then(() => {
-				cardsStore().fetchUserCards();
-				router.back();
-			})
-			.catch((e) => {
-				console.log(e);
-			});
+	const onAdd = async () => {
+		setLoading((prev) => ({ ...prev, adding: true }));
+		try {
+			await CardsApi.patchUserCards(selectedCards);
+			await cardsStore().fetchUserCards();
+			router.back();
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setLoading((prev) => ({ ...prev, adding: false }));
+		}
 	};
 
 	if (loading.banks)
@@ -124,36 +137,50 @@ const SelectCardsModal = () => {
 					item.data.name.en.toLowerCase().includes(search.toLowerCase())
 				}
 			/>
-			<FlatList
-				data={bankCards.filter(
-					(card) => !userCardsList.some((userCard) => userCard.id === card.id),
-				)}
-				contentContainerStyle={{ gap: 40, padding: 8 }}
-				indicatorStyle='black'
-				renderItem={({ item }) => (
-					<CardCard
-						card={item}
-						onPress={() => {
-							setSelectedCards((prev) => {
-								if (prev.includes(item.id)) {
-									return prev.filter((cardId) => cardId !== item.id);
-								}
-								return [...prev, item.id];
-							});
-						}}
-						selected={
-							selectedCards.includes(item.id) ||
-							userCardsList.some((card) => card.id === item.id)
-						}
-					/>
-				)}
-				keyExtractor={(item) => item.id}
-			/>
-			<View className='pt-10'>
-				<Button disabled={disabled} onPress={onAdd} hapticFeedback>
-					<Typography>Add</Typography>
-				</Button>
+			<View style={{ flex: 0.9 }}>
+				<CardsGridLayout
+					data={bankCards.filter(
+						(card) => !userCardsList.some((userCard) => userCard.id === card.id),
+					)}
+					renderItem={({ item }) => (
+						<CardCard
+							card={item}
+							onPress={() => {
+								setSelectedCards((prev) => {
+									if (prev.includes(item.id)) {
+										return prev.filter((cardId) => cardId !== item.id);
+									}
+									return [...prev, item.id];
+								});
+							}}
+							selected={
+								selectedCards.includes(item.id) ||
+								userCardsList.some((card) => card.id === item.id)
+							}
+						/>
+					)}
+					keyExtractor={(item) => item.id}
+				/>
 			</View>
+			{selectedCards.length > 0 && (
+				<Animated.View style={[styles.hapticPressContainer, animatedStyle]}>
+					{loading.adding ? (
+						<ActivityIndicator color={theme['--primary-1']} />
+					) : (
+						<HapticPress
+							onPress={onAdd}
+							className='align-center justify-center flex-row px-4'
+						>
+							<Ionicons
+								name='checkmark-circle'
+								disabled={disabled}
+								size={30}
+								color={theme['--primary-1']}
+							/>
+						</HapticPress>
+					)}
+				</Animated.View>
+			)}
 		</SafeAreaView>
 	);
 };
@@ -164,6 +191,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		padding: 16,
+		height: '100%',
 	},
 	itemContainer: {
 		padding: 16,
@@ -180,5 +208,12 @@ const styles = StyleSheet.create({
 		width: 45,
 		height: 45,
 		borderRadius: 50,
+	},
+	hapticPressContainer: {
+		width: '100%',
+		height: 60,
+		backgroundColor: 'transparent',
+		justifyContent: 'center',
+		alignItems: 'center',
 	},
 });
