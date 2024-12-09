@@ -8,12 +8,14 @@ export const PublicLayout = observer(() => {
 	const { authenticated } = userStore();
 	const theme = useThemeStyles();
 	if (authenticated) {
-		return <Redirect href={'/(private)/tabs'} />;
+		return <Redirect href='../(private)/tabs' />;
 	}
 
 	return (
 		<Stack screenOptions={getBaseScreenLayout(theme)}>
 			<Stack.Screen name='login' />
+			<Stack.Screen name='forgetPassword' />
+			<Stack.Screen name='auth' />
 		</Stack>
 	);
 });

@@ -9,8 +9,8 @@ const COLORING = {
 };
 
 const BORDER_STYLE = {
-	outlined: 'border-2 rounded-lg px-2 py-3',
-	underlined: 'border-b-2 px-1 py-2',
+	outlined: 'border-2 rounded-full px-3',
+	underlined: 'border-b-2 px-0',
 };
 
 type Variants = 'primary' | 'secondary';
@@ -46,7 +46,7 @@ const Input: React.FC<InputProps> = ({
 	focused,
 	...rest
 }) => {
-	const inputStyles = `flex-1 text-black mx-3`;
+	const inputStyles = `flex-1 text-black py-4 px-2`;
 	const containerStyles = `bg-transparent flex-row items-center ${BORDER_STYLE[borderStyle]} ${COLORING[color]} ${disabled ? 'opacity-40' : ''}`;
 
 	const ref = React.useRef<TextInput>(null);
@@ -78,7 +78,7 @@ const Input: React.FC<InputProps> = ({
 				<Comp
 					ref={ref as any}
 					placeholder={placeholder}
-					placeholderTextColor='lightgray'
+					placeholderTextColor='gray'
 					value={value}
 					onChangeText={onChangeText}
 					editable={!disabled}

@@ -1,14 +1,13 @@
 import Button from '@/components/Button/Buttton';
 import Input from '@/components/Input/Input';
 import PasswordInput from '@/components/Input/PasswordInput';
-import Link from '@/components/Typography/Link';
 import Typography from '@/components/Typography/Typography';
+import Link from '@/components/Typography/Link';
 import { useForm } from '@/hooks/useForm';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
-import { userStore } from '@/stores';
-import { useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import z from 'zod';
+import z from 'zod/lib';
+import { UserApi } from '@/api/user.api';
 
 const schema = z.object({
 	email: z
@@ -16,31 +15,31 @@ const schema = z.object({
 		.email({ message: 'Invalid Email Address' })
 		.min(1, { message: 'Email is required' }),
 	password: z.string().min(1, { message: 'Password is required' }),
+	fullName: z.string().min(1, { message: 'Full name is required' }),
 });
 
 type FormValues = z.infer<typeof schema>;
 
-const LoginForm = () => {
+export default function SignupForm() {
 	const theme = useThemeStyles();
 	const { handleSubmit, setValues, loading, errors, submittable, values, serverError } =
 		useForm<FormValues>({
 			initialValues: {
 				email: 'jadhamwi4@gmail.com',
 				password: '1234',
+				fullName: '',
 			},
 			schema,
 			onSubmit: async (values) => {
-				const { email, password } = values;
-				return await userStore().login(email, password);
+				const { email, password, fullName } = values;
+				const response = await UserApi.signup(email, password, fullName);
+				console.log(response.data);
+				return;
 			},
 		});
 	const onInputChange = (key: keyof FormValues) => (value: string) => {
 		setValues((prev) => ({ ...prev, [key]: value }));
 	};
-	useEffect(() => {
-		// handleSubmit();
-	}, []);
-
 	return (
 		<>
 			<View className='flex-1 justify-center items-center'>
@@ -48,21 +47,20 @@ const LoginForm = () => {
 					<View>
 						<Typography
 							color={theme['--primary-2']}
-							weight='bold'
-							className='tracking-widest'
-							variant='h1'
-						>
-							Welcome!
-						</Typography>
-						<Typography
-							color={theme['--primary-2']}
 							className='tracking-wider'
-							variant='body'
+							weight='light'
+							variant='h3'
 						>
-							We are glad to see you
+							Create your account
 						</Typography>
 					</View>
 					<View className='gap-5'>
+						<Input
+							value={values.fullName}
+							onChangeText={onInputChange('fullName')}
+							error={errors.fullName}
+							placeholder='Full name'
+						/>
 						<Input
 							value={values.email}
 							onChangeText={onInputChange('email')}
@@ -79,25 +77,19 @@ const LoginForm = () => {
 							disabled={!submittable}
 							loading={loading}
 							borderStyle='filled'
-							loadingComponent={<ActivityIndicator color={theme['--background']} />}
 							onPress={handleSubmit}
+							loadingComponent={<ActivityIndicator color={theme['--background']} />}
 						>
-							<Typography color='white'>Login</Typography>
+							<Typography color='white'>Sign up</Typography>
 						</Button>
-					</View>
-
-					<View className='m-auto'>
-						<Link to='/forgetPassword' variant='label'>
-							Forgot your password?
-						</Link>
 					</View>
 				</View>
 				<View className='flex-row gap-1 items-center absolute bottom-0'>
 					<Typography weight='light' variant='label'>
-						Dont have an account?
+						Already have an account?
 					</Typography>
-					<Link to={'/signup'} variant='label'>
-						Sign up
+					<Link to='./login' variant='label'>
+						Sign in
 					</Link>
 				</View>
 				{serverError && (
@@ -108,6 +100,4 @@ const LoginForm = () => {
 			</View>
 		</>
 	);
-};
-
-export default LoginForm;
+}

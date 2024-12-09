@@ -1,12 +1,10 @@
-import LoginForm from '@/features/Login/LoginForm';
+import SignupForm from '@/features/Login/SignupForm';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export const LoginScreen = () => {
+export default function SignupScreen() {
 	return (
 		<SafeAreaView className='px-10 flex-1 w-full h-full justify-center bg-white'>
-			<LoginForm />
+			<SignupForm />
 		</SafeAreaView>
 	);
-};
-
-export default LoginScreen;
+}

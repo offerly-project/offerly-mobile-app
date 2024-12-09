@@ -3,14 +3,21 @@ import React from 'react';
 import { GestureResponderEvent, TouchableOpacity } from 'react-native';
 
 type Variants = 'primary' | 'secondary';
+type BorderStyles = 'filled' | 'outlined';
 
 const COLORING: Record<Variants, string> = {
-	primary: 'bg-primary-1',
-	secondary: 'bg-secondary-1',
+	primary: 'primary-1',
+	secondary: 'secondary-1',
+};
+
+const BORDER_STYLE: Record<BorderStyles, string> = {
+	filled: 'bg',
+	outlined: `border-2 border`,
 };
 
 type ButtonProps = {
 	variant?: Variants;
+	borderStyle?: BorderStyles;
 	disabled?: boolean;
 	loading?: boolean;
 	hapticFeedback?: boolean;
@@ -19,6 +26,7 @@ type ButtonProps = {
 
 const Button: React.FC<ButtonProps> = ({
 	variant = 'primary',
+	borderStyle = 'outlined',
 	children,
 	onPress,
 	disabled = false,
@@ -28,7 +36,7 @@ const Button: React.FC<ButtonProps> = ({
 	...rest
 }) => {
 	const isDisabled = disabled || loading;
-	const buttonStyles = `rounded-2xl ${COLORING[variant]} ${isDisabled ? 'opacity-60' : ''} p-4 flex flex-row align-middle justify-center`;
+	const buttonStyles = `rounded-full ${BORDER_STYLE[borderStyle]}-${COLORING[variant]} ${isDisabled ? 'opacity-60' : ''} p-4 flex flex-row align-middle justify-center`;
 
 	const handlePress = (event: GestureResponderEvent) => {
 		if (hapticFeedback) {

@@ -42,15 +42,15 @@ export default Typography;
 
 const styles = StyleSheet.create({
 	h1: {
-		fontSize: 32,
+		fontSize: 40,
 		lineHeight: 40,
 	},
 	h2: {
-		fontSize: 24,
+		fontSize: 32,
 		lineHeight: 32,
 	},
 	h3: {
-		fontSize: 20,
+		fontSize: 24,
 		lineHeight: 28,
 	},
 	body: {

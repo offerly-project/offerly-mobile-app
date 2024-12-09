@@ -14,8 +14,11 @@ const Link = ({ to, ...rest }: Props) => {
 			}}
 		>
 			<Typography
+				color='#444'
+				variant='label'
+				weight='bold'
 				{...rest}
-				style={{ textDecorationLine: 'underline', textDecorationColor: rest.color }}
+				className='border-b border-black'
 			/>
 		</Pressable>
 	);
