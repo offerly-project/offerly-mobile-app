@@ -1,5 +1,6 @@
 import Typography from '@/components/Typography/Typography';
 import { useThemeContext } from '@/contexts/ThemeContext';
+import EditProfile from '@/features/Login/EditProfile';
 import { rootStore } from '@/stores';
 import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
 
@@ -12,11 +13,15 @@ const accounts = () => {
 	const { theme, switchTheme } = useThemeContext();
 
 	const [isDarkThemeEnabled, setIsDarkThemeEnabled] = useState(theme == 'dark');
+	const [isEditProfileEnabled, setIsEditProfileEnabled] = useState(false);
 
 	const toggleSwitch = () => {
 		setIsDarkThemeEnabled((previousState) => !previousState);
 		return isDarkThemeEnabled ? switchTheme('light') : switchTheme('dark');
 	};
+	if (isEditProfileEnabled) {
+		return <EditProfile />;
+	}
 
 	return (
 		<ScrollView showsVerticalScrollIndicator={false} className='px-6'>
@@ -26,33 +31,24 @@ const accounts = () => {
 						{rootStore.userStore.user != null && rootStore.userStore.user.full_name}
 					</Typography>
 				</View>
-				<View className='flex-row  mt-2 '>
+				<View className='flex-row mt-2'>
 					<Typography variant='label'>2 </Typography>
-					<Ionicons
-						className='mr-1'
-						size={21}
-						name='heart-outline'
-						color={'#6633cc'}
-					/>{' '}
+					<Ionicons className='mr-1' size={21} name='heart-outline' color={'#6633cc'} />
 					<Typography variant='label'>favorites</Typography>
 					<View className='border-r border-gray-400 h-full mx-4' />
 					<Typography variant='label'>3 </Typography>
-					<Ionicons
-						className='mr-1 '
-						size={21}
-						color={'#6633cc'}
-						name='card-outline'
-					/>{' '}
+					<Ionicons className='mr-1 ' size={21} color={'#6633cc'} name='card-outline' />
 					<Typography variant='label'>cards</Typography>
 				</View>
 
 				{/* Grouped Items */}
 				<View className='mt-6 w-full shadow-sm shadow-gray-300 '>
 					<Typography variant='label' className='ml-2 ' color='gray'>
-						General{' '}
+						General
 					</Typography>
 					<View className='overflow-hidden rounded-2xl mb-8 mt-2'>
 						<ProfileListItem
+							onPress={() => setIsEditProfileEnabled(true)}
 							className='border-b-hairline border-gray-300'
 							label='Profile Details'
 							trailingIcon='chevron'
@@ -99,7 +95,7 @@ const accounts = () => {
 					</View>
 
 					<Typography variant='label' className='ml-2' color='gray'>
-						Settings{' '}
+						Settings
 					</Typography>
 					<View className='rounded-2xl overflow-hidden mt-2 '>
 						<ProfileListItem
