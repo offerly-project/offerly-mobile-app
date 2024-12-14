@@ -1,3 +1,4 @@
+import { Dimensions } from 'react-native';
 import { ThemeStyle } from './themes';
 
 export const getBaseScreenLayout = (theme: ThemeStyle): object => {
@@ -7,3 +8,6 @@ export const getBaseScreenLayout = (theme: ThemeStyle): object => {
 		flex: 1,
 	};
 };
+
+export const SCREEN_WIDTH = Dimensions.get('screen').width;
+export const SCREEN_HEIGHT = Dimensions.get('screen').height;

@@ -19,7 +19,7 @@ const CardCard = ({ card, onPress, selected, style }: Props) => {
 	// Animated style for the container
 	const animatedStyle = useAnimatedStyle(() => {
 		return {
-			borderColor: withTiming(selected ? theme['--primary-3'] : 'transparent', {
+			borderColor: withTiming(selected ? theme['--primary-1'] : 'transparent', {
 				duration: 200,
 			}),
 		};
@@ -27,7 +27,7 @@ const CardCard = ({ card, onPress, selected, style }: Props) => {
 
 	return (
 		<Animated.View style={[styles.container, animatedStyle, style]}>
-			<Pressable onPress={onPress} style={{ flex: 1 }}>
+			<Pressable onPress={onPress} style={{ flex: 1, height: '100%', width: '100%' }}>
 				<Image source={formatUploadPath(card.logo)} style={styles.cardLogo} />
 				<Typography variant='caption' style={styles.cardName} color={theme['--primary-2']}>
 					{card.name.en}
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
 	container: {
 		minHeight: 100,
 		width: '31%',
-		alignItems: 'center',
+		alignItems: 'flex-start',
 		borderRadius: 12,
 		padding: 4,
 		borderWidth: 1,
