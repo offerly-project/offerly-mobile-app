@@ -7,8 +7,9 @@ import { observer } from 'mobx-react-lite';
 export const PublicLayout = observer(() => {
 	const { authenticated } = userStore();
 	const theme = useThemeStyles();
+
 	if (authenticated) {
-		return <Redirect href='../(private)/tabs' />;
+		return <Redirect href='/(private)/tabs/home' />;
 	}
 
 	return (

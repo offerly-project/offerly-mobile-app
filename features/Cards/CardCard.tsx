@@ -3,16 +3,17 @@ import { ICard } from '@/entities/card.entity';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { formatUploadPath } from '@/utils/utils';
 import { Image } from 'expo-image';
-import { Pressable, StyleSheet } from 'react-native';
+import { Pressable, StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated';
 
 type Props = {
 	card: ICard;
 	onPress: () => void;
 	selected?: boolean;
+	style?: StyleProp<ViewStyle>;
 };
 
-const CardCard = ({ card, onPress, selected }: Props) => {
+const CardCard = ({ card, onPress, selected, style }: Props) => {
 	const theme = useThemeStyles();
 
 	// Animated style for the container
@@ -25,7 +26,7 @@ const CardCard = ({ card, onPress, selected }: Props) => {
 	}, [selected]);
 
 	return (
-		<Animated.View style={[styles.container, animatedStyle]}>
+		<Animated.View style={[styles.container, animatedStyle, style]}>
 			<Pressable onPress={onPress} style={{ flex: 1 }}>
 				<Image source={formatUploadPath(card.logo)} style={styles.cardLogo} />
 				<Typography variant='caption' style={styles.cardName} color={theme['--primary-2']}>
@@ -40,7 +41,7 @@ export default CardCard;
 
 const styles = StyleSheet.create({
 	container: {
-		height: 100,
+		minHeight: 100,
 		width: '31%',
 		alignItems: 'center',
 		borderRadius: 12,

@@ -30,8 +30,12 @@ const LoginForm = () => {
 			},
 			schema,
 			onSubmit: async (values) => {
-				const { email, password } = values;
-				return await userStore().login(email, password);
+				try {
+					const { email, password } = values;
+					return await userStore().login(email, password);
+				} catch (e) {
+					console.log(e);
+				}
 			},
 		});
 	const onInputChange = (key: keyof FormValues) => (value: string) => {

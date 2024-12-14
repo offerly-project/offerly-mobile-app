@@ -1,5 +1,6 @@
 import { EntityStatus } from '@/ts/entity.types';
 import { ITranslation } from '@/ts/translation.types';
+import { IBank } from './bank.entity';
 
 export interface ICard {
 	name: ITranslation;
@@ -8,4 +9,5 @@ export interface ICard {
 	id: string;
 	status: EntityStatus;
 	grade: ITranslation;
+	bank: IBank;
 }

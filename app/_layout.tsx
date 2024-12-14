@@ -1,6 +1,6 @@
 import { getBaseScreenLayout } from '@/constants/screens';
 import { ThemeContextProvider } from '@/contexts/ThemeContext';
-import { staticDataStore } from '@/stores';
+import { staticDataStore, userStore } from '@/stores';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
@@ -32,6 +32,7 @@ export default function RootLayout() {
 				.fetchStaticData()
 				.then(() => {
 					SplashScreen.hideAsync();
+					userStore().login('jadhamwi4@gmail.com', '1234');
 					setLoading(false);
 				});
 		}

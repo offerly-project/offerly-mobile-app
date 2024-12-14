@@ -61,7 +61,7 @@ const SelectCardsModal = () => {
 	const fetchBankCards = async (bankId: string) => {
 		setLoading((prev) => ({ ...prev, cards: true }));
 		try {
-			const cards = await CardsApi.getCardsByBankId(bankId);
+			const { cards } = await CardsApi.getCardsByBankId(bankId);
 			setBankCards(cards);
 		} finally {
 			setLoading((prev) => ({ ...prev, cards: false }));
