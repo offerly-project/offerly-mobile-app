@@ -1,6 +1,6 @@
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { Ionicons } from '@expo/vector-icons';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Pressable, StyleProp, View, ViewStyle } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import BottomSheet from '../BottomSheet/BottomSheet';
@@ -22,6 +22,7 @@ type Props<T> = {
 	className?: string;
 	styles?: StyleProp<ViewStyle>;
 	searchResolver?: (item: ItemType<T>, search: string) => boolean;
+	children?: (content?: string) => React.ReactNode;
 };
 
 const Select = <T = unknown,>({
@@ -33,6 +34,7 @@ const Select = <T = unknown,>({
 	placeHolder,
 	itemRenderer,
 	searchResolver,
+	children,
 }: Props<T>) => {
 	const theme = useThemeStyles();
 	const [open, setOpen] = useState(false);
@@ -45,7 +47,9 @@ const Select = <T = unknown,>({
 		}
 	}, [open]);
 
-	const listItems = items.filter((item) => searchResolver?.(item, search));
+	const listItems = searchResolver
+		? items.filter((item) => searchResolver?.(item, search))
+		: items;
 
 	return (
 		<>
@@ -57,7 +61,7 @@ const Select = <T = unknown,>({
 				}}
 			>
 				<Typography color={theme['--secondary-2']}>
-					{boxContent ? boxContent : placeHolder}
+					{children ? children(boxContent) : boxContent ? boxContent : placeHolder}
 				</Typography>
 				<Ionicons name='caret-down' size={14} color={theme['--secondary-2']} />
 			</Pressable>
@@ -86,6 +90,7 @@ const Select = <T = unknown,>({
 						)}
 						<FlatList
 							data={listItems}
+							showsVerticalScrollIndicator={false}
 							onTouchStart={() => {
 								setFocused(false);
 							}}

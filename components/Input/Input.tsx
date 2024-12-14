@@ -1,3 +1,4 @@
+import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import React, { useEffect } from 'react';
 import { TextInput, TextInputProps, View } from 'react-native';
@@ -33,7 +34,7 @@ interface InputProps extends Omit<TextInputProps, 'onChange'> {
 
 const Input: React.FC<InputProps> = ({
 	type = 'text',
-	variant: color = 'primary',
+	variant = 'primary',
 	borderStyle = 'outlined',
 	placeholder = '',
 	value,
@@ -46,8 +47,8 @@ const Input: React.FC<InputProps> = ({
 	focused,
 	...rest
 }) => {
-	const inputStyles = `flex-1 text-black py-4 px-2`;
-	const containerStyles = `bg-transparent flex-row items-center ${BORDER_STYLE[borderStyle]} ${COLORING[color]} ${disabled ? 'opacity-40' : ''}`;
+	const inputStyles = `flex-1 text-black py-4 px-2 color-primary-1`;
+	const containerStyles = `bg-transparent flex-row items-center ${BORDER_STYLE[borderStyle]} ${COLORING[variant]} ${disabled ? 'opacity-40' : ''}`;
 
 	const ref = React.useRef<TextInput>(null);
 	useEffect(() => {
@@ -70,7 +71,7 @@ const Input: React.FC<InputProps> = ({
 	};
 
 	const Comp = sheeted ? BottomSheetTextInput : TextInput;
-
+	const theme = useThemeStyles();
 	return (
 		<>
 			<View className={containerStyles}>
@@ -84,6 +85,8 @@ const Input: React.FC<InputProps> = ({
 					editable={!disabled}
 					keyboardType={getKeyboardType()}
 					{...rest}
+					selectionColor={theme['--secondary-1']}
+					autoCorrect={false}
 					className={[inputStyles, rest.className].join(' ')}
 				/>
 				{trailingIcon && trailingIcon()}
