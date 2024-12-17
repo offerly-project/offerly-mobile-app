@@ -8,16 +8,21 @@ export default function TabLayout() {
 	const theme = useThemeStyles();
 	const { top } = useSafeAreaInsets();
 	return (
-		<View style={{ flex: 1, paddingTop: top }}>
+		<View style={{ flex: 1, paddingTop: top, backgroundColor: theme['--background'] }}>
 			<Tabs
 				screenOptions={{
 					tabBarActiveTintColor: theme['--primary-1'],
 					headerShown: false,
+					tabBarStyle: {
+						backgroundColor: theme['--background'],
+						borderWidth: 1,
+						borderTopColor: 'rgba(255,255,255,0.2)',
+					},
 					sceneStyle: {
 						backgroundColor: theme['--background'],
 					},
 				}}
-				initialRouteName='cards'
+				initialRouteName='home'
 			>
 				<Tabs.Screen
 					name='home'

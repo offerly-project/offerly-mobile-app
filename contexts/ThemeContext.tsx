@@ -18,7 +18,7 @@ type Props = {
 
 export const ThemeContextProvider = ({ children }: Props) => {
 	const scheme = useColorScheme();
-	const [theme, setTheme] = useState<ThemeNameType>('dark' || (scheme as ThemeNameType));
+	const [theme, setTheme] = useState<ThemeNameType>('light' || (scheme as ThemeNameType));
 
 	return (
 		<ThemeContext.Provider value={{ theme, switchTheme: setTheme }}>

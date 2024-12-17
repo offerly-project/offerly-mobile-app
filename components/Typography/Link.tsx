@@ -3,14 +3,14 @@ import { ComponentProps } from 'react';
 import { Pressable } from 'react-native';
 import Typography from './Typography';
 
-type Props = { to: Href } & ComponentProps<typeof Typography>;
+type Props = { to?: Href } & ComponentProps<typeof Typography>;
 
 const Link = ({ to, ...rest }: Props) => {
 	const router = useRouter();
 	return (
 		<Pressable
 			onPress={() => {
-				router.push(to);
+				if (to) router.push(to);
 			}}
 		>
 			<Typography

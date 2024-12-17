@@ -1,19 +1,25 @@
 export const themes = {
 	dark: {
 		'--primary-1': '#6633cc',
+		'--primary-2': '#4c1e9e',
+		'--primary-3': '#fb8610',
+		'--secondary-1': '#8188d9',
+		'--secondary-2': '#fedebe',
+		'--background': '#121212',
+		'--text-1': '#ffffff',
+		'--text-2': '#b0b0b0',
+		'--text-3': '#8a8a8a',
+	},
+	light: {
+		'--primary-1': '#6633cc',
 		'--primary-2': '#312165',
 		'--primary-3': '#fb8610',
 		'--secondary-1': '#8188d9',
 		'--secondary-2': '#fedebe',
-		'--background': '#F5F5F5',
-	},
-	light: {
-		'--primary-1': '#d3bfff',
-		'--primary-2': '#cdb8eb',
-		'--primary-3': '#fff1d4',
-		'--secondary-1': '#e0e3f5',
-		'--secondary-2': '#fffbf5',
-		'--background': '#F5F5F5',
+		'--background': '#ffffff',
+		'--text-1': '#212121',
+		'--text-2': '#555555',
+		'--text-3': '#999999',
 	},
 };
 

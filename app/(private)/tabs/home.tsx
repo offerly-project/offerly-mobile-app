@@ -1,6 +1,10 @@
 import Input from '@/components/Input/Input';
 import Select from '@/components/Select/Select';
 import Typography from '@/components/Typography/Typography';
+import { SCREEN_HEIGHT } from '@/constants/screens';
+import { IOffer } from '@/entities/offer.entity';
+import OfferCard from '@/features/Offers/OfferCard';
+import usePagination from '@/hooks/usePagination';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { cardsStore, staticDataStore } from '@/stores';
 import { formatUploadPath } from '@/utils/utils';
@@ -8,16 +12,39 @@ import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
-import { Pressable, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import {
+	ActivityIndicator,
+	FlatList,
+	Pressable,
+	RefreshControl,
+	SafeAreaView,
+	ScrollView,
+	StyleSheet,
+	View,
+} from 'react-native';
 
 type Props = {};
 
 const Home = observer((props: Props) => {
 	const { userCardsList } = cardsStore();
-	const [selectedCard, setSelectedCard] = useState<string>(userCardsList[0].id);
+	const [selectedCard, setSelectedCard] = useState<string>('674967958654b446fb613c74');
 	const categories = staticDataStore().categories;
 	const [selectedCategory, setSelectedCategory] = useState<string>(categories[0]);
+	const [search, setSearch] = useState<string>('');
 	const theme = useThemeStyles();
+
+	const { data, refreshing, loadingMore, handleRefresh, loadMore, initialLoader } =
+		usePagination<IOffer>({
+			url: '/user/offers',
+			getQuery: (page, limit) =>
+				`page=${page}&limit=${limit}&q=${search}&category=${selectedCategory}&card=${selectedCard}`,
+			queryDependencies: [search, selectedCategory, selectedCard],
+		});
+
+	const renderFooter = () => {
+		if (!loadingMore || data.length < 8) return null;
+		return <ActivityIndicator animating size='small' />;
+	};
 
 	return (
 		<SafeAreaView className='gap-10'>
@@ -81,6 +108,10 @@ const Home = observer((props: Props) => {
 				{categories.map((category) => (
 					<Pressable
 						onPress={() => {
+							if (category === selectedCategory) {
+								setSelectedCategory('');
+								return;
+							}
 							setSelectedCategory(category);
 						}}
 						style={{ opacity: category === selectedCategory ? 0.4 : 1 }}
@@ -94,8 +125,30 @@ const Home = observer((props: Props) => {
 				))}
 			</ScrollView>
 			<View className='w-[95%] m-auto'>
-				<Input placeholder='Search...' variant='primary' />
+				<Input
+					value={search}
+					onChangeText={setSearch}
+					placeholder='Search...'
+					variant='primary'
+				/>
 			</View>
+			{initialLoader ? (
+				<ActivityIndicator size='small' />
+			) : (
+				<FlatList
+					data={data}
+					style={{ height: SCREEN_HEIGHT / 2 }}
+					contentContainerStyle={{ gap: 10, paddingHorizontal: 12 }}
+					keyExtractor={(item) => item.id.toString()}
+					renderItem={({ item }) => <OfferCard offer={item} />}
+					refreshControl={
+						<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+					}
+					ListFooterComponent={renderFooter}
+					onEndReached={loadMore}
+					onEndReachedThreshold={0.1}
+				/>
+			)}
 		</SafeAreaView>
 	);
 });
