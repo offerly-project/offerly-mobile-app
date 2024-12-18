@@ -12,7 +12,6 @@ const favorites = observer((props: Props) => {
 	const offers = favoritesStore().offers;
 	const theme = useThemeStyles();
 	const [loading, setLoading] = useState(true);
-	console.log(offers);
 
 	useEffect(() => {
 		favoritesStore()
@@ -27,17 +26,12 @@ const favorites = observer((props: Props) => {
 		</View>
 	) : (
 		<View className='p-6 flex-1'>
-			<Typography
-				variant='h2'
-				color={theme['--text-1']}
-				className='border-b border-[rgba(0,0,0,0.1)] mb-10'
-				style={{ padding: 10, textAlign: 'center' }}
-			>
+			<Typography variant='h3' color={theme['--text-1']} style={{ padding: 10 }}>
 				Favorites
 			</Typography>
 			<FlatList
 				data={offers}
-				renderItem={({ item }) => <OfferCard offer={item} showFavoriteInModal={false} />}
+				renderItem={({ item }) => <OfferCard offer={item} closeOnUnfavorite={true} />}
 			/>
 		</View>
 	);

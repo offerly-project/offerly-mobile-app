@@ -3,7 +3,7 @@ import Typography from '@/components/Typography/Typography';
 import { IOffer } from '@/entities/offer.entity';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { favoritesStore } from '@/stores';
-import { formatOfferChannels, formatUploadPath, truncateLongText } from '@/utils/utils';
+import { formatOfferChannels, formatUploadPath, truncateLongText, wait } from '@/utils/utils';
 import Ionicons from '@expo/vector-icons/AntDesign';
 import { Image } from 'expo-image';
 import { observer } from 'mobx-react-lite';
@@ -14,10 +14,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type Props = {
 	offer: IOffer;
-	showFavoriteInModal?: boolean;
+	closeOnUnfavorite?: boolean;
 };
 
-const OfferCard = observer(({ offer, showFavoriteInModal = true }: Props) => {
+const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 	const theme = useThemeStyles();
 	const [modalVisible, setModalVisible] = useState(false);
 	const isFavorite = favoritesStore().isFavorite(offer.id);
@@ -64,7 +64,7 @@ const OfferCard = observer(({ offer, showFavoriteInModal = true }: Props) => {
 				>
 					<Ionicons
 						size={20}
-						name={isFavorite ? 'star' : 'staro'}
+						name={isFavorite ? 'heart' : 'hearto'}
 						color={theme['--primary-1']}
 					/>
 				</Pressable>
@@ -72,26 +72,28 @@ const OfferCard = observer(({ offer, showFavoriteInModal = true }: Props) => {
 			<Modal visible={modalVisible} animationType='slide'>
 				<View style={{ paddingTop: top }} className='flex-1 p-10 justify-start'>
 					<View className='flex flex-row items-end justify-between h-[50]'>
-						{showFavoriteInModal && (
-							<Pressable
-								onPress={() => {
-									if (isFavorite) {
-										removeFavorite(offer);
-									} else {
-										addFavorite(offer);
-									}
-								}}
-								className='flex-[0.2] items-center'
-							>
-								<Ionicons
-									size={25}
-									name={isFavorite ? 'star' : 'staro'}
-									color={theme['--primary-1']}
-								/>
-							</Pressable>
-						)}
 						<Pressable
-							className='ml-auto'
+							onPress={async () => {
+								if (closeOnUnfavorite) {
+									setModalVisible(false);
+									await wait(500);
+								}
+								if (isFavorite) {
+									removeFavorite(offer);
+								} else {
+									addFavorite(offer);
+								}
+							}}
+							className='flex-[0.2] items-center'
+						>
+							<Ionicons
+								size={25}
+								name={isFavorite ? 'heart' : 'hearto'}
+								color={theme['--primary-1']}
+							/>
+						</Pressable>
+
+						<Pressable
 							onPress={() => {
 								setModalVisible(false);
 							}}

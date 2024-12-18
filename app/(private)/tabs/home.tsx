@@ -133,7 +133,7 @@ const Home = observer((props: Props) => {
 				/>
 			</View>
 			{initialLoader ? (
-				<ActivityIndicator size='small' />
+				<ActivityIndicator size='small' animating />
 			) : (
 				<FlatList
 					data={data}

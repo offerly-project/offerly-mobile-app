@@ -54,16 +54,16 @@ const Select = <T = unknown,>({
 	return (
 		<>
 			<Pressable
-				className={`rounded-full bg-primary-1 px-4 flex flex-row justify-between items-center ${className}`}
+				className={`rounded-full bg-transparent border-primary-1 border px-4 flex flex-row justify-between items-center ${className}`}
 				style={styles}
 				onPress={() => {
 					setOpen(true);
 				}}
 			>
-				<Typography color={theme['--secondary-2']}>
+				<Typography color={theme['--primary-1']}>
 					{children ? children(boxContent) : boxContent ? boxContent : placeHolder}
 				</Typography>
-				<Ionicons name='caret-down' size={14} color={theme['--secondary-2']} />
+				<Ionicons name='caret-down' size={14} color={theme['--primary-1']} />
 			</Pressable>
 			<BottomSheet
 				snapPoints={['100%']}
