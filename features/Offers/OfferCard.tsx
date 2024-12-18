@@ -1,28 +1,26 @@
 import Link from '@/components/Typography/Link';
 import Typography from '@/components/Typography/Typography';
-import { SCREEN_HEIGHT } from '@/constants/screens';
 import { IOffer } from '@/entities/offer.entity';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import { userStore } from '@/stores';
 import { formatOfferChannels, formatUploadPath, truncateLongText } from '@/utils/utils';
-import { Ionicons } from '@expo/vector-icons';
+import Ionicons from '@expo/vector-icons/AntDesign';
 import { Image } from 'expo-image';
+import { observer } from 'mobx-react-lite';
 import moment from 'moment';
 import { useState } from 'react';
 import { Linking, Modal, Pressable, ScrollView, StyleSheet, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type Props = {
 	offer: IOffer;
 };
 
-const OfferCard = ({ offer }: Props) => {
+const OfferCard = observer(({ offer }: Props) => {
 	const theme = useThemeStyles();
 	const [modalVisible, setModalVisible] = useState(false);
-	offer.discount_code = 'DISCOUNT';
-	offer.minimum_amount = 1000;
-	offer.cap = 100;
-	console.log(offer.title, offer.channels);
-
+	const isFavorite = userStore().user.isFavorite(offer.id);
+	const { top } = useSafeAreaInsets();
 	return (
 		<>
 			<Pressable
@@ -52,23 +50,52 @@ const OfferCard = ({ offer }: Props) => {
 						{moment(offer.expiry_date.toString()).format('DD/MM/YYYY')}
 					</Typography>
 				</View>
-				<View className='flex-[0.2] items-center'>
-					<Ionicons name='star' />
-				</View>
+				<Pressable
+					onPress={() => {
+						if (isFavorite) {
+							userStore().user.removeFavoriteOffer(offer.id);
+						} else {
+							userStore().user.addFavoriteOffer(offer.id);
+						}
+					}}
+					className='flex-[0.2] items-center'
+				>
+					<Ionicons
+						size={20}
+						name={isFavorite ? 'star' : 'staro'}
+						color={theme['--primary-1']}
+					/>
+				</Pressable>
 			</Pressable>
 			<Modal visible={modalVisible} animationType='slide'>
-				<SafeAreaView className='flex-1 p-10'>
-					<View className='flex flex-row justify-end'>
+				<View style={{ paddingTop: top }} className='flex-1 p-10 justify-start'>
+					<View className='flex flex-row items-end justify-between h-[50]'>
+						<Pressable
+							onPress={() => {
+								if (isFavorite) {
+									userStore().user.removeFavoriteOffer(offer.id);
+								} else {
+									userStore().user.addFavoriteOffer(offer.id);
+								}
+							}}
+							className='flex-[0.2] items-center'
+						>
+							<Ionicons
+								size={25}
+								name={isFavorite ? 'star' : 'staro'}
+								color={theme['--primary-1']}
+							/>
+						</Pressable>
 						<Pressable
 							onPress={() => {
 								setModalVisible(false);
 							}}
 						>
-							<Ionicons size={30} name='close' color={theme['--primary-1']} />
+							<Ionicons size={25} name='close' color={theme['--primary-1']} />
 						</Pressable>
 					</View>
 					<View className='flex-1 gap-4'>
-						<View className='mx-auto'>
+						<View className='mx-auto h-[150]'>
 							<Image
 								source={formatUploadPath(offer.logo)}
 								style={{
@@ -81,7 +108,7 @@ const OfferCard = ({ offer }: Props) => {
 						<Typography variant='h2' color={theme['--text-1']}>
 							{offer.title.en}
 						</Typography>
-						<View style={{ height: SCREEN_HEIGHT / 2 }}>
+						<View style={{ flex: 1 }}>
 							<ScrollView contentContainerClassName='gap-4'>
 								{/* Description */}
 								<Typography color={theme['--text-2']}>
@@ -166,11 +193,11 @@ const OfferCard = ({ offer }: Props) => {
 							</ScrollView>
 						</View>
 					</View>
-				</SafeAreaView>
+				</View>
 			</Modal>
 		</>
 	);
-};
+});
 
 export default OfferCard;
 

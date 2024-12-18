@@ -22,7 +22,7 @@ export default function TabLayout() {
 						backgroundColor: theme['--background'],
 					},
 				}}
-				initialRouteName='home'
+				initialRouteName='favorites'
 			>
 				<Tabs.Screen
 					name='home'
