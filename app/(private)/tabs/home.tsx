@@ -43,7 +43,7 @@ const Home = observer((props: Props) => {
 
 	const renderFooter = () => {
 		if (!loadingMore || data.length < 8) return null;
-		return <ActivityIndicator animating size='small' />;
+		return <ActivityIndicator color={theme['--primary-1']} animating size='small' />;
 	};
 
 	return (
@@ -133,7 +133,7 @@ const Home = observer((props: Props) => {
 				/>
 			</View>
 			{initialLoader ? (
-				<ActivityIndicator size='small' animating />
+				<ActivityIndicator size='small' animating color={theme['--primary-1']} />
 			) : (
 				<FlatList
 					data={data}
@@ -142,7 +142,11 @@ const Home = observer((props: Props) => {
 					keyExtractor={(item) => item.id.toString()}
 					renderItem={({ item }) => <OfferCard offer={item} />}
 					refreshControl={
-						<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+						<RefreshControl
+							tintColor={theme['--primary-1']}
+							refreshing={refreshing}
+							onRefresh={handleRefresh}
+						/>
 					}
 					ListFooterComponent={renderFooter}
 					onEndReached={loadMore}
