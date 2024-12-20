@@ -3,8 +3,7 @@ import Typography from '@/components/Typography/Typography';
 import Input from '@/components/Input/Input';
 import Button from '@/components/Button/Buttton';
 import Link from '@/components/Typography/Link';
-import z from 'zod/lib';
-import { userStore } from '@/stores';
+import z from 'zod';
 import { useForm } from '@/hooks/useForm';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 
@@ -27,8 +26,9 @@ export default function ForgetPassword() {
 			},
 			schema,
 			onSubmit: async (values) => {
-				const { email } = values;
-				return await userStore().login(email, '');
+				// const { email } = values;
+				// let timer = await userStore().forgetPassword(email);
+				console.log(values);
 			},
 		});
 	const onInputChange = (key: keyof FormValues) => (value: string) => {
@@ -67,21 +67,21 @@ export default function ForgetPassword() {
 						>
 							<Typography color='white'>Send confirmation link</Typography>
 						</Button>
+						{serverError && (
+							<Typography variant='caption' color='red' align='center'>
+								{serverError}
+							</Typography>
+						)}
 					</View>
 				</View>
 				<View className='flex-row gap-1 items-center absolute bottom-0'>
 					<Typography weight='light' variant='label'>
 						Try logging in?
 					</Typography>
-					<Link to={'/login'} variant='label'>
+					<Link goBack to={'/login'} variant='label'>
 						Login now
 					</Link>
 				</View>
-				{serverError && (
-					<Typography variant='caption' color='red'>
-						{serverError}
-					</Typography>
-				)}
 			</View>
 		</>
 	);

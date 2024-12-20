@@ -10,10 +10,10 @@ export default function index() {
 			<View className='flex-1 px-8 justify-center items-center'>
 				<View className='gap-5 w-full'>
 					<BrandLogo height={200} width={200} style={{ margin: 'auto' }} />
-					<Button onPress={() => router.replace('/login')}>
+					<Button onPress={() => router.push('/login')}>
 						<Typography color='black'>Login</Typography>
 					</Button>
-					<Button onPress={() => router.replace('/signup')} borderStyle='filled'>
+					<Button onPress={() => router.push('/signup')} borderStyle='filled'>
 						<Typography color='white'>Sign up</Typography>
 					</Button>
 				</View>
