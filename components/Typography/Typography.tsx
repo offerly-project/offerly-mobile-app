@@ -22,6 +22,7 @@ const Typography: React.FC<TypographyProps> = ({
 	weight = 'regular',
 	style,
 	children,
+
 	...rest
 }) => {
 	const fontStyles = {

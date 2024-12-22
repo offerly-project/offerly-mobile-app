@@ -1,14 +1,14 @@
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { Ionicons } from '@expo/vector-icons';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Tabs } from 'expo-router';
 import { View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-export default function TabLayout() {
+export default function Layout() {
 	const theme = useThemeStyles();
-	const { top } = useSafeAreaInsets();
+
 	return (
-		<View style={{ flex: 1, paddingTop: top, backgroundColor: theme['--background'] }}>
+		<View style={{ flex: 1, backgroundColor: theme['--background'] }}>
 			<Tabs
 				screenOptions={{
 					tabBarActiveTintColor: theme['--primary-1'],
@@ -22,13 +22,15 @@ export default function TabLayout() {
 						backgroundColor: theme['--background'],
 					},
 				}}
-				initialRouteName='home'
+				initialRouteName='offers'
 			>
 				<Tabs.Screen
-					name='home'
+					name='offers'
 					options={{
-						title: 'Home',
-						tabBarIcon: ({ color }) => <Ionicons size={28} name='home' color={color} />,
+						title: 'Offers',
+						tabBarIcon: ({ color }) => (
+							<MaterialIcons size={28} name='discount' color={color} />
+						),
 					}}
 				/>
 				<Tabs.Screen

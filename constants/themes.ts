@@ -17,7 +17,7 @@ export const themes = {
 		'--secondary-1': '#8188d9',
 		'--secondary-2': '#fedebe',
 		'--background': '#ffffff',
-		'--text-1': '#212121',
+		'--text-1': '#ffffff',
 		'--text-2': '#555555',
 		'--text-3': '#999999',
 	},

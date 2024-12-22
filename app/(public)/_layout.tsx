@@ -9,7 +9,7 @@ export const PublicLayout = observer(() => {
 	const theme = useThemeStyles();
 
 	if (authenticated) {
-		return <Redirect href='/(private)/tabs/home' />;
+		return <Redirect href='/(private)/tabs/offers' />;
 	}
 
 	return (

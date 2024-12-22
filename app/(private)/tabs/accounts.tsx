@@ -1,15 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native';
+import Typography from '@/components/Typography/Typography';
+import TabLayout from '@/layouts/TabLayout';
+import { StyleSheet } from 'react-native';
 
 type Props = {};
 
-const accounts = (props: Props) => {
+const Accounts = (props: Props) => {
 	return (
-		<View>
-			<Text>accounts</Text>
-		</View>
+		<TabLayout title='Account'>
+			<Typography>Account</Typography>
+		</TabLayout>
 	);
 };
 
-export default accounts;
+export default Accounts;
 
 const styles = StyleSheet.create({});

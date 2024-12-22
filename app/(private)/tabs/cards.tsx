@@ -6,6 +6,7 @@ import { SCREEN_WIDTH } from '@/constants/screens';
 import { ICard } from '@/entities/card.entity';
 import CardCard from '@/features/Cards/CardCard';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import TabLayout from '@/layouts/TabLayout';
 import { cardsStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
@@ -101,46 +102,52 @@ const Cards = observer(() => {
 		));
 
 	return (
-		<View style={styles.container}>
-			{/* Add Card Button */}
-			<View style={styles.addButtonContainer}>
-				<Button
-					style={styles.addButton}
-					borderStyle='filled'
-					onPress={() => router.push('/(modals)/select_cards_modal')}
-				>
-					<Ionicons name='add' size={18} color={theme['--background']} />
-				</Button>
+		<TabLayout title='Cards'>
+			<View style={styles.container}>
+				{/* Add Card Button */}
+				<View style={styles.addButtonContainer}>
+					<Button
+						style={styles.addButton}
+						borderStyle='filled'
+						onPress={() => router.push('/(modals)/select_cards_modal')}
+					>
+						<Ionicons name='add' size={18} color={theme['--background']} />
+					</Button>
+				</View>
+
+				{/* Cards List */}
+				<ScrollView style={styles.cardList}>{renderGroupedCards()}</ScrollView>
+
+				{/* Action Buttons */}
+				{selectedCards.length > 0 && (
+					<Animated.View style={[styles.hapticPressContainer, animatedStyle]}>
+						{removing ? (
+							<ActivityIndicator color={theme['--primary-1']} />
+						) : (
+							<View style={styles.actionButtons}>
+								<HapticPress style={styles.actionButton} onPress={handleRemove}>
+									<Ionicons
+										name='trash-bin'
+										size={30}
+										color={theme['--primary-1']}
+									/>
+								</HapticPress>
+								<HapticPress
+									style={styles.actionButton}
+									onPress={() => setSelectedCards([])}
+								>
+									<Ionicons
+										name='refresh-outline'
+										size={30}
+										color={theme['--primary-1']}
+									/>
+								</HapticPress>
+							</View>
+						)}
+					</Animated.View>
+				)}
 			</View>
-
-			{/* Cards List */}
-			<ScrollView style={styles.cardList}>{renderGroupedCards()}</ScrollView>
-
-			{/* Action Buttons */}
-			{selectedCards.length > 0 && (
-				<Animated.View style={[styles.hapticPressContainer, animatedStyle]}>
-					{removing ? (
-						<ActivityIndicator color={theme['--primary-1']} />
-					) : (
-						<View style={styles.actionButtons}>
-							<HapticPress style={styles.actionButton} onPress={handleRemove}>
-								<Ionicons name='trash-bin' size={30} color={theme['--primary-1']} />
-							</HapticPress>
-							<HapticPress
-								style={styles.actionButton}
-								onPress={() => setSelectedCards([])}
-							>
-								<Ionicons
-									name='refresh-outline'
-									size={30}
-									color={theme['--primary-1']}
-								/>
-							</HapticPress>
-						</View>
-					)}
-				</Animated.View>
-			)}
-		</View>
+		</TabLayout>
 	);
 });
 
