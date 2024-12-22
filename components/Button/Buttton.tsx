@@ -36,7 +36,14 @@ const Button: React.FC<ButtonProps> = ({
 	...rest
 }) => {
 	const isDisabled = disabled || loading;
-	const buttonStyles = `rounded-full ${BORDER_STYLE[borderStyle]}-${COLORING[variant]} ${isDisabled ? 'opacity-60' : ''} p-4 flex flex-row align-middle justify-center`;
+
+	const buttonStyle = (function () {
+		const styles = `rounded-full p-4 flex flex-row align-middle justify-center`;
+		if (isDisabled) {
+			return `${styles} opacity-60`;
+		}
+		return `${styles} ${BORDER_STYLE[borderStyle]}-${COLORING[variant]}`;
+	})();
 
 	const handlePress = (event: GestureResponderEvent) => {
 		if (hapticFeedback) {
@@ -53,7 +60,7 @@ const Button: React.FC<ButtonProps> = ({
 			disabled={isDisabled}
 			activeOpacity={0.8}
 			{...rest}
-			className={[buttonStyles, rest.className].join(' ')}
+			className={buttonStyle}
 		>
 			{loading ? loadingComponent : children}
 		</TouchableOpacity>
