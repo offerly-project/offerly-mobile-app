@@ -1,3 +1,4 @@
+import { OffersApi } from '@/api/offers.api';
 import Input from '@/components/Input/Input';
 import Select from '@/components/Select/Select';
 import Typography from '@/components/Typography/Typography';
@@ -37,7 +38,13 @@ const Home = observer((props: Props) => {
 		usePagination<IOffer>({
 			url: '/user/offers',
 			getQuery: (page, limit) =>
-				`page=${page}&limit=${limit}&q=${search}&category=${selectedCategory}&card=${selectedCard}`,
+				OffersApi.buildGetOffersQuery({
+					card: selectedCard,
+					category: selectedCategory,
+					page,
+					limit,
+					q: search,
+				}),
 			queryDependencies: [search, selectedCategory, selectedCard],
 		});
 
