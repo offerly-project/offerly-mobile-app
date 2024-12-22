@@ -1,4 +1,4 @@
-import { getBaseScreenLayout } from '@/constants/screens';
+import { getAuthScreenLayout } from '@/constants/screens';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { userStore } from '@/stores';
 import { Redirect, Stack } from 'expo-router';
@@ -13,10 +13,11 @@ export const PublicLayout = observer(() => {
 	}
 
 	return (
-		<Stack screenOptions={getBaseScreenLayout(theme)}>
+		<Stack screenOptions={getAuthScreenLayout(theme)}>
 			<Stack.Screen name='login' />
 			<Stack.Screen name='forgetPassword' />
 			<Stack.Screen name='auth' />
+			<Stack.Screen name='signup' />
 		</Stack>
 	);
 });

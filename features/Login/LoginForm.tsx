@@ -25,17 +25,13 @@ const LoginForm = () => {
 	const { handleSubmit, setValues, loading, errors, submittable, values, serverError } =
 		useForm<FormValues>({
 			initialValues: {
-				email: 'jadhamwi4@gmail.com',
-				password: '1234',
+				email: '',
+				password: '',
 			},
 			schema,
 			onSubmit: async (values) => {
-				try {
-					const { email, password } = values;
-					return await userStore().login(email, password);
-				} catch (e) {
-					console.log(e);
-				}
+				const { email, password } = values;
+				return await userStore().login(email, password);
 			},
 		});
 	const onInputChange = (key: keyof FormValues) => (value: string) => {
@@ -88,6 +84,11 @@ const LoginForm = () => {
 						>
 							<Typography color='white'>Login</Typography>
 						</Button>
+						{serverError && (
+							<Typography variant='caption' color='red' align='center'>
+								{serverError}
+							</Typography>
+						)}
 					</View>
 
 					<View className='m-auto'>
@@ -100,15 +101,10 @@ const LoginForm = () => {
 					<Typography weight='light' variant='label'>
 						Dont have an account?
 					</Typography>
-					<Link to={'/signup'} variant='label'>
+					<Link replace to={'/signup'} variant='label'>
 						Sign up
 					</Link>
 				</View>
-				{serverError && (
-					<Typography variant='caption' color='red'>
-						{serverError}
-					</Typography>
-				)}
 			</View>
 		</>
 	);
