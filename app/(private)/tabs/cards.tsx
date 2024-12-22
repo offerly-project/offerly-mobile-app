@@ -80,7 +80,7 @@ const Cards = observer(() => {
 	const renderGroupedCards = () =>
 		groupedCards.map(([bankName, cards], index) => (
 			<View key={bankName} style={index > 0 ? styles.groupSeparator : undefined}>
-				<Typography variant='body' color='rgba(0,0,0,0.5)' className='pb-2'>
+				<Typography variant='body' weight='bold' color={theme['--text-1']} className='pb-2'>
 					{bankName}
 				</Typography>
 				<ScrollView
@@ -92,6 +92,10 @@ const Cards = observer(() => {
 						<CardCard
 							key={card.id}
 							card={card}
+							height={110}
+							width={125}
+							logoHeight={50}
+							logoWidth={100}
 							style={styles.cardStyle}
 							selected={selectedCards.includes(card.id)}
 							onPress={() => handleCardSelect(card.id)}
@@ -102,19 +106,20 @@ const Cards = observer(() => {
 		));
 
 	return (
-		<TabLayout title='Cards'>
-			<View style={styles.container}>
-				{/* Add Card Button */}
+		<TabLayout
+			title='Cards'
+			trailing={
 				<View style={styles.addButtonContainer}>
 					<Button
-						style={styles.addButton}
-						borderStyle='filled'
+						style={{ borderWidth: 0 }}
 						onPress={() => router.push('/(modals)/select_cards_modal')}
 					>
-						<Ionicons name='add' size={18} color={theme['--background']} />
+						<Ionicons name='add' size={24} color={theme['--background']} />
 					</Button>
 				</View>
-
+			}
+		>
+			<View style={styles.container}>
 				{/* Cards List */}
 				<ScrollView style={styles.cardList}>{renderGroupedCards()}</ScrollView>
 
@@ -162,7 +167,6 @@ const styles = StyleSheet.create({
 	addButtonContainer: {
 		width: '100%',
 		alignItems: 'flex-end',
-		paddingBottom: 16,
 	},
 	addButton: {
 		height: 45,
@@ -177,18 +181,14 @@ const styles = StyleSheet.create({
 	},
 	cardRow: {
 		flexDirection: 'row',
-		gap: 20,
+		gap: 4,
 		paddingBottom: 16,
 	},
 	cardStyle: {
 		width: SCREEN_WIDTH / 3,
 		paddingTop: 10,
 	},
-	groupSeparator: {
-		borderTopWidth: 1,
-		borderColor: 'rgba(0,0,0,0.1)',
-		paddingTop: 16,
-	},
+	groupSeparator: {},
 	hapticPressContainer: {
 		width: '100%',
 		height: 60,

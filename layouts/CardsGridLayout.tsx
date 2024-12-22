@@ -14,7 +14,7 @@ const CardsGridLayout = (props: Props) => {
 			numColumns={3}
 			contentContainerStyle={{ gap: GAP }}
 			columnWrapperStyle={{ gap: GAP, justifyContent: 'flex-start' }}
-			style={{ margin: 'auto', width: '100%' }}
+			style={{ margin: 'auto', height: '75%', width: '100%' }}
 		/>
 	);
 };

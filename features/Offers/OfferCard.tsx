@@ -3,7 +3,7 @@ import Typography from '@/components/Typography/Typography';
 import { IOffer } from '@/entities/offer.entity';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { favoritesStore } from '@/stores';
-import { formatOfferChannels, formatUploadPath, truncateLongText, wait } from '@/utils/utils';
+import { formatOfferChannels, formatUploadPath, wait } from '@/utils/utils';
 import Ionicons from '@expo/vector-icons/AntDesign';
 import { Image } from 'expo-image';
 import { observer } from 'mobx-react-lite';
@@ -53,11 +53,11 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 					style={{ height: 50, width: 50, resizeMode: 'contain' }}
 				/>
 				<View className='flex-1 flex-col gap-2'>
-					<Typography variant='h3' color={theme['--primary-1']}>
-						{truncateLongText(offer.title.en, 10)}
+					<Typography variant='h3' color={theme['--primary-1']} numberOfLines={1}>
+						{offer.title.en}
 					</Typography>
-					<Typography style={{ fontSize: 10, height: 50 }}>
-						{truncateLongText(offer.description.en, 60)}
+					<Typography numberOfLines={2} style={{ fontSize: 10, height: 50 }}>
+						{offer.description.en}
 					</Typography>
 					<Typography style={{ fontSize: 12 }} color={theme['--primary-3']}>
 						{moment(offer.expiry_date.toString()).format('DD/MM/YYYY')}

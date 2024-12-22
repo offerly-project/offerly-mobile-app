@@ -5,7 +5,7 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView, StatusBar, Text } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import '../global.css';
 
@@ -53,6 +53,7 @@ export default function RootLayout() {
 		<ThemeContextProvider>
 			{(theme) => (
 				<GestureHandlerRootView style={{ flex: 1 }}>
+					<StatusBar barStyle={'light-content'} />
 					<BottomSheetModalProvider>
 						<Stack screenOptions={{ ...getBaseScreenLayout(theme) }}>
 							<Stack.Screen

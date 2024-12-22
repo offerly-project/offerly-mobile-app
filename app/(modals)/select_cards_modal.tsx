@@ -7,9 +7,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { BanksApi } from '@/api/banks.api';
 import { CardsApi } from '@/api/cards.api';
-import HapticPress from '@/components/HapticPress/HapticPress';
+import Button from '@/components/Button/Buttton';
 import Select from '@/components/Select/Select';
 import Typography from '@/components/Typography/Typography';
+import { SCREEN_WIDTH } from '@/constants/screens';
 import { IBank } from '@/entities/bank.entity';
 import { ICard } from '@/entities/card.entity';
 import CardCard from '@/features/Cards/CardCard';
@@ -137,13 +138,17 @@ const SelectCardsModal = () => {
 					item.data.name.en.toLowerCase().includes(search.toLowerCase())
 				}
 			/>
-			<View style={{ flex: 0.9 }}>
+			<View>
 				<CardsGridLayout
 					data={bankCards.filter(
 						(card) => !userCardsList.some((userCard) => userCard.id === card.id),
 					)}
 					renderItem={({ item }) => (
 						<CardCard
+							height={100}
+							width={SCREEN_WIDTH * 0.28}
+							logoHeight={50}
+							logoWidth={100}
 							card={item}
 							onPress={() => {
 								setSelectedCards((prev) => {
@@ -164,21 +169,16 @@ const SelectCardsModal = () => {
 			</View>
 			{selectedCards.length > 0 && (
 				<Animated.View style={[styles.hapticPressContainer, animatedStyle]}>
-					{loading.adding ? (
-						<ActivityIndicator color={theme['--primary-1']} />
-					) : (
-						<HapticPress
-							onPress={onAdd}
-							className='align-center justify-center flex-row px-4'
-						>
-							<Ionicons
-								name='checkmark-circle'
-								disabled={disabled}
-								size={30}
-								color={theme['--primary-1']}
-							/>
-						</HapticPress>
-					)}
+					<Button
+						borderStyle='filled'
+						style={{ borderRadius: 20 }}
+						loading={loading.adding}
+						loadingComponent={<ActivityIndicator color={theme['--primary-1']} />}
+						onPress={onAdd}
+						hapticFeedback
+					>
+						<Typography color={theme['--background-1']}>Add</Typography>
+					</Button>
 				</Animated.View>
 			)}
 		</SafeAreaView>
@@ -211,7 +211,6 @@ const styles = StyleSheet.create({
 	},
 	hapticPressContainer: {
 		width: '100%',
-		height: 60,
 		backgroundColor: 'transparent',
 		justifyContent: 'center',
 		alignItems: 'center',

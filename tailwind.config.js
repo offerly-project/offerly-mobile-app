@@ -14,6 +14,7 @@ module.exports = {
 				'text-1': 'var(--text-1)',
 				'text-2': 'var(--text-2)',
 				'text-3': 'var(--text-3)',
+				'background-1': 'var(--background-1)',
 			},
 		},
 	},
