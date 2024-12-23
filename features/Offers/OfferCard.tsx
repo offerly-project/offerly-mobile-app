@@ -1,20 +1,26 @@
 import Link from '@/components/Typography/Link';
 import Typography from '@/components/Typography/Typography';
+import { ThemeStyle } from '@/constants/themes';
 import { IOffer } from '@/entities/offer.entity';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { favoritesStore } from '@/stores';
-import { formatOfferChannels, formatUploadPath, wait } from '@/utils/utils';
+import { formatUploadPath, wait } from '@/utils/utils';
 import Ionicons from '@expo/vector-icons/AntDesign';
 import { Image } from 'expo-image';
 import { observer } from 'mobx-react-lite';
 import moment from 'moment';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Linking, Modal, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type Props = {
 	offer: IOffer;
 	closeOnUnfavorite?: boolean;
+};
+
+type FooterBuildElement = {
+	key: string;
+	value: string | number;
 };
 
 const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
@@ -36,11 +42,46 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 		}
 	};
 
-	const formatValidityPeriod = () => {
-		const start = offer.starting_date ? moment(offer.starting_date).format('DD/MM/YYYY') : '';
-		const end = offer.expiry_date ? moment(offer.expiry_date).format('DD/MM/YYYY') : '';
-		return start || end ? `Valid From: ${start} - ${end}` : '';
-	};
+	const offerDateRangeFormat = useMemo(() => {
+		const expFmt = moment(offer?.expiry_date?.toString()).format('DD/MM/YYYY');
+		const startFmt = moment(offer?.starting_date?.toString()).format('DD/MM/YYYY');
+		if (offer.starting_date && offer.expiry_date) {
+			return `Start: ${startFmt} - Expiry: ${expFmt}`;
+		}
+		if (offer.starting_date && !offer.expiry_date) {
+			return `Start: ${startFmt}`;
+		}
+		if (offer.expiry_date && !offer.starting_date) {
+			return `Expiry: ${expFmt}`;
+		}
+		return null;
+	}, [offer.expiry_date, offer.starting_date]);
+	const styles = getStyles(theme);
+
+	const footerBuildElements: FooterBuildElement[] = (function () {
+		const elements: FooterBuildElement[] = [];
+		if (offer.discount_code) {
+			elements.push({ key: 'Discount Code', value: offer.discount_code });
+		}
+		if (offer.cap) {
+			elements.push({ key: 'Discount Amount', value: `Up to ${offer.cap}` });
+		}
+		if (offer.minimum_amount) {
+			elements.push({ key: 'Min. Spending', value: offer.minimum_amount });
+		}
+		if (offer.channels.length > 0) {
+			const channels = [];
+			if (offer.channels.includes('in-store')) {
+				channels.push('In Store');
+			}
+			if (offer.channels.includes('online')) {
+				channels.push('Online');
+			}
+			elements.push({ key: 'Experience', value: channels.join(' & ') });
+		}
+
+		return elements;
+	})();
 
 	return (
 		<>
@@ -91,70 +132,105 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 						<Image
 							source={formatUploadPath(offer.logo)}
 							style={{
-								height: 150,
-								width: 150,
+								height: 200,
+								width: 200,
 								resizeMode: 'contain',
 								alignSelf: 'center',
+								borderWidth: 1,
+								borderColor: theme['--primary-1'],
+								borderRadius: 40,
 							}}
 						/>
-						<Typography variant='h2' color={theme['--text-1']}>
-							{offer.title.en}
-						</Typography>
+						<View className='flex flex-row m-auto items-center justify-center'>
+							<Typography variant='title' color={theme['--primary-1']} weight='bold'>
+								{offer.title.en}
+							</Typography>
+						</View>
+						{offer.categories?.length > 0 &&
+							offer.categories.map((category) => (
+								<View
+									key={category}
+									className='rounded-full px-4 py-1 bg-primary-3'
+									style={{ margin: 'auto' }}
+								>
+									<Typography color={theme['--background']}>
+										{category}
+									</Typography>
+								</View>
+							))}
 
 						<ScrollView contentContainerClassName='gap-4'>
-							<Typography color={theme['--text-2']}>
-								{offer.description.en}
-							</Typography>
-							{formatValidityPeriod() && (
-								<Typography color={theme['--text-3']}>
-									{formatValidityPeriod()}
+							<View style={[styles.section]}>
+								{offerDateRangeFormat && (
+									<Typography
+										color={theme['--primary-1']}
+										variant='body'
+										weight='bold'
+									>
+										{offerDateRangeFormat}
+									</Typography>
+								)}
+								<Typography
+									variant='body'
+									weight='light'
+									color={theme['--primary-2']}
+								>
+									{offer.description.en}
 								</Typography>
-							)}
-							{offer.discount_code && (
-								<Typography color={theme['--text-1']}>
-									Code: {offer.discount_code}
-								</Typography>
-							)}
-							{offer.minimum_amount && (
-								<Typography color={theme['--text-3']}>
-									Minimum Amount: {offer.minimum_amount}
-								</Typography>
-							)}
-							{offer.cap && (
-								<Typography color={theme['--text-3']}>Cap: {offer.cap}</Typography>
-							)}
-							{offer.offer_source_link && (
-								<Link
-									onPress={() => Linking.openURL(offer.offer_source_link)}
-									style={{
-										borderColor: theme['--primary-1'],
-										alignSelf: 'flex-start',
-									}}
+							</View>
+							<View style={[styles.section]}>
+								<Typography
 									color={theme['--primary-1']}
+									variant='body'
+									weight='bold'
+								>
+									Terms & Conditions
+								</Typography>
+
+								<Typography
+									variant='body'
+									weight='light'
+									color={theme['--primary-2']}
+								>
+									{offer.terms_and_conditions.en}
+								</Typography>
+							</View>
+							<View style={[styles.section]}>
+								{footerBuildElements.map((element) => (
+									<View
+										key={element.key}
+										className='flex flex-row justify-between'
+									>
+										<Typography
+											color={theme['--primary-1']}
+											variant='body'
+											weight='bold'
+										>
+											{element.key}:
+										</Typography>
+										<Typography
+											variant='body'
+											weight='bold'
+											color={theme['--primary-2']}
+										>
+											{element.value}
+										</Typography>
+									</View>
+								))}
+								<Link
+									color={theme['--primary-1']}
+									style={{
+										borderBottomColor: theme['--primary-1'],
+										margin: 'auto',
+										marginTop: 6,
+									}}
+									onPress={() => {
+										Linking.openURL(offer.offer_source_link);
+									}}
 								>
 									Offer Link
 								</Link>
-							)}
-							{offer.channels?.length > 0 && (
-								<Typography color={theme['--text-3']}>
-									Channels: {formatOfferChannels(offer.channels).join(', ')}
-								</Typography>
-							)}
-							{offer.categories?.length > 0 && (
-								<Typography color={theme['--text-2']}>
-									Categories: {offer.categories.join(', ')}
-								</Typography>
-							)}
-							{offer.terms_and_conditions?.en && (
-								<>
-									<Typography color={theme['--text-3']}>
-										Terms and Conditions:
-									</Typography>
-									<Typography color={theme['--text-2']}>
-										{offer.terms_and_conditions.en}
-									</Typography>
-								</>
-							)}
+							</View>
 						</ScrollView>
 					</View>
 				</View>
@@ -165,4 +241,12 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 
 export default OfferCard;
 
-const styles = StyleSheet.create({});
+const getStyles = (theme: ThemeStyle) =>
+	StyleSheet.create({
+		section: {
+			borderRadius: 10,
+			padding: 10,
+			width: '100%',
+			backgroundColor: theme['--background-1'],
+		},
+	});

@@ -1,4 +1,3 @@
-import Typography from '@/components/Typography/Typography';
 import OfferCard from '@/features/Offers/OfferCard';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import TabLayout from '@/layouts/TabLayout';
@@ -29,9 +28,6 @@ const Favorites = observer((props: Props) => {
 				</View>
 			) : (
 				<View className='p-6 flex-1'>
-					<Typography variant='h3' color={theme['--text-1']} style={{ padding: 10 }}>
-						Favorites
-					</Typography>
 					<FlatList
 						data={offers}
 						renderItem={({ item }) => (

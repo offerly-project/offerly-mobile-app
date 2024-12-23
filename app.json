@@ -40,10 +40,10 @@
 				"expo-font",
 				{
 					"fonts": [
-						"./assets/fonts/Robot-Bold.ttf",
-						"./assets/fonts/Robot-Regular.ttf",
-						"./assets/fonts/Robot-Light.ttf",
-						"./assets/fonts/Robot-Medium.ttf"
+						"./assets/fonts/Tajawal-Bold.ttf",
+						"./assets/fonts/Tajawal-Regular.ttf",
+						"./assets/fonts/Tajawal-Light.ttf",
+						"./assets/fonts/Tajawal-Medium.ttf"
 					]
 				}
 			]

@@ -24,10 +24,10 @@ ScrollView.defaultProps = {
 
 export default function RootLayout() {
 	const [loaded, error] = useFonts({
-		'Roboto-Regular': require('@/assets/fonts/Roboto-Regular.ttf'),
-		'Roboto-Medium': require('@/assets/fonts/Roboto-Medium.ttf'),
-		'Roboto-Bold': require('@/assets/fonts/Roboto-Bold.ttf'),
-		'Roboto-Light': require('@/assets/fonts/Roboto-Light.ttf'),
+		'Tajawal-Regular': require('@/assets/fonts/Tajawal-Regular.ttf'),
+		'Tajawal-Medium': require('@/assets/fonts/Tajawal-Medium.ttf'),
+		'Tajawal-Bold': require('@/assets/fonts/Tajawal-Bold.ttf'),
+		'Tajawal-Light': require('@/assets/fonts/Tajawal-Light.ttf'),
 	});
 
 	const [loading, setLoading] = useState(true);
