@@ -19,11 +19,11 @@ export class AuthApi {
 	};
 
 	static forgotPassword = async (email: string) => {
-		return axiosInstance
+		return await axiosInstance
 			.post('/user/auth/forgot-password', {
 				email,
 			})
-			.then((res: AxiosResponse<{ timer: number }>) => res.data.timer);
+			.then((res: AxiosResponse<{ message: string; timer: number }>) => res.data);
 	};
 
 	static resetPassword = async (email: string, password: string) => {

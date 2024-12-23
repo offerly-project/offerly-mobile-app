@@ -6,6 +6,7 @@ import { SecureStore } from '@/services/secure-store.service';
 import _ from 'lodash';
 import { action, makeAutoObservable, observable, runInAction } from 'mobx';
 import { RootStore } from '.';
+import { OtpApi } from '@/api/otp.api';
 
 export class UserStore {
 	private rootStore: RootStore;
@@ -55,5 +56,10 @@ export class UserStore {
 	@action
 	forgetPassword = async (email: string) => {
 		return await AuthApi.forgotPassword(email);
+	};
+
+	@action
+	verifyOTP = async (email: string, code: string) => {
+		return await OtpApi.verifyOtp(email, code);
 	};
 }

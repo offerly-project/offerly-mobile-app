@@ -5,6 +5,7 @@ import Link from '@/components/Typography/Link';
 import Typography from '@/components/Typography/Typography';
 import { useForm } from '@/hooks/useForm';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import KeyboardAvoidingLayout from '@/layouts/KeyboardAvoidingLayout';
 import { userStore } from '@/stores';
 import { useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
@@ -43,7 +44,7 @@ const LoginForm = () => {
 
 	return (
 		<>
-			<View className='flex-1 justify-center items-center'>
+			<KeyboardAvoidingLayout className='flex-1 justify-center items-center'>
 				<View className='gap-10 m-auto w-full'>
 					<View>
 						<Typography
@@ -92,20 +93,20 @@ const LoginForm = () => {
 					</View>
 
 					<View className='m-auto'>
-						<Link to='/forgetPassword' variant='label'>
+						<Link color={theme['--primary-2']} to='/forgetPassword' variant='label'>
 							Forgot your password?
 						</Link>
 					</View>
 				</View>
 				<View className='flex-row gap-1 items-center absolute bottom-0'>
-					<Typography weight='light' variant='label'>
+					<Typography color={theme['--primary-2']} weight='light' variant='label'>
 						Dont have an account?
 					</Typography>
-					<Link replace to={'/signup'} variant='label'>
+					<Link replace to={'/signup'} color={theme['--primary-2']} variant='label'>
 						Sign up
 					</Link>
 				</View>
-			</View>
+			</KeyboardAvoidingLayout>
 		</>
 	);
 };

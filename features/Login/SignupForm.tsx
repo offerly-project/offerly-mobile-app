@@ -10,6 +10,7 @@ import z from 'zod';
 import { useState } from 'react';
 import { router } from 'expo-router';
 import { userStore } from '@/stores';
+import KeyboardAvoidingLayout from '@/layouts/KeyboardAvoidingLayout';
 
 const schema = z.object({
 	full_name: z.string().min(1, { message: 'Full name is required' }),
@@ -53,7 +54,7 @@ export default function SignupForm() {
 
 	return (
 		<>
-			<View className='flex-1 justify-center items-center'>
+			<KeyboardAvoidingLayout className='flex-1 justify-center items-center'>
 				<View className='gap-10 m-auto w-full'>
 					<View>
 						<Typography
@@ -101,14 +102,14 @@ export default function SignupForm() {
 					</View>
 				</View>
 				<View className='flex-row gap-1 items-center absolute bottom-0'>
-					<Typography weight='light' variant='label'>
+					<Typography color={theme['--primary-2']} weight='light' variant='label'>
 						Already have an account?
 					</Typography>
-					<Link replace to='/login' variant='label'>
+					<Link color={theme['--primary-2']} replace to='/login' variant='label'>
 						Sign in
 					</Link>
 				</View>
-			</View>
+			</KeyboardAvoidingLayout>
 			<Modal
 				visible={showModal}
 				transparent={true}

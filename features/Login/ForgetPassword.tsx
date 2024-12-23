@@ -6,6 +6,10 @@ import Link from '@/components/Typography/Link';
 import z from 'zod';
 import { useForm } from '@/hooks/useForm';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import { userStore } from '@/stores';
+import { useState } from 'react';
+import OtpForm from './OtpForm';
+import KeyboardAvoidingLayout from '@/layouts/KeyboardAvoidingLayout';
 
 const schema = z.object({
 	email: z
@@ -18,25 +22,35 @@ type FormValues = z.infer<typeof schema>;
 
 export default function ForgetPassword() {
 	const theme = useThemeStyles();
+	const [timer, setTimer] = useState(0);
+	const [showOTPverification, setShowOTPverification] = useState(false);
 
 	const { handleSubmit, setValues, loading, errors, submittable, values, serverError } =
 		useForm<FormValues>({
 			initialValues: {
-				email: '',
+				email: 'testuser.offerly@gmail.com',
 			},
 			schema,
 			onSubmit: async (values) => {
-				// const { email } = values;
-				// let timer = await userStore().forgetPassword(email);
-				console.log(values);
+				const { email } = values;
+				const res = await userStore().forgetPassword(email);
+				if (res) {
+					setTimer(res.timer / 1000);
+					setShowOTPverification(true);
+				}
 			},
 		});
 	const onInputChange = (key: keyof FormValues) => (value: string) => {
 		setValues((prev) => ({ ...prev, [key]: value }));
 	};
+
+	if (showOTPverification) {
+		return <OtpForm timer={timer} email={values.email} />;
+	}
+
 	return (
 		<>
-			<View className='flex-1 justify-center items-center'>
+			<KeyboardAvoidingLayout className='flex-1 justify-center items-center'>
 				<View className='gap-7 m-auto w-full'>
 					<View className='gap-2.5'>
 						<Typography
@@ -75,14 +89,14 @@ export default function ForgetPassword() {
 					</View>
 				</View>
 				<View className='flex-row gap-1 items-center absolute bottom-0'>
-					<Typography weight='light' variant='label'>
+					<Typography color={theme['--primary-2']} weight='light' variant='label'>
 						Try logging in?
 					</Typography>
-					<Link goBack to={'/login'} variant='label'>
+					<Link color={theme['--primary-2']} goBack variant='label'>
 						Login now
 					</Link>
 				</View>
-			</View>
+			</KeyboardAvoidingLayout>
 		</>
 	);
 }

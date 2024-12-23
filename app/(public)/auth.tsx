@@ -4,7 +4,10 @@ import Button from '@/components/Button/Buttton';
 import Typography from '@/components/Typography/Typography';
 import Link from '@/components/Typography/Link';
 import { router } from 'expo-router';
+import { useThemeStyles } from '@/hooks/useThemeStyles';
+
 export default function index() {
+	const theme = useThemeStyles();
 	return (
 		<SafeAreaView className='flex-1 bg-white'>
 			<View className='flex-1 px-8 justify-center items-center'>
@@ -18,7 +21,9 @@ export default function index() {
 					</Button>
 				</View>
 				<View className='absolute bottom-0'>
-					<Link to='./login.tsx'>Continue as a guest</Link>
+					<Link color={theme['--primary-2']} to='./login.tsx'>
+						Continue as a guest
+					</Link>
 				</View>
 			</View>
 		</SafeAreaView>

@@ -39,10 +39,7 @@ const Button: React.FC<ButtonProps> = ({
 
 	const buttonStyle = (function () {
 		const styles = `rounded-full p-4 flex flex-row align-middle justify-center`;
-		if (isDisabled) {
-			return `${styles} opacity-60`;
-		}
-		return `${styles} ${BORDER_STYLE[borderStyle]}-${COLORING[variant]}`;
+		return `${styles} ${BORDER_STYLE[borderStyle]}-${COLORING[variant]} ${isDisabled && 'opacity-60'}`;
 	})();
 
 	const handlePress = (event: GestureResponderEvent) => {
