@@ -18,15 +18,20 @@ export class UserStore {
 
 	@action
 	setup = async () => {
-		const token = await SecureStore.getItem('token');
-		if (token) {
-			AxiosAuthInterceptorManager.addInterceptor(token);
-			const user = await UserApi.me();
-			runInAction(() => {
-				this.authenticated = true;
-				this.user = new User(_.omit(user, ['favorites', 'cards']), token);
-				this.rootStore.favoritesStore.setFavorites(user.favorites);
-			});
+		try {
+			const token = await SecureStore.getItem('token');
+			if (token) {
+				AxiosAuthInterceptorManager.addInterceptor(token);
+				const user = await UserApi.me();
+				runInAction(async () => {
+					this.authenticated = true;
+					this.user = new User(_.omit(user, ['favorites', 'cards']), token);
+					this.rootStore.favoritesStore.setFavorites(user.favorites);
+				});
+			}
+		} catch (e) {
+			AxiosAuthInterceptorManager.removeInterceptor();
+			console.log(e);
 		}
 	};
 
