@@ -36,9 +36,9 @@ export default function RootLayout() {
 		if (loaded) {
 			staticDataStore()
 				.fetchStaticData()
-				.then(() => {
+				.then(async () => {
+					await userStore().setup();
 					SplashScreen.hideAsync();
-					userStore().login('jadhamwi4@gmail.com', '1234');
 					setLoading(false);
 				});
 		}

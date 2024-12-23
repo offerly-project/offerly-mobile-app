@@ -1,10 +1,11 @@
 import { AuthApi } from '@/api/auth.api';
+import { UserApi } from '@/api/user.api';
 import { AxiosAuthInterceptorManager } from '@/configs/axios';
 import { User } from '@/entities/user.entity';
+import { SecureStore } from '@/services/secure-store.service';
 import _ from 'lodash';
 import { action, makeAutoObservable, observable, runInAction } from 'mobx';
 import { RootStore } from '.';
-import { UserApi } from '@/api/user.api';
 
 export class UserStore {
 	private rootStore: RootStore;
@@ -16,13 +17,28 @@ export class UserStore {
 	}
 
 	@action
+	setup = async () => {
+		const token = await SecureStore.getItem('token');
+		if (token) {
+			AxiosAuthInterceptorManager.addInterceptor(token);
+			const user = await UserApi.me();
+			runInAction(() => {
+				this.authenticated = true;
+				this.user = new User(_.omit(user, ['favorites', 'cards']), token);
+				this.rootStore.favoritesStore.setFavorites(user.favorites);
+			});
+		}
+	};
+
+	@action
 	login = async (email: string, password: string) => {
 		const { user, token } = await AuthApi.login(email, password);
 		runInAction(() => {
 			this.authenticated = true;
-			this.user = new User(_.omit(user, ['favorites']), token);
+			this.user = new User(_.omit(user, ['favorites', 'cards']), token);
 			this.rootStore.favoritesStore.setFavorites(user.favorites);
 		});
+		SecureStore.setItem('token', token);
 		AxiosAuthInterceptorManager.addInterceptor(token);
 	};
 
