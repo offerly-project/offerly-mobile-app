@@ -59,7 +59,7 @@ export class UserStore {
 	};
 
 	@action
-	verifyOTP = async (email: string, code: string) => {
-		return await OtpApi.verifyOtp(email, code);
+	verifyOTP = async (code: string, email: string) => {
+		return await OtpApi.verifyOtp(code, email);
 	};
 }

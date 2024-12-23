@@ -6,6 +6,7 @@ import Button from '@/components/Button/Buttton';
 import { useState, useEffect } from 'react';
 import { userStore } from '@/stores';
 import KeyboardAvoidingLayout from '@/layouts/KeyboardAvoidingLayout';
+import { AxiosError } from 'axios';
 
 interface OtpFormProps {
 	timer: number;
@@ -17,14 +18,23 @@ export default function OtpForm({ timer, email }: OtpFormProps) {
 	const [canSubmit, setCanSubmit] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [timeLeft, setTimeLeft] = useState(timer);
+	const [otpCode, setOtpCode] = useState('');
+	const [serverError, setServerError] = useState('');
 
 	const handleOTPChange = (code: string) => {
-		if (code.length === 4) setCanSubmit(true);
-		else setCanSubmit(false);
+		setOtpCode(code);
+		if (code.length === 4) {
+			setCanSubmit(true);
+		} else setCanSubmit(false);
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		setLoading(true);
+		try {
+			const res = await userStore().verifyOTP(otpCode, email);
+		} catch (err) {
+			if (err instanceof AxiosError) setServerError(err.response?.data.message);
+		}
 	};
 
 	const handleResend = async () => {
@@ -52,15 +62,22 @@ export default function OtpForm({ timer, email }: OtpFormProps) {
 				Enter OTP Code
 			</Typography>
 			<OTPInput onCodeChange={(code) => handleOTPChange(code)} />
-			<Button
-				disabled={!canSubmit}
-				loading={loading}
-				borderStyle='filled'
-				loadingComponent={<ActivityIndicator color={theme['--background']} />}
-				onPress={handleSubmit}
-			>
-				<Typography color='white'>Send</Typography>
-			</Button>
+			<View className='gap-3'>
+				<Button
+					disabled={!canSubmit}
+					// loading={loading}
+					borderStyle='filled'
+					loadingComponent={<ActivityIndicator color={theme['--background']} />}
+					onPress={handleSubmit}
+				>
+					<Typography color='white'>Send</Typography>
+				</Button>
+				{serverError && (
+					<Typography variant='caption' color='red' align='center'>
+						{serverError}
+					</Typography>
+				)}
+			</View>
 			<View className='flex-row justify-center gap-1'>
 				<TouchableOpacity disabled={timeLeft != 0} onPress={handleResend}>
 					<Typography

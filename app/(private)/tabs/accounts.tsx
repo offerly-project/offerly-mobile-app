@@ -1,13 +1,13 @@
-import Typography from '@/components/Typography/Typography';
+import AccountPage from '@/features/Profile/AccountPage';
 import TabLayout from '@/layouts/TabLayout';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 type Props = {};
 
 const Accounts = (props: Props) => {
 	return (
 		<TabLayout title='Account'>
-			<Typography>Account</Typography>
+			<AccountPage />
 		</TabLayout>
 	);
 };
