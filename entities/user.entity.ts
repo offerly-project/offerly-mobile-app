@@ -5,6 +5,8 @@ export interface IUser {
 	cards: string[];
 }
 
+export type PatchUserData = Partial<Pick<IUser, 'full_name'>>;
+
 export class User {
 	email: string;
 	full_name: string;
@@ -13,5 +15,9 @@ export class User {
 		this.email = user.email;
 		this.full_name = user.full_name;
 		this.token = token;
+	}
+
+	update(user: Partial<PatchUserData>) {
+		if (user.full_name) this.full_name = user.full_name;
 	}
 }

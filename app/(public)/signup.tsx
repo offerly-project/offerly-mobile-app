@@ -1,4 +1,4 @@
-import SignupForm from '@/features/Login/SignupForm';
+import SignupForm from '@/features/Auth/SignupForm';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function SignupScreen() {

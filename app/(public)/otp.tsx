@@ -1,4 +1,4 @@
-import OtpForm from '@/features/Login/OtpForm';
+import OtpForm from '@/features/Auth/OtpForm';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const OTPScreen = () => {

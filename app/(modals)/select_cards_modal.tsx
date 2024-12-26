@@ -13,7 +13,7 @@ import Typography from '@/components/Typography/Typography';
 import { SCREEN_WIDTH } from '@/constants/screens';
 import { IBank } from '@/entities/bank.entity';
 import { ICard } from '@/entities/card.entity';
-import CardCard from '@/features/Cards/CardCard';
+import CardCard from '@/features/Cards/components/CardCard';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import CardsGridLayout from '@/layouts/CardsGridLayout';
 import { cardsStore } from '@/stores';

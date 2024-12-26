@@ -1,4 +1,4 @@
-import ForgetPassword from '@/features/Login/ForgetPassword';
+import ForgetPassword from '@/features/Auth/ForgetPassword';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function forgetPassword() {

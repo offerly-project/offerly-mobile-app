@@ -1,12 +1,12 @@
 import { AuthApi } from '@/api/auth.api';
+import { OtpApi } from '@/api/otp.api';
 import { UserApi } from '@/api/user.api';
 import { AxiosAuthInterceptorManager } from '@/configs/axios';
-import { User } from '@/entities/user.entity';
+import { PatchUserData, User } from '@/entities/user.entity';
 import { SecureStore } from '@/services/secure-store.service';
 import _ from 'lodash';
 import { action, makeAutoObservable, observable, runInAction } from 'mobx';
 import { RootStore } from '.';
-import { OtpApi } from '@/api/otp.api';
 
 export class UserStore {
 	private rootStore: RootStore;
@@ -75,6 +75,16 @@ export class UserStore {
 			this.user = new User(_.omit(user, ['favorites', 'cards']), newToken);
 			this.rootStore.favoritesStore.setFavorites(user.favorites);
 		});
+	};
+
+	@action
+	updateUser = async (data: Partial<PatchUserData>) => {
+		try {
+			await UserApi.patchUser(data);
+			this.user.update(data);
+		} catch (e) {
+			console.log(e);
+		}
 	};
 
 	@action

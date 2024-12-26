@@ -1,5 +1,5 @@
 import { axiosInstance } from '@/configs/axios';
-import { IUser } from '@/entities/user.entity';
+import { IUser, PatchUserData } from '@/entities/user.entity';
 import { AxiosResponse } from 'axios';
 
 export class UserApi {
@@ -15,5 +15,11 @@ export class UserApi {
 
 	static async me() {
 		return axiosInstance.get('/user/user').then((res: AxiosResponse<IUser>) => res.data);
+	}
+
+	static async patchUser(user: PatchUserData) {
+		return axiosInstance.patch('/user/user', {
+			...user,
+		});
 	}
 }

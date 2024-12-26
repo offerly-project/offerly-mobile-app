@@ -4,7 +4,7 @@ import HapticPress from '@/components/HapticPress/HapticPress';
 import Typography from '@/components/Typography/Typography';
 import { SCREEN_WIDTH } from '@/constants/screens';
 import { ICard } from '@/entities/card.entity';
-import CardCard from '@/features/Cards/CardCard';
+import CardCard from '@/features/Cards/components/CardCard';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import TabLayout from '@/layouts/TabLayout';
 import { cardsStore } from '@/stores';
