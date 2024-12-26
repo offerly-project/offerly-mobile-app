@@ -3,7 +3,7 @@ import { vars } from 'nativewind';
 import { createContext, useContext, useState } from 'react';
 import { useColorScheme, View } from 'react-native';
 
-type ThemeNameType = 'light' | 'dark';
+export type ThemeNameType = 'light' | 'dark';
 
 type Context = {
 	theme: ThemeNameType;

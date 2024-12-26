@@ -1,7 +1,7 @@
-import AccountPage from '@/features/Profile/AccountPage';
+import AccountPage from '@/features/Account/AccountPage';
 import TabLayout from '@/layouts/TabLayout';
 import { observer } from 'mobx-react-lite';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 type Props = {};
 

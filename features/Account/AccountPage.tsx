@@ -1,40 +1,18 @@
-import Button from '@/components/Button/Buttton';
+import BottomSheetWrapper from '@/components/BottomSheet/BottomSheetWrapper';
 import Typography from '@/components/Typography/Typography';
 import { useThemeContext } from '@/contexts/ThemeContext';
-import EditProfile from '@/features/Profile/EditProfile';
 import { cardsStore, favoritesStore, userStore } from '@/stores';
 import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
 import { observer } from 'mobx-react-lite';
 
-import { useState } from 'react';
-import { ScrollView, Switch, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
+import { ScrollView, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
+import ThemeSwitchList from './components/ThemeSwitchList';
 
 // type Props = {};
 
 const AccountPage = observer(() => {
 	const { theme, switchTheme } = useThemeContext();
 
-	const [isDarkThemeEnabled, setIsDarkThemeEnabled] = useState(theme == 'dark');
-	const [isEditProfileEnabled, setIsEditProfileEnabled] = useState(false);
-
-	const toggleSwitch = () => {
-		setIsDarkThemeEnabled((previousState) => !previousState);
-		return isDarkThemeEnabled ? switchTheme('light') : switchTheme('dark');
-	};
-	if (isEditProfileEnabled) {
-		return (
-			<>
-				<EditProfile />
-				<Button
-					onPress={() => setIsEditProfileEnabled(!isEditProfileEnabled)}
-					borderStyle='filled'
-					className='self-center mt-auto mb-5'
-				>
-					<Typography color='white'>Done</Typography>
-				</Button>
-			</>
-		);
-	}
 	const getCardsAndFavCount = () => {
 		return [favoritesStore().favorites.length, cardsStore().userCardsList.length];
 	};
@@ -63,13 +41,12 @@ const AccountPage = observer(() => {
 					</Typography>
 					<View className='overflow-hidden rounded-2xl mb-8 mt-2'>
 						<ProfileListItem
-							onPress={() => setIsEditProfileEnabled(true)}
 							className='border-b-hairline border-gray-300'
 							label='Profile Details'
 							trailingIcon='chevron'
 							leadingIcon={
 								<Ionicons
-									className='bg-secondary-1 p-1.5'
+									className='bg-primary-1 p-1.5'
 									color='white'
 									style={{ borderRadius: 12 }}
 									name='person'
@@ -84,7 +61,7 @@ const AccountPage = observer(() => {
 							trailingIcon='chevron'
 							leadingIcon={
 								<Ionicons
-									className='bg-secondary-1 p-1.5'
+									className='bg-primary-1 p-1.5'
 									color='white'
 									style={{ borderRadius: 12 }}
 									name='information'
@@ -99,7 +76,7 @@ const AccountPage = observer(() => {
 							trailingIcon='chevron'
 							leadingIcon={
 								<Ionicons
-									className='bg-secondary-1 p-1.5'
+									className='bg-primary-1 p-1.5'
 									color='white'
 									style={{ borderRadius: 12 }}
 									name='text'
@@ -112,30 +89,41 @@ const AccountPage = observer(() => {
 					<Typography variant='label' className='ml-2' color='gray'>
 						Settings
 					</Typography>
-					<View className='rounded-2xl overflow-hidden mt-2 '>
-						<ProfileListItem
-							disabled
-							label='Dark Mode'
-							leadingIcon={
-								<Ionicons
-									className='bg-secondary-1 p-1.5'
-									color='white'
-									style={{ borderRadius: 12 }}
-									name='exit'
-									size={18}
+					<View className='rounded-2xl overflow-hidden mt-2'>
+						<BottomSheetWrapper
+							sheet={(closeHandler) => (
+								<ThemeSwitchList
+									onSelect={(theme) => {
+										switchTheme(theme);
+										closeHandler();
+									}}
+									selectedTheme={theme}
 								/>
-							}
-							trailingIcon={
-								<Switch value={isDarkThemeEnabled} onValueChange={toggleSwitch} />
-							}
-						/>
+							)}
+						>
+							{(openHandler) => (
+								<ProfileListItem
+									onPress={openHandler}
+									label='Theme'
+									leadingIcon={
+										<Ionicons
+											className='bg-primary-1 p-1.5'
+											color='white'
+											style={{ borderRadius: 12 }}
+											name='color-fill'
+											size={18}
+										/>
+									}
+								/>
+							)}
+						</BottomSheetWrapper>
 						<ProfileListItem
 							className='border-b-hairline border-gray-300'
 							label='Settings'
 							trailingIcon='chevron'
 							leadingIcon={
 								<Ionicons
-									className='bg-secondary-1 p-1.5'
+									className='bg-primary-1 p-1.5'
 									color='white'
 									style={{ borderRadius: 12 }}
 									name='settings'
@@ -148,7 +136,7 @@ const AccountPage = observer(() => {
 							label='Delete Account'
 							leadingIcon={
 								<AntDesign
-									className='bg-secondary-1 p-1.5'
+									className='bg-primary-1 p-1.5'
 									color='white'
 									style={{ borderRadius: 12 }}
 									name='delete'
@@ -162,7 +150,7 @@ const AccountPage = observer(() => {
 							onPress={userStore().logout}
 							leadingIcon={
 								<Ionicons
-									className='bg-secondary-1 p-1.5'
+									className='bg-primary-1 p-1.5'
 									color='white'
 									style={{ borderRadius: 12 }}
 									name={theme == 'dark' ? 'bulb' : 'moon'}
@@ -197,7 +185,7 @@ const ProfileListItem = ({
 }: ProfileListItemProps) => {
 	return (
 		<TouchableOpacity
-			className={`flex-row p-3.5 items-center  bg-white gap-3 ${className}`}
+			className={`flex-row p-3.5 items-center  bg-background-1 gap-3 ${className}`}
 			disabled={disabled}
 			onPress={onPress}
 			{...rest}
