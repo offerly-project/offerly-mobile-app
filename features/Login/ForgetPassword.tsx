@@ -7,9 +7,8 @@ import z from 'zod';
 import { useForm } from '@/hooks/useForm';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { userStore } from '@/stores';
-import { useState } from 'react';
-import OtpForm from './OtpForm';
 import KeyboardAvoidingLayout from '@/layouts/KeyboardAvoidingLayout';
+import { router } from 'expo-router';
 
 const schema = z.object({
 	email: z
@@ -22,8 +21,6 @@ type FormValues = z.infer<typeof schema>;
 
 export default function ForgetPassword() {
 	const theme = useThemeStyles();
-	const [timer, setTimer] = useState(0);
-	const [showOTPverification, setShowOTPverification] = useState(false);
 
 	const { handleSubmit, setValues, loading, errors, submittable, values, serverError } =
 		useForm<FormValues>({
@@ -35,18 +32,18 @@ export default function ForgetPassword() {
 				const { email } = values;
 				const res = await userStore().forgetPassword(email);
 				if (res) {
-					setTimer(res.timer / 1000);
-					setShowOTPverification(true);
+					router.push({
+						pathname: '/(public)/otp',
+						params: {
+							email,
+						},
+					});
 				}
 			},
 		});
 	const onInputChange = (key: keyof FormValues) => (value: string) => {
 		setValues((prev) => ({ ...prev, [key]: value }));
 	};
-
-	if (showOTPverification) {
-		return <OtpForm timer={timer} email={values.email} />;
-	}
 
 	return (
 		<>

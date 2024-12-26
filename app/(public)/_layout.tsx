@@ -17,6 +17,7 @@ export const PublicLayout = observer(() => {
 			<Stack.Screen name='login' />
 			<Stack.Screen name='forgetPassword' />
 			<Stack.Screen name='auth' />
+			<Stack.Screen name='otp' />
 			<Stack.Screen name='signup' />
 		</Stack>
 	);

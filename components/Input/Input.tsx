@@ -3,6 +3,7 @@ import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import React, { useEffect } from 'react';
 import { TextInput, TextInputProps, View } from 'react-native';
 import Typography from '../Typography/Typography';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const COLORING = {
 	primary: 'border-primary-1',
@@ -73,7 +74,7 @@ const Input: React.FC<InputProps> = ({
 	const Comp = sheeted ? BottomSheetTextInput : TextInput;
 	const theme = useThemeStyles();
 	return (
-		<>
+		<View className='gap-2'>
 			<View className={containerStyles}>
 				{leadingIcon && leadingIcon()}
 				<Comp
@@ -92,11 +93,11 @@ const Input: React.FC<InputProps> = ({
 				{trailingIcon && trailingIcon()}
 			</View>
 			{error && (
-				<Typography color='red' variant='caption'>
-					{error}
+				<Typography align='center' color='red' variant='caption'>
+					<MaterialCommunityIcons className='mr-2' name='information-outline' /> {error}
 				</Typography>
 			)}
-		</>
+		</View>
 	);
 };
 

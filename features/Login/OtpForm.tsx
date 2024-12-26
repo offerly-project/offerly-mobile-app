@@ -7,19 +7,25 @@ import { useState, useEffect } from 'react';
 import { userStore } from '@/stores';
 import KeyboardAvoidingLayout from '@/layouts/KeyboardAvoidingLayout';
 import { AxiosError } from 'axios';
+import NewPasswordForm from './NewPasswordForm';
+import { useLocalSearchParams } from 'expo-router/build/hooks';
 
-interface OtpFormProps {
-	timer: number;
-	email: string;
-}
-
-export default function OtpForm({ timer, email }: OtpFormProps) {
+export default function OtpForm() {
 	const theme = useThemeStyles();
+
+	const params = useLocalSearchParams();
+	const email = params.email as string;
+
 	const [canSubmit, setCanSubmit] = useState(false);
 	const [loading, setLoading] = useState(false);
-	const [timeLeft, setTimeLeft] = useState(timer);
 	const [otpCode, setOtpCode] = useState('');
 	const [serverError, setServerError] = useState('');
+
+	const [showNewPasswordView, setShowNewPasswordView] = useState(false);
+	const [resetPasswordTempToken, setResetPasswordTempToken] = useState('');
+
+	const [timeLeft, setTimeLeft] = useState(30);
+	let interval: NodeJS.Timeout;
 
 	const handleOTPChange = (code: string) => {
 		setOtpCode(code);
@@ -32,6 +38,11 @@ export default function OtpForm({ timer, email }: OtpFormProps) {
 		setLoading(true);
 		try {
 			const res = await userStore().verifyOTP(otpCode, email);
+			if (res) {
+				clearInterval(interval);
+				setResetPasswordTempToken(res);
+				setShowNewPasswordView(true);
+			}
 		} catch (err) {
 			if (err instanceof AxiosError) setServerError(err.response?.data.message);
 		}
@@ -41,14 +52,14 @@ export default function OtpForm({ timer, email }: OtpFormProps) {
 		setLoading(true);
 		const res = await userStore().forgetPassword(email);
 		if (res) {
-			setTimeLeft(res.timer / 1000);
+			setTimeLeft(30);
 			setLoading(false);
 		}
 	};
 
 	useEffect(() => {
 		if (timeLeft > 0) {
-			const interval = setInterval(() => {
+			interval = setInterval(() => {
 				setTimeLeft((prev) => prev - 1);
 			}, 1000);
 
@@ -56,8 +67,12 @@ export default function OtpForm({ timer, email }: OtpFormProps) {
 		}
 	}, [timeLeft]);
 
+	if (showNewPasswordView) {
+		return <NewPasswordForm tempToken={resetPasswordTempToken} />;
+	}
+
 	return (
-		<KeyboardAvoidingLayout className='gap-10 flex-1 justify-center'>
+		<KeyboardAvoidingLayout className='gap-8 flex-1 justify-center'>
 			<Typography variant='h3' align='center' weight='light' color={theme['--primary-2']}>
 				Enter OTP Code
 			</Typography>
@@ -65,12 +80,12 @@ export default function OtpForm({ timer, email }: OtpFormProps) {
 			<View className='gap-3'>
 				<Button
 					disabled={!canSubmit}
-					// loading={loading}
+					loading={loading}
 					borderStyle='filled'
 					loadingComponent={<ActivityIndicator color={theme['--background']} />}
 					onPress={handleSubmit}
 				>
-					<Typography color='white'>Send</Typography>
+					<Typography color='white'>Verify code</Typography>
 				</Button>
 				{serverError && (
 					<Typography variant='caption' color='red' align='center'>
@@ -87,7 +102,9 @@ export default function OtpForm({ timer, email }: OtpFormProps) {
 						Resend
 					</Typography>
 				</TouchableOpacity>
-				<Typography weight='medium'> the OTP in {timeLeft}s</Typography>
+				<Typography weight='medium'>
+					{timeLeft == 0 ? 'OTP' : `the OTP in ${timeLeft}s`}
+				</Typography>
 			</View>
 		</KeyboardAvoidingLayout>
 	);

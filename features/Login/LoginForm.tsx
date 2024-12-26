@@ -26,8 +26,8 @@ const LoginForm = () => {
 	const { handleSubmit, setValues, loading, errors, submittable, values, serverError } =
 		useForm<FormValues>({
 			initialValues: {
-				email: '',
-				password: '',
+				email: 'testuser.offerly@gmail.com',
+				password: 't3stus3r@offerly',
 			},
 			schema,
 			onSubmit: async (values) => {

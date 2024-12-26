@@ -23,15 +23,22 @@ export class AuthApi {
 			.post('/user/auth/forgot-password', {
 				email,
 			})
-			.then((res: AxiosResponse<{ message: string; timer: number }>) => res.data);
+			.then((res: AxiosResponse<{ message: string; expiry: number }>) => res.data);
 	};
 
-	static resetPassword = async (email: string, password: string) => {
-		return axiosInstance
-			.post('/user/auth/reset-password', {
-				email,
-				password,
-			})
-			.then((req: AxiosResponse<{ token: string }>) => req.data.token);
+	static resetPassword = async (token: string, password: string) => {
+		return await axiosInstance
+			.post(
+				'/user/auth/reset-password',
+				{
+					password,
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				},
+			)
+			.then((req: AxiosResponse<{ token: string; message: string }>) => req.data);
 	};
 }

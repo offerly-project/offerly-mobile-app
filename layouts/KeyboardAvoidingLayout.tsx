@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, Platform } from 'react-native';
 
 interface KeyboardAvoidingLayoutProps {
 	children: ReactNode;
-	className: string;
+	className?: string;
 }
 
 export default function KeyboardAvoidingLayout({

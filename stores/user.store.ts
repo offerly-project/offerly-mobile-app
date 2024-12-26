@@ -65,16 +65,16 @@ export class UserStore {
 
 	@action
 	resetPasswordAndPerformLogin = async (tempToken: string, password: string) => {
-		const newToken = await AuthApi.resetPassword(tempToken, password);
-		console.log('newTOKEN:', newToken);
-		// AxiosAuthInterceptorManager.addInterceptor(newToken);
-		// SecureStore.setItem('token', newToken);
-		// const user = await UserApi.me();
-		// runInAction( () => {
-		// 	this.authenticated = true;
-		// 	this.user = new User(_.omit(user, ['favorites', 'cards']), newToken);
-		// 	this.rootStore.favoritesStore.setFavorites(user.favorites);
-		// });
+		const res = await AuthApi.resetPassword(tempToken, password);
+		const newToken = res.token;
+		AxiosAuthInterceptorManager.addInterceptor(newToken);
+		SecureStore.setItem('token', newToken);
+		const user = await UserApi.me();
+		runInAction(() => {
+			this.authenticated = true;
+			this.user = new User(_.omit(user, ['favorites', 'cards']), newToken);
+			this.rootStore.favoritesStore.setFavorites(user.favorites);
+		});
 	};
 
 	@action
