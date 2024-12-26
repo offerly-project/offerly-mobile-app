@@ -1,3 +1,4 @@
+import CloseButton from '@/components/Button/CloseButton';
 import Link from '@/components/Typography/Link';
 import Typography from '@/components/Typography/Typography';
 import { ThemeStyle } from '@/constants/themes';
@@ -123,9 +124,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 								color={theme['--primary-1']}
 							/>
 						</Pressable>
-						<Pressable onPress={() => setModalVisible(false)}>
-							<Ionicons size={25} name='close' color={theme['--primary-1']} />
-						</Pressable>
+						<CloseButton onPress={() => setModalVisible(false)} />
 					</View>
 
 					<View className='flex-1 gap-4'>

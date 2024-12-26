@@ -81,7 +81,9 @@ const AccountPage = observer(() => {
 							<ConfigurationItem
 								className='border-gray-300'
 								label='About Us'
-								trailing={<ConfigurationRouteChevronIcon />}
+								onPress={() => {
+									router.push('/(private)/about');
+								}}
 								leading={
 									<Ionicons
 										className='bg-primary-1 p-1.5'

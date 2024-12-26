@@ -27,6 +27,13 @@ export const PrivateLayout = observer(() => {
 	return (
 		<Stack screenOptions={getBaseScreenLayout(theme)}>
 			<Stack.Screen name='tabs' />
+			<Stack.Screen name='edit_profile' />
+			<Stack.Screen
+				name='about'
+				options={{
+					presentation: 'fullScreenModal',
+				}}
+			/>
 		</Stack>
 	);
 });
