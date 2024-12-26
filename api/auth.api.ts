@@ -28,7 +28,7 @@ export class AuthApi {
 
 	static resetPassword = async (token: string, password: string) => {
 		return await axiosInstance
-			.post(
+			.put(
 				'/user/auth/reset-password',
 				{
 					password,
