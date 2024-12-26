@@ -6,7 +6,7 @@ export const themes = {
 		'--secondary-1': '#8188d9',
 		'--secondary-2': '#fedebe',
 		'--background': '#121212',
-		'--background-1': '#F6F6F6',
+		'--background-1': '#2A2A2A',
 		'--text-1': '#ffffff',
 		'--text-2': '#b0b0b0',
 		'--text-3': '#8a8a8a',

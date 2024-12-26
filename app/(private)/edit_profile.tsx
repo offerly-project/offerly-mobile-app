@@ -17,11 +17,11 @@ export default function EditProfile() {
 	return (
 		<TabLayout title='Profile' leading={<BackButton />}>
 			<View style={{ paddingBottom: bottom }} className='p-4 flex-1'>
-				<View className='w-full shadow-sm shadow-gray-300 gap-6 flex-1'>
+				<View className='w-full gap-6 flex-1'>
 					<View className='overflow-hidden rounded-2xl'>
 						<ConfigurationItem
 							disabled
-							className='border-b-hairline border-gray-300'
+							className='border-gray-300'
 							label='Email Address'
 							trailing={
 								<Typography color='gray'>
@@ -49,7 +49,7 @@ export default function EditProfile() {
 					>
 						{(openHandler) => (
 							<ConfigurationItem
-								className='border-b-hairline border-gray-300 rounded-2xl'
+								className='border-gray-300 rounded-2xl'
 								label='Full name'
 								trailing={
 									<View className='flex-row gap-4'>

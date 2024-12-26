@@ -1,4 +1,5 @@
 import Typography from '@/components/Typography/Typography';
+import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -12,9 +13,9 @@ type Props = {
 
 const TabLayout = ({ children, title, trailing, leading }: Props) => {
 	const { top } = useSafeAreaInsets();
-
+	const theme = useThemeStyles();
 	return (
-		<View style={{ flex: 1 }}>
+		<View style={{ flex: 1, backgroundColor: theme['--background'] }}>
 			<LinearGradient
 				colors={['rgba(32,19,75,1)', 'rgba(90,46,182,1)', 'rgba(32,19,75,1)']}
 				style={{ paddingTop: top }}

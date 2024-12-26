@@ -9,7 +9,7 @@ type Props = {};
 const about = (props: Props) => {
 	const theme = useThemeStyles();
 	return (
-		<SafeAreaView className='flex-1'>
+		<SafeAreaView className='flex-1 bg-background'>
 			<View className='flex-row items-center justify-center p-4'>
 				<Typography variant='h3' color={theme['--primary-1']}>
 					About us
@@ -22,7 +22,7 @@ const about = (props: Props) => {
 				/>
 			</View>
 			<ScrollView className='flex-1 py-2 px-6'>
-				<Typography variant='body' color={theme['--text-2']}>
+				<Typography variant='body' color={theme['--text-3']}>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac orci nec
 					libero eleifend vestibulum. Suspendisse potenti. Nullam in libero nec velit
 					ultricies aliquet. Nullam euismod, purus nec luctus tincidunt, mi velit

@@ -55,7 +55,7 @@ const AccountPage = observer(() => {
 					</View>
 
 					{/* Grouped Items */}
-					<View className='mt-6 w-full shadow-sm shadow-gray-300 '>
+					<View className='mt-6 w-full'>
 						<Typography variant='label' className='ml-2 ' color='gray'>
 							General
 						</Typography>
