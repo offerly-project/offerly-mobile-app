@@ -9,9 +9,6 @@ import { ActivityIndicator, View } from 'react-native';
 export const PrivateLayout = observer(() => {
 	const { authenticated } = userStore();
 	const theme = useThemeStyles();
-	if (!authenticated) {
-		return <Redirect href={'/(public)/login'} />;
-	}
 	const [loading, setLoading] = useState(true);
 	useEffect(() => {
 		Promise.all([cardsStore().fetchUserCards()]).then(() => setLoading(false));
@@ -24,6 +21,9 @@ export const PrivateLayout = observer(() => {
 			</View>
 		);
 
+	if (!authenticated) {
+		return <Redirect href={'/(public)/login'} />;
+	}
 	return (
 		<Stack screenOptions={getBaseScreenLayout(theme)}>
 			<Stack.Screen name='tabs' />

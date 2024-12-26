@@ -24,7 +24,7 @@ export class UserStore {
 			if (token) {
 				AxiosAuthInterceptorManager.addInterceptor(token);
 				const user = await UserApi.me();
-				runInAction(async () => {
+				runInAction(() => {
 					this.authenticated = true;
 					this.user = new User(_.omit(user, ['favorites', 'cards']), token);
 					this.rootStore.favoritesStore.setFavorites(user.favorites);
@@ -61,5 +61,33 @@ export class UserStore {
 	@action
 	verifyOTP = async (code: string, email: string) => {
 		return await OtpApi.verifyOtp(code, email);
+	};
+
+	@action
+	resetPasswordAndPerformLogin = async (tempToken: string, password: string) => {
+		const newToken = await AuthApi.resetPassword(tempToken, password);
+		console.log('newTOKEN:', newToken);
+		// AxiosAuthInterceptorManager.addInterceptor(newToken);
+		// SecureStore.setItem('token', newToken);
+		// const user = await UserApi.me();
+		// runInAction( () => {
+		// 	this.authenticated = true;
+		// 	this.user = new User(_.omit(user, ['favorites', 'cards']), newToken);
+		// 	this.rootStore.favoritesStore.setFavorites(user.favorites);
+		// });
+	};
+
+	@action
+	logout = async () => {
+		AxiosAuthInterceptorManager.removeInterceptor();
+		await SecureStore.deleteItem('token');
+		try {
+			runInAction(() => {
+				this.authenticated = false;
+				this.user = null as unknown as User;
+			});
+		} catch (e) {
+			console.log('Error during logout:', e);
+		}
 	};
 }
