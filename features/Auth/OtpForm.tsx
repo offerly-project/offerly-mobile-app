@@ -44,6 +44,7 @@ export default function OtpForm() {
 				setShowNewPasswordView(true);
 			}
 		} catch (err) {
+			setLoading(false);
 			if (err instanceof AxiosError) setServerError(err.response?.data.message);
 		}
 	};

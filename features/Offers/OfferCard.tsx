@@ -88,30 +88,40 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 		<>
 			<Pressable
 				onPress={() => setModalVisible(true)}
-				className='flex-row items-center justify-between rounded-lg border border-[rgba(0,0,0,0.1)] h-[150px] px-4 gap-10'
+				className='flex-row items-center justify-between rounded-2xl py-4 px-2 gap-5 bg-background-1 '
 			>
-				<Image
-					source={formatUploadPath(offer.logo)}
-					style={{ height: 50, width: 50, resizeMode: 'contain' }}
-				/>
-				<View className='flex-1 flex-col gap-2'>
-					<Typography variant='h3' color={theme['--primary-1']} numberOfLines={1}>
+				<View className='border-2 border-secondary-1 rounded-2xl overflow-hidden'>
+					<Image
+						source={formatUploadPath(offer.logo)}
+						style={{ height: 100, width: 100, resizeMode: 'contain' }}
+					/>
+				</View>
+				<View className='flex-1 justify-between'>
+					<Typography
+						variant='h3'
+						weight='bold'
+						color={theme['--primary-1']}
+						numberOfLines={1}
+					>
 						{offer.title.en}
 					</Typography>
-					<Typography numberOfLines={2} style={{ fontSize: 10, height: 50 }}>
-						{offer.description.en}
+
+					<Typography numberOfLines={2} variant='label' className='leading-1'>
+						{offer.description.en.trim()}
 					</Typography>
-					<Typography style={{ fontSize: 12 }} color={theme['--primary-3']}>
+					<Typography variant='label' color={theme['--primary-3']}>
 						{moment(offer.expiry_date.toString()).format('DD/MM/YYYY')}
 					</Typography>
 				</View>
-				<Pressable onPress={toggleFavorite} className='flex-[0.2] items-center'>
-					<Ionicons
-						size={20}
-						name={favorite ? 'heart' : 'hearto'}
-						color={theme['--primary-1']}
-					/>
-				</Pressable>
+				<View className='self-start'>
+					<Pressable onPress={toggleFavorite}>
+						<Ionicons
+							size={22}
+							name={favorite ? 'heart' : 'hearto'}
+							color={theme['--primary-1']}
+						/>
+					</Pressable>
+				</View>
 			</Pressable>
 
 			<Modal visible={modalVisible} animationType='slide'>
@@ -174,7 +184,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 									weight='light'
 									color={theme['--primary-2']}
 								>
-									{offer.description.en}
+									{offer.description.en.trim()}
 								</Typography>
 							</View>
 							<View style={[styles.section]}>

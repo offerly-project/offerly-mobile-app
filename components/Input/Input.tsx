@@ -48,7 +48,7 @@ const Input: React.FC<InputProps> = ({
 	focused,
 	...rest
 }) => {
-	const inputStyles = `flex-1 text-black py-4 px-2 color-primary-1`;
+	const inputStyles = `flex-1 text-black py-3 px-2 color-primary-1`;
 	const containerStyles = `bg-transparent flex-row items-center ${BORDER_STYLE[borderStyle]} ${COLORING[variant]} ${disabled ? 'opacity-40' : ''}`;
 
 	const ref = React.useRef<TextInput>(null);

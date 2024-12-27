@@ -10,10 +10,10 @@ import { useThemeStyles } from '@/hooks/useThemeStyles';
 import TabLayout from '@/layouts/TabLayout';
 import { cardsStore, staticDataStore } from '@/stores';
 import { formatUploadPath } from '@/utils/utils';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons, Octicons, SimpleLineIcons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { observer } from 'mobx-react-lite';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
 	ActivityIndicator,
 	FlatList,
@@ -27,12 +27,75 @@ import {
 type Props = {};
 
 const Offers = observer((props: Props) => {
+	const theme = useThemeStyles();
+	const CategoriesIcons = [
+		{
+			name: 'Shopping',
+			component: (
+				<MaterialCommunityIcons
+					color={theme['--primary-1']}
+					size={18}
+					name='shopping-outline'
+				/>
+			),
+		},
+		{
+			name: 'Travel',
+			component: <SimpleLineIcons color={theme['--primary-1']} size={18} name='plane' />,
+		},
+		{
+			name: 'Restaurants & Cafes',
+			component: <Ionicons color={theme['--primary-1']} size={18} name='fast-food-outline' />,
+		},
+		{
+			name: 'Entertainment',
+			component: (
+				<MaterialCommunityIcons
+					color={theme['--primary-1']}
+					size={18}
+					name='gamepad-variant-outline'
+				/>
+			),
+		},
+		{
+			name: 'Car Services',
+			component: (
+				<MaterialCommunityIcons color={theme['--primary-1']} size={18} name='car-outline' />
+			),
+		},
+		{
+			name: 'Health & Wellness',
+			component: (
+				<MaterialCommunityIcons color={theme['--primary-1']} size={18} name='medical-bag' />
+			),
+		},
+		{
+			name: 'Others',
+			component: <Octicons color={theme['--primary-1']} size={18} name='stack' />,
+		},
+		{
+			name: 'Groceries',
+			component: (
+				<MaterialCommunityIcons
+					color={theme['--primary-1']}
+					size={18}
+					name='food-apple-outline'
+				/>
+			),
+		},
+	];
+	const staticCategories = staticDataStore().categories;
+	const categoriesWithIcons: { catName: string; icon: React.ReactNode }[] = staticCategories.map(
+		(cat) => {
+			return { catName: cat, icon: CategoriesIcons.find((x) => x.name == cat)?.component };
+		},
+	);
+	const [categories, setCategories] = useState(categoriesWithIcons);
+	const categoriesScrollViewRef = useRef<ScrollView>(null);
 	const { userCardsList } = cardsStore();
 	const [selectedCard, setSelectedCard] = useState<string>('674967958654b446fb613c74');
-	const categories = staticDataStore().categories;
-	const [selectedCategory, setSelectedCategory] = useState<string>(categories[0]);
+	const [selectedCategory, setSelectedCategory] = useState<string>(categories[0].catName);
 	const [search, setSearch] = useState<string>('');
-	const theme = useThemeStyles();
 
 	const { data, refreshing, loadingMore, handleRefresh, loadMore, initialLoader } =
 		usePagination<IOffer>({
@@ -52,11 +115,10 @@ const Offers = observer((props: Props) => {
 		if (!loadingMore || data.length < 8) return null;
 		return <ActivityIndicator color={theme['--primary-1']} animating size='small' />;
 	};
-
 	return (
 		<TabLayout title='Offers'>
-			<View className='gap-10'>
-				<View className='p-4'>
+			<View className='gap-5 flex-1 pt-3'>
+				<View>
 					<Select
 						value={selectedCard}
 						onChange={(value) => setSelectedCard(value)}
@@ -100,12 +162,13 @@ const Offers = observer((props: Props) => {
 								)}
 							</View>
 						)}
-						className='h-[45px] w-[80%] m-auto'
+						className='mx-2 p-2'
 					/>
 				</View>
 				<ScrollView
 					horizontal
-					style={{ width: '95%', margin: 'auto' }}
+					ref={categoriesScrollViewRef}
+					style={{ width: '95%', margin: 'auto', minHeight: 35, maxHeight: 35 }}
 					showsHorizontalScrollIndicator={false}
 					contentContainerStyle={{
 						gap: 10,
@@ -116,36 +179,66 @@ const Offers = observer((props: Props) => {
 					{categories.map((category) => (
 						<Pressable
 							onPress={() => {
-								if (category === selectedCategory) {
+								if (category.catName === selectedCategory) {
 									setSelectedCategory('');
 									return;
 								}
-								setSelectedCategory(category);
+								setCategories((prevCategories) => {
+									const updatedCategories = prevCategories.filter(
+										(cat) => cat != category,
+									);
+									updatedCategories.unshift(category);
+									categoriesScrollViewRef.current?.scrollTo({
+										x: 0,
+										y: 0,
+										animated: true,
+									});
+									return updatedCategories;
+								});
+								setSelectedCategory(category.catName);
 							}}
-							style={{ opacity: category === selectedCategory ? 0.4 : 1 }}
-							key={category}
-							className='h-[50px] border border-primary-1 items-center justify-center px-10 rounded-lg'
+							key={category.catName}
+							className={`flex-row px-2.5 pt-1.5 gap-2 rounded-full ${category.catName === selectedCategory ? 'border-2 border-primary-3' : 'border border-secondary-1'}`}
 						>
-							<Typography variant='body' color={theme['--primary-1']}>
-								{category}
+							{category.icon}
+							<Typography
+								variant='body'
+								weight='bold'
+								color={
+									category.catName === selectedCategory
+										? theme['--primary-1']
+										: theme['--secondary-1']
+								}
+							>
+								{category.catName}
 							</Typography>
 						</Pressable>
 					))}
 				</ScrollView>
-				<View className='w-[95%] m-auto'>
-					<Input
-						value={search}
-						onChangeText={setSearch}
-						placeholder='Search...'
-						variant='primary'
-					/>
+				<View className='w-[95%] flex-row gap-2 items-center m-auto'>
+					<Ionicons name='options-outline' color={theme['--primary-1']} size={36} />
+					<View className='flex-1'>
+						<Input
+							trailingIcon={() => (
+								<Ionicons size={22} color={theme['--primary-1']} name='search' />
+							)}
+							value={search}
+							onChangeText={setSearch}
+							placeholder='Search...'
+							variant='primary'
+						/>
+					</View>
 				</View>
 				{initialLoader ? (
-					<ActivityIndicator size='small' animating color={theme['--primary-1']} />
+					<ActivityIndicator
+						className='flex-1'
+						size='small'
+						animating
+						color={theme['--primary-1']}
+					/>
 				) : (
 					<FlatList
 						data={data}
-						style={{ height: SCREEN_HEIGHT / 2 }}
 						contentContainerStyle={{ gap: 10, paddingHorizontal: 12 }}
 						keyExtractor={(item) => item.id.toString()}
 						renderItem={({ item }) => <OfferCard offer={item} />}
