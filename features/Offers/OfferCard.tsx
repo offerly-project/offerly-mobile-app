@@ -97,30 +97,30 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 					/>
 				</View>
 				<View className='flex-1 justify-between'>
-					<Typography
-						variant='h3'
-						weight='bold'
-						color={theme['--primary-1']}
-						numberOfLines={1}
-					>
-						{offer.title.en}
-					</Typography>
-
+					<View className='flex-row justify-between'>
+						<Typography
+							variant='h3'
+							weight='bold'
+							color={theme['--primary-1']}
+							numberOfLines={1}
+							className='flex-shrink'
+						>
+							{offer.title.en}
+						</Typography>
+						<Pressable onPress={toggleFavorite}>
+							<Ionicons
+								size={22}
+								name={favorite ? 'heart' : 'hearto'}
+								color={theme['--primary-1']}
+							/>
+						</Pressable>
+					</View>
 					<Typography numberOfLines={2} variant='label' className='leading-1'>
 						{offer.description.en.trim()}
 					</Typography>
 					<Typography variant='label' color={theme['--primary-3']}>
 						{moment(offer.expiry_date.toString()).format('DD/MM/YYYY')}
 					</Typography>
-				</View>
-				<View className='self-start'>
-					<Pressable onPress={toggleFavorite}>
-						<Ionicons
-							size={22}
-							name={favorite ? 'heart' : 'hearto'}
-							color={theme['--primary-1']}
-						/>
-					</Pressable>
 				</View>
 			</Pressable>
 
