@@ -173,6 +173,7 @@ const SelectCardsModal = () => {
 						borderStyle='filled'
 						style={{ borderRadius: 20 }}
 						loading={loading.adding}
+						className='px-10'
 						loadingComponent={<ActivityIndicator color={theme['--primary-1']} />}
 						onPress={onAdd}
 						hapticFeedback
