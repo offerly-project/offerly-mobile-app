@@ -78,7 +78,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 			if (offer.channels.includes('online')) {
 				channels.push('Online');
 			}
-			elements.push({ key: 'Experience', value: channels.join(' & ') });
+			elements.push({ key: 'Offer Type', value: channels.join(' & ') });
 		}
 
 		return elements;
