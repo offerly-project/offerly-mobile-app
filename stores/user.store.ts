@@ -28,6 +28,15 @@ export class UserStore {
 		}
 	};
 
+	deleteAccount = async () => {
+		try {
+			await UserApi.deleteAccount();
+			this.logout();
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
 	@action
 	setup = async () => {
 		try {

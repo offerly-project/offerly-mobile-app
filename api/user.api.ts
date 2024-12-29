@@ -13,6 +13,10 @@ export class UserApi {
 			.then((res: AxiosResponse<any>) => res.data);
 	}
 
+	static async deleteAccount() {
+		return axiosInstance.delete('/user/user');
+	}
+
 	static async me() {
 		return axiosInstance.get('/user/user').then((res: AxiosResponse<IUser>) => res.data);
 	}

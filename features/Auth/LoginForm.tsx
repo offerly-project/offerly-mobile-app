@@ -27,7 +27,7 @@ const LoginForm = () => {
 		useForm<FormValues>({
 			initialValues: {
 				email: 'testuser.offerly@gmail.com',
-				password: 'hello',
+				password: 'fares',
 			},
 			schema,
 			onSubmit: async (values) => {

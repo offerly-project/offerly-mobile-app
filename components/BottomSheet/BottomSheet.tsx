@@ -50,6 +50,7 @@ const BottomSheet = ({ open, children, ...rest }: Props) => {
 				ref={ref}
 				keyboardBehavior='interactive'
 				keyboardBlurBehavior='restore'
+				enableDynamicSizing
 				containerStyle={{
 					zIndex: 10,
 					marginLeft: insets.left,

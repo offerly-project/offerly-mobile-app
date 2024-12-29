@@ -2,6 +2,7 @@ import BottomSheetWrapper from '@/components/BottomSheet/BottomSheetWrapper';
 import Typography from '@/components/Typography/Typography';
 import { useThemeContext } from '@/contexts/ThemeContext';
 import ConfigurationRouteChevronIcon from '@/features/Configuration/components/ConfigurationRouteChevronIcon';
+import DeleteAccount from '@/features/Configuration/DeleteAccount';
 import LanguageSwitchList from '@/features/Configuration/LanguageSwitchList';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import TabLayout from '@/layouts/TabLayout';
@@ -166,21 +167,33 @@ const AccountPage = observer(() => {
 							)}
 						</BottomSheetWrapper>
 
-						<ConfigurationItem
-							label='Delete Account'
-							onPress={() => {
-								router.push('/(private)/about');
-							}}
-							leading={
-								<AntDesign
-									className='bg-primary-1 p-1.5'
-									color='white'
-									style={{ borderRadius: 12 }}
-									name='deleteuser'
-									size={18}
+						<BottomSheetWrapper
+							sheet={(closeHandler) => (
+								<DeleteAccount
+									onConfirm={() => {
+										closeHandler();
+										userStore().deleteAccount();
+									}}
+									onCancel={closeHandler}
 								/>
-							}
-						/>
+							)}
+						>
+							{(openHandler) => (
+								<ConfigurationItem
+									label='Delete Account'
+									onPress={openHandler}
+									leading={
+										<AntDesign
+											className='bg-primary-1 p-1.5'
+											color='white'
+											style={{ borderRadius: 12 }}
+											name='deleteuser'
+											size={18}
+										/>
+									}
+								/>
+							)}
+						</BottomSheetWrapper>
 
 						<ConfigurationItem
 							className='border-none'
