@@ -30,6 +30,7 @@ const Favorites = observer((props: Props) => {
 				<View className='p-6 flex-1'>
 					<FlatList
 						data={offers}
+						contentContainerStyle={{ gap: 14 }}
 						renderItem={({ item }) => (
 							<OfferCard offer={item} closeOnUnfavorite={true} />
 						)}

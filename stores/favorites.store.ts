@@ -28,7 +28,7 @@ export class FavoritesStore {
 		FavoritesApi.removeFavorite(offer.id);
 		runInAction(() => {
 			this.favorites = this.favorites.filter((id) => id !== offer.id);
-			this.offers = this.offers.filter((offer) => offer.id !== offer.id);
+			this.offers = this.offers.filter((o) => o.id !== offer.id);
 		});
 	};
 	getFavorites = async () => {
