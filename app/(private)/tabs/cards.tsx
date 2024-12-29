@@ -1,6 +1,5 @@
 import { CardsApi } from '@/api/cards.api';
 import Button from '@/components/Button/Buttton';
-import HapticPress from '@/components/HapticPress/HapticPress';
 import Typography from '@/components/Typography/Typography';
 import { SCREEN_WIDTH } from '@/constants/screens';
 import { ICard } from '@/entities/card.entity';
@@ -12,7 +11,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useMemo, useState } from 'react';
-import { ActivityIndicator, Alert, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Alert, Pressable, StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 
@@ -111,6 +110,7 @@ const Cards = observer(() => {
 			trailing={
 				<View style={styles.addButtonContainer}>
 					<Button
+						hapticFeedback
 						style={{ borderWidth: 0 }}
 						onPress={() => router.push('/(modals)/select_cards_modal')}
 					>
@@ -130,23 +130,13 @@ const Cards = observer(() => {
 							<ActivityIndicator color={theme['--primary-1']} />
 						) : (
 							<View style={styles.actionButtons}>
-								<HapticPress style={styles.actionButton} onPress={handleRemove}>
+								<Pressable style={styles.actionButton} onPress={handleRemove}>
 									<Ionicons
 										name='trash-bin'
 										size={30}
 										color={theme['--primary-1']}
 									/>
-								</HapticPress>
-								<HapticPress
-									style={styles.actionButton}
-									onPress={() => setSelectedCards([])}
-								>
-									<Ionicons
-										name='refresh-outline'
-										size={30}
-										color={theme['--primary-1']}
-									/>
-								</HapticPress>
+								</Pressable>
 							</View>
 						)}
 					</Animated.View>

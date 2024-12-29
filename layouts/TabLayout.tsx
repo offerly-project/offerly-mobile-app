@@ -23,7 +23,7 @@ const TabLayout = ({ children, title, trailing, leading }: Props) => {
 				end={{ x: 1, y: 0 }}
 				locations={[0, 0.5, 1]}
 			>
-				<View className='flex flex-row justify-between items-center h-[50]'>
+				<View className='flex flex-row justify-between items-center h-[50] px-4'>
 					<View style={{ flex: 1 }}>{leading}</View>
 					<Typography
 						color={'#FFFFFF'}
