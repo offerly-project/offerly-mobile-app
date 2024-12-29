@@ -1,8 +1,9 @@
 import { themes, ThemeStyle } from '@/constants/themes';
-import { SecureStore } from '@/services/secure-store.service';
+import { PlainStorage } from '@/services/storage.services';
+import { userStore } from '@/stores';
 import { vars } from 'nativewind';
-import { createContext, useContext, useEffect, useState } from 'react';
-import { useColorScheme, View } from 'react-native';
+import { createContext, useContext, useState } from 'react';
+import { View } from 'react-native';
 
 export type ThemeNameType = 'light' | 'dark';
 
@@ -18,21 +19,11 @@ type Props = {
 };
 
 export const ThemeContextProvider = ({ children }: Props) => {
-	const scheme = useColorScheme();
-	const [theme, setTheme] = useState<ThemeNameType>((scheme as ThemeNameType) || 'light');
-	useEffect(() => {
-		const loadTheme = async () => {
-			const storedTheme = await SecureStore.getItem('theme');
-			if (storedTheme) {
-				setTheme(storedTheme as ThemeNameType);
-			}
-		};
-		loadTheme();
-	}, []);
+	const [theme, setTheme] = useState<ThemeNameType>(userStore().theme);
 
 	const changeTheme = async (newTheme: ThemeNameType) => {
 		setTheme(newTheme);
-		await SecureStore.setItem('theme', newTheme);
+		await PlainStorage.setItem('theme', newTheme);
 	};
 
 	return (

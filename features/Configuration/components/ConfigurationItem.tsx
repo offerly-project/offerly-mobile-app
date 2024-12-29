@@ -1,4 +1,5 @@
 import Typography from '@/components/Typography/Typography';
+import { useThemeContext } from '@/contexts/ThemeContext';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { Pressable, TouchableOpacityProps } from 'react-native';
 
@@ -19,9 +20,11 @@ export const ConfigurationItem = ({
 	...rest
 }: ProfileListItemProps) => {
 	const theme = useThemeStyles();
+	const { theme: themeName } = useThemeContext();
+	const border = themeName === 'dark' ? 'border-gray-600' : 'border-gray-300';
 	return (
 		<Pressable
-			className={`flex-row py-2 px-1 border-b border-[rgba(0,0,0,0.1)] items-center gap-3 ${className}`}
+			className={`flex-row py-2 px-1 border-b ${border} items-center gap-3 ${className}`}
 			disabled={disabled}
 			onPress={onPress}
 			{...rest}

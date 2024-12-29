@@ -2,25 +2,38 @@ import { AuthApi } from '@/api/auth.api';
 import { OtpApi } from '@/api/otp.api';
 import { UserApi } from '@/api/user.api';
 import { AxiosAuthInterceptorManager } from '@/configs/axios';
+import { ThemeNameType } from '@/contexts/ThemeContext';
 import { PatchUserData, User } from '@/entities/user.entity';
-import { SecureStore } from '@/services/secure-store.service';
+import { PlainStorage, SecureStorage } from '@/services/storage.services';
 import _ from 'lodash';
 import { action, makeAutoObservable, observable, runInAction } from 'mobx';
+import { Appearance } from 'react-native';
 import { RootStore } from '.';
 
 export class UserStore {
 	private rootStore: RootStore;
 	@observable user!: User;
+	@observable theme: ThemeNameType = Appearance.getColorScheme() === 'dark' ? 'dark' : 'light';
+
 	@observable authenticated: boolean = false;
 	constructor(rootStore: RootStore) {
 		this.rootStore = rootStore;
 		makeAutoObservable(this);
 	}
 
+	private _setupTheme = async () => {
+		const storedTheme = await PlainStorage.getItem('theme');
+		if (storedTheme) {
+			this.theme = storedTheme as ThemeNameType;
+		}
+	};
+
 	@action
 	setup = async () => {
 		try {
-			const token = await SecureStore.getItem('token');
+			await Promise.all([this._setupTheme(), this.rootStore.languageStore.setup()]);
+
+			const token = await SecureStorage.getItem('token');
 			if (token) {
 				AxiosAuthInterceptorManager.addInterceptor(token);
 				const user = await UserApi.me();
@@ -44,7 +57,7 @@ export class UserStore {
 			this.user = new User(_.omit(user, ['favorites', 'cards']), token);
 			this.rootStore.favoritesStore.setFavorites(user.favorites);
 		});
-		SecureStore.setItem('token', token);
+		SecureStorage.setItem('token', token);
 		AxiosAuthInterceptorManager.addInterceptor(token);
 	};
 
@@ -68,7 +81,7 @@ export class UserStore {
 		const res = await AuthApi.resetPassword(tempToken, password);
 		const newToken = res.token;
 		AxiosAuthInterceptorManager.addInterceptor(newToken);
-		SecureStore.setItem('token', newToken);
+		SecureStorage.setItem('token', newToken);
 		const user = await UserApi.me();
 		runInAction(() => {
 			this.authenticated = true;
@@ -90,7 +103,7 @@ export class UserStore {
 	@action
 	logout = async () => {
 		AxiosAuthInterceptorManager.removeInterceptor();
-		await SecureStore.deleteItem('token');
+		await SecureStorage.deleteItem('token');
 		try {
 			runInAction(() => {
 				this.authenticated = false;

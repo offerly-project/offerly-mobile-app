@@ -2,6 +2,7 @@ import BottomSheetWrapper from '@/components/BottomSheet/BottomSheetWrapper';
 import Typography from '@/components/Typography/Typography';
 import { useThemeContext } from '@/contexts/ThemeContext';
 import ConfigurationRouteChevronIcon from '@/features/Configuration/components/ConfigurationRouteChevronIcon';
+import LanguageSwitchList from '@/features/Configuration/LanguageSwitchList';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import TabLayout from '@/layouts/TabLayout';
 import { version as AppVersion } from '@/package.json';
@@ -12,7 +13,7 @@ import { router } from 'expo-router';
 import { observer } from 'mobx-react-lite';
 import { View } from 'react-native';
 import { ConfigurationItem } from '../../../features/Configuration/components/ConfigurationItem';
-import ThemeSwitchList from '../../../features/Configuration/components/ThemeSwitchList';
+import ThemeSwitchList from '../../../features/Configuration/ThemeSwitchList';
 
 // type Props = {};
 
@@ -31,7 +32,6 @@ const AccountPage = observer(() => {
 				<View className='mt-3 items-center justify-center'>
 					<View className='mt-6 w-full'>
 						<ConfigurationItem
-							className='border-gray-300'
 							label='Profile'
 							trailing={<ConfigurationRouteChevronIcon />}
 							onPress={() => {
@@ -49,7 +49,6 @@ const AccountPage = observer(() => {
 						/>
 
 						<ConfigurationItem
-							className='border-gray-300'
 							label='Change Password'
 							onPress={() => {
 								router.push('/(private)/about');
@@ -67,7 +66,6 @@ const AccountPage = observer(() => {
 						/>
 
 						<ConfigurationItem
-							className='border-gray-300'
 							label='Terms & Conditions'
 							onPress={() => {
 								router.push('/(private)/about');
@@ -85,7 +83,6 @@ const AccountPage = observer(() => {
 						/>
 
 						<ConfigurationItem
-							className='border-gray-300'
 							label='About Us'
 							onPress={() => {
 								router.push('/(private)/about');
@@ -103,7 +100,6 @@ const AccountPage = observer(() => {
 						/>
 
 						<ConfigurationItem
-							className='border-gray-300'
 							label='Contact us'
 							onPress={() => {
 								router.push('/(private)/about');
@@ -120,23 +116,26 @@ const AccountPage = observer(() => {
 							}
 						/>
 
-						<ConfigurationItem
-							className='border-gray-300'
-							label='Languages'
-							onPress={() => {
-								router.push('/(private)/about');
-							}}
-							trailing={<ConfigurationRouteChevronIcon />}
-							leading={
-								<Ionicons
-									className='bg-primary-1 p-1.5'
-									color='white'
-									style={{ borderRadius: 12 }}
-									name='language'
-									size={18}
+						<BottomSheetWrapper
+							sheet={(closeHandler) => <LanguageSwitchList onSelect={closeHandler} />}
+						>
+							{(openHandler) => (
+								<ConfigurationItem
+									label='Languages'
+									onPress={openHandler}
+									trailing={<ConfigurationRouteChevronIcon />}
+									leading={
+										<Ionicons
+											className='bg-primary-1 p-1.5'
+											color='white'
+											style={{ borderRadius: 12 }}
+											name='language'
+											size={18}
+										/>
+									}
 								/>
-							}
-						/>
+							)}
+						</BottomSheetWrapper>
 
 						<BottomSheetWrapper
 							sheet={(closeHandler) => (
@@ -168,7 +167,6 @@ const AccountPage = observer(() => {
 						</BottomSheetWrapper>
 
 						<ConfigurationItem
-							className='border-gray-300'
 							label='Delete Account'
 							onPress={() => {
 								router.push('/(private)/about');
