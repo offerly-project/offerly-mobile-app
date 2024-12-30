@@ -174,7 +174,7 @@ const SelectCardsModal = () => {
 						style={{ borderRadius: 20 }}
 						loading={loading.adding}
 						className='px-10'
-						loadingComponent={<ActivityIndicator color={theme['--primary-1']} />}
+						loadingComponent={<ActivityIndicator color={theme['--text-1']} />}
 						onPress={onAdd}
 						hapticFeedback
 					>
@@ -215,5 +215,6 @@ const styles = StyleSheet.create({
 		backgroundColor: 'transparent',
 		justifyContent: 'center',
 		alignItems: 'center',
+		paddingTop: 10,
 	},
 });

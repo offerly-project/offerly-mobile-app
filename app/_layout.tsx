@@ -56,7 +56,7 @@ export default function RootLayout() {
 				<GestureHandlerRootView style={{ flex: 1 }}>
 					<StatusBar barStyle={'light-content'} />
 					<BottomSheetModalProvider>
-						<Stack screenOptions={{ ...getBaseScreenLayout(theme) }}>
+						<Stack screenOptions={getBaseScreenLayout(theme)}>
 							<Stack.Screen
 								name='(public)'
 								options={{

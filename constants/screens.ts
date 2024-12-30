@@ -6,6 +6,9 @@ export const getBaseScreenLayout = (theme: ThemeStyle): object => {
 		backgroundColor: theme['--background'],
 		headerShown: false,
 		flex: 1,
+		contentStyle: {
+			backgroundColor: theme['--background'],
+		},
 	};
 };
 

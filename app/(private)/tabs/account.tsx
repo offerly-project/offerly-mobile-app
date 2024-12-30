@@ -217,20 +217,28 @@ const AccountPage = observer(() => {
 					Version: {AppVersion}
 				</Typography>
 			</View>
-			<View className='flex-row mt-2 items-end gap-4 w-full justify-center py-6 flex-1'>
+			<View className='flex-row mt-2 items-center gap-4 w-full justify-center py-6 flex-1 absolute bottom-0'>
 				<View className='flex flex-row gap-1 items-center'>
-					<Typography variant='label'>{getCardsAndFavCount()[0]}</Typography>
-					<Ionicons size={21} name='heart-outline' color={'#6633cc'} />
-					<Typography variant='label'>Favorites</Typography>
+					<Typography variant='label' color={styles['--text-1']}>
+						{getCardsAndFavCount()[0]}
+					</Typography>
+					<Ionicons size={21} className='h-[25]' name='heart-outline' color={'#6633cc'} />
+					<Typography variant='label' color={styles['--text-1']}>
+						Favorites
+					</Typography>
 				</View>
 
 				<View className='w-[1] h-[18] bg-text-3' />
 
 				<View className='flex flex-row gap-1 items-center'>
 					<View className='items-center gap-4' />
-					<Typography variant='label'>{getCardsAndFavCount()[1]} </Typography>
-					<Ionicons size={21} color={'#6633cc'} name='card-outline' />
-					<Typography variant='label'>Cards</Typography>
+					<Typography variant='label' color={styles['--text-1']}>
+						{getCardsAndFavCount()[1]}{' '}
+					</Typography>
+					<Ionicons size={21} className='h-[25]' color={'#6633cc'} name='card-outline' />
+					<Typography variant='label' color={styles['--text-1']}>
+						Cards
+					</Typography>
 				</View>
 			</View>
 		</TabLayout>

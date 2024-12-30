@@ -15,11 +15,10 @@ export default function Layout() {
 					headerShown: false,
 					tabBarStyle: {
 						backgroundColor: theme['--background'],
-						borderWidth: 1,
-						borderTopColor: 'rgba(255,255,255,0.2)',
-					},
-					sceneStyle: {
-						backgroundColor: theme['--background'],
+						borderTopWidth: 1,
+						borderTopColor: theme['--background-1'],
+						paddingTop: 6,
+						height: 80,
 					},
 				}}
 				initialRouteName='offers'

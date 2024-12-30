@@ -114,7 +114,7 @@ const Cards = observer(() => {
 						style={{ borderWidth: 0 }}
 						onPress={() => router.push('/(modals)/select_cards_modal')}
 					>
-						<Ionicons name='add' size={24} color={theme['--background']} />
+						<Ionicons name='add' size={24} color={theme['--text-1']} />
 					</Button>
 				</View>
 			}
