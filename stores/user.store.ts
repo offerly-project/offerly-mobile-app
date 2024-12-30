@@ -101,12 +101,8 @@ export class UserStore {
 
 	@action
 	updateUser = async (data: Partial<PatchUserData>) => {
-		try {
-			await UserApi.patchUser(data);
-			this.user.update(data);
-		} catch (e) {
-			console.log(e);
-		}
+		await UserApi.patchUser(data);
+		this.user.update(data);
 	};
 
 	@action

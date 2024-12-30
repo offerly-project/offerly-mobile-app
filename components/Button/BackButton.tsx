@@ -10,7 +10,7 @@ const BackButton = (props: Props) => {
 	const theme = useThemeStyles();
 	return (
 		<Pressable {...props} className='p-4' onPress={router.back}>
-			<Ionicons name='chevron-back' size={24} color={theme['--background-1']} />
+			<Ionicons name='chevron-back' size={24} color={theme['--text-1']} />
 		</Pressable>
 	);
 };

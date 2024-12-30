@@ -5,17 +5,24 @@ export const axiosInstance = axios.create({
 });
 
 // Log requests and URLs
-axiosInstance.interceptors.request.use((config) => {
-	console.log(`Request URL: ${config.baseURL}${config.url}`);
-	console.log(`Request Method: ${config.method}`);
-	if (config.headers) {
-		console.log('Request Headers:', config.headers);
-	}
-	if (config.data) {
-		console.log('Request Data:', config.data);
-	}
-	return config;
-});
+axiosInstance.interceptors.request.use(
+	(config) => {
+		console.log(`Request URL: ${config.baseURL}${config.url}`);
+		console.log(`Request Method: ${config.method}`);
+		if (config.headers) {
+			console.log('Request Headers:', config.headers);
+		}
+		if (config.data) {
+			console.log('Request Data:', config.data);
+		}
+		return config;
+	},
+	(error) => {
+		console.log('Request Error:', error);
+
+		return Promise.reject(error);
+	},
+);
 
 export class AxiosAuthInterceptorManager {
 	private static interceptorId: number;

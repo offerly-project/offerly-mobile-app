@@ -3,17 +3,21 @@ import BackButton from '@/components/Button/BackButton';
 import EditButton from '@/components/Button/EditButton';
 import Typography from '@/components/Typography/Typography';
 import FullNameEditSheet from '@/features/Profile/FullNameEditSheet';
-import { useThemeStyles } from '@/hooks/useThemeStyles';
+import PhoneNumberEditSheet from '@/features/Profile/PhoneNumberEditSheet';
 import TabLayout from '@/layouts/TabLayout';
 import { rootStore } from '@/stores';
 import Ionicons from '@expo/vector-icons/build/Ionicons';
+import parsePhoneNumber from 'libphonenumber-js';
+import { observer } from 'mobx-react-lite';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ConfigurationItem } from '../../features/Configuration/components/ConfigurationItem';
 
-export default function EditProfile() {
+export const EditProfile = observer(() => {
 	const { bottom } = useSafeAreaInsets();
-	const theme = useThemeStyles();
+	const phoneNumber = rootStore.userStore.user.phone_number
+		? parsePhoneNumber(rootStore.userStore.user.phone_number)?.formatInternational() || ''
+		: '';
 	return (
 		<TabLayout title='Profile' leading={<BackButton />}>
 			<View style={{ paddingBottom: bottom }} className='p-4 flex-1'>
@@ -39,6 +43,8 @@ export default function EditProfile() {
 							}
 						/>
 					</View>
+
+					{/* Full Name */}
 					<BottomSheetWrapper
 						sheet={(closeHandler) => (
 							<FullNameEditSheet
@@ -71,8 +77,42 @@ export default function EditProfile() {
 							/>
 						)}
 					</BottomSheetWrapper>
+
+					{/* Phone Number */}
+					<BottomSheetWrapper
+						sheet={(closeHandler) => (
+							<PhoneNumberEditSheet
+								initialPhoneNumber={phoneNumber}
+								closeHandler={closeHandler}
+							/>
+						)}
+					>
+						{(openHandler) => (
+							<ConfigurationItem
+								className='border-gray-300 rounded-2xl'
+								label='Phone number'
+								trailing={
+									<View className='flex-row gap-4'>
+										<Typography color='gray'>{phoneNumber}</Typography>
+										<EditButton onPress={openHandler} />
+									</View>
+								}
+								leading={
+									<Ionicons
+										className='bg-primary-1 p-1.5'
+										color='white'
+										style={{ borderRadius: 12 }}
+										name='phone-portrait'
+										size={18}
+									/>
+								}
+							/>
+						)}
+					</BottomSheetWrapper>
 				</View>
 			</View>
 		</TabLayout>
 	);
-}
+});
+
+export default EditProfile;
