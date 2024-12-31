@@ -52,7 +52,7 @@ const AccountPage = observer(() => {
 						<ConfigurationItem
 							label='Change Password'
 							onPress={() => {
-								router.push('/(private)/about');
+								router.push('/(private)/(modals)/change_password_modal');
 							}}
 							trailing={<ConfigurationRouteChevronIcon />}
 							leading={
@@ -69,7 +69,7 @@ const AccountPage = observer(() => {
 						<ConfigurationItem
 							label='Terms & Conditions'
 							onPress={() => {
-								router.push('/(private)/about');
+								// router.push('/(private)/(modals)/about_modal');
 							}}
 							trailing={<ConfigurationRouteChevronIcon />}
 							leading={
@@ -86,7 +86,7 @@ const AccountPage = observer(() => {
 						<ConfigurationItem
 							label='About Us'
 							onPress={() => {
-								router.push('/(private)/about');
+								router.push('/(private)/(modals)/about_modal');
 							}}
 							trailing={<ConfigurationRouteChevronIcon />}
 							leading={
@@ -103,7 +103,7 @@ const AccountPage = observer(() => {
 						<ConfigurationItem
 							label='Contact us'
 							onPress={() => {
-								router.push('/(private)/about');
+								// router.push('/(private)/(modals)/about_modal');
 							}}
 							trailing={<ConfigurationRouteChevronIcon />}
 							leading={

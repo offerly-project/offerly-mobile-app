@@ -1,4 +1,4 @@
-import { AxiosError } from 'axios';
+import { createCustomError } from '@/entities/error.entity';
 import { useEffect, useState } from 'react';
 import { ZodError, ZodSchema } from 'zod';
 
@@ -14,7 +14,7 @@ export const useForm = <T extends Record<string, any>>({
 	onSubmit,
 }: UseFormParams<T>) => {
 	const [values, setValues] = useState<T>(initialValues);
-	const [errors, setErrors] = useState<Record<string, string>>({});
+	const [errors, setErrors] = useState<Partial<Record<keyof T, string>>>({});
 	const [loading, setLoading] = useState(false);
 	const [serverError, setServerError] = useState('');
 	const [hasSubmitted, setHasSubmitted] = useState(false);
@@ -34,7 +34,7 @@ export const useForm = <T extends Record<string, any>>({
 					},
 					{} as Record<string, string>,
 				);
-				setErrors(fieldErrors);
+				setErrors(fieldErrors as Partial<Record<keyof T, string>>);
 			}
 			return false;
 		}
@@ -55,11 +55,7 @@ export const useForm = <T extends Record<string, any>>({
 				await onSubmit(validData);
 				setServerError('');
 			} catch (error) {
-				if (error instanceof AxiosError) {
-					setServerError(error.response?.data?.message || 'An error occurred');
-				} else {
-					setServerError('An error occurred');
-				}
+				setServerError(createCustomError(error).message);
 			} finally {
 				setLoading(false);
 			}

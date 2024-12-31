@@ -112,7 +112,7 @@ const Cards = observer(() => {
 					<Button
 						hapticFeedback
 						style={{ borderWidth: 0 }}
-						onPress={() => router.push('/(modals)/select_cards_modal')}
+						onPress={() => router.push('/(private)/select_cards')}
 					>
 						<Ionicons name='add' size={24} color={theme['--text-1']} />
 					</Button>

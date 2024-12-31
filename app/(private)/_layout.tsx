@@ -29,9 +29,9 @@ export const PrivateLayout = observer(() => {
 			<Stack.Screen name='tabs' />
 			<Stack.Screen name='edit_profile' />
 			<Stack.Screen
-				name='about'
+				name='(modals)'
 				options={{
-					presentation: 'fullScreenModal',
+					presentation: 'modal',
 				}}
 			/>
 		</Stack>

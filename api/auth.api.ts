@@ -26,7 +26,16 @@ export class AuthApi {
 			.then((res: AxiosResponse<{ message: string; expiry: number }>) => res.data);
 	};
 
-	static resetPassword = async (token: string, password: string) => {
+	static resetPasswordByOldPassword = async (oldPassword: string, newPassword: string) => {
+		return await axiosInstance
+			.put('/user/auth/reset-password', {
+				old_password: oldPassword,
+				new_password: newPassword,
+			})
+			.then((res: AxiosResponse<{ message: string; token: string }>) => res.data);
+	};
+
+	static resetPasswordByOtp = async (token: string, password: string) => {
 		return await axiosInstance
 			.put(
 				'/user/auth/reset-password',

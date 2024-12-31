@@ -13,10 +13,17 @@ export default function ModalsLayout() {
 					contentStyle: {
 						backgroundColor: theme['--background'],
 					},
+					presentation: 'modal',
 				}}
 			>
 				<Stack.Screen
-					name='select_cards_modal'
+					name='change_password_modal'
+					options={{
+						headerShown: false,
+					}}
+				/>
+				<Stack.Screen
+					name='about_modal'
 					options={{
 						headerShown: false,
 					}}

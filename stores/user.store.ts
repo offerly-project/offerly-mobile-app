@@ -87,7 +87,7 @@ export class UserStore {
 
 	@action
 	resetPasswordAndPerformLogin = async (tempToken: string, password: string) => {
-		const res = await AuthApi.resetPassword(tempToken, password);
+		const res = await AuthApi.resetPasswordByOtp(tempToken, password);
 		const newToken = res.token;
 		AxiosAuthInterceptorManager.addInterceptor(newToken);
 		SecureStorage.setItem('token', newToken);
