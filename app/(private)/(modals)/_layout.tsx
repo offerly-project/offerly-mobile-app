@@ -13,7 +13,6 @@ export default function ModalsLayout() {
 					contentStyle: {
 						backgroundColor: theme['--background'],
 					},
-					presentation: 'modal',
 				}}
 			>
 				<Stack.Screen
@@ -24,6 +23,12 @@ export default function ModalsLayout() {
 				/>
 				<Stack.Screen
 					name='about_modal'
+					options={{
+						headerShown: false,
+					}}
+				/>
+				<Stack.Screen
+					name='terms_and_conditions_modal'
 					options={{
 						headerShown: false,
 					}}

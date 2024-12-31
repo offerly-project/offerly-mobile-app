@@ -69,7 +69,7 @@ const AccountPage = observer(() => {
 						<ConfigurationItem
 							label='Terms & Conditions'
 							onPress={() => {
-								// router.push('/(private)/(modals)/about_modal');
+								router.push('/(private)/(modals)/terms_and_conditions_modal');
 							}}
 							trailing={<ConfigurationRouteChevronIcon />}
 							leading={
