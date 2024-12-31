@@ -6,7 +6,7 @@ import { StyleSheet, View } from 'react-native';
 
 type Props = {
 	children: React.ReactNode;
-	title: string;
+	title?: string;
 };
 
 const ModalLayout = ({ children, title }: Props) => {
@@ -21,11 +21,13 @@ const ModalLayout = ({ children, title }: Props) => {
 						}}
 					/>
 				</View>
-				<View>
-					<Typography variant='h3' color={theme['--primary-1']}>
-						{title}
-					</Typography>
-				</View>
+				{title && (
+					<View>
+						<Typography variant='h3' color={theme['--primary-1']}>
+							{title}
+						</Typography>
+					</View>
+				)}
 			</View>
 			{children}
 		</>

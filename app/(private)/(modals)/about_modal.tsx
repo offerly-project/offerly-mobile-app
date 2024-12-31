@@ -1,68 +1,77 @@
 import Typography from '@/components/Typography/Typography';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import ModalLayout from '@/layouts/ModalLayout';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
+
+type ListItemProps = {
+	name: string;
+	value: string;
+};
+
+const ListItem = ({ name, value }: ListItemProps) => {
+	const theme = useThemeStyles();
+	return (
+		<View className='flex-column justify-between border-t-gray-200 pt-4 border-t'>
+			<Typography variant='body' weight='bold' color={theme['--primary-1']}>
+				{name}
+			</Typography>
+			<Typography variant='body' color={theme['--text-2']}>
+				{value}
+			</Typography>
+		</View>
+	);
+};
 
 type Props = {};
 
 const AboutModal = (props: Props) => {
 	const theme = useThemeStyles();
+
 	return (
-		<ModalLayout title='About us'>
-			<ScrollView className='flex-1 py-2 px-6'>
-				<Typography variant='body' color={theme['--text-3']}>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac orci nec
-					libero eleifend vestibulum. Suspendisse potenti. Nullam in libero nec velit
-					ultricies aliquet. Nullam euismod, purus nec luctus tincidunt, mi velit
-					ultricies purus, in fermentum nunc nisl at purus. Nullam nec nunc nec libero
-					ultrices lacinia. Nullam nec nunc nec libero ultrices lacinia. Nullam nec nunc
-					nec libero Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac
-					orci nec libero eleifend vestibulum. Suspendisse potenti. Nullam in libero nec
-					velit ultricies aliquet. Nullam euismod, purus nec luctus tincidunt, mi velit
-					ultricies purus, in fermentum nunc nisl at purus. Nullam nec nunc nec libero
-					ultrices lacinia. Nullam nec nunc nec libero ultrices lacinia. Nullam nec nunc
-					nec libero Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac
-					orci nec libero eleifend vestibulum. Suspendisse potenti. Nullam in libero nec
-					velit ultricies aliquet. Nullam euismod, purus nec luctus tincidunt, mi velit
-					ultricies purus, in fermentum nunc nisl at purus. Nullam nec nunc nec libero
-					ultrices lacinia. Nullam nec nunc nec libero ultrices lacinia. Nullam nec nunc
-					nec libero Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac
-					orci nec libero eleifend vestibulum. Suspendisse potenti. Nullam in libero nec
-					velit ultricies aliquet. Nullam euismod, purus nec luctus tincidunt, mi velit
-					ultricies purus, in fermentum nunc nisl at purus. Nullam nec nunc nec libero
-					ultrices lacinia. Nullam nec nunc nec libero ultrices lacinia. Nullam nec nunc
-					nec libero Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac
-					orci nec libero eleifend vestibulum. Suspendisse potenti. Nullam in libero nec
-					velit ultricies aliquet. Nullam euismod, purus nec luctus tincidunt, mi velit
-					ultricies purus, in fermentum nunc nisl at purus. Nullam nec nunc nec libero
-					ultrices lacinia. Nullam nec nunc nec libero ultrices lacinia. Nullam nec nunc
-					nec libero Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac
-					orci nec libero eleifend vestibulum. Suspendisse potenti. Nullam in libero nec
-					velit ultricies aliquet. Nullam euismod, purus nec luctus tincidunt, mi velit
-					ultricies purus, in fermentum nunc nisl at purus. Nullam nec nunc nec libero
-					ultrices lacinia. Nullam nec nunc nec libero ultrices lacinia. Nullam nec nunc
-					nec libero Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac
-					orci nec libero eleifend vestibulum. Suspendisse potenti. Nullam in libero nec
-					velit ultricies aliquet. Nullam euismod, purus nec luctus tincidunt, mi velit
-					ultricies purus, in fermentum nunc nisl at purus. Nullam nec nunc nec libero
-					ultrices lacinia. Nullam nec nunc nec libero ultrices lacinia. Nullam nec nunc
-					nec libero Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac
-					orci nec libero eleifend vestibulum. Suspendisse potenti. Nullam in libero nec
-					velit ultricies aliquet. Nullam euismod, purus nec luctus tincidunt, mi velit
-					ultricies purus, in fermentum nunc nisl at purus. Nullam nec nunc nec libero
-					ultrices lacinia. Nullam nec nunc nec libero ultrices lacinia. Nullam nec nunc
-					nec libero Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac
-					orci nec libero eleifend vestibulum. Suspendisse potenti. Nullam in libero nec
-					velit ultricies aliquet. Nullam euismod, purus nec luctus tincidunt, mi velit
-					ultricies purus, in fermentum nunc nisl at purus. Nullam nec nunc nec libero
-					ultrices lacinia. Nullam nec nunc nec libero ultrices lacinia. Nullam nec nunc
-					nec libero Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac
-					orci nec libero eleifend vestibulum. Suspendisse potenti. Nullam in libero nec
-					velit ultricies aliquet. Nullam euismod, purus nec luctus tincidunt, mi velit
-					ultricies purus, in fermentum nunc nisl at purus. Nullam nec nunc nec libero
-					ultrices lacinia. Nullam nec nunc nec libero ultrices lacinia. Nullam nec nunc
-					nec libero
+		<ModalLayout>
+			<ScrollView className='px-6 mb-20'>
+				<Typography className='my-4' variant='h3' color={theme['--primary-1']}>
+					About Us
 				</Typography>
+				<Typography variant='body' color={theme['--text-2']}>
+					Welcome to{' '}
+					<Typography color={theme['--primary-1']} weight='bold'>
+						Offerly
+					</Typography>{' '}
+					– your one-stop solution for accessing the best payment card offers from various
+					banks, all in one place.
+				</Typography>
+				<Typography className='mt-4' variant='body' color={theme['--text-2']}>
+					At Offerly, we understand that managing payment card offers can be overwhelming.
+					That{"'"}s why we{"'"}ve created a user-friendly platform that brings together
+					the latest and greatest offers from a wide range of banks.
+				</Typography>
+				<Typography className='my-4' variant='h3' color={theme['--primary-1']}>
+					Our Goal
+				</Typography>
+				<Typography variant='body' color={theme['--text-2']}>
+					By consolidating offers from different banks into one convenient app, we save
+					you time and effort, allowing you to focus on what matters most – enjoying the
+					benefits of your payment cards.
+				</Typography>
+				<View className='my-4'>
+					<ListItem
+						name={'Comprehensive Coverage'}
+						value={'Access offers from multiple banks without switching between apps.'}
+					/>
+					<ListItem
+						name={'User-Friendly Interface'}
+						value={'Navigate through offers effortlessly with our intuitive design.'}
+					/>
+					<ListItem
+						name={'Up-to-Date Information'}
+						value={'Stay informed with the latest deals and promotions.'}
+					/>
+					<ListItem
+						name={'Personalized Experience'}
+						value={'Receive recommendations tailored to your preferences.'}
+					/>
+				</View>
 			</ScrollView>
 		</ModalLayout>
 	);
