@@ -11,6 +11,8 @@ type Props = {
 	leading?: React.ReactNode;
 };
 
+export const TAB_LAYOUT_HEADER_HEIGHT = 110;
+
 const TabLayout = ({ children, title, trailing, leading }: Props) => {
 	const { top } = useSafeAreaInsets();
 	const theme = useThemeStyles();
@@ -18,7 +20,7 @@ const TabLayout = ({ children, title, trailing, leading }: Props) => {
 		<View style={{ flex: 1, backgroundColor: theme['--background'] }}>
 			<LinearGradient
 				colors={['rgba(32,19,75,1)', 'rgba(90,46,182,1)', 'rgba(32,19,75,1)']}
-				style={{ paddingTop: top }}
+				style={{ paddingTop: top, height: TAB_LAYOUT_HEADER_HEIGHT }}
 				start={{ x: 0, y: 0 }}
 				end={{ x: 1, y: 0 }}
 				locations={[0, 0.5, 1]}

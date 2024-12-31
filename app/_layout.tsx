@@ -1,5 +1,6 @@
 import { getBaseScreenLayout } from '@/constants/screens';
 import { ThemeContextProvider } from '@/contexts/ThemeContext';
+import { TAB_LAYOUT_HEADER_HEIGHT } from '@/layouts/TabLayout';
 import { staticDataStore, userStore } from '@/stores';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useFonts } from 'expo-font';
@@ -7,6 +8,7 @@ import { SplashScreen, Stack } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ScrollView, StatusBar, Text } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { ToastProvider } from 'react-native-toast-notifications';
 import '../global.css';
 
 SplashScreen.preventAutoHideAsync();
@@ -49,36 +51,37 @@ export default function RootLayout() {
 	}, [loaded, error]);
 
 	if (loading) return null;
-
 	return (
-		<ThemeContextProvider>
-			{(theme) => (
-				<GestureHandlerRootView style={{ flex: 1 }}>
-					<StatusBar barStyle={'light-content'} />
-					<BottomSheetModalProvider>
-						<Stack screenOptions={getBaseScreenLayout(theme)}>
-							<Stack.Screen
-								name='(public)'
-								options={{
-									animation: 'none',
-								}}
-							/>
-							<Stack.Screen
-								name='(private)'
-								options={{
-									animation: 'none',
-								}}
-							/>
-							<Stack.Screen
-								name='(modals)'
-								options={{
-									presentation: 'modal',
-								}}
-							/>
-						</Stack>
-					</BottomSheetModalProvider>
-				</GestureHandlerRootView>
-			)}
-		</ThemeContextProvider>
+		<ToastProvider placement='top' offsetTop={TAB_LAYOUT_HEADER_HEIGHT}>
+			<ThemeContextProvider>
+				{(theme) => (
+					<GestureHandlerRootView style={{ flex: 1 }}>
+						<StatusBar barStyle={'light-content'} />
+						<BottomSheetModalProvider>
+							<Stack screenOptions={getBaseScreenLayout(theme)}>
+								<Stack.Screen
+									name='(public)'
+									options={{
+										animation: 'none',
+									}}
+								/>
+								<Stack.Screen
+									name='(private)'
+									options={{
+										animation: 'none',
+									}}
+								/>
+								<Stack.Screen
+									name='(modals)'
+									options={{
+										presentation: 'modal',
+									}}
+								/>
+							</Stack>
+						</BottomSheetModalProvider>
+					</GestureHandlerRootView>
+				)}
+			</ThemeContextProvider>
+		</ToastProvider>
 	);
 }

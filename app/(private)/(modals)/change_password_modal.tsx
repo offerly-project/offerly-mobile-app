@@ -7,6 +7,7 @@ import { useThemeStyles } from '@/hooks/useThemeStyles';
 import ModalLayout from '@/layouts/ModalLayout';
 import { router } from 'expo-router';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { useToast } from 'react-native-toast-notifications';
 import { z } from 'zod';
 
 type Props = {};
@@ -29,6 +30,7 @@ const schema = z
 	});
 const ChangePasswordModal = (props: Props) => {
 	const theme = useThemeStyles();
+	const toast = useToast();
 	const { values, setValues, errors, handleSubmit, serverError, loading } = useForm<StateType>({
 		initialValues: {
 			old_password: '',
@@ -39,6 +41,7 @@ const ChangePasswordModal = (props: Props) => {
 		onSubmit: async (values) => {
 			await AuthApi.resetPasswordByOldPassword(values.old_password, values.new_password);
 			router.back();
+			toast.show('Password changed successfully', { type: 'success' });
 		},
 	});
 

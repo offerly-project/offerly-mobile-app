@@ -21,6 +21,13 @@ export class UserApi {
 		return axiosInstance.get('/user/user').then((res: AxiosResponse<IUser>) => res.data);
 	}
 
+	static async contactUs(subject: string, message: string) {
+		return axiosInstance.post('/user/user/contact', {
+			subject,
+			message,
+		});
+	}
+
 	static async patchUser(user: PatchUserData) {
 		return axiosInstance.patch('/user/user', {
 			...user,

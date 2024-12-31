@@ -103,7 +103,7 @@ const AccountPage = observer(() => {
 						<ConfigurationItem
 							label='Contact us'
 							onPress={() => {
-								// router.push('/(private)/(modals)/about_modal');
+								router.push('/(private)/(modals)/contact_us_modal');
 							}}
 							trailing={<ConfigurationRouteChevronIcon />}
 							leading={

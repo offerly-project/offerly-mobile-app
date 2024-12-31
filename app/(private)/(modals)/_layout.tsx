@@ -33,6 +33,12 @@ export default function ModalsLayout() {
 						headerShown: false,
 					}}
 				/>
+				<Stack.Screen
+					name='contact_us_modal'
+					options={{
+						headerShown: false,
+					}}
+				/>
 			</Stack>
 		</BottomSheetModalProvider>
 	);

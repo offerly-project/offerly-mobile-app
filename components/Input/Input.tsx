@@ -1,9 +1,9 @@
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import React, { useEffect } from 'react';
 import { TextInput, TextInputProps, View } from 'react-native';
 import Typography from '../Typography/Typography';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const COLORING = {
 	primary: 'border-primary-1',
@@ -11,7 +11,7 @@ const COLORING = {
 };
 
 const BORDER_STYLE = {
-	outlined: 'border-2 rounded-full px-3',
+	outlined: 'border-2 rounded-2xl px-3',
 	underlined: 'border-b-2 px-0',
 };
 
@@ -31,6 +31,7 @@ interface InputProps extends Omit<TextInputProps, 'onChange'> {
 	sheeted?: boolean;
 	error?: string;
 	focused?: boolean;
+	textArea?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
