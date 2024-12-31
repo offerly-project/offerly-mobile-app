@@ -20,8 +20,9 @@ export class AuthApi {
 
 	static forgotPassword = async (email: string) => {
 		return await axiosInstance
-			.post('/user/auth/forgot-password', {
+			.post('/otp/generate', {
 				email,
+				source: 'password-reset',
 			})
 			.then((res: AxiosResponse<{ message: string; expiry: number }>) => res.data);
 	};
@@ -40,7 +41,7 @@ export class AuthApi {
 			.put(
 				'/user/auth/reset-password',
 				{
-					password,
+					new_password: password,
 				},
 				{
 					headers: {
