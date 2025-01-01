@@ -1,3 +1,4 @@
+import { useThemeStyles } from '@/hooks/useThemeStyles';
 import React from 'react';
 import { StyleSheet, Text, TextProps } from 'react-native';
 
@@ -17,7 +18,6 @@ type TypographyProps = TextProps & {
 
 const Typography: React.FC<TypographyProps> = ({
 	variant = 'body',
-	color = '#000',
 	align = 'left',
 	weight = 'regular',
 	style,
@@ -25,10 +25,11 @@ const Typography: React.FC<TypographyProps> = ({
 
 	...rest
 }) => {
+	const theme = useThemeStyles();
 	const fontStyles = {
 		...styles[variant],
 		fontFamily: fontFamilyMap[weight],
-		color,
+		color: rest.color ? rest.color : theme['--text'],
 		textAlign: align,
 	};
 

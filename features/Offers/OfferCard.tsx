@@ -88,9 +88,9 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 		<>
 			<Pressable
 				onPress={() => setModalVisible(true)}
-				className='flex-row items-center justify-between rounded-2xl py-4 px-2 gap-5 bg-background-1 '
+				className='flex-row items-center justify-between rounded-2xl py-4 px-2 gap-5 bg-card'
 			>
-				<View className='border-2 border-secondary-1 rounded-2xl overflow-hidden'>
+				<View className='border-2 border-secondary rounded-2xl overflow-hidden'>
 					<Image
 						source={formatUploadPath(offer.logo)}
 						style={{ height: 100, width: 100, resizeMode: 'contain' }}
@@ -101,7 +101,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 						<Typography
 							variant='h3'
 							weight='bold'
-							color={theme['--primary-1']}
+							color={theme['--primary']}
 							numberOfLines={1}
 							className='flex-shrink'
 						>
@@ -111,27 +111,39 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 							<Ionicons
 								size={22}
 								name={favorite ? 'heart' : 'hearto'}
-								color={theme['--primary-1']}
+								color={theme['--primary']}
 							/>
 						</Pressable>
 					</View>
-					<Typography numberOfLines={2} variant='label' className='leading-1'>
+					<Typography
+						numberOfLines={2}
+						variant='label'
+						className='leading-1'
+						color={theme['--text']}
+					>
 						{offer.description.en.trim()}
 					</Typography>
-					<Typography variant='label' color={theme['--primary-3']}>
+					<Typography variant='label' color={theme['--primary']}>
 						{moment(offer.expiry_date.toString()).format('DD/MM/YYYY')}
 					</Typography>
 				</View>
 			</Pressable>
 
-			<Modal visible={modalVisible} animationType='slide'>
-				<View style={{ paddingTop: top }} className='flex-1 p-10'>
+			<Modal
+				presentationStyle='pageSheet'
+				onRequestClose={() => {
+					setModalVisible(false);
+				}}
+				visible={modalVisible}
+				animationType='slide'
+			>
+				<View style={{ paddingTop: top }} className='flex-1 p-10 bg-background'>
 					<View className='flex-row items-end justify-between h-[50]'>
 						<Pressable onPress={toggleFavorite} className='flex-[0.2] items-center'>
 							<Ionicons
 								size={25}
 								name={favorite ? 'heart' : 'hearto'}
-								color={theme['--primary-1']}
+								color={theme['--primary']}
 							/>
 						</Pressable>
 						<CloseButton onPress={() => setModalVisible(false)} />
@@ -146,12 +158,12 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 								resizeMode: 'contain',
 								alignSelf: 'center',
 								borderWidth: 1,
-								borderColor: theme['--primary-1'],
+								borderColor: theme['--primary'],
 								borderRadius: 40,
 							}}
 						/>
 						<View className='flex flex-row m-auto items-center justify-center'>
-							<Typography variant='title' color={theme['--primary-1']} weight='bold'>
+							<Typography variant='title' color={theme['--primary']} weight='bold'>
 								{offer.title.en}
 							</Typography>
 						</View>
@@ -159,12 +171,10 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 							offer.categories.map((category) => (
 								<View
 									key={category}
-									className='rounded-full px-4 py-1 bg-primary-3'
+									className='rounded-full px-4 py-1 bg-primary'
 									style={{ margin: 'auto' }}
 								>
-									<Typography color={theme['--background']}>
-										{category}
-									</Typography>
+									<Typography color={theme['--static']}>{category}</Typography>
 								</View>
 							))}
 
@@ -172,35 +182,23 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 							<View style={[styles.section]}>
 								{offerDateRangeFormat && (
 									<Typography
-										color={theme['--primary-1']}
+										color={theme['--primary']}
 										variant='body'
 										weight='bold'
 									>
 										{offerDateRangeFormat}
 									</Typography>
 								)}
-								<Typography
-									variant='body'
-									weight='light'
-									color={theme['--primary-2']}
-								>
+								<Typography variant='body' weight='light' color={theme['--text']}>
 									{offer.description.en.trim()}
 								</Typography>
 							</View>
 							<View style={[styles.section]}>
-								<Typography
-									color={theme['--primary-1']}
-									variant='body'
-									weight='bold'
-								>
+								<Typography color={theme['--primary']} variant='body' weight='bold'>
 									Terms & Conditions
 								</Typography>
 
-								<Typography
-									variant='body'
-									weight='light'
-									color={theme['--primary-2']}
-								>
+								<Typography variant='body' weight='light' color={theme['--text']}>
 									{offer.terms_and_conditions.en}
 								</Typography>
 							</View>
@@ -211,7 +209,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 										className='flex flex-row justify-between'
 									>
 										<Typography
-											color={theme['--primary-1']}
+											color={theme['--primary']}
 											variant='body'
 											weight='bold'
 										>
@@ -220,16 +218,16 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 										<Typography
 											variant='body'
 											weight='bold'
-											color={theme['--primary-2']}
+											color={theme['--text']}
 										>
 											{element.value}
 										</Typography>
 									</View>
 								))}
 								<Link
-									color={theme['--primary-1']}
+									color={theme['--primary']}
 									style={{
-										borderBottomColor: theme['--primary-1'],
+										borderBottomColor: theme['--primary'],
 										margin: 'auto',
 										marginTop: 6,
 									}}
@@ -256,6 +254,6 @@ const getStyles = (theme: ThemeStyle) =>
 			borderRadius: 10,
 			padding: 10,
 			width: '100%',
-			backgroundColor: theme['--background-1'],
+			backgroundColor: theme['--light-background'],
 		},
 	});

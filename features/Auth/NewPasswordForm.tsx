@@ -46,7 +46,7 @@ export default function NewPasswordForm({ tempToken }: NewPasswordFormProps) {
 	return (
 		<KeyboardAvoidingLayout className='flex-1 justify-center'>
 			<View className='gap-5'>
-				<Typography variant='h3' color={theme['--primary-2']}>
+				<Typography variant='h3' color={theme['--primary']}>
 					Set New Password
 				</Typography>
 				<PasswordInput

@@ -32,7 +32,7 @@ const CardCard = ({
 
 	const animatedStyle = useAnimatedStyle(() => {
 		return {
-			borderColor: withTiming(selected ? theme['--primary-3'] : 'transparent', {
+			borderColor: withTiming(selected ? theme['--selected'] : 'transparent', {
 				duration: 200,
 			}),
 		};
@@ -41,12 +41,7 @@ const CardCard = ({
 	return (
 		<View style={[styles.container, { height, width }]}>
 			<Animated.View
-				style={[
-					animatedStyle,
-					style,
-					{ backgroundColor: theme['--background-1'] },
-					styles.wrapper,
-				]}
+				style={[animatedStyle, style, { backgroundColor: theme['--card'] }, styles.wrapper]}
 			>
 				<Pressable onPress={onPress} style={{ flex: 1 }} className='px-4 items-center'>
 					<Image
@@ -63,15 +58,15 @@ const CardCard = ({
 						variant='caption'
 						numberOfLines={2}
 						style={styles.cardName}
-						color={theme['--primary-2']}
+						color={theme['--text']}
 					>
 						{card.name.en}
 					</Typography>
 				</Pressable>
 			</Animated.View>
 			{selected && (
-				<View style={styles.selection_checkmark} className='bg-primary-1 items-center'>
-					<Ionicons name='checkmark' size={14} color={theme['--background-1']} />
+				<View style={styles.selection_checkmark} className='bg-primary items-center'>
+					<Ionicons name='checkmark' size={14} color={theme['--background']} />
 				</View>
 			)}
 		</View>

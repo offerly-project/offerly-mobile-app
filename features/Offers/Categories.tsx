@@ -1,8 +1,8 @@
-import { Pressable, ScrollView, View } from 'react-native';
-import React, { useRef, useState } from 'react';
 import Typography from '@/components/Typography/Typography';
-import { MaterialCommunityIcons, SimpleLineIcons, Ionicons, Octicons } from '@expo/vector-icons';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import { Ionicons, MaterialCommunityIcons, Octicons, SimpleLineIcons } from '@expo/vector-icons';
+import React, { useRef, useState } from 'react';
+import { Pressable, ScrollView, View } from 'react-native';
 
 type Props = {
 	setSelectedCategory: (cat: string) => void;
@@ -94,22 +94,20 @@ const Categories = ({ selectedCategory, setSelectedCategory }: Props) => {
 						setSelectedCategory(category.name);
 					}}
 					key={category.name}
-					className={`flex-row px-2.5 pt-1.5 gap-2 rounded-full ${category.name === selectedCategory ? 'bg-primary-1' : 'border border-secondary-1'}`}
+					className={`flex-row px-2.5 pt-1.5 gap-2 rounded-full ${category.name === selectedCategory ? 'bg-selected' : 'border border-secondary'}`}
 				>
 					{React.cloneElement(category.component, {
-						color: category.name === selectedCategory ? 'white' : theme['--primary-1'],
+						color: category.name === selectedCategory ? 'white' : theme['--primary'],
 					})}
 					<Typography
 						variant='body'
 						weight='bold'
-						color={
-							category.name === selectedCategory ? 'white' : theme['--secondary-1']
-						}
+						color={category.name === selectedCategory ? 'white' : theme['--secondary']}
 					>
 						{category.name}
 					</Typography>
 					{category.name === selectedCategory && (
-						<View className='absolute -right-1 -top-1 rounded-full bg-primary-3'>
+						<View className='absolute -right-1 -top-1 rounded-full bg-primary'>
 							<Ionicons size={14} color='white' name='close' />
 						</View>
 					)}

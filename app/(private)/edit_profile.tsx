@@ -34,7 +34,7 @@ export const EditProfile = observer(() => {
 							}
 							leading={
 								<Ionicons
-									className='bg-primary-1 p-1.5'
+									className='bg-primary p-1.5'
 									color='white'
 									style={{ borderRadius: 12 }}
 									name='information'
@@ -67,7 +67,7 @@ export const EditProfile = observer(() => {
 								}
 								leading={
 									<Ionicons
-										className='bg-primary-1 p-1.5'
+										className='bg-primary p-1.5'
 										color='white'
 										style={{ borderRadius: 12 }}
 										name='person'
@@ -99,7 +99,7 @@ export const EditProfile = observer(() => {
 								}
 								leading={
 									<Ionicons
-										className='bg-primary-1 p-1.5'
+										className='bg-primary p-1.5'
 										color='white'
 										style={{ borderRadius: 12 }}
 										name='phone-portrait'

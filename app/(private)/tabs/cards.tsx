@@ -2,6 +2,7 @@ import { CardsApi } from '@/api/cards.api';
 import Button from '@/components/Button/Buttton';
 import Typography from '@/components/Typography/Typography';
 import { SCREEN_WIDTH } from '@/constants/screens';
+import { useThemeContext } from '@/contexts/ThemeContext';
 import { ICard } from '@/entities/card.entity';
 import CardCard from '@/features/Cards/components/CardCard';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
@@ -42,24 +43,33 @@ const Cards = observer(() => {
 			prev.includes(cardId) ? prev.filter((id) => id !== cardId) : [...prev, cardId],
 		);
 	};
+	const themeName = useThemeContext().theme;
 
 	const handleRemove = () => {
-		Alert.alert('Delete Cards', 'Are you sure you want to delete the selected cards?', [
-			{ text: 'Cancel' },
-			{
-				text: 'Confirm',
-				onPress: async () => {
-					setRemoving(true);
-					try {
-						await CardsApi.deleteUserCards(selectedCards);
-						await cardsStore().fetchUserCards();
-						setSelectedCards([]);
-					} finally {
-						setRemoving(false);
-					}
+		Alert.alert(
+			'Delete Cards',
+			'Are you sure you want to delete the selected cards?',
+			[
+				{ text: 'Cancel' },
+				{
+					style: 'destructive',
+					text: 'Confirm',
+					onPress: async () => {
+						setRemoving(true);
+						try {
+							await CardsApi.deleteUserCards(selectedCards);
+							await cardsStore().fetchUserCards();
+							setSelectedCards([]);
+						} finally {
+							setRemoving(false);
+						}
+					},
 				},
+			],
+			{
+				userInterfaceStyle: themeName,
 			},
-		]);
+		);
 	};
 
 	// Utility functions
@@ -79,7 +89,7 @@ const Cards = observer(() => {
 	const renderGroupedCards = () =>
 		groupedCards.map(([bankName, cards], index) => (
 			<View key={bankName} style={index > 0 ? styles.groupSeparator : undefined}>
-				<Typography variant='body' weight='bold' color={theme['--text-1']} className='pb-2'>
+				<Typography variant='body' weight='bold' color={theme['--text']} className='pb-2'>
 					{bankName}
 				</Typography>
 				<ScrollView
@@ -114,7 +124,7 @@ const Cards = observer(() => {
 						style={{ borderWidth: 0 }}
 						onPress={() => router.push('/(private)/select_cards')}
 					>
-						<Ionicons name='add' size={24} color={theme['--text-1']} />
+						<Ionicons name='add' size={24} color={theme['--static']} />
 					</Button>
 				</View>
 			}
@@ -127,14 +137,14 @@ const Cards = observer(() => {
 				{selectedCards.length > 0 && (
 					<Animated.View style={[styles.hapticPressContainer, animatedStyle]}>
 						{removing ? (
-							<ActivityIndicator color={theme['--primary-1']} />
+							<ActivityIndicator color={theme['--primary']} />
 						) : (
 							<View style={styles.actionButtons}>
 								<Pressable style={styles.actionButton} onPress={handleRemove}>
 									<Ionicons
 										name='trash-bin'
 										size={30}
-										color={theme['--primary-1']}
+										color={theme['--primary']}
 									/>
 								</Pressable>
 							</View>

@@ -1,14 +1,14 @@
-import { ActivityIndicator, View, TouchableOpacity } from 'react-native';
+import Button from '@/components/Button/Buttton';
+import OTPInput from '@/components/Input/OtpInput';
 import Typography from '@/components/Typography/Typography';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
-import OTPInput from '@/components/Input/OtpInput';
-import Button from '@/components/Button/Buttton';
-import { useState, useEffect } from 'react';
-import { userStore } from '@/stores';
 import KeyboardAvoidingLayout from '@/layouts/KeyboardAvoidingLayout';
+import { userStore } from '@/stores';
 import { AxiosError } from 'axios';
-import NewPasswordForm from './NewPasswordForm';
 import { useLocalSearchParams } from 'expo-router/build/hooks';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
+import NewPasswordForm from './NewPasswordForm';
 
 export default function OtpForm() {
 	const theme = useThemeStyles();
@@ -74,7 +74,7 @@ export default function OtpForm() {
 
 	return (
 		<KeyboardAvoidingLayout className='gap-8 flex-1 justify-center'>
-			<Typography variant='h3' align='center' weight='light' color={theme['--primary-2']}>
+			<Typography variant='h3' align='center' weight='light' color={theme['--primary']}>
 				Enter OTP Code
 			</Typography>
 			<OTPInput onCodeChange={(code) => handleOTPChange(code)} />
@@ -98,7 +98,7 @@ export default function OtpForm() {
 				<TouchableOpacity disabled={timeLeft != 0} onPress={handleResend}>
 					<Typography
 						className={`underline ${timeLeft != 0 && 'opacity-30'}`}
-						color={theme['--primary-1']}
+						color={theme['--primary']}
 					>
 						Resend
 					</Typography>

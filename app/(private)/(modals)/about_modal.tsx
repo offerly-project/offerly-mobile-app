@@ -12,10 +12,10 @@ const ListItem = ({ name, value }: ListItemProps) => {
 	const theme = useThemeStyles();
 	return (
 		<View className='flex-column justify-between border-t-gray-200 pt-4 border-t'>
-			<Typography variant='body' weight='bold' color={theme['--primary-1']}>
+			<Typography variant='body' weight='bold' color={theme['--primary']}>
 				{name}
 			</Typography>
-			<Typography variant='body' color={theme['--text-2']}>
+			<Typography variant='body' color={theme['--text']}>
 				{value}
 			</Typography>
 		</View>
@@ -30,26 +30,26 @@ const AboutModal = (props: Props) => {
 	return (
 		<ModalLayout>
 			<ScrollView className='px-6 mb-20'>
-				<Typography className='my-4' variant='h3' color={theme['--primary-1']}>
+				<Typography className='my-4' variant='h3' color={theme['--primary']}>
 					About Us
 				</Typography>
-				<Typography variant='body' color={theme['--text-2']}>
+				<Typography variant='body' color={theme['--text']}>
 					Welcome to{' '}
-					<Typography color={theme['--primary-1']} weight='bold'>
+					<Typography color={theme['--primary']} weight='bold'>
 						Offerly
 					</Typography>{' '}
 					– your one-stop solution for accessing the best payment card offers from various
 					banks, all in one place.
 				</Typography>
-				<Typography className='mt-4' variant='body' color={theme['--text-2']}>
+				<Typography className='mt-4' variant='body' color={theme['--text']}>
 					At Offerly, we understand that managing payment card offers can be overwhelming.
 					That{"'"}s why we{"'"}ve created a user-friendly platform that brings together
 					the latest and greatest offers from a wide range of banks.
 				</Typography>
-				<Typography className='my-4' variant='h3' color={theme['--primary-1']}>
+				<Typography className='my-4' variant='h3' color={theme['--primary']}>
 					Our Goal
 				</Typography>
-				<Typography variant='body' color={theme['--text-2']}>
+				<Typography variant='body' color={theme['--text']}>
 					By consolidating offers from different banks into one convenient app, we save
 					you time and effort, allowing you to focus on what matters most – enjoying the
 					benefits of your payment cards.

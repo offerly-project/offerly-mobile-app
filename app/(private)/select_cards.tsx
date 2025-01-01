@@ -89,13 +89,13 @@ const SelectCards = () => {
 			<View style={styles.itemContent}>
 				<Image source={formatUploadPath(item.data.logo)} style={styles.bankLogo} />
 				<View>
-					<Typography variant='body' color={theme['--primary-2']}>
+					<Typography variant='body' color={theme['--text']}>
 						{item.data.name.en}
 					</Typography>
 				</View>
 			</View>
 			{item.value === selectedBank && (
-				<Ionicons name='checkmark' size={16} color={theme['--primary-1']} />
+				<Ionicons name='checkmark' size={16} color={theme['--text']} />
 			)}
 		</Pressable>
 	);
@@ -118,7 +118,7 @@ const SelectCards = () => {
 	if (loading.banks)
 		return (
 			<View className='h-full w-full flex flex-col items-center justify-center'>
-				<ActivityIndicator color={theme['--primary-1']} />
+				<ActivityIndicator color={theme['--primary']} />
 			</View>
 		);
 
@@ -140,7 +140,7 @@ const SelectCards = () => {
 						item.data.name.en.toLowerCase().includes(search.toLowerCase())
 					}
 				/>
-				<View>
+				<View style={{ height: '70%' }}>
 					<CardsGridLayout
 						data={bankCards.filter(
 							(card) => !userCardsList.some((userCard) => userCard.id === card.id),
@@ -176,11 +176,11 @@ const SelectCards = () => {
 							style={{ borderRadius: 20 }}
 							loading={loading.adding}
 							className='px-10'
-							loadingComponent={<ActivityIndicator color={theme['--text-1']} />}
+							loadingComponent={<ActivityIndicator color={theme['--text']} />}
 							onPress={onAdd}
 							hapticFeedback
 						>
-							<Typography color={theme['--background-1']}>Add</Typography>
+							<Typography color={theme['--background']}>Add</Typography>
 						</Button>
 					</Animated.View>
 				)}

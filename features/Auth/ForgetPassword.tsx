@@ -1,14 +1,14 @@
-import { ActivityIndicator, View } from 'react-native';
-import Typography from '@/components/Typography/Typography';
-import Input from '@/components/Input/Input';
 import Button from '@/components/Button/Buttton';
+import Input from '@/components/Input/Input';
 import Link from '@/components/Typography/Link';
-import z from 'zod';
+import Typography from '@/components/Typography/Typography';
 import { useForm } from '@/hooks/useForm';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
-import { userStore } from '@/stores';
 import KeyboardAvoidingLayout from '@/layouts/KeyboardAvoidingLayout';
+import { userStore } from '@/stores';
 import { router } from 'expo-router';
+import { ActivityIndicator, View } from 'react-native';
+import z from 'zod';
 
 const schema = z.object({
 	email: z
@@ -52,7 +52,7 @@ export default function ForgetPassword() {
 					<View className='gap-2.5'>
 						<Typography
 							className='tracking-wider'
-							color={theme['--primary-2']}
+							color={theme['--primary']}
 							weight='light'
 							variant='h3'
 						>
@@ -86,10 +86,10 @@ export default function ForgetPassword() {
 					</View>
 				</View>
 				<View className='flex-row gap-1 items-center absolute bottom-0'>
-					<Typography color={theme['--primary-2']} weight='light' variant='label'>
+					<Typography color={theme['--primary']} weight='light' variant='label'>
 						Try logging in?
 					</Typography>
-					<Link color={theme['--primary-2']} goBack variant='label'>
+					<Link color={theme['--primary']} goBack variant='label'>
 						Login now
 					</Link>
 				</View>

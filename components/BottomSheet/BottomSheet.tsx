@@ -1,7 +1,7 @@
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import { ComponentProps, useEffect, useRef } from 'react';
-import { Keyboard, Pressable } from 'react-native';
+import { Keyboard, Pressable, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 type Props = {
 	open?: boolean;
@@ -58,15 +58,31 @@ const BottomSheet = ({ open, children, ...rest }: Props) => {
 				}}
 				enablePanDownToClose
 				topInset={insets.top}
-				handleStyle={{ backgroundColor: theme['--background-1'] }}
-				handleIndicatorStyle={{ backgroundColor: theme['--primary-1'] }}
+				backgroundComponent={({ style }) => (
+					<View
+						style={[
+							{
+								backgroundColor: theme['--light-background'],
+								borderTopLeftRadius: 50,
+								borderTopRightRadius: 50,
+							},
+							style,
+						]}
+					/>
+				)}
+				handleStyle={{
+					backgroundColor: theme['--light-background'],
+					borderTopLeftRadius: 50,
+					borderTopRightRadius: 50,
+				}}
+				handleIndicatorStyle={{ backgroundColor: theme['--primary'] }}
 				{...rest}
 			>
 				<BottomSheetView
 					className={`px-6`}
 					style={{
 						paddingBottom: insets.bottom,
-						backgroundColor: theme['--background-1'],
+						backgroundColor: theme['--light-background'],
 					}}
 				>
 					{children(() => ref.current?.close())}

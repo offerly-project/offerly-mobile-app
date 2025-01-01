@@ -87,10 +87,10 @@ const ChangePasswordModal = (props: Props) => {
 				borderStyle='filled'
 				onPress={handleSubmit}
 			>
-				<Typography color={theme['--background']}>Change Password</Typography>
+				<Typography color={theme['--text']}>Change Password</Typography>
 			</Button>
 			{serverError && (
-				<Typography color={'red'} className='mx-auto my-4'>
+				<Typography color={theme['--danger']} className='mx-auto my-4'>
 					{serverError}
 				</Typography>
 			)}

@@ -9,7 +9,7 @@ const CloseButton = (props: Props) => {
 	const theme = useThemeStyles();
 	return (
 		<Pressable {...props}>
-			<Ionicons size={25} name='close' color={theme['--primary-1']} />
+			<Ionicons size={25} name='close' color={theme['--primary']} />
 		</Pressable>
 	);
 };

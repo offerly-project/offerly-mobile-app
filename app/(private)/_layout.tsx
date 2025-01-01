@@ -17,7 +17,7 @@ export const PrivateLayout = observer(() => {
 	if (loading)
 		return (
 			<View className='h-full w-full flex-col items-center justify-center'>
-				<ActivityIndicator color={theme['--primary-1']} />
+				<ActivityIndicator color={theme['--primary']} />
 			</View>
 		);
 

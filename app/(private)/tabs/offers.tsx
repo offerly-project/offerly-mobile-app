@@ -37,7 +37,7 @@ const Offers = observer((props: Props) => {
 
 	const renderFooter = () => {
 		if (!loadingMore || data.length < 8) return null;
-		return <ActivityIndicator color={theme['--primary-1']} animating size='small' />;
+		return <ActivityIndicator color={theme['--primary']} animating size='small' />;
 	};
 	return (
 		<TabLayout title='Offers'>
@@ -62,7 +62,7 @@ const Offers = observer((props: Props) => {
 							<Ionicons
 								name='options-outline'
 								onPress={openHandler}
-								color={theme['--primary-1']}
+								color={theme['--primary']}
 								size={36}
 							/>
 						)}
@@ -71,7 +71,7 @@ const Offers = observer((props: Props) => {
 					<View className='flex-1'>
 						<Input
 							trailingIcon={() => (
-								<Ionicons size={22} color={theme['--primary-1']} name='search' />
+								<Ionicons size={22} color={theme['--primary']} name='search' />
 							)}
 							value={search}
 							onChangeText={setSearch}
@@ -85,7 +85,7 @@ const Offers = observer((props: Props) => {
 						className='flex-1'
 						size='small'
 						animating
-						color={theme['--primary-1']}
+						color={theme['--primary']}
 					/>
 				) : (
 					<FlatList
@@ -95,7 +95,7 @@ const Offers = observer((props: Props) => {
 						renderItem={({ item }) => <OfferCard offer={item} />}
 						refreshControl={
 							<RefreshControl
-								tintColor={theme['--primary-1']}
+								tintColor={theme['--primary']}
 								refreshing={refreshing}
 								onRefresh={handleRefresh}
 							/>

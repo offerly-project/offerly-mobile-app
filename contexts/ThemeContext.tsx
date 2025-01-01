@@ -1,6 +1,5 @@
 import { themes, ThemeStyle } from '@/constants/themes';
 import { PlainStorage } from '@/services/storage.services';
-import { userStore } from '@/stores';
 import { vars } from 'nativewind';
 import { createContext, useContext, useState } from 'react';
 import { View } from 'react-native';
@@ -19,7 +18,7 @@ type Props = {
 };
 
 export const ThemeContextProvider = ({ children }: Props) => {
-	const [theme, setTheme] = useState<ThemeNameType>(userStore().theme);
+	const [theme, setTheme] = useState<ThemeNameType>('light');
 
 	const changeTheme = async (newTheme: ThemeNameType) => {
 		setTheme(newTheme);

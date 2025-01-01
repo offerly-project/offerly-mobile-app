@@ -48,7 +48,7 @@ const LoginForm = () => {
 				<View className='gap-10 m-auto w-full'>
 					<View>
 						<Typography
-							color={theme['--primary-2']}
+							color={theme['--primary']}
 							weight='bold'
 							className='tracking-widest'
 							variant='h1'
@@ -56,7 +56,7 @@ const LoginForm = () => {
 							Welcome!
 						</Typography>
 						<Typography
-							color={theme['--primary-2']}
+							color={theme['--primary']}
 							className='tracking-wider'
 							variant='body'
 						>
@@ -93,16 +93,16 @@ const LoginForm = () => {
 					</View>
 
 					<View className='m-auto'>
-						<Link color={theme['--primary-2']} to='/forgetPassword' variant='label'>
+						<Link color={theme['--primary']} to='/forgetPassword' variant='label'>
 							Forgot your password?
 						</Link>
 					</View>
 				</View>
 				<View className='flex-row gap-1 items-center absolute bottom-0'>
-					<Typography color={theme['--primary-2']} weight='light' variant='label'>
+					<Typography color={theme['--primary']} weight='light' variant='label'>
 						Dont have an account?
 					</Typography>
-					<Link replace to={'/signup'} color={theme['--primary-2']} variant='label'>
+					<Link replace to={'/signup'} color={theme['--primary']} variant='label'>
 						Sign up
 					</Link>
 				</View>

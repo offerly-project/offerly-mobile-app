@@ -30,12 +30,7 @@ export const ConfigurationItem = ({
 			{...rest}
 		>
 			{leading}
-			<Typography
-				className='flex-1'
-				color={theme['--text-1']}
-				weight='medium'
-				variant='label'
-			>
+			<Typography className='flex-1' color={theme['--text']} weight='medium' variant='label'>
 				{label}
 			</Typography>
 			{trailing}

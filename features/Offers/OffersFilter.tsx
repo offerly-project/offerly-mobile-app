@@ -1,3 +1,4 @@
+import Button from '@/components/Button/Buttton';
 import Select from '@/components/Select/Select';
 import Typography from '@/components/Typography/Typography';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
@@ -5,9 +6,8 @@ import { cardsStore } from '@/stores';
 import { formatUploadPath } from '@/utils/utils';
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
-import { View, Text, Pressable } from 'react-native';
+import { Pressable, View } from 'react-native';
 import Categories from './Categories';
-import Button from '@/components/Button/Buttton';
 
 type Props = {
 	setSelectedCard: (card: string) => void;
@@ -60,7 +60,7 @@ const OffersFilter = ({
 								style={{ height: 25, width: 50 }}
 							/>
 							<Typography
-								color={theme['--primary-2']}
+								color={theme['--text']}
 								className='w-[150px]'
 								variant='label'
 							>
@@ -71,7 +71,7 @@ const OffersFilter = ({
 							<Ionicons
 								name='checkmark-circle'
 								size={25}
-								color={theme['--primary-1']}
+								color={theme['--primary']}
 							/>
 						)}
 					</View>

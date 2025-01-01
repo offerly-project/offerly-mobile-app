@@ -6,8 +6,8 @@ type Variants = 'primary' | 'secondary';
 type BorderStyles = 'filled' | 'outlined' | 'ghost';
 
 const COLORING: Record<Variants, string> = {
-	primary: 'primary-1',
-	secondary: 'secondary-1',
+	primary: 'primary',
+	secondary: 'secondary',
 };
 
 const BORDER_STYLE: Record<BorderStyles, string> = {

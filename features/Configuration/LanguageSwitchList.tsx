@@ -19,7 +19,7 @@ const LanguageOption = ({
 	color: string;
 }) => (
 	<Pressable style={styles.option} onPress={() => onSelect(language)}>
-		<Typography variant='body' weight='regular'>
+		<Typography variant='body' weight='regular' color={color}>
 			{label}
 		</Typography>
 		{isSelected && <Ionicons name='checkmark-circle' size={20} color={color} />}
@@ -44,14 +44,14 @@ const LanguageSwitchList = ({ onSelect }: Props) => {
 				language='en'
 				onSelect={selectHandler}
 				isSelected={language === 'en'}
-				color={theme['--primary-1']}
+				color={theme['--text']}
 			/>
 			<LanguageOption
 				label={translations.languages.ar}
 				language='ar'
 				onSelect={selectHandler}
 				isSelected={language === 'ar'}
-				color={theme['--primary-1']}
+				color={theme['--text']}
 			/>
 		</View>
 	);

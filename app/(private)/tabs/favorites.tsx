@@ -24,7 +24,7 @@ const Favorites = observer((props: Props) => {
 		<TabLayout title='Favorites'>
 			{loading ? (
 				<View className='flex-1 justify-center items-center'>
-					<ActivityIndicator size='small' color={theme['--primary-1']} />
+					<ActivityIndicator size='small' color={theme['--primary']} />
 				</View>
 			) : (
 				<View className='p-6 flex-1'>

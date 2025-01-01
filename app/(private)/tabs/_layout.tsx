@@ -11,12 +11,12 @@ export default function Layout() {
 		<View style={{ flex: 1, backgroundColor: theme['--background'] }}>
 			<Tabs
 				screenOptions={{
-					tabBarActiveTintColor: theme['--primary-1'],
+					tabBarActiveTintColor: theme['--primary'],
 					headerShown: false,
 					tabBarStyle: {
 						backgroundColor: theme['--background'],
 						borderTopWidth: 1,
-						borderTopColor: theme['--background-1'],
+						borderTopColor: theme['--background'],
 						paddingTop: 6,
 						height: 80,
 					},

@@ -9,7 +9,7 @@ const EditButton = (props: Props) => {
 	const theme = useThemeStyles();
 	return (
 		<Pressable {...props}>
-			<AntDesign name='edit' color={theme['--primary-1']} size={20} />
+			<AntDesign name='edit' color={theme['--primary']} size={20} />
 		</Pressable>
 	);
 };

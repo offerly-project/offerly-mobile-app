@@ -23,7 +23,7 @@ const ThemeOption = ({
 	color: string;
 }) => (
 	<Pressable style={styles.option} onPress={() => onSelect(themeKey)}>
-		<Typography variant='body' weight='regular'>
+		<Typography variant='body' weight='regular' color={color}>
 			{label}
 		</Typography>
 		{isSelected && <Ionicons name='checkmark-circle' size={20} color={color} />}
@@ -39,14 +39,14 @@ const ThemeSwitchList = ({ onSelect, selectedTheme }: Props) => {
 				themeKey='light'
 				onSelect={onSelect}
 				isSelected={selectedTheme === 'light'}
-				color={theme['--primary-1']}
+				color={theme['--text']}
 			/>
 			<ThemeOption
 				label='Dark'
 				themeKey='dark'
 				onSelect={onSelect}
 				isSelected={selectedTheme === 'dark'}
-				color={theme['--primary-1']}
+				color={theme['--text']}
 			/>
 		</View>
 	);

@@ -32,7 +32,7 @@ const OTPInput: React.FC<OTPInputProps> = ({ onCodeChange }) => {
 			{otp.map((value, index) => (
 				<TextInput
 					key={index}
-					className='border-2 border-primary-1 w-[50px] h-[50px] text-3xl text-center rounded-full text-primary-2 font-light'
+					className='border-2 border-primary w-[50px] h-[50px] text-3xl text-center rounded-full text-primary font-light'
 					value={value}
 					onChangeText={(text) => handleChange(text, index)}
 					onKeyPress={({ nativeEvent: { key } }) => handleKeyPress(key, index)}

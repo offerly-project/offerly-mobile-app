@@ -23,7 +23,7 @@ const ModalLayout = ({ children, title }: Props) => {
 				</View>
 				{title && (
 					<View>
-						<Typography variant='h3' color={theme['--primary-1']}>
+						<Typography variant='h3' color={theme['--primary']}>
 							{title}
 						</Typography>
 					</View>

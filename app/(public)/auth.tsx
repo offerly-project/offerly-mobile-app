@@ -1,10 +1,10 @@
-import { SafeAreaView, View } from 'react-native';
 import BrandLogo from '@/assets/images/BrandLogo.svg';
 import Button from '@/components/Button/Buttton';
-import Typography from '@/components/Typography/Typography';
 import Link from '@/components/Typography/Link';
-import { router } from 'expo-router';
+import Typography from '@/components/Typography/Typography';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import { router } from 'expo-router';
+import { SafeAreaView, View } from 'react-native';
 
 export default function index() {
 	const theme = useThemeStyles();
@@ -21,7 +21,7 @@ export default function index() {
 					</Button>
 				</View>
 				<View className='absolute bottom-0'>
-					<Link color={theme['--primary-2']} to='./login.tsx'>
+					<Link color={theme['--primary']} to='./login.tsx'>
 						Continue as a guest
 					</Link>
 				</View>

@@ -54,16 +54,16 @@ const Select = <T = unknown,>({
 	return (
 		<>
 			<Pressable
-				className={`rounded-full bg-transparent border-primary-1 border px-4 flex flex-row justify-between items-center ${className}`}
+				className={`rounded-full bg-transparent border-primary border px-4 flex flex-row justify-between items-center ${className}`}
 				style={styles}
 				onPress={() => {
 					setOpen(true);
 				}}
 			>
-				<Typography color={theme['--primary-1']}>
+				<Typography color={theme['--text']}>
 					{children ? children(boxContent) : boxContent ? boxContent : placeHolder}
 				</Typography>
-				<Ionicons name='caret-down' size={14} color={theme['--primary-1']} />
+				<Ionicons name='caret-down' size={14} color={theme['--text']} />
 			</Pressable>
 			<BottomSheet
 				snapPoints={['100%']}
@@ -114,7 +114,7 @@ const Select = <T = unknown,>({
 												<Ionicons
 													name='checkmark'
 													size={16}
-													color={theme['--primary-1']}
+													color={theme['--primary']}
 												/>
 											)}
 										</Pressable>

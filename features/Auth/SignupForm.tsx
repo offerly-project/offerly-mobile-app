@@ -1,16 +1,16 @@
 import Button from '@/components/Button/Buttton';
 import Input from '@/components/Input/Input';
 import PasswordInput from '@/components/Input/PasswordInput';
-import Typography from '@/components/Typography/Typography';
 import Link from '@/components/Typography/Link';
+import Typography from '@/components/Typography/Typography';
 import { useForm } from '@/hooks/useForm';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import KeyboardAvoidingLayout from '@/layouts/KeyboardAvoidingLayout';
+import { userStore } from '@/stores';
+import { router } from 'expo-router';
+import { useState } from 'react';
 import { ActivityIndicator, Modal, View } from 'react-native';
 import z from 'zod';
-import { useState } from 'react';
-import { router } from 'expo-router';
-import { userStore } from '@/stores';
-import KeyboardAvoidingLayout from '@/layouts/KeyboardAvoidingLayout';
 
 const schema = z.object({
 	full_name: z.string().min(1, { message: 'Full name is required' }),
@@ -58,7 +58,7 @@ export default function SignupForm() {
 				<View className='gap-10 m-auto w-full'>
 					<View>
 						<Typography
-							color={theme['--primary-2']}
+							color={theme['--primary']}
 							className='tracking-wider'
 							weight='light'
 							variant='h3'
@@ -102,10 +102,10 @@ export default function SignupForm() {
 					</View>
 				</View>
 				<View className='flex-row gap-1 items-center absolute bottom-0'>
-					<Typography color={theme['--primary-2']} weight='light' variant='label'>
+					<Typography color={theme['--primary']} weight='light' variant='label'>
 						Already have an account?
 					</Typography>
-					<Link color={theme['--primary-2']} replace to='/login' variant='label'>
+					<Link color={theme['--primary']} replace to='/login' variant='label'>
 						Sign in
 					</Link>
 				</View>

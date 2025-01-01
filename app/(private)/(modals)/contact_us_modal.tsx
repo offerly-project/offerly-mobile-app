@@ -73,7 +73,7 @@ const ContactUsModal = (props: Props) => {
 					borderStyle='filled'
 					onPress={handleSubmit}
 				>
-					<Typography color={theme['--background']} weight='bold'>
+					<Typography color={theme['--text']} weight='bold'>
 						Send
 					</Typography>
 				</Button>

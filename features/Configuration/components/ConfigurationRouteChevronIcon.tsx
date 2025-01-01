@@ -10,7 +10,7 @@ const ConfigurationRouteChevronIcon = (props: Props) => {
 	return (
 		<Feather
 			{...props}
-			color={props.color || theme['--primary-1']}
+			color={props.color || theme['--primary']}
 			name='chevron-right'
 			size={19}
 		/>

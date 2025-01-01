@@ -6,8 +6,8 @@ import { TextInput, TextInputProps, View } from 'react-native';
 import Typography from '../Typography/Typography';
 
 const COLORING = {
-	primary: 'border-primary-1',
-	secondary: 'border-secondary-1',
+	primary: 'border-primary',
+	secondary: 'border-secondary',
 };
 
 const BORDER_STYLE = {
@@ -49,7 +49,7 @@ const Input: React.FC<InputProps> = ({
 	focused,
 	...rest
 }) => {
-	const inputStyles = `flex-1 text-black py-3 px-2 color-primary-1`;
+	const inputStyles = `flex-1 py-3 px-2 color-text`;
 	const containerStyles = `bg-transparent flex-row items-center ${BORDER_STYLE[borderStyle]} ${COLORING[variant]} ${disabled ? 'opacity-40' : ''}`;
 
 	const ref = React.useRef<TextInput>(null);
@@ -87,14 +87,14 @@ const Input: React.FC<InputProps> = ({
 					editable={!disabled}
 					keyboardType={getKeyboardType()}
 					{...rest}
-					selectionColor={theme['--secondary-1']}
+					selectionColor={theme['--secondary']}
 					autoCorrect={false}
 					className={[inputStyles, rest.className].join(' ')}
 				/>
 				{trailingIcon && trailingIcon()}
 			</View>
 			{error && (
-				<Typography align='center' color='red' variant='caption'>
+				<Typography align='center' color={theme['--danger']} variant='caption'>
 					<MaterialCommunityIcons className='mr-2' name='information-outline' /> {error}
 				</Typography>
 			)}

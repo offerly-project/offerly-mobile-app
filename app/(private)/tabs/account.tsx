@@ -40,7 +40,7 @@ const AccountPage = observer(() => {
 							}}
 							leading={
 								<Ionicons
-									className='bg-primary-1 p-1.5'
+									className='bg-primary p-1.5'
 									color='white'
 									style={{ borderRadius: 12 }}
 									name='person'
@@ -57,7 +57,7 @@ const AccountPage = observer(() => {
 							trailing={<ConfigurationRouteChevronIcon />}
 							leading={
 								<Ionicons
-									className='bg-primary-1 p-1.5'
+									className='bg-primary p-1.5'
 									color='white'
 									style={{ borderRadius: 12 }}
 									name='lock-closed'
@@ -74,7 +74,7 @@ const AccountPage = observer(() => {
 							trailing={<ConfigurationRouteChevronIcon />}
 							leading={
 								<Ionicons
-									className='bg-primary-1 p-1.5'
+									className='bg-primary p-1.5'
 									color='white'
 									style={{ borderRadius: 12 }}
 									name='document'
@@ -91,7 +91,7 @@ const AccountPage = observer(() => {
 							trailing={<ConfigurationRouteChevronIcon />}
 							leading={
 								<Ionicons
-									className='bg-primary-1 p-1.5'
+									className='bg-primary p-1.5'
 									color='white'
 									style={{ borderRadius: 12 }}
 									name='information'
@@ -108,7 +108,7 @@ const AccountPage = observer(() => {
 							trailing={<ConfigurationRouteChevronIcon />}
 							leading={
 								<Ionicons
-									className='bg-primary-1 p-1.5'
+									className='bg-primary p-1.5'
 									color='white'
 									style={{ borderRadius: 12 }}
 									name='send'
@@ -127,7 +127,7 @@ const AccountPage = observer(() => {
 									trailing={<ConfigurationRouteChevronIcon />}
 									leading={
 										<Ionicons
-											className='bg-primary-1 p-1.5'
+											className='bg-primary p-1.5'
 											color='white'
 											style={{ borderRadius: 12 }}
 											name='language'
@@ -156,7 +156,7 @@ const AccountPage = observer(() => {
 									trailing={<ConfigurationRouteChevronIcon />}
 									leading={
 										<Ionicons
-											className='bg-primary-1 p-1.5'
+											className='bg-primary p-1.5'
 											color='white'
 											style={{ borderRadius: 12 }}
 											name='color-fill'
@@ -184,7 +184,7 @@ const AccountPage = observer(() => {
 									onPress={openHandler}
 									leading={
 										<AntDesign
-											className='bg-primary-1 p-1.5'
+											className='bg-primary p-1.5'
 											color='white'
 											style={{ borderRadius: 12 }}
 											name='deleteuser'
@@ -201,7 +201,7 @@ const AccountPage = observer(() => {
 							onPress={userStore().logout}
 							leading={
 								<Ionicons
-									className='bg-primary-1 p-1.5'
+									className='bg-primary p-1.5'
 									color='white'
 									style={{ borderRadius: 12 }}
 									name={'exit'}
@@ -213,30 +213,30 @@ const AccountPage = observer(() => {
 				</View>
 			</View>
 			<View className='flex-row items-center justify-center py-4'>
-				<Typography variant={'body'} color={styles['--text-3']}>
+				<Typography variant={'body'} color={styles['--text']}>
 					Version: {AppVersion}
 				</Typography>
 			</View>
 			<View className='flex-row mt-2 items-center gap-4 w-full justify-center py-6 flex-1 absolute bottom-0'>
 				<View className='flex flex-row gap-1 items-center'>
-					<Typography variant='label' color={styles['--text-1']}>
+					<Typography variant='label' color={styles['--text']}>
 						{getCardsAndFavCount()[0]}
 					</Typography>
 					<Ionicons size={21} className='h-[25]' name='heart-outline' color={'#6633cc'} />
-					<Typography variant='label' color={styles['--text-1']}>
+					<Typography variant='label' color={styles['--text']}>
 						Favorites
 					</Typography>
 				</View>
 
-				<View className='w-[1] h-[18] bg-text-3' />
+				<View className='w-[1] h-[18] bg-text' />
 
 				<View className='flex flex-row gap-1 items-center'>
 					<View className='items-center gap-4' />
-					<Typography variant='label' color={styles['--text-1']}>
+					<Typography variant='label' color={styles['--text']}>
 						{getCardsAndFavCount()[1]}{' '}
 					</Typography>
 					<Ionicons size={21} className='h-[25]' color={'#6633cc'} name='card-outline' />
-					<Typography variant='label' color={styles['--text-1']}>
+					<Typography variant='label' color={styles['--text']}>
 						Cards
 					</Typography>
 				</View>
