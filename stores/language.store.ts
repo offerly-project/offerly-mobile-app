@@ -2,8 +2,8 @@ import ArabicTranslations from '@/assets/i18n/ar.json';
 import EnglishTranslations from '@/assets/i18n/en.json';
 import { PlainStorage } from '@/services/storage.services';
 import { action } from 'mobx';
-import { RootStore } from '.';
 import { I18nManager } from 'react-native';
+import { RootStore } from '.';
 
 export type LanguageType = 'en' | 'ar';
 

@@ -71,12 +71,6 @@ export default function RootLayout() {
 										animation: 'none',
 									}}
 								/>
-								<Stack.Screen
-									name='(modals)'
-									options={{
-										presentation: 'modal',
-									}}
-								/>
 							</Stack>
 						</BottomSheetModalProvider>
 					</GestureHandlerRootView>
