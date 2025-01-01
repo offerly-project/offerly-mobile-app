@@ -3,6 +3,7 @@ import EnglishTranslations from '@/assets/i18n/en.json';
 import { PlainStorage } from '@/services/storage.services';
 import { action } from 'mobx';
 import { RootStore } from '.';
+import { I18nManager } from 'react-native';
 
 export type LanguageType = 'en' | 'ar';
 
@@ -26,6 +27,7 @@ export class LanguageStore {
 	setLanguage = (language: LanguageType) => {
 		this.language = language;
 		PlainStorage.setItem('language', language);
+		I18nManager.forceRTL(this.language == 'ar');
 	};
 
 	get translations(): Translations {

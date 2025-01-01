@@ -12,7 +12,7 @@
 
 export const themes = {
 	dark: {
-		'--primary': '#6633cc',
+		'--primary': '#8188d9',
 		'--secondary': '#8188d9',
 		'--background': '#121212',
 		'--light-background': '#2A2A2A',

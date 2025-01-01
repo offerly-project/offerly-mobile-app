@@ -1,5 +1,7 @@
+import Typography from '@/components/Typography/Typography';
 import { BankType } from '@/entities/bank.entity';
 import { OfferChannel } from '@/entities/offer.entity';
+import { StyleProp } from 'react-native';
 
 export const formatUploadPath = (path: string) => {
 	return `${process.env.EXPO_PUBLIC_BASE_API_URL}/uploads${path}`;
@@ -38,4 +40,21 @@ export const formatOfferChannels = (channels: OfferChannel[]) => {
 				return 'In Store';
 		}
 	});
+};
+
+export const processTranslationWithStyles = (text: string, style: object): JSX.Element => {
+	const parts = text.split(/\[([^\]]+)\]/);
+	return (
+		<>
+			{parts.map((part, index) =>
+				index % 2 === 1 ? ( // Odd are the highlighted text
+					<Typography key={index} {...style}>
+						{part}
+					</Typography>
+				) : (
+					part
+				),
+			)}
+		</>
+	);
 };

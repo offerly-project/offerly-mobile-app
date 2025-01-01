@@ -1,7 +1,7 @@
 import Typography from '@/components/Typography/Typography';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { Ionicons, MaterialCommunityIcons, Octicons, SimpleLineIcons } from '@expo/vector-icons';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 
 type Props = {
@@ -11,7 +11,6 @@ type Props = {
 
 const Categories = ({ selectedCategory, setSelectedCategory }: Props) => {
 	const theme = useThemeStyles();
-	console.log(setSelectedCategory);
 	const CategoriesIcons = [
 		{
 			name: 'Shopping',
@@ -54,6 +53,28 @@ const Categories = ({ selectedCategory, setSelectedCategory }: Props) => {
 	// );
 	const [categories, setCategories] = useState(CategoriesIcons);
 	const categoriesScrollViewRef = useRef<ScrollView>(null);
+
+	useEffect(() => {
+		if (selectedCategory) {
+			setCategories((prevCategories) => {
+				const updatedCategories = [...prevCategories];
+				const selectedIndex = updatedCategories.findIndex(
+					(category) => category.name === selectedCategory,
+				);
+				if (selectedIndex > -1) {
+					const [selectedCategoryItem] = updatedCategories.splice(selectedIndex, 1);
+					updatedCategories.unshift(selectedCategoryItem);
+				}
+				return updatedCategories;
+			});
+			categoriesScrollViewRef.current?.scrollTo({
+				x: 0,
+				y: 0,
+				animated: true,
+			});
+		}
+	}, [selectedCategory]);
+
 	return (
 		<ScrollView
 			horizontal
@@ -63,7 +84,6 @@ const Categories = ({ selectedCategory, setSelectedCategory }: Props) => {
 				margin: 'auto',
 				minHeight: 35,
 				maxHeight: 35,
-				overflow: 'visible',
 			}}
 			showsHorizontalScrollIndicator={false}
 			contentContainerStyle={{
@@ -94,7 +114,7 @@ const Categories = ({ selectedCategory, setSelectedCategory }: Props) => {
 						setSelectedCategory(category.name);
 					}}
 					key={category.name}
-					className={`flex-row px-2.5 pt-1.5 gap-2 rounded-full ${category.name === selectedCategory ? 'bg-selected' : 'border border-secondary'}`}
+					className={`flex-row px-2.5 pt-1.5 mt-1 gap-2 rounded-full ${category.name === selectedCategory ? 'bg-selected' : 'border border-secondary'}`}
 				>
 					{React.cloneElement(category.component, {
 						color: category.name === selectedCategory ? 'white' : theme['--primary'],
