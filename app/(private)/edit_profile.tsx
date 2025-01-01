@@ -5,7 +5,7 @@ import Typography from '@/components/Typography/Typography';
 import FullNameEditSheet from '@/features/Profile/FullNameEditSheet';
 import PhoneNumberEditSheet from '@/features/Profile/PhoneNumberEditSheet';
 import TabLayout from '@/layouts/TabLayout';
-import { rootStore } from '@/stores';
+import { languageStore, rootStore } from '@/stores';
 import Ionicons from '@expo/vector-icons/build/Ionicons';
 import parsePhoneNumber from 'libphonenumber-js';
 import { observer } from 'mobx-react-lite';
@@ -18,8 +18,12 @@ export const EditProfile = observer(() => {
 	const phoneNumber = rootStore.userStore.user.phone_number
 		? parsePhoneNumber(rootStore.userStore.user.phone_number)?.formatInternational() || ''
 		: '';
+	const { isRtl } = languageStore();
+
+	const layoutProps = isRtl ? { trailing: <BackButton /> } : { leading: <BackButton /> };
+
 	return (
-		<TabLayout title='Profile' leading={<BackButton />}>
+		<TabLayout title='Profile' {...layoutProps}>
 			<View style={{ paddingBottom: bottom }} className='p-4 flex-1'>
 				<View className='w-full gap-6 flex-1'>
 					<View className='overflow-hidden rounded-2xl'>

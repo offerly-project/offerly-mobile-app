@@ -7,7 +7,7 @@ import LanguageSwitchList from '@/features/Configuration/LanguageSwitchList';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import TabLayout from '@/layouts/TabLayout';
 import { version as AppVersion } from '@/package.json';
-import { cardsStore, favoritesStore, userStore } from '@/stores';
+import { cardsStore, favoritesStore, languageStore, userStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { router } from 'expo-router';
@@ -26,6 +26,7 @@ const AccountPage = observer(() => {
 	};
 
 	const { user } = userStore();
+	const { isRtl } = languageStore();
 
 	return (
 		<TabLayout title={user.full_name}>

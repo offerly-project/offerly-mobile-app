@@ -14,6 +14,7 @@ const RTL_LANGUAGES: LanguageType[] = ['ar'];
 export class LanguageStore {
 	rootStore: RootStore;
 	language: LanguageType = 'en';
+	isRtl: boolean = false;
 	constructor(rootStore: RootStore) {
 		this.rootStore = rootStore;
 	}
@@ -28,6 +29,7 @@ export class LanguageStore {
 
 	private _reactToLanguageChange = () => {
 		const rtl = RTL_LANGUAGES.includes(this.language);
+		this.isRtl = rtl;
 		I18nManager.forceRTL(rtl);
 	};
 

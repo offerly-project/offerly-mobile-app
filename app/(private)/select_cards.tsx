@@ -17,7 +17,7 @@ import CardCard from '@/features/Cards/components/CardCard';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import CardsGridLayout from '@/layouts/CardsGridLayout';
 import TabLayout from '@/layouts/TabLayout';
-import { cardsStore } from '@/stores';
+import { cardsStore, languageStore } from '@/stores';
 import { formatUploadPath } from '@/utils/utils';
 import { router } from 'expo-router';
 
@@ -122,8 +122,12 @@ const SelectCards = () => {
 			</View>
 		);
 
+	const { isRtl } = languageStore();
+
+	const layoutProps = isRtl ? { trailing: <BackButton /> } : { leading: <BackButton /> };
+
 	return (
-		<TabLayout title='Card Selection' leading={<BackButton />}>
+		<TabLayout title='Card Selection' {...layoutProps}>
 			<>
 				<Select
 					items={banks.map((bank) => ({
