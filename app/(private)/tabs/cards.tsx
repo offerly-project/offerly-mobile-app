@@ -50,7 +50,7 @@ const Cards = observer(() => {
 			'Delete Cards',
 			'Are you sure you want to delete the selected cards?',
 			[
-				{ text: 'Cancel' },
+				{ text: 'Cancel', style: 'cancel' },
 				{
 					style: 'destructive',
 					text: 'Confirm',

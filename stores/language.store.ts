@@ -9,6 +9,8 @@ export type LanguageType = 'en' | 'ar';
 
 export type Translations = typeof EnglishTranslations | typeof ArabicTranslations;
 
+const RTL_LANGUAGES: LanguageType[] = ['ar'];
+
 export class LanguageStore {
 	rootStore: RootStore;
 	language: LanguageType = 'en';
@@ -21,13 +23,19 @@ export class LanguageStore {
 		if (storedLanguage) {
 			this.language = storedLanguage as LanguageType;
 		}
+		this._reactToLanguageChange();
+	};
+
+	private _reactToLanguageChange = () => {
+		const rtl = RTL_LANGUAGES.includes(this.language);
+		I18nManager.forceRTL(rtl);
 	};
 
 	@action
 	setLanguage = (language: LanguageType) => {
 		this.language = language;
 		PlainStorage.setItem('language', language);
-		I18nManager.forceRTL(this.language == 'ar');
+		this._reactToLanguageChange();
 	};
 
 	get translations(): Translations {

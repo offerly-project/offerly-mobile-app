@@ -1,9 +1,11 @@
 import Typography from '@/components/Typography/Typography';
+import { useThemeContext } from '@/contexts/ThemeContext';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { languageStore } from '@/stores';
 import { LanguageType } from '@/stores/language.store';
 import { Ionicons } from '@expo/vector-icons';
-import { Pressable, StyleSheet, View } from 'react-native';
+import * as Updates from 'expo-updates';
+import { Alert, Pressable, StyleSheet, View } from 'react-native';
 
 const LanguageOption = ({
 	label,
@@ -32,10 +34,26 @@ type Props = {
 
 const LanguageSwitchList = ({ onSelect }: Props) => {
 	const theme = useThemeStyles();
+	const themeName = useThemeContext().theme;
 	const { translations, language, setLanguage } = languageStore();
 	const selectHandler = (language: LanguageType) => {
 		setLanguage(language);
 		onSelect();
+		Alert.alert(
+			'Reload Required',
+			'Please reload the app to apply the changes.',
+			[
+				{
+					text: 'Reload',
+					onPress: () => {
+						Updates.reloadAsync();
+					},
+				},
+			],
+			{
+				userInterfaceStyle: themeName,
+			},
+		);
 	};
 	return (
 		<View>
