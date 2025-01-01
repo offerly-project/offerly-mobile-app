@@ -180,7 +180,7 @@ const TermsAndConditionsModal = (props: Props) => {
 
 	return (
 		<ModalLayout>
-			<ScrollView className='px-6 mb-20'>
+			<ScrollView className='px-6 mb-40'>
 				<Typography className='my-4' variant='h3' color={theme['--primary-1']}>
 					Terms & Conditions
 				</Typography>

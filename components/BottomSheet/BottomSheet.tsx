@@ -58,6 +58,7 @@ const BottomSheet = ({ open, children, ...rest }: Props) => {
 				}}
 				enablePanDownToClose
 				topInset={insets.top}
+				handleStyle={{ backgroundColor: theme['--background-1'] }}
 				handleIndicatorStyle={{ backgroundColor: theme['--primary-1'] }}
 				{...rest}
 			>
@@ -65,6 +66,7 @@ const BottomSheet = ({ open, children, ...rest }: Props) => {
 					className={`px-6`}
 					style={{
 						paddingBottom: insets.bottom,
+						backgroundColor: theme['--background-1'],
 					}}
 				>
 					{children(() => ref.current?.close())}
