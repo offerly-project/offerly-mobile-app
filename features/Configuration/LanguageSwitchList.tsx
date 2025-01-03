@@ -58,14 +58,14 @@ const LanguageSwitchList = ({ onSelect }: Props) => {
 	return (
 		<View>
 			<LanguageOption
-				label={translations.languages.en}
+				label={translations.tabs.account.languages.en}
 				language='en'
 				onSelect={selectHandler}
 				isSelected={language === 'en'}
 				color={theme['--text']}
 			/>
 			<LanguageOption
-				label={translations.languages.ar}
+				label={translations.tabs.account.languages.ar}
 				language='ar'
 				onSelect={selectHandler}
 				isSelected={language === 'ar'}

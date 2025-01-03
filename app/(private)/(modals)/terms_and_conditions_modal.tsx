@@ -14,9 +14,9 @@ const TermsAndConditionsModal = (props: Props) => {
 		<ModalLayout>
 			<ScrollView className='px-6 mb-12'>
 				<Typography className='my-4' variant='h3' color={theme['--primary']}>
-					{translations.modals.terms_and_conditions.modalTitle}
+					{translations.tabs.account.terms_and_conditions.title}
 				</Typography>
-				{translations.modals.terms_and_conditions.terms.map((section, index) => (
+				{translations.tabs.account.terms_and_conditions.terms.map((section, index) => (
 					<View key={index} className='mt-6'>
 						<Typography variant='h3' weight='bold' color={theme['--primary']}>
 							{index + 1}. {section.title}

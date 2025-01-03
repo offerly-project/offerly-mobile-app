@@ -5,6 +5,7 @@ import Typography from '@/components/Typography/Typography';
 import { useForm } from '@/hooks/useForm';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import ModalLayout from '@/layouts/ModalLayout';
+import { languageStore } from '@/stores';
 import { router } from 'expo-router';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
@@ -30,6 +31,7 @@ const schema = z
 	});
 const ChangePasswordModal = (props: Props) => {
 	const theme = useThemeStyles();
+	const { translations } = languageStore();
 	const toast = useToast();
 	const { values, setValues, errors, handleSubmit, serverError, loading } = useForm<StateType>({
 		initialValues: {
@@ -57,23 +59,27 @@ const ChangePasswordModal = (props: Props) => {
 	};
 
 	return (
-		<ModalLayout title='Change Password'>
+		<ModalLayout title={translations.tabs.account.change_password.title}>
 			<View className='gap-10 p-6'>
 				<Input
-					placeholder='Type your old password'
+					placeholder={translations.tabs.account.change_password.oldPasswordPlaceholder}
 					value={values.old_password}
 					onChangeText={onOldPasswordChange}
 					error={errors.old_password}
 				/>
 				<View className='gap-5'>
 					<Input
-						placeholder='Type New Password'
+						placeholder={
+							translations.tabs.account.change_password.newPasswordPlaceholder
+						}
 						value={values.new_password}
 						onChangeText={onNewPasswordChange}
 						error={errors.new_password}
 					/>
 					<Input
-						placeholder='Retype a New Password'
+						placeholder={
+							translations.tabs.account.change_password.retypeNewPasswordPlaceholder
+						}
 						value={values.confirm_password}
 						onChangeText={onConfirmPasswordChange}
 						error={errors.confirm_password}
@@ -87,7 +93,7 @@ const ChangePasswordModal = (props: Props) => {
 				borderStyle='filled'
 				onPress={handleSubmit}
 			>
-				<Typography color={theme['--text']}>Change Password</Typography>
+				<Typography color={'white'}>Change Password</Typography>
 			</Button>
 			{serverError && (
 				<Typography color={theme['--danger']} className='mx-auto my-4'>

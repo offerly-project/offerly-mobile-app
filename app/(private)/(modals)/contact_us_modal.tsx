@@ -5,7 +5,7 @@ import Typography from '@/components/Typography/Typography';
 import { useForm } from '@/hooks/useForm';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import ModalLayout from '@/layouts/ModalLayout';
-import { userStore } from '@/stores';
+import { languageStore, userStore } from '@/stores';
 import { router } from 'expo-router';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
@@ -45,23 +45,24 @@ const ContactUsModal = (props: Props) => {
 	};
 
 	const theme = useThemeStyles();
+	const { translations } = languageStore();
 
 	return (
-		<ModalLayout title='Contact us'>
+		<ModalLayout title={translations.tabs.account.contact_us.title}>
 			<View className='gap-5 p-6'>
 				<Input value={user.full_name} className={INPUT_CLASS} disabled />
 				<Input value={user.email} disabled className={INPUT_CLASS} />
 				<Input
 					value={values.subject}
 					onChangeText={onSubjectChange}
-					placeholder='Subject'
+					placeholder={translations.tabs.account.contact_us.subjectPlaceholder}
 					className={INPUT_CLASS}
 					error={errors.subject}
 				/>
 				<Input
 					value={values.message}
 					onChangeText={onMessageChange}
-					placeholder='Message'
+					placeholder={translations.tabs.account.contact_us.messagePlaceholder}
 					className={'h-[150]'}
 					multiline
 					error={errors.message}
@@ -73,8 +74,8 @@ const ContactUsModal = (props: Props) => {
 					borderStyle='filled'
 					onPress={handleSubmit}
 				>
-					<Typography color={theme['--text']} weight='bold'>
-						Send
+					<Typography color={'white'} weight='bold'>
+						{translations.tabs.account.contact_us.sendFormButton}
 					</Typography>
 				</Button>
 			</View>

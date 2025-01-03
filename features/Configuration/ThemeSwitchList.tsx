@@ -1,6 +1,7 @@
 import Typography from '@/components/Typography/Typography';
 import { ThemeNameType } from '@/contexts/ThemeContext';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import { languageStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
 import { Pressable, StyleSheet, View } from 'react-native';
 
@@ -32,17 +33,18 @@ const ThemeOption = ({
 
 const ThemeSwitchList = ({ onSelect, selectedTheme }: Props) => {
 	const theme = useThemeStyles();
+	const { translations } = languageStore();
 	return (
 		<View>
 			<ThemeOption
-				label='Light'
+				label={translations.tabs.account.theme.light}
 				themeKey='light'
 				onSelect={onSelect}
 				isSelected={selectedTheme === 'light'}
 				color={theme['--text']}
 			/>
 			<ThemeOption
-				label='Dark'
+				label={translations.tabs.account.theme.dark}
 				themeKey='dark'
 				onSelect={onSelect}
 				isSelected={selectedTheme === 'dark'}

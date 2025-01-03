@@ -21,6 +21,7 @@ import ThemeSwitchList from '../../../features/Configuration/ThemeSwitchList';
 const AccountPage = observer(() => {
 	const { theme, switchTheme } = useThemeContext();
 	const styles = useThemeStyles();
+	const { translations } = languageStore();
 	const getCardsAndFavCount = () => {
 		return [favoritesStore().favorites.length, cardsStore().userCardsList.length];
 	};
@@ -34,7 +35,7 @@ const AccountPage = observer(() => {
 				<View className='mt-3 items-center justify-center'>
 					<View className='mt-6 w-full'>
 						<ConfigurationItem
-							label='Profile'
+							label={translations.tabs.account.profile.title}
 							trailing={<ConfigurationRouteChevronIcon />}
 							onPress={() => {
 								router.push('/(private)/edit_profile');
@@ -51,7 +52,7 @@ const AccountPage = observer(() => {
 						/>
 
 						<ConfigurationItem
-							label='Change Password'
+							label={translations.tabs.account.change_password.title}
 							onPress={() => {
 								router.push('/(private)/(modals)/change_password_modal');
 							}}
@@ -68,7 +69,7 @@ const AccountPage = observer(() => {
 						/>
 
 						<ConfigurationItem
-							label='Terms & Conditions'
+							label={translations.tabs.account.terms_and_conditions.title}
 							onPress={() => {
 								router.push('/(private)/(modals)/terms_and_conditions_modal');
 							}}
@@ -85,7 +86,7 @@ const AccountPage = observer(() => {
 						/>
 
 						<ConfigurationItem
-							label='About Us'
+							label={translations.tabs.account.about_modal.title}
 							onPress={() => {
 								router.push('/(private)/(modals)/about_modal');
 							}}
@@ -102,7 +103,7 @@ const AccountPage = observer(() => {
 						/>
 
 						<ConfigurationItem
-							label='Contact us'
+							label={translations.tabs.account.contact_us.title}
 							onPress={() => {
 								router.push('/(private)/(modals)/contact_us_modal');
 							}}
@@ -123,7 +124,7 @@ const AccountPage = observer(() => {
 						>
 							{(openHandler) => (
 								<ConfigurationItem
-									label='Languages'
+									label={translations.tabs.account.languages.title}
 									onPress={openHandler}
 									trailing={<ConfigurationRouteChevronIcon />}
 									leading={
@@ -153,7 +154,7 @@ const AccountPage = observer(() => {
 							{(openHandler) => (
 								<ConfigurationItem
 									onPress={openHandler}
-									label='Theme'
+									label={translations.tabs.account.theme.title}
 									trailing={<ConfigurationRouteChevronIcon />}
 									leading={
 										<Ionicons
@@ -181,7 +182,7 @@ const AccountPage = observer(() => {
 						>
 							{(openHandler) => (
 								<ConfigurationItem
-									label='Delete Account'
+									label={translations.tabs.account.deleteAccount.title}
 									onPress={openHandler}
 									leading={
 										<AntDesign
@@ -198,7 +199,7 @@ const AccountPage = observer(() => {
 
 						<ConfigurationItem
 							className='border-none'
-							label='Logout'
+							label={translations.tabs.account.logout}
 							onPress={userStore().logout}
 							leading={
 								<Ionicons
@@ -215,7 +216,7 @@ const AccountPage = observer(() => {
 			</View>
 			<View className='flex-row items-center justify-center py-4'>
 				<Typography variant={'body'} color={styles['--text']}>
-					Version: {AppVersion}
+					{translations.tabs.account.version} : {AppVersion}
 				</Typography>
 			</View>
 			<View className='flex-row mt-2 items-center gap-4 w-full justify-center py-6 flex-1 absolute bottom-0'>
@@ -225,7 +226,7 @@ const AccountPage = observer(() => {
 					</Typography>
 					<Ionicons size={21} className='h-[25]' name='heart-outline' color={'#6633cc'} />
 					<Typography variant='label' color={styles['--text']}>
-						Favorites
+						{translations.tabs.account.favorites}
 					</Typography>
 				</View>
 
@@ -234,11 +235,11 @@ const AccountPage = observer(() => {
 				<View className='flex flex-row gap-1 items-center'>
 					<View className='items-center gap-4' />
 					<Typography variant='label' color={styles['--text']}>
-						{getCardsAndFavCount()[1]}{' '}
+						{getCardsAndFavCount()[1]}
 					</Typography>
 					<Ionicons size={21} className='h-[25]' color={'#6633cc'} name='card-outline' />
 					<Typography variant='label' color={styles['--text']}>
-						Cards
+						{translations.tabs.account.cards}
 					</Typography>
 				</View>
 			</View>

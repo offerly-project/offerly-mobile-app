@@ -15,6 +15,7 @@ import { ConfigurationItem } from '../../features/Configuration/components/Confi
 
 export const EditProfile = observer(() => {
 	const { bottom } = useSafeAreaInsets();
+	const { translations } = languageStore();
 	const phoneNumber = rootStore.userStore.user.phone_number
 		? parsePhoneNumber(rootStore.userStore.user.phone_number)?.formatInternational() || ''
 		: '';
@@ -30,7 +31,7 @@ export const EditProfile = observer(() => {
 						<ConfigurationItem
 							disabled
 							className='border-gray-300'
-							label='Email Address'
+							label={translations.tabs.account.profile.email}
 							trailing={
 								<Typography color='gray'>
 									{rootStore.userStore.user.email}
@@ -60,7 +61,7 @@ export const EditProfile = observer(() => {
 						{(openHandler) => (
 							<ConfigurationItem
 								className='border-gray-300 rounded-2xl'
-								label='Full name'
+								label={translations.tabs.account.profile.fullName}
 								trailing={
 									<View className='flex-row gap-4'>
 										<Typography color='gray'>
@@ -94,7 +95,7 @@ export const EditProfile = observer(() => {
 						{(openHandler) => (
 							<ConfigurationItem
 								className='border-gray-300 rounded-2xl'
-								label='Phone number'
+								label={translations.tabs.account.profile.phoneNumber}
 								trailing={
 									<View className='flex-row gap-4'>
 										<Typography color='gray'>{phoneNumber}</Typography>

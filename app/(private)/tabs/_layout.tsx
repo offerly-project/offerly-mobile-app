@@ -1,4 +1,5 @@
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import { languageStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Tabs } from 'expo-router';
@@ -6,7 +7,7 @@ import { View } from 'react-native';
 
 export default function Layout() {
 	const theme = useThemeStyles();
-
+	const { translations } = languageStore();
 	return (
 		<View style={{ flex: 1, backgroundColor: theme['--background'] }}>
 			<Tabs
@@ -26,7 +27,7 @@ export default function Layout() {
 				<Tabs.Screen
 					name='offers'
 					options={{
-						title: 'Offers',
+						title: translations.tabs.offers.tabName,
 						tabBarIcon: ({ color }) => (
 							<MaterialIcons size={28} name='discount' color={color} />
 						),
@@ -35,14 +36,14 @@ export default function Layout() {
 				<Tabs.Screen
 					name='cards'
 					options={{
-						title: 'Cards',
+						title: translations.tabs.cards.tabName,
 						tabBarIcon: ({ color }) => <Ionicons size={28} name='card' color={color} />,
 					}}
 				/>
 				<Tabs.Screen
 					name='favorites'
 					options={{
-						title: 'Favorites',
+						title: translations.tabs.favorites.tabName,
 						tabBarIcon: ({ color }) => (
 							<Ionicons size={28} name='heart' color={color} />
 						),
@@ -51,7 +52,7 @@ export default function Layout() {
 				<Tabs.Screen
 					name='account'
 					options={{
-						title: 'Account',
+						title: translations.tabs.account.tabName,
 						tabBarIcon: ({ color }) => (
 							<Ionicons size={28} name='person' color={color} />
 						),

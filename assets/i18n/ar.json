@@ -1,82 +1,129 @@
 {
-	"languages": {
-		"en": "الإنجليزية",
-		"ar": "العربية",
-		"title": "اللغة"
-	},
-	"modals" : {
-		"about_modal" : {
-			"aboutUs" : "About Us",
-			"aboutUsDisc" : "Welcome to [Offerly] your one-stop solution for accessing the best payment card offers from various banks, all in one place.\n \n At Offerly, we understand that managing payment card offers can be overwhelming.That's why we've created a user-friendly platform that brings together the latest and greatest offers from a wide range of banks",
-			"ourGoal" : "Our Goal",
-			"ourGoalDisc" : "By consolidating offers from different banks into one convenient app, we save you time and effort, allowing you to focus on what matters most – enjoying the benefits of your payment cards.",
-			"perks" : [
-				{	
-					"title" : "Comprehensive Coverage",
-					"discription" : "Access offers from multiple banks without switching between apps."
-				},
-				{	
-					"title" : "User-Friendly Interface",
-					"discription" : "Navigate through offers effortlessly with our intuitive design."
-				},
-				{	
-					"title" : "Up-to-Date Information",
-					"discription" : "Stay informed with the latest deals and promotions."
-				},
-				{	
-					"title" : "Personalized Experience",
-					"discription" : "Receive recommendations tailored to your preferences."
-				}
-			]
+	
+	
+	"tabs" : {
+		"offers" : {
+			"tabName" : "العروض"
 		},
-		"terms_and_conditions" : {
-			"modalTitle": "الشروط والأحكام",
-			"terms" : [
-				{	
-					"title" : "Introduction",
-					"discription" : "Welcome to Offerly! These Terms and Conditions govern your use of our mobile application. By accessing or using Offerly, you agree to comply with and be bound by these terms."
-				},
-				{	
-					"title" : "Definitions",
-					"discription" : "[\"App\"] refers to Offerly.\n[\"User\"] refers to anyone who uses the App.\n[\"We\", \"us\" and \"our\"] refers to the Offerly team."
-				},
-				{	
-					"title" : "Use of the App",
-					"discription" : "Users agree to use the app only for lawful purposes and in a way that does not infringe the rights of others."
-				},
-				{	
-					"title" : "Account Registration",
-					"discription" : "Users will need to create an account to access certain features.\nUsers are responsible for maintaining the confidentiality of their account information."
-				},
-				{	
-					"title" : "Offers and Promotions",
-					"discription" : "The app provides access to offers and promotions from various banks.\nWe do not guarantee the accuracy or availability of any offer."
-				},
-				{	
-					"title" : "Prohibited Conduct",
-					"discription" : "Users must not misuse the app, including but not limited to hacking, spamming, or violating any laws.\nUsers must not use the app to distribute harmful or illegal content."
-				},
-				{	
-					"title" : "Intellectual Property",
-					"discription" : "All content on the app, including text, graphics, logos, and software, is the property of Offerly or its licensors.\nUsers may not reproduce, distribute, or create derivative works from the app content without our permission."
-				},
-				{	
-					"title" : "Termination",
-					"discription" : "We reserve the right to terminate or suspend access to the app for any user who violates these terms.\nUsers can terminate their account at any time."
-				},
-				{	
-					"title" : "Limitation of Liability",
-					"discription" : "Offerly is provided \"as is\" without warranties of any kind.\nWe are not liable for any damages arising from the use or inability to use the app."
-				},
-				{	
-					"title" : "Changes to Terms",
-					"discription" : "We may update these terms from time to time. Users will be notified of any significant changes.\nContinued use of the app after changes are made constitutes acceptance of the new terms."
-				},
-				{	
-					"title" : "Contact Us",
-					"discription" : "If you have any questions about these terms, please contact us using contacy us form."
-				}
-			]
-		} 
+		"cards" : {
+			"tabName" : "البطاقات"
+		},
+		"favorites" : {
+			"tabName" : "المفضلة"
+		},
+		"account" : {
+			"tabName": "حسابي",
+			"profile": {
+				"title": "الملف الشخصي",
+				"email": "البريد الإلكتروني",
+				"fullName": "الاسم الكامل",
+				"phoneNumber": "رقم الجوال"
+			},
+			"change_password": {
+				"title": "تغيير كلمة المرور",
+				"oldPasswordPlaceholder": "اكتب كلمة المرور القديمة",
+				"newPasswordPlaceholder": "اكتب كلمة المرور الجديدة",
+				"retypeNewPasswordPlaceholder": "آعد كتابة كلمة المرور الجديدة",
+				"changePasswordButton": "تغيير كلمة المرور"
+			},
+			"terms_and_conditions": {
+				"title": "الشروط والأحكام",
+				"terms": [
+					{
+						"title": "Introduction",
+						"discription": "Welcome to Offerly! These Terms and Conditions govern your use of our mobile application. By accessing or using Offerly, you agree to comply with and be bound by these terms."
+					},
+					{
+						"title": "Definitions",
+						"discription": "[\"App\"] refers to Offerly.\n[\"User\"] refers to anyone who uses the App.\n[\"We\", \"us\" and \"our\"] refers to the Offerly team."
+					},
+					{
+						"title": "Use of the App",
+						"discription": "Users agree to use the app only for lawful purposes and in a way that does not infringe the rights of others."
+					},
+					{
+						"title": "Account Registration",
+						"discription": "Users will need to create an account to access certain features.\nUsers are responsible for maintaining the confidentiality of their account information."
+					},
+					{
+						"title": "Offers and Promotions",
+						"discription": "The app provides access to offers and promotions from various banks.\nWe do not guarantee the accuracy or availability of any offer."
+					},
+					{
+						"title": "Prohibited Conduct",
+						"discription": "Users must not misuse the app, including but not limited to hacking, spamming, or violating any laws.\nUsers must not use the app to distribute harmful or illegal content."
+					},
+					{
+						"title": "Intellectual Property",
+						"discription": "All content on the app, including text, graphics, logos, and software, is the property of Offerly or its licensors.\nUsers may not reproduce, distribute, or create derivative works from the app content without our permission."
+					},
+					{
+						"title": "Termination",
+						"discription": "We reserve the right to terminate or suspend access to the app for any user who violates these terms.\nUsers can terminate their account at any time."
+					},
+					{
+						"title": "Limitation of Liability",
+						"discription": "Offerly is provided \"as is\" without warranties of any kind.\nWe are not liable for any damages arising from the use or inability to use the app."
+					},
+					{
+						"title": "Changes to Terms",
+						"discription": "We may update these terms from time to time. Users will be notified of any significant changes.\nContinued use of the app after changes are made constitutes acceptance of the new terms."
+					},
+					{
+						"title": "Contact Us",
+						"discription": "If you have any questions about these terms, please contact us using contacy us form."
+					}
+				]
+			},
+			"about_modal": {
+				"title": "عن أوفرلي",
+				"aboutUsDisc": "Welcome to [Offerly] your one-stop solution for accessing the best payment card offers from various banks, all in one place.\n \n At Offerly, we understand that managing payment card offers can be overwhelming.That's why we've created a user-friendly platform that brings together the latest and greatest offers from a wide range of banks",
+				"ourGoal": "Our Goal",
+				"ourGoalDisc": "By consolidating offers from different banks into one convenient app, we save you time and effort, allowing you to focus on what matters most – enjoying the benefits of your payment cards.",
+				"perks": [
+					{
+						"title": "Comprehensive Coverage",
+						"discription": "Access offers from multiple banks without switching between apps."
+					},
+					{
+						"title": "User-Friendly Interface",
+						"discription": "Navigate through offers effortlessly with our intuitive design."
+					},
+					{
+						"title": "Up-to-Date Information",
+						"discription": "Stay informed with the latest deals and promotions."
+					},
+					{
+						"title": "Personalized Experience",
+						"discription": "Receive recommendations tailored to your preferences."
+					}
+				]
+			},
+			"contact_us": {
+				"title": "تواصل معنا",
+				"subjectPlaceholder": "الموضوع",
+				"messagePlaceholder": "نص الرسالة",
+				"sendFormButton": "إرسال"
+			},
+			"languages": {
+				"en": "الإنجليزية",
+				"ar": "العربية",
+				"title": "اللغة"
+			},
+			"theme":{
+				"title":"المظهر",
+				"dark":"داكن",
+				"light":"ساطع"
+			},
+			"deleteAccount": {
+				"title": "حذف الحساب",
+				"fullName": "Full name",
+				"phoneNumber": "Phone umber"
+			},
+			"version" : "الإصدار",
+			"cards" : "بطاقة",
+			"favorites" : "مفضلة",
+			"logout" : "تسجيل الخروج"
+		}
 	}
 }

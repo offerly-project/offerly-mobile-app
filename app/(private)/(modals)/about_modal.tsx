@@ -39,22 +39,25 @@ const AboutModal = (props: Props) => {
 					variant='h3'
 					color={theme['--primary']}
 				>
-					{translations.modals.about_modal.aboutUs}
+					{translations.tabs.account.about_modal.title}
 				</Typography>
 				<Typography variant='body' className='mb-6'>
-					{processTranslationWithStyles(translations.modals.about_modal.aboutUsDisc, {
-						color: theme['--primary'],
-						weight: 'bold',
-					})}
+					{processTranslationWithStyles(
+						translations.tabs.account.about_modal.aboutUsDisc,
+						{
+							color: theme['--primary'],
+							weight: 'bold',
+						},
+					)}
 				</Typography>
 				<Typography className='my-2' variant='h3' color={theme['--primary']}>
-					{translations.modals.about_modal.ourGoal}
+					{translations.tabs.account.about_modal.ourGoal}
 				</Typography>
 				<Typography variant='body' color={theme['--text']}>
-					{translations.modals.about_modal.ourGoalDisc}
+					{translations.tabs.account.about_modal.ourGoalDisc}
 				</Typography>
 				<View className='my-4'>
-					{translations.modals.about_modal.perks.map((perk) => (
+					{translations.tabs.account.about_modal.perks.map((perk) => (
 						<ListItem key={perk.title} name={perk.title} value={perk.discription} />
 					))}
 				</View>
