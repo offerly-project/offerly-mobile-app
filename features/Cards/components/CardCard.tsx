@@ -9,24 +9,20 @@ import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated'
 
 type Props = {
 	card: ICard;
-	onPress: () => void;
+	onPress?: () => void;
 	selected?: boolean;
 	style?: StyleProp<ViewStyle>;
-	height: DimensionValue;
-	width: DimensionValue;
-	logoHeight: DimensionValue;
-	logoWidth: DimensionValue;
+
+	small?: boolean;
 };
 
 const CardCard = ({
 	card,
-	logoHeight,
-	logoWidth,
+
 	onPress,
 	selected,
 	style,
-	height,
-	width,
+	small,
 }: Props) => {
 	const theme = useThemeStyles();
 
@@ -39,26 +35,32 @@ const CardCard = ({
 	}, [selected]);
 
 	return (
-		<View style={[styles.container, { height, width }]}>
+		<View className={`${small ? 'w-[80px]' : 'w-[120px]'} `}>
 			<Animated.View
-				style={[animatedStyle, style, { backgroundColor: theme['--card'] }, styles.wrapper]}
+				className={`${!small && 'aspect-square'}`}
+				style={[
+					animatedStyle,
+					selected && { backgroundColor: theme['--card'] },
+					styles.wrapper,
+				]}
 			>
-				<Pressable onPress={onPress} style={{ flex: 1 }} className='px-4 items-center'>
+				<Pressable onPress={onPress} className=' gap-2 px-2 py-1 items-center'>
 					<Image
 						source={formatUploadPath(card.logo)}
 						style={[
-							styles.cardLogo,
 							{
-								height: logoHeight,
-								width: logoWidth,
+								resizeMode: 'contain',
+								height: small ? 45 : 70,
+								width: '100%',
 							},
 						]}
 					/>
 					<Typography
 						variant='caption'
 						numberOfLines={2}
-						style={styles.cardName}
+						// style={styles.cardName}
 						color={theme['--text']}
+						align='center'
 					>
 						{card.name.en}
 					</Typography>
@@ -79,14 +81,12 @@ const styles = StyleSheet.create({
 	container: {
 		alignItems: 'flex-start',
 		position: 'relative',
-		padding: 4,
+		padding: 0,
 	},
 	wrapper: {
-		borderWidth: 1,
+		// borderWidth: 1,
 		borderStyle: 'solid',
-		borderRadius: 12,
-		height: '100%',
-		width: '100%',
+		borderRadius: 6,
 	},
 	cardLogo: {
 		resizeMode: 'contain',
@@ -98,8 +98,8 @@ const styles = StyleSheet.create({
 	},
 	selection_checkmark: {
 		position: 'absolute',
-		top: 0,
-		right: 0,
+		top: -6,
+		right: -6,
 		height: 20,
 		width: 20,
 		borderRadius: 50,

@@ -96,16 +96,12 @@ const Cards = observer(() => {
 					horizontal
 					showsHorizontalScrollIndicator={false}
 					contentContainerStyle={styles.cardRow}
+					className='overflow-visible'
 				>
 					{cards.map((card) => (
 						<CardCard
 							key={card.id}
 							card={card}
-							height={110}
-							width={125}
-							logoHeight={50}
-							logoWidth={100}
-							style={styles.cardStyle}
 							selected={selectedCards.includes(card.id)}
 							onPress={() => handleCardSelect(card.id)}
 						/>
@@ -161,7 +157,7 @@ export default Cards;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		paddingHorizontal: 24,
+		paddingHorizontal: 8,
 		paddingVertical: 16,
 	},
 	addButtonContainer: {
@@ -181,8 +177,9 @@ const styles = StyleSheet.create({
 	},
 	cardRow: {
 		flexDirection: 'row',
-		gap: 4,
+		gap: 8,
 		paddingBottom: 16,
+		paddingEnd: 10,
 	},
 	cardStyle: {
 		width: SCREEN_WIDTH / 3,

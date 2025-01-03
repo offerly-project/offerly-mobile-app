@@ -146,15 +146,12 @@ const SelectCards = () => {
 				/>
 				<View style={{ height: '70%' }}>
 					<CardsGridLayout
+						className='pt-3'
 						data={bankCards.filter(
 							(card) => !userCardsList.some((userCard) => userCard.id === card.id),
 						)}
 						renderItem={({ item }) => (
 							<CardCard
-								height={100}
-								width={SCREEN_WIDTH * 0.28}
-								logoHeight={50}
-								logoWidth={100}
 								card={item}
 								onPress={() => {
 									setSelectedCards((prev) => {

@@ -13,6 +13,7 @@ import moment from 'moment';
 import { useMemo, useState } from 'react';
 import { Linking, Modal, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import CardCard from '../Cards/components/CardCard';
 
 type Props = {
 	offer: IOffer;
@@ -150,35 +151,55 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 					</View>
 
 					<View className='flex-1 gap-4'>
-						<Image
-							source={formatUploadPath(offer.logo)}
-							style={{
-								height: 200,
-								width: 200,
-								resizeMode: 'contain',
-								alignSelf: 'center',
-								borderWidth: 1,
-								borderColor: theme['--primary'],
-								borderRadius: 40,
-							}}
-						/>
-						<View className='flex flex-row m-auto items-center justify-center'>
-							<Typography variant='title' color={theme['--primary']} weight='bold'>
-								{offer.title.en}
-							</Typography>
-						</View>
-						{offer.categories?.length > 0 &&
-							offer.categories.map((category) => (
-								<View
-									key={category}
-									className='rounded-full px-4 py-1 bg-primary'
-									style={{ margin: 'auto' }}
-								>
-									<Typography color={theme['--static']}>{category}</Typography>
-								</View>
-							))}
-
 						<ScrollView contentContainerClassName='gap-4'>
+							<Image
+								source={formatUploadPath(offer.logo)}
+								style={{
+									height: 200,
+									width: 200,
+									resizeMode: 'contain',
+									alignSelf: 'center',
+									borderWidth: 1,
+									borderColor: theme['--primary'],
+									borderRadius: 40,
+								}}
+							/>
+							<View className='flex flex-row m-auto items-center justify-center'>
+								<Typography
+									variant='title'
+									color={theme['--primary']}
+									weight='bold'
+								>
+									{offer.title.en}
+								</Typography>
+							</View>
+							{offer.categories?.length > 0 &&
+								offer.categories.map((category) => (
+									<View
+										key={category}
+										className='rounded-full px-4 py-1 bg-primary'
+										style={{ margin: 'auto' }}
+									>
+										<Typography color={theme['--static']}>
+											{category}
+										</Typography>
+									</View>
+								))}
+							<View>
+								<Typography weight='bold' align='center'>
+									Applicable Cards
+								</Typography>
+								<ScrollView
+									horizontal
+									style={{
+										margin: 'auto',
+									}}
+								>
+									{offer.applicable_cards.map((card) => (
+										<CardCard small card={card} key={card.id} />
+									))}
+								</ScrollView>
+							</View>
 							<View style={[styles.section]}>
 								{offerDateRangeFormat && (
 									<Typography
