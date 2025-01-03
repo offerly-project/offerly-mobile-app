@@ -177,7 +177,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 								offer.categories.map((category) => (
 									<View
 										key={category}
-										className='rounded-full px-4 py-1 bg-primary'
+										className='flex-row px-3.5 pt-1.5 gap-2 rounded-full bg-primary'
 										style={{ margin: 'auto' }}
 									>
 										<Typography color={theme['--static']}>
@@ -189,12 +189,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 								<Typography weight='bold' align='center'>
 									Applicable Cards
 								</Typography>
-								<ScrollView
-									horizontal
-									style={{
-										margin: 'auto',
-									}}
-								>
+								<ScrollView horizontal style={styles.section}>
 									{offer.applicable_cards.map((card) => (
 										<CardCard small card={card} key={card.id} />
 									))}
