@@ -1,5 +1,6 @@
 import Typography from '@/components/Typography/Typography';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import { languageStore } from '@/stores';
 import { Ionicons, MaterialCommunityIcons, Octicons, SimpleLineIcons } from '@expo/vector-icons';
 import React, { useEffect, useRef, useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
@@ -54,6 +55,18 @@ const Categories = ({ selectedCategory, setSelectedCategory }: Props) => {
 	const [categories, setCategories] = useState(CategoriesIcons);
 	const categoriesScrollViewRef = useRef<ScrollView>(null);
 
+	const scrollToSelectedCategory = () => {
+		return languageStore().isRtl
+			? categoriesScrollViewRef.current?.scrollToEnd({
+					animated: true,
+				})
+			: categoriesScrollViewRef.current?.scrollTo({
+					x: 0,
+					y: 0,
+					animated: true,
+				});
+	};
+
 	useEffect(() => {
 		if (selectedCategory) {
 			setCategories((prevCategories) => {
@@ -67,11 +80,7 @@ const Categories = ({ selectedCategory, setSelectedCategory }: Props) => {
 				}
 				return updatedCategories;
 			});
-			categoriesScrollViewRef.current?.scrollTo({
-				x: 0,
-				y: 0,
-				animated: true,
-			});
+			scrollToSelectedCategory();
 		}
 	}, [selectedCategory]);
 
@@ -104,11 +113,7 @@ const Categories = ({ selectedCategory, setSelectedCategory }: Props) => {
 								(cat) => cat != category,
 							);
 							updatedCategories.unshift(category);
-							categoriesScrollViewRef.current?.scrollTo({
-								x: 0,
-								y: 0,
-								animated: true,
-							});
+							scrollToSelectedCategory();
 							return updatedCategories;
 						});
 						setSelectedCategory(category.name);
