@@ -28,6 +28,7 @@ export const PrivateLayout = observer(() => {
 		<Stack screenOptions={getBaseScreenLayout(theme)}>
 			<Stack.Screen name='tabs' />
 			<Stack.Screen name='edit_profile' />
+			<Stack.Screen name='select_cards' />
 			<Stack.Screen
 				name='(modals)'
 				options={{

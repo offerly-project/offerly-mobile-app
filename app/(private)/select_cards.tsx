@@ -10,7 +10,6 @@ import BackButton from '@/components/Button/BackButton';
 import Button from '@/components/Button/Buttton';
 import Select from '@/components/Select/Select';
 import Typography from '@/components/Typography/Typography';
-import { SCREEN_WIDTH } from '@/constants/screens';
 import { IBank } from '@/entities/bank.entity';
 import { ICard } from '@/entities/card.entity';
 import CardCard from '@/features/Cards/components/CardCard';
@@ -31,10 +30,8 @@ const SelectCards = () => {
 	const theme = useThemeStyles();
 	const { userCardsList } = cardsStore();
 
-	// Shared value for opacity animation
 	const opacity = useSharedValue(0);
 
-	// Fade-in animation for the "Add" button
 	useEffect(() => {
 		opacity.value =
 			selectedCards.length > 0
@@ -42,7 +39,6 @@ const SelectCards = () => {
 				: withSpring(0, { damping: 15, stiffness: 120 });
 	}, [selectedCards, opacity]);
 
-	// Animated style for the "Add" button
 	const animatedStyle = useAnimatedStyle(() => ({
 		opacity: opacity.value,
 	}));
@@ -147,11 +143,19 @@ const SelectCards = () => {
 				<View style={{ height: '70%' }}>
 					<CardsGridLayout
 						className='pt-3'
-						data={bankCards.filter(
-							(card) => !userCardsList.some((userCard) => userCard.id === card.id),
-						)}
+						data={bankCards.sort((a, b) => {
+							const isAUserCard = userCardsList.some((card) => card.id === a.id);
+							const isBUserCard = userCardsList.some((card) => card.id === b.id);
+
+							if (isAUserCard && !isBUserCard) return -1;
+							if (!isAUserCard && isBUserCard) return 1;
+							return 0;
+						})}
 						renderItem={({ item }) => (
 							<CardCard
+								userCard={
+									userCardsList.find((card) => card.id === item.id) !== undefined
+								}
 								card={item}
 								onPress={() => {
 									setSelectedCards((prev) => {

@@ -4,26 +4,18 @@ import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { formatUploadPath } from '@/utils/utils';
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
-import { DimensionValue, Pressable, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated';
 
 type Props = {
 	card: ICard;
 	onPress?: () => void;
 	selected?: boolean;
-	style?: StyleProp<ViewStyle>;
-
+	userCard?: boolean;
 	small?: boolean;
 };
 
-const CardCard = ({
-	card,
-
-	onPress,
-	selected,
-	style,
-	small,
-}: Props) => {
+const CardCard = ({ card, onPress, selected, small, userCard }: Props) => {
 	const theme = useThemeStyles();
 
 	const animatedStyle = useAnimatedStyle(() => {
@@ -33,6 +25,10 @@ const CardCard = ({
 			}),
 		};
 	}, [selected]);
+
+	const iconContainerClasses = userCard
+		? 'bg-primary opacity-50 items-center'
+		: 'bg-primary items-center';
 
 	return (
 		<View className={`${small ? 'w-[80px]' : 'w-[120px]'} `}>
@@ -44,7 +40,11 @@ const CardCard = ({
 					styles.wrapper,
 				]}
 			>
-				<Pressable onPress={onPress} className=' gap-2 px-2 py-1 items-center'>
+				<Pressable
+					onPress={onPress}
+					disabled={userCard}
+					className=' gap-2 px-2 py-1 items-center'
+				>
 					<Image
 						source={formatUploadPath(card.logo)}
 						style={[
@@ -67,7 +67,7 @@ const CardCard = ({
 				</Pressable>
 			</Animated.View>
 			{selected && (
-				<View style={styles.selection_checkmark} className='bg-primary items-center'>
+				<View style={styles.selection_checkmark} className={iconContainerClasses}>
 					<Ionicons name='checkmark' size={14} color={theme['--background']} />
 				</View>
 			)}
