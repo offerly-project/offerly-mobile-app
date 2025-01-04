@@ -4,6 +4,7 @@ import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import React, { useEffect } from 'react';
 import { TextInput, TextInputProps, View } from 'react-native';
 import Typography from '../Typography/Typography';
+import { languageStore } from '@/stores';
 
 const COLORING = {
 	primary: 'border-primary',
@@ -74,6 +75,7 @@ const Input: React.FC<InputProps> = ({
 
 	const Comp = sheeted ? BottomSheetTextInput : TextInput;
 	const theme = useThemeStyles();
+	const { language } = languageStore();
 	return (
 		<View className='gap-2'>
 			<View className={containerStyles}>
@@ -81,6 +83,7 @@ const Input: React.FC<InputProps> = ({
 				<Comp
 					ref={ref as any}
 					placeholder={placeholder}
+					style={language == 'ar' ? { textAlign: 'right' } : { textAlign: 'left' }}
 					placeholderTextColor='gray'
 					value={value}
 					onChangeText={onChangeText}

@@ -6,6 +6,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import BottomSheet from '../BottomSheet/BottomSheet';
 import Input from '../Input/Input';
 import Typography from '../Typography/Typography';
+import { languageStore } from '@/stores';
 
 type ItemType<T> = {
 	name: string;
@@ -37,6 +38,7 @@ const Select = <T = unknown,>({
 	children,
 }: Props<T>) => {
 	const theme = useThemeStyles();
+	const { translations } = languageStore();
 	const [open, setOpen] = useState(false);
 	const boxContent = items.find((item) => item.value === value)?.name;
 	const [search, setSearch] = useState('');
@@ -78,7 +80,7 @@ const Select = <T = unknown,>({
 					<View className='gap-8 h-full'>
 						{searchResolver && (
 							<Input
-								placeholder='Search...'
+								placeholder={translations.placeholders.search}
 								borderStyle='underlined'
 								value={search}
 								onChangeText={setSearch}
