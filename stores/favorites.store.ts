@@ -32,7 +32,7 @@ export class FavoritesStore {
 		});
 	};
 	getFavorites = async () => {
-		FavoritesApi.getFavorites().then((offers) => {
+		return FavoritesApi.getFavorites().then((offers) => {
 			runInAction(() => {
 				this.offers = offers;
 			});

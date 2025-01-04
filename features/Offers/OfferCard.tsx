@@ -13,6 +13,7 @@ import moment from 'moment';
 import { useMemo, useState } from 'react';
 import { Linking, Modal, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useToast } from 'react-native-toast-notifications';
 import CardCard from '../Cards/components/CardCard';
 
 type Props = {
@@ -31,7 +32,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 	const { addFavorite, removeFavorite, isFavorite } = favoritesStore();
 	const [modalVisible, setModalVisible] = useState(false);
 	const favorite = isFavorite(offer.id);
-
+	const toast = useToast();
 	const toggleFavorite = async () => {
 		if (closeOnUnfavorite) {
 			setModalVisible(false);
@@ -41,6 +42,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 			removeFavorite(offer);
 		} else {
 			addFavorite(offer);
+			toast.show('Offer added to favorites', { type: 'success' });
 		}
 	};
 

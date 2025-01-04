@@ -1,3 +1,4 @@
+import NoData from '@/components/Fallback/NoData';
 import OfferCard from '@/features/Offers/OfferCard';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import TabLayout from '@/layouts/TabLayout';
@@ -27,6 +28,8 @@ const Favorites = observer((props: Props) => {
 				<View className='flex-1 justify-center items-center'>
 					<ActivityIndicator size='small' color={theme['--primary']} />
 				</View>
+			) : offers.length === 0 ? (
+				<NoData message='No Favorites' />
 			) : (
 				<View className='p-6 flex-1'>
 					<FlatList
