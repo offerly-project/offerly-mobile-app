@@ -3,7 +3,7 @@ import OTPInput from '@/components/Input/OtpInput';
 import Typography from '@/components/Typography/Typography';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import KeyboardAvoidingLayout from '@/layouts/KeyboardAvoidingLayout';
-import { userStore } from '@/stores';
+import { languageStore, userStore } from '@/stores';
 import { AxiosError } from 'axios';
 import { useLocalSearchParams } from 'expo-router/build/hooks';
 import { useEffect, useState } from 'react';
@@ -12,6 +12,7 @@ import NewPasswordForm from './NewPasswordForm';
 
 export default function OtpForm() {
 	const theme = useThemeStyles();
+	const { translations } = languageStore();
 
 	const params = useLocalSearchParams();
 	const email = params.email as string;
@@ -75,7 +76,7 @@ export default function OtpForm() {
 	return (
 		<KeyboardAvoidingLayout className='gap-8 flex-1 justify-center'>
 			<Typography variant='h3' align='center' weight='light' color={theme['--primary']}>
-				Enter OTP Code
+				{translations.auth.otp.enterCode}
 			</Typography>
 			<OTPInput onCodeChange={(code) => handleOTPChange(code)} />
 			<View className='gap-3'>
@@ -86,7 +87,7 @@ export default function OtpForm() {
 					loadingComponent={<ActivityIndicator color={theme['--background']} />}
 					onPress={handleSubmit}
 				>
-					<Typography color='white'>Verify code</Typography>
+					<Typography color='white'>{translations.buttons.verifyCode}</Typography>
 				</Button>
 				{serverError && (
 					<Typography variant='caption' color='red' align='center'>
@@ -100,11 +101,13 @@ export default function OtpForm() {
 						className={`underline ${timeLeft != 0 && 'opacity-30'}`}
 						color={theme['--primary']}
 					>
-						Resend
+						{translations.auth.otp.resend}
 					</Typography>
 				</TouchableOpacity>
 				<Typography weight='medium'>
-					{timeLeft == 0 ? 'OTP' : `the OTP in ${timeLeft}s`}
+					{timeLeft == 0
+						? translations.auth.otp.otp
+						: `${translations.auth.otp.otp} ${translations.auth.otp.in} ${timeLeft}s`}
 				</Typography>
 			</View>
 		</KeyboardAvoidingLayout>

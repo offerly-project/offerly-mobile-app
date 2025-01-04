@@ -6,7 +6,7 @@ import Typography from '@/components/Typography/Typography';
 import { useForm } from '@/hooks/useForm';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import KeyboardAvoidingLayout from '@/layouts/KeyboardAvoidingLayout';
-import { userStore } from '@/stores';
+import { languageStore, userStore } from '@/stores';
 import { useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import z from 'zod';
@@ -23,6 +23,7 @@ type FormValues = z.infer<typeof schema>;
 
 const LoginForm = () => {
 	const theme = useThemeStyles();
+	const { translations } = languageStore();
 	const { handleSubmit, setValues, loading, errors, submittable, values, serverError } =
 		useForm<FormValues>({
 			initialValues: {
@@ -53,14 +54,14 @@ const LoginForm = () => {
 							className='tracking-widest'
 							variant='h1'
 						>
-							Welcome!
+							{translations.auth.login.welcome}
 						</Typography>
 						<Typography
 							color={theme['--primary']}
 							className='tracking-wider'
 							variant='body'
 						>
-							We are glad to see you
+							{translations.auth.login.welcomeText}
 						</Typography>
 					</View>
 					<View className='gap-5'>
@@ -68,13 +69,13 @@ const LoginForm = () => {
 							value={values.email}
 							onChangeText={onInputChange('email')}
 							error={errors.email}
-							placeholder='Email Address'
+							placeholder={translations.placeholders.email}
 						/>
 						<PasswordInput
 							value={values.password}
 							onChangeText={onInputChange('password')}
 							error={errors.password}
-							placeholder='Password'
+							placeholder={translations.placeholders.password}
 						/>
 						<Button
 							disabled={!submittable}
@@ -83,7 +84,7 @@ const LoginForm = () => {
 							loadingComponent={<ActivityIndicator color={theme['--background']} />}
 							onPress={handleSubmit}
 						>
-							<Typography color='white'>Login</Typography>
+							<Typography color='white'>{translations.buttons.login}</Typography>
 						</Button>
 						{serverError && (
 							<Typography variant='caption' color='red' align='center'>
@@ -94,16 +95,16 @@ const LoginForm = () => {
 
 					<View className='m-auto'>
 						<Link color={theme['--primary']} to='/forgetPassword' variant='label'>
-							Forgot your password?
+							{translations.auth.login.forgotYourPassword}
 						</Link>
 					</View>
 				</View>
 				<View className='flex-row gap-1 items-center absolute bottom-0'>
 					<Typography color={theme['--primary']} weight='light' variant='label'>
-						Dont have an account?
+						{translations.auth.login.footer}
 					</Typography>
 					<Link replace to={'/signup'} color={theme['--primary']} variant='label'>
-						Sign up
+						{translations.buttons.signup}
 					</Link>
 				</View>
 			</KeyboardAvoidingLayout>

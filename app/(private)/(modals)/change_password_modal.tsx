@@ -62,24 +62,20 @@ const ChangePasswordModal = (props: Props) => {
 		<ModalLayout title={translations.tabs.account.change_password.title}>
 			<View className='gap-10 p-6'>
 				<Input
-					placeholder={translations.tabs.account.change_password.oldPasswordPlaceholder}
+					placeholder={translations.placeholders.oldPasswordPlaceholder}
 					value={values.old_password}
 					onChangeText={onOldPasswordChange}
 					error={errors.old_password}
 				/>
 				<View className='gap-5'>
 					<Input
-						placeholder={
-							translations.tabs.account.change_password.newPasswordPlaceholder
-						}
+						placeholder={translations.placeholders.newPasswordPlaceholder}
 						value={values.new_password}
 						onChangeText={onNewPasswordChange}
 						error={errors.new_password}
 					/>
 					<Input
-						placeholder={
-							translations.tabs.account.change_password.retypeNewPasswordPlaceholder
-						}
+						placeholder={translations.placeholders.retypeNewPasswordPlaceholder}
 						value={values.confirm_password}
 						onChangeText={onConfirmPasswordChange}
 						error={errors.confirm_password}

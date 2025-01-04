@@ -1,15 +1,40 @@
 {
-	"tabs" : {
-		"offers" : {
-			"tabName" : "Offers"
+	"auth": {
+		"guest": "Continue as a guest",
+		"signup": {
+			"createAccount": "Create your account",
+			"footer": "Already have an account?"
 		},
-		"cards" : {
-			"tabName" : "Cards"
+		"forgetPassword": {
+			"forgetPassword": "Forgot Password",
+			"forgetPasswordText": "We will share a password reset link on your email address",
+			"setNewPassword" : "Set a new password",
+			"footer" : "Try loggging in?"
 		},
-		"favorites" : {
-			"tabName" : "Favorites"
+		"otp": {
+			"enterCode": "Enter OTP Code",
+			"resend" : "Resend",
+			"in" :"in",
+			"otp" : "OTP"
 		},
-		"account" : {
+		"login": {
+			"welcome": "Welcome",
+			"welcomeText": "We are glad to see you",
+			"forgotYourPassword" : "Forgot your password?",
+			"footer" : "Don't have an account?"
+		}
+	},
+	"tabs": {
+		"offers": {
+			"tabName": "Offers"
+		},
+		"cards": {
+			"tabName": "Cards"
+		},
+		"favorites": {
+			"tabName": "Favorites"
+		},
+		"account": {
 			"tabName": "Account",
 			"profile": {
 				"title": "Profile",
@@ -19,9 +44,6 @@
 			},
 			"change_password": {
 				"title": "Change Password",
-				"oldPasswordPlaceholder": "Type your old password",
-				"newPasswordPlaceholder": "Type new password",
-				"retypeNewPasswordPlaceholder": "Retype the new password",
 				"changePasswordButton": "Change password"
 			},
 			"terms_and_conditions": {
@@ -108,24 +130,37 @@
 				"ar": "Arabic",
 				"title": "Languages"
 			},
-			"theme":{
-				"title":"Theme",
-				"dark":"Dark",
-				"light":"Light"
+			"theme": {
+				"title": "Theme",
+				"dark": "Dark",
+				"light": "Light"
 			},
 			"deleteAccount": {
 				"title": "Delete Account",
 				"fullName": "Full name",
 				"phoneNumber": "Phone umber"
 			},
-			"version" : "Version",
-			"cards" : "Cards",
-			"favorites" : "Favorites",
-			"logout" : "Logout"
+			"version": "Version",
+			"cards": "Cards",
+			"favorites": "Favorites",
+			"logout": "Logout"
 		}
 	},
-	"buttons" : {
+	"buttons": {
 		"save": "Save",
-		"cancel": "Cancel"
+		"cancel": "Cancel",
+		"signup": "Sign up",
+		"login": "Login",
+		"sendLink": "Send Confirmation Link",
+		"verifyCode": "Verify code",
+		"saveAndLogin": "Save and login"
+	},
+	"placeholders": {
+		"email": "Email Address",
+		"password": "Password",
+		"fullName": "Full name",
+		"oldPasswordPlaceholder": "Type your old password",
+		"newPasswordPlaceholder": "Type new password",
+		"retypeNewPasswordPlaceholder": "Retype the new password"
 	}
 }

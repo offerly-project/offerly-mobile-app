@@ -6,7 +6,7 @@ import Typography from '@/components/Typography/Typography';
 import { useForm } from '@/hooks/useForm';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import KeyboardAvoidingLayout from '@/layouts/KeyboardAvoidingLayout';
-import { userStore } from '@/stores';
+import { languageStore, userStore } from '@/stores';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { ActivityIndicator, Modal, View } from 'react-native';
@@ -25,6 +25,7 @@ type FormValues = z.infer<typeof schema>;
 
 export default function SignupForm() {
 	const theme = useThemeStyles();
+	const { translations } = languageStore();
 	const [showModal, setShowModal] = useState(false);
 
 	const { handleSubmit, setValues, loading, errors, submittable, values, serverError } =
@@ -63,7 +64,7 @@ export default function SignupForm() {
 							weight='light'
 							variant='h3'
 						>
-							Create your account
+							{translations.buttons.signup}
 						</Typography>
 					</View>
 					<View className='gap-5'>
@@ -71,19 +72,19 @@ export default function SignupForm() {
 							value={values.full_name}
 							onChangeText={onInputChange('full_name')}
 							error={errors.full_name}
-							placeholder='Full name'
+							placeholder={translations.placeholders.fullName}
 						/>
 						<Input
 							value={values.email}
 							onChangeText={onInputChange('email')}
 							error={errors.email}
-							placeholder='Email Address'
+							placeholder={translations.placeholders.email}
 						/>
 						<PasswordInput
 							value={values.password}
 							onChangeText={onInputChange('password')}
 							error={errors.password}
-							placeholder='Password'
+							placeholder={translations.placeholders.password}
 						/>
 						<Button
 							disabled={!submittable}
@@ -92,7 +93,7 @@ export default function SignupForm() {
 							onPress={handleSubmit}
 							loadingComponent={<ActivityIndicator color={theme['--background']} />}
 						>
-							<Typography color='white'>Sign up</Typography>
+							<Typography color='white'>{translations.buttons.signup}</Typography>
 						</Button>
 						{serverError && (
 							<Typography align='center' variant='caption' color='red'>
@@ -103,10 +104,10 @@ export default function SignupForm() {
 				</View>
 				<View className='flex-row gap-1 items-center absolute bottom-0'>
 					<Typography color={theme['--primary']} weight='light' variant='label'>
-						Already have an account?
+						{translations.auth.signup.footer}
 					</Typography>
 					<Link color={theme['--primary']} replace to='/login' variant='label'>
-						Sign in
+						{translations.buttons.login}
 					</Link>
 				</View>
 			</KeyboardAvoidingLayout>

@@ -1,17 +1,42 @@
 {
-	
-	
-	"tabs" : {
-		"offers" : {
-			"tabName" : "العروض"
+	"auth": {
+		"guest": "الاستمرار كزائر",
+		"signup": {
+			"createAccount": "إنشاء الحساب",
+			"footer": "لديك حساب؟"
+		
 		},
-		"cards" : {
-			"tabName" : "البطاقات"
+		"forgetPassword": {
+			"forgetPassword": "نسيت كلمة المرور",
+			"forgetPasswordText": "سنرسل رابط إعادة تعيين كلمة المرور لبريدك الإلكتروني",
+			"setNewPassword" : "إنشاء كلمة مرور جديدة",
+			"footer" : "جرب تسجيل الدخول؟"
+
 		},
-		"favorites" : {
-			"tabName" : "المفضلة"
+		"otp": {
+			"enterCode": "أدخل رمز الدخول لمرة واحدة",
+			"resend" : "إعادة إرسال",
+			"in" :"خلال",
+			"otp" : "رمز الدخول لمرة واحدة"
 		},
-		"account" : {
+		"login": {
+			"welcome": "أهلاً",
+			"welcomeText": "نورتنا",
+			"forgotYourPassword": "نسيت كلمة المرور؟",
+			"footer": "ليس لديك حساب؟ "
+		}
+	},
+	"tabs": {
+		"offers": {
+			"tabName": "العروض"
+		},
+		"cards": {
+			"tabName": "البطاقات"
+		},
+		"favorites": {
+			"tabName": "المفضلة"
+		},
+		"account": {
 			"tabName": "حسابي",
 			"profile": {
 				"title": "الملف الشخصي",
@@ -21,9 +46,6 @@
 			},
 			"change_password": {
 				"title": "تغيير كلمة المرور",
-				"oldPasswordPlaceholder": "اكتب كلمة المرور القديمة",
-				"newPasswordPlaceholder": "اكتب كلمة المرور الجديدة",
-				"retypeNewPasswordPlaceholder": "آعد كتابة كلمة المرور الجديدة",
 				"changePasswordButton": "تغيير كلمة المرور"
 			},
 			"terms_and_conditions": {
@@ -110,20 +132,37 @@
 				"ar": "العربية",
 				"title": "اللغة"
 			},
-			"theme":{
-				"title":"المظهر",
-				"dark":"داكن",
-				"light":"ساطع"
+			"theme": {
+				"title": "المظهر",
+				"dark": "داكن",
+				"light": "ساطع"
 			},
 			"deleteAccount": {
 				"title": "حذف الحساب",
 				"fullName": "Full name",
 				"phoneNumber": "Phone umber"
 			},
-			"version" : "الإصدار",
-			"cards" : "بطاقة",
-			"favorites" : "مفضلة",
-			"logout" : "تسجيل الخروج"
+			"version": "الإصدار",
+			"cards": "بطاقة",
+			"favorites": "مفضلة",
+			"logout": "تسجيل الخروج"
 		}
+	},
+	"buttons": {
+		"save": "حفظ",
+		"cancel": "إلغاء",
+		"signup": "التسجيل",
+		"login": "تسجيل الدخول",
+		"sendLink": "إرسال الرابط",
+		"verifyCode": "التحقق من الرمز",
+		"saveAndLogin": "حفظ و تسجيل الدخول"
+	},
+	"placeholders": {
+		"email": "البريد الإلكتروني",
+		"password": "كلمة المرور",
+		"fullName": "الاسم الكامل",
+		"oldPasswordPlaceholder": "اكتب كلمة المرور القديمة",
+		"newPasswordPlaceholder": "اكتب كلمة المرور الجديدة",
+		"retypeNewPasswordPlaceholder": "أعد كتابة كلمة المرور الجديدة"
 	}
 }

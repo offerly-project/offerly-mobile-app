@@ -4,7 +4,7 @@ import Typography from '@/components/Typography/Typography';
 import { useForm } from '@/hooks/useForm';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import KeyboardAvoidingLayout from '@/layouts/KeyboardAvoidingLayout';
-import { userStore } from '@/stores';
+import { languageStore, userStore } from '@/stores';
 import { ActivityIndicator, View } from 'react-native';
 import { z } from 'zod';
 
@@ -26,6 +26,7 @@ type FormValues = z.infer<typeof schema>;
 
 export default function NewPasswordForm({ tempToken }: NewPasswordFormProps) {
 	const theme = useThemeStyles();
+	const { translations } = languageStore();
 
 	const { handleSubmit, setValues, loading, errors, submittable, values, serverError } =
 		useForm<FormValues>({
@@ -47,21 +48,21 @@ export default function NewPasswordForm({ tempToken }: NewPasswordFormProps) {
 		<KeyboardAvoidingLayout className='flex-1 justify-center'>
 			<View className='gap-5'>
 				<Typography variant='h3' color={theme['--primary']}>
-					Set New Password
+					{translations.auth.forgetPassword.setNewPassword}
 				</Typography>
 				<PasswordInput
 					value={values.password}
 					onChangeText={onInputChange('password')}
 					error={errors.password}
-					placeholder='Type a password'
-					className='text-left'
+					placeholder={translations.placeholders.newPasswordPlaceholder}
+					className={`${languageStore().isRtl ? 'text-right' : 'text-left'}`}
 				/>
 				<PasswordInput
 					value={values.confirmPassword}
 					onChangeText={onInputChange('confirmPassword')}
 					error={errors.confirmPassword}
-					placeholder='Retype password'
-					className='text-left'
+					placeholder={translations.placeholders.retypeNewPasswordPlaceholder}
+					className={`${languageStore().isRtl ? 'text-right' : 'text-left'}`}
 				/>
 				<Button
 					onPress={handleSubmit}
@@ -70,7 +71,7 @@ export default function NewPasswordForm({ tempToken }: NewPasswordFormProps) {
 					loading={loading}
 					disabled={!submittable}
 				>
-					<Typography color='white'>Save and Login</Typography>
+					<Typography color='white'>{translations.buttons.saveAndLogin}</Typography>
 				</Button>
 				{serverError && (
 					<Typography variant='caption' color='red' align='center'>
