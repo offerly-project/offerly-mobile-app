@@ -1,6 +1,7 @@
 import ArabicTranslations from '@/assets/i18n/ar.json';
 import EnglishTranslations from '@/assets/i18n/en.json';
 import { PlainStorage } from '@/services/storage.services';
+import { reloadAsync } from 'expo-updates';
 import { action } from 'mobx';
 import { I18nManager } from 'react-native';
 import { RootStore } from '.';
@@ -24,13 +25,20 @@ export class LanguageStore {
 		if (storedLanguage) {
 			this.language = storedLanguage as LanguageType;
 		}
+
 		this._reactToLanguageChange();
+		if (!__DEV__) {
+			if (!I18nManager.isRTL) {
+				reloadAsync();
+			}
+		}
 	};
 
 	private _reactToLanguageChange = () => {
 		const rtl = RTL_LANGUAGES.includes(this.language);
 		this.isRtl = rtl;
 		I18nManager.forceRTL(rtl);
+		I18nManager.allowRTL(rtl);
 	};
 
 	@action
