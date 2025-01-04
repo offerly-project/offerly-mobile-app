@@ -19,6 +19,7 @@ import TabLayout from '@/layouts/TabLayout';
 import { cardsStore, languageStore } from '@/stores';
 import { formatUploadPath } from '@/utils/utils';
 import { router } from 'expo-router';
+import { useToast } from 'react-native-toast-notifications';
 
 const SelectCards = () => {
 	const [loading, setLoading] = useState({ banks: true, cards: false, adding: false });
@@ -96,14 +97,14 @@ const SelectCards = () => {
 		</Pressable>
 	);
 
-	const disabled = !selectedBank || selectedCards.length === 0;
-
+	const toast = useToast();
 	const onAdd = async () => {
 		setLoading((prev) => ({ ...prev, adding: true }));
 		try {
 			await CardsApi.patchUserCards(selectedCards);
 			await cardsStore().fetchUserCards();
 			router.back();
+			toast.show('Cards added successfully', { type: 'success' });
 		} catch (error) {
 			console.error(error);
 		} finally {
