@@ -1,7 +1,6 @@
 import Typography from '@/components/Typography/Typography';
 import { BankType } from '@/entities/bank.entity';
 import { OfferChannel } from '@/entities/offer.entity';
-import { StyleProp } from 'react-native';
 
 export const formatUploadPath = (path: string) => {
 	return `${process.env.EXPO_PUBLIC_BASE_API_URL}/uploads${path}`;

@@ -1,10 +1,12 @@
 import { getBaseScreenLayout } from '@/constants/screens';
 import { ThemeContextProvider } from '@/contexts/ThemeContext';
+import { useNetworkObserver } from '@/hooks/useNetworkObserver';
 import { TAB_LAYOUT_HEADER_HEIGHT } from '@/layouts/TabLayout';
 import { languageStore, staticDataStore, themeStore, uiStore, userStore } from '@/stores';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
+import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
 import { ScrollView, StatusBar, Text } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -24,7 +26,7 @@ ScrollView.defaultProps = {
 	showsHorizontalScrollIndicator: false,
 };
 
-export default function RootLayout() {
+export const RootLayout = observer(() => {
 	const [loaded, error] = useFonts({
 		'Tajawal-Regular': require('@/assets/fonts/Tajawal-Regular.ttf'),
 		'Tajawal-Medium': require('@/assets/fonts/Tajawal-Medium.ttf'),
@@ -34,6 +36,7 @@ export default function RootLayout() {
 
 	const [loading, setLoading] = useState(true);
 
+	useNetworkObserver();
 	useEffect(() => {
 		if (loaded) {
 			staticDataStore()
@@ -80,4 +83,6 @@ export default function RootLayout() {
 			</ThemeContextProvider>
 		</ToastProvider>
 	);
-}
+});
+
+export default RootLayout;
