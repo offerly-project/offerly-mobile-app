@@ -173,8 +173,8 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 									{offer.title.en}
 								</Typography>
 							</View>
-							{offer.categories?.length > 0 &&
-								offer.categories.map((category) => (
+							{offer?.categories?.length > 0 &&
+								offer?.categories?.map((category) => (
 									<View
 										key={category}
 										className='flex-row px-3.5 pt-1.5 gap-2 rounded-full bg-primary'
@@ -190,7 +190,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 									Applicable Cards
 								</Typography>
 								<ScrollView horizontal style={styles.section}>
-									{offer.applicable_cards.map((card) => (
+									{offer?.applicable_cards?.map((card) => (
 										<CardCard small card={card} key={card.id} />
 									))}
 								</ScrollView>

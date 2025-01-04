@@ -20,6 +20,7 @@ const Favorites = observer((props: Props) => {
 				setLoading(false);
 			});
 	}, []);
+
 	return (
 		<TabLayout title='Favorites'>
 			{loading ? (

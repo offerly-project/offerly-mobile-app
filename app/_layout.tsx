@@ -1,7 +1,7 @@
 import { getBaseScreenLayout } from '@/constants/screens';
 import { ThemeContextProvider } from '@/contexts/ThemeContext';
 import { TAB_LAYOUT_HEADER_HEIGHT } from '@/layouts/TabLayout';
-import { staticDataStore, userStore } from '@/stores';
+import { languageStore, staticDataStore, themeStore, uiStore, userStore } from '@/stores';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
@@ -39,6 +39,8 @@ export default function RootLayout() {
 			staticDataStore()
 				.fetchStaticData()
 				.then(async () => {
+					await Promise.all([languageStore().setup(), themeStore().setup()]);
+					await uiStore().setup();
 					await userStore().setup();
 					SplashScreen.hideAsync();
 

@@ -2,31 +2,21 @@ import { AuthApi } from '@/api/auth.api';
 import { OtpApi } from '@/api/otp.api';
 import { UserApi } from '@/api/user.api';
 import { AxiosAuthInterceptorManager } from '@/configs/axios';
-import { ThemeNameType } from '@/contexts/ThemeContext';
 import { PatchUserData, User } from '@/entities/user.entity';
-import { PlainStorage, SecureStorage } from '@/services/storage.services';
+import { SecureStorage } from '@/services/storage.services';
 import _ from 'lodash';
 import { action, makeAutoObservable, observable, runInAction } from 'mobx';
-import { Appearance } from 'react-native';
 import { RootStore } from '.';
 
 export class UserStore {
 	private rootStore: RootStore;
 	@observable user!: User;
-	@observable theme: ThemeNameType = Appearance.getColorScheme() === 'dark' ? 'dark' : 'light';
 
 	@observable authenticated: boolean = false;
 	constructor(rootStore: RootStore) {
 		this.rootStore = rootStore;
 		makeAutoObservable(this);
 	}
-
-	private _setupTheme = async () => {
-		const storedTheme = await PlainStorage.getItem('theme');
-		if (storedTheme) {
-			this.theme = storedTheme as ThemeNameType;
-		}
-	};
 
 	deleteAccount = async () => {
 		try {
@@ -40,7 +30,7 @@ export class UserStore {
 	@action
 	setup = async () => {
 		try {
-			await Promise.all([this._setupTheme(), this.rootStore.languageStore.setup()]);
+			await Promise.all([this.rootStore.languageStore.setup()]);
 
 			const token = await SecureStorage.getItem('token');
 			if (token) {

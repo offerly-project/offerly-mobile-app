@@ -14,18 +14,20 @@ import { IBank } from '@/entities/bank.entity';
 import { ICard } from '@/entities/card.entity';
 import CardCard from '@/features/Cards/components/CardCard';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import { useUIState } from '@/hooks/useUIState';
 import CardsGridLayout from '@/layouts/CardsGridLayout';
 import TabLayout from '@/layouts/TabLayout';
 import { cardsStore, languageStore } from '@/stores';
 import { formatUploadPath } from '@/utils/utils';
 import { router } from 'expo-router';
+import { observer } from 'mobx-react-lite';
 import { useToast } from 'react-native-toast-notifications';
 
-const SelectCards = () => {
+const SelectCards = observer(() => {
 	const [loading, setLoading] = useState({ banks: true, cards: false, adding: false });
 	const [banks, setBanks] = useState<IBank[]>([]);
 	const [bankCards, setBankCards] = useState<ICard[]>([]);
-	const [selectedBank, setSelectedBank] = useState<string | null>(null);
+	const [selectedBank, setSelectedBank] = useUIState<string>('cards-select:bank');
 	const [selectedCards, setSelectedCards] = useState<string[]>([]);
 
 	const theme = useThemeStyles();
@@ -43,6 +45,12 @@ const SelectCards = () => {
 	const animatedStyle = useAnimatedStyle(() => ({
 		opacity: opacity.value,
 	}));
+
+	useEffect(() => {
+		if (selectedBank) {
+			fetchBankCards(selectedBank);
+		}
+	}, [selectedBank]);
 
 	useEffect(() => {
 		const fetchBanks = async () => {
@@ -67,10 +75,7 @@ const SelectCards = () => {
 		}
 	};
 
-	const handleBankSelection = (bankId: string | null, closeHandler: () => void) => {
-		if (bankId && bankId !== selectedBank) {
-			fetchBankCards(bankId);
-		}
+	const handleBankSelection = (bankId: string, closeHandler: () => void) => {
 		setSelectedBank(bankId);
 		closeHandler();
 	};
@@ -141,40 +146,47 @@ const SelectCards = () => {
 						item.data.name.en.toLowerCase().includes(search.toLowerCase())
 					}
 				/>
-				<View style={{ height: '70%' }}>
-					<CardsGridLayout
-						className='pt-3'
-						data={bankCards.sort((a, b) => {
-							const isAUserCard = userCardsList.some((card) => card.id === a.id);
-							const isBUserCard = userCardsList.some((card) => card.id === b.id);
+				{loading.banks || loading.cards ? (
+					<View className='h-[65%] items-center justify-center'>
+						<ActivityIndicator color={theme['--primary']} />
+					</View>
+				) : (
+					<View style={{ height: '70%' }}>
+						<CardsGridLayout
+							className='pt-3'
+							data={bankCards.sort((a, b) => {
+								const isAUserCard = userCardsList.some((card) => card.id === a.id);
+								const isBUserCard = userCardsList.some((card) => card.id === b.id);
 
-							if (isAUserCard && !isBUserCard) return -1;
-							if (!isAUserCard && isBUserCard) return 1;
-							return 0;
-						})}
-						renderItem={({ item }) => (
-							<CardCard
-								userCard={
-									userCardsList.find((card) => card.id === item.id) !== undefined
-								}
-								card={item}
-								onPress={() => {
-									setSelectedCards((prev) => {
-										if (prev.includes(item.id)) {
-											return prev.filter((cardId) => cardId !== item.id);
-										}
-										return [...prev, item.id];
-									});
-								}}
-								selected={
-									selectedCards.includes(item.id) ||
-									userCardsList.some((card) => card.id === item.id)
-								}
-							/>
-						)}
-						keyExtractor={(item) => item.id}
-					/>
-				</View>
+								if (isAUserCard && !isBUserCard) return -1;
+								if (!isAUserCard && isBUserCard) return 1;
+								return 0;
+							})}
+							renderItem={({ item }) => (
+								<CardCard
+									userCard={
+										userCardsList.find((card) => card.id === item.id) !==
+										undefined
+									}
+									card={item}
+									onPress={() => {
+										setSelectedCards((prev) => {
+											if (prev.includes(item.id)) {
+												return prev.filter((cardId) => cardId !== item.id);
+											}
+											return [...prev, item.id];
+										});
+									}}
+									selected={
+										selectedCards.includes(item.id) ||
+										userCardsList.some((card) => card.id === item.id)
+									}
+								/>
+							)}
+							keyExtractor={(item) => item.id}
+						/>
+					</View>
+				)}
 				{selectedCards.length > 0 && (
 					<Animated.View style={[styles.hapticPressContainer, animatedStyle]}>
 						<Button
@@ -193,7 +205,7 @@ const SelectCards = () => {
 			</>
 		</TabLayout>
 	);
-};
+});
 
 export default SelectCards;
 
