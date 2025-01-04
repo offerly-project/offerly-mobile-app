@@ -2,7 +2,7 @@ import Button from '@/components/Button/Buttton';
 import Select from '@/components/Select/Select';
 import Typography from '@/components/Typography/Typography';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
-import { cardsStore } from '@/stores';
+import { cardsStore, languageStore } from '@/stores';
 import { formatUploadPath } from '@/utils/utils';
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
@@ -24,6 +24,7 @@ const OffersFilter = ({
 	closeHandler,
 }: Props) => {
 	const theme = useThemeStyles();
+	const { translations, language } = languageStore();
 	const { userCardsList } = cardsStore();
 
 	return (
@@ -33,13 +34,13 @@ const OffersFilter = ({
 				setSelectedCategory={setSelectedCategory!}
 			/>
 			<Select
-				placeHolder='Select a card'
+				placeHolder={translations.placeholders.selectCard}
 				value={selectedCard}
 				onChange={(value) => setSelectedCard(value)}
 				items={userCardsList
 					.sort((a, b) => a.bank.name.en.localeCompare(b.bank.name.en))
 					.map((card) => ({
-						name: card.name.en,
+						name: language == 'ar' ? card.name.ar : card.name.en,
 						value: card.id,
 						data: card,
 					}))}
@@ -85,7 +86,9 @@ const OffersFilter = ({
 				}}
 				borderStyle='filled'
 			>
-				<Typography color='white'>Show me all offers</Typography>
+				<Typography color='white'>
+					{translations.tabs.offers.offersFilter.myCardsOffers}
+				</Typography>
 			</Button>
 		</View>
 	);

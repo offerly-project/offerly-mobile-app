@@ -1,6 +1,7 @@
 import Typography from '@/components/Typography/Typography';
 import { ICard } from '@/entities/card.entity';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import { languageStore } from '@/stores';
 import { formatUploadPath } from '@/utils/utils';
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
@@ -17,14 +18,7 @@ type Props = {
 
 const CardCard = ({ card, onPress, selected, small, userCard }: Props) => {
 	const theme = useThemeStyles();
-
-	const animatedStyle = useAnimatedStyle(() => {
-		return {
-			borderColor: withTiming(selected ? theme['--selected'] : 'transparent', {
-				duration: 200,
-			}),
-		};
-	}, [selected]);
+	const { translations, language } = languageStore();
 
 	const iconContainerClasses = userCard
 		? 'bg-primary opacity-50 items-center'
@@ -35,15 +29,14 @@ const CardCard = ({ card, onPress, selected, small, userCard }: Props) => {
 			<Animated.View
 				className={`${!small && 'aspect-square'}`}
 				style={[
-					animatedStyle,
-					selected && { backgroundColor: theme['--card'] },
+					selected && !userCard && { backgroundColor: theme['--card'] },
 					styles.wrapper,
 				]}
 			>
 				<Pressable
 					onPress={onPress}
 					disabled={userCard}
-					className=' gap-2 px-2 py-1 items-center'
+					className={`gap-2 px-2 py-1 items-center ${userCard && 'opacity-50'}`}
 				>
 					<Image
 						source={formatUploadPath(card.logo)}
@@ -62,13 +55,20 @@ const CardCard = ({ card, onPress, selected, small, userCard }: Props) => {
 						color={theme['--text']}
 						align='center'
 					>
-						{card.name.en}
+						{language == 'ar' ? card.name.ar : card.name.en}
 					</Typography>
 				</Pressable>
 			</Animated.View>
-			{selected && (
+			{selected && !userCard && (
 				<View style={styles.selection_checkmark} className={iconContainerClasses}>
 					<Ionicons name='checkmark' size={14} color={theme['--background']} />
+				</View>
+			)}
+			{userCard && (
+				<View style={styles.already_added} className='bg-primary px-1 py-0.5 opacity-40'>
+					<Typography variant='label' color='white' align='center'>
+						{translations.tabs.cards.added}
+					</Typography>
 				</View>
 			)}
 		</View>
@@ -105,5 +105,13 @@ const styles = StyleSheet.create({
 		borderRadius: 50,
 		justifyContent: 'center',
 		alignContent: 'center',
+	},
+	already_added: {
+		position: 'absolute',
+		top: '40%',
+		left: '50%',
+		transform: [{ translateX: '50%' }, { translateY: '-50%' }],
+		width: '60%',
+		borderRadius: 50,
 	},
 });

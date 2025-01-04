@@ -4,7 +4,7 @@ import Typography from '@/components/Typography/Typography';
 import { ThemeStyle } from '@/constants/themes';
 import { IOffer } from '@/entities/offer.entity';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
-import { favoritesStore } from '@/stores';
+import { favoritesStore, languageStore } from '@/stores';
 import { formatUploadPath, wait } from '@/utils/utils';
 import Ionicons from '@expo/vector-icons/AntDesign';
 import { Image } from 'expo-image';
@@ -28,6 +28,7 @@ type FooterBuildElement = {
 
 const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 	const theme = useThemeStyles();
+	const { translations, language } = languageStore();
 	const { top } = useSafeAreaInsets();
 	const { addFavorite, removeFavorite, isFavorite } = favoritesStore();
 	const [modalVisible, setModalVisible] = useState(false);
@@ -42,7 +43,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 			removeFavorite(offer);
 		} else {
 			addFavorite(offer);
-			toast.show('Offer added to favorites', { type: 'success' });
+			toast.show(translations.toast.addFavorite, { type: 'success' });
 		}
 	};
 
@@ -50,13 +51,13 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 		const expFmt = moment(offer?.expiry_date?.toString()).format('DD/MM/YYYY');
 		const startFmt = moment(offer?.starting_date?.toString()).format('DD/MM/YYYY');
 		if (offer.starting_date && offer.expiry_date) {
-			return `Start: ${startFmt} - Expiry: ${expFmt}`;
+			return `${translations.tabs.offers.offerDetails.expiryDate.from}: ${startFmt} - ${translations.tabs.offers.offerDetails.expiryDate.to}: ${expFmt}`;
 		}
 		if (offer.starting_date && !offer.expiry_date) {
-			return `Start: ${startFmt}`;
+			return `${translations.tabs.offers.offerDetails.expiryDate.from}: ${startFmt}`;
 		}
 		if (offer.expiry_date && !offer.starting_date) {
-			return `Expiry: ${expFmt}`;
+			return `${translations.tabs.offers.offerDetails.expiryDate.to}: ${expFmt}`;
 		}
 		return null;
 	}, [offer.expiry_date, offer.starting_date]);
@@ -65,13 +66,22 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 	const footerBuildElements: FooterBuildElement[] = (function () {
 		const elements: FooterBuildElement[] = [];
 		if (offer.discount_code) {
-			elements.push({ key: 'Discount Code', value: offer.discount_code });
+			elements.push({
+				key: translations.tabs.offers.offerDetails.discountCode,
+				value: offer.discount_code,
+			});
 		}
 		if (offer.cap) {
-			elements.push({ key: 'Discount Amount', value: `Up to ${offer.cap}` });
+			elements.push({
+				key: translations.tabs.offers.offerDetails.discountAmount,
+				value: `Up to ${offer.cap}`,
+			});
 		}
 		if (offer.minimum_amount) {
-			elements.push({ key: 'Min. Spending', value: offer.minimum_amount });
+			elements.push({
+				key: translations.tabs.offers.offerDetails.minSpending,
+				value: offer.minimum_amount,
+			});
 		}
 		if (offer.channels.length > 0) {
 			const channels = [];
@@ -81,7 +91,10 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 			if (offer.channels.includes('online')) {
 				channels.push('Online');
 			}
-			elements.push({ key: 'Offer Type', value: channels.join(' & ') });
+			elements.push({
+				key: translations.tabs.offers.offerDetails.offerType,
+				value: channels.join(' & '),
+			});
 		}
 
 		return elements;
@@ -106,9 +119,9 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 							weight='bold'
 							color={theme['--primary']}
 							numberOfLines={1}
-							className='flex-shrink'
+							className='flex-shrink pr-1'
 						>
-							{offer.title.en}
+							{language == 'ar' ? offer.title.ar : offer.title.en}
 						</Typography>
 						<Pressable onPress={toggleFavorite}>
 							<Ionicons
@@ -124,7 +137,9 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 						className='leading-1'
 						color={theme['--text']}
 					>
-						{offer.description.en.trim()}
+						{language == 'ar'
+							? offer.description.ar.trim()
+							: offer.description.en.trim()}
 					</Typography>
 					<Typography variant='label' color={theme['--primary']}>
 						{moment(offer.expiry_date.toString()).format('DD/MM/YYYY')}
@@ -172,7 +187,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 									color={theme['--primary']}
 									weight='bold'
 								>
-									{offer.title.en}
+									{language == 'ar' ? offer.title.ar : offer.title.en}
 								</Typography>
 							</View>
 							{offer?.categories?.length > 0 &&
@@ -189,9 +204,18 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 								))}
 							<View>
 								<Typography weight='bold' align='center'>
-									Applicable Cards
+									{translations.tabs.offers.offerDetails.applicableCards}
 								</Typography>
-								<ScrollView horizontal style={styles.section}>
+								<ScrollView
+									horizontal
+									style={styles.section}
+									contentContainerStyle={
+										offer.applicable_cards.length < 4 && {
+											flex: 1,
+											justifyContent: 'center',
+										}
+									}
+								>
 									{offer?.applicable_cards?.map((card) => (
 										<CardCard small card={card} key={card.id} />
 									))}
@@ -208,16 +232,20 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 									</Typography>
 								)}
 								<Typography variant='body' weight='light' color={theme['--text']}>
-									{offer.description.en.trim()}
+									{language == 'ar'
+										? offer.description.ar.trim()
+										: offer.description.en.trim()}
 								</Typography>
 							</View>
 							<View style={[styles.section]}>
 								<Typography color={theme['--primary']} variant='body' weight='bold'>
-									Terms & Conditions
+									{translations.tabs.account.terms_and_conditions.title}
 								</Typography>
 
 								<Typography variant='body' weight='light' color={theme['--text']}>
-									{offer.terms_and_conditions.en}
+									{language == 'ar'
+										? offer.terms_and_conditions.ar
+										: offer.terms_and_conditions.en}
 								</Typography>
 							</View>
 							<View style={[styles.section]}>
@@ -253,7 +281,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 										Linking.openURL(offer.offer_source_link);
 									}}
 								>
-									Offer Link
+									{translations.tabs.offers.offerDetails.offerLink}
 								</Link>
 							</View>
 						</ScrollView>

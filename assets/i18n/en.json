@@ -8,28 +8,58 @@
 		"forgetPassword": {
 			"forgetPassword": "Forgot Password",
 			"forgetPasswordText": "We will share a password reset link on your email address",
-			"setNewPassword" : "Set a new password",
-			"footer" : "Try loggging in?"
+			"setNewPassword": "Set a new password",
+			"footer": "Try loggging in?"
 		},
 		"otp": {
 			"enterCode": "Enter OTP Code",
-			"resend" : "Resend",
-			"in" :"in",
-			"otp" : "OTP"
+			"resend": "Resend",
+			"in": "in",
+			"otp": "OTP"
 		},
 		"login": {
 			"welcome": "Welcome",
 			"welcomeText": "We are glad to see you",
-			"forgotYourPassword" : "Forgot your password?",
-			"footer" : "Don't have an account?"
+			"forgotYourPassword": "Forgot your password?",
+			"footer": "Don't have an account?"
 		}
 	},
 	"tabs": {
 		"offers": {
-			"tabName": "Offers"
+			"tabName": "Offers",
+			"header": "Offers for all My Cards",
+			"headerForSelectedCard": "Offers for",
+			"offersFilter": {
+				"myCardsOffers": "All My Cards offers"
+			},
+			"offerDetails": {
+				"discountAmount": "Discount Amount",
+				"discountCode": "Discount Code",
+				"expiryDate": {
+					"from": "Start",
+					"to": "Expiry"
+				},
+				"minSpending": "Min. Spending",
+				"channel": "Channel",
+				"offerLink": "Offer Link",
+				"offerType": "Offer Type",
+				"applicableCards": "Applicable Cards"
+			},
+			"categories": {
+				"shopping": "Shopping",
+				"travel": "Travel",
+				"fastFood": "Restaurants & Cafe",
+				"entertainment": "Entertainment",
+				"carServices": "Car Services",
+				"others": "Others",
+				"groceries": "Groceries",
+				"health": "Health & Wellness"
+			}
 		},
 		"cards": {
-			"tabName": "Cards"
+			"tabName": "My Cards",
+			"addCards": "Add Cards",
+			"added":"Added"
 		},
 		"favorites": {
 			"tabName": "Favorites"
@@ -97,7 +127,7 @@
 			},
 			"about_modal": {
 				"title": "About Us",
-				"aboutUsDisc": "Welcome to [Offerly] your one-stop solution for accessing the best payment card offers from various banks, all in one place.\n \n At Offerly, we understand that managing payment card offers can be overwhelming.That's why we've created a user-friendly platform that brings together the latest and greatest offers from a wide range of banks",
+				"aboutUsDisc": "Welcome to [Offerly] your one-stop solution for accessing the best payment card offers from various banks, all in one place.\n \n At [Offerly], we understand that managing payment card offers can be overwhelming.That's why we've created a user-friendly platform that brings together the latest and greatest offers from a wide range of banks",
 				"ourGoal": "Our Goal",
 				"ourGoalDisc": "By consolidating offers from different banks into one convenient app, we save you time and effort, allowing you to focus on what matters most – enjoying the benefits of your payment cards.",
 				"perks": [
@@ -136,9 +166,7 @@
 				"light": "Light"
 			},
 			"deleteAccount": {
-				"title": "Delete Account",
-				"fullName": "Full name",
-				"phoneNumber": "Phone umber"
+				"title": "Delete Account"
 			},
 			"version": "Version",
 			"cards": "Cards",
@@ -153,7 +181,10 @@
 		"login": "Login",
 		"sendLink": "Send Confirmation Link",
 		"verifyCode": "Verify code",
-		"saveAndLogin": "Save and login"
+		"saveAndLogin": "Save and login",
+		"add": "Add",
+		"confirm": "Confirm",
+		"reload" : "Reload"
 	},
 	"placeholders": {
 		"email": "Email Address",
@@ -161,6 +192,24 @@
 		"fullName": "Full name",
 		"oldPasswordPlaceholder": "Type your old password",
 		"newPasswordPlaceholder": "Type new password",
-		"retypeNewPasswordPlaceholder": "Retype the new password"
+		"retypeNewPasswordPlaceholder": "Retype the new password",
+		"search": "search..",
+		"selectBank": "Select Bank",
+		"selectCard": "Select Card"
+	},
+	"toast" : {
+		"addCards":"Selected Cards added successfully",
+		"deleteCards":"Selected Cards deleted successfully",
+		"addFavorite" : "Offer added to favorites"
+	},
+	"warning" : {
+		"deleteCards" : {
+			"title": "Delete Cards",
+			"message": "Are you sure you want to delete the selected cards?"
+		},
+		"changeLanguage" : {
+			"title" : "Reload Required",
+			"message" : "Please reload the app to apply the changes."
+		}
 	}
 }

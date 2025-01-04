@@ -46,4 +46,8 @@ export class CardsStore {
 			});
 		});
 	};
+
+	public getCardById = (id: string) => {
+		return this._cards[id];
+	};
 }

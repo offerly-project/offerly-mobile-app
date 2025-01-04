@@ -40,11 +40,11 @@ const LanguageSwitchList = ({ onSelect }: Props) => {
 		setLanguage(language);
 		onSelect();
 		Alert.alert(
-			'Reload Required',
-			'Please reload the app to apply the changes.',
+			translations.warning.changeLanguage.title,
+			translations.warning.changeLanguage.message,
 			[
 				{
-					text: 'Reload',
+					text: translations.buttons.reload,
 					onPress: () => {
 						Updates.reloadAsync();
 					},

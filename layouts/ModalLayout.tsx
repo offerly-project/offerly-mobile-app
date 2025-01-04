@@ -12,7 +12,7 @@ type Props = {
 const ModalLayout = ({ children, title }: Props) => {
 	const theme = useThemeStyles();
 	return (
-		<>
+		<View className='px-4 pb-8 flex-1'>
 			<View className='p-4'>
 				<View className='items-end'>
 					<CloseButton
@@ -30,7 +30,7 @@ const ModalLayout = ({ children, title }: Props) => {
 				)}
 			</View>
 			{children}
-		</>
+		</View>
 	);
 };
 

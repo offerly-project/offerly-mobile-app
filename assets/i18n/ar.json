@@ -4,14 +4,12 @@
 		"signup": {
 			"createAccount": "إنشاء الحساب",
 			"footer": "لديك حساب؟"
-		
 		},
 		"forgetPassword": {
 			"forgetPassword": "نسيت كلمة المرور",
 			"forgetPasswordText": "سنرسل رابط إعادة تعيين كلمة المرور لبريدك الإلكتروني",
 			"setNewPassword" : "إنشاء كلمة مرور جديدة",
 			"footer" : "جرب تسجيل الدخول؟"
-
 		},
 		"otp": {
 			"enterCode": "أدخل رمز الدخول لمرة واحدة",
@@ -28,10 +26,44 @@
 	},
 	"tabs": {
 		"offers": {
-			"tabName": "العروض"
+			"tabName": "العروض",
+			"header": "العروض الخاصة ببطاقاتي",
+			"headerForSelectedCard" : "عروض",
+			"offersFilter" : {
+				"myCardsOffers" : "عروض كل بظاقاتي"
+			},
+			"offerDetails" : {
+				"discountAmount" : "حد الخصم الأعلى",
+				"discountCode" : "الرمز الترويجي",
+				"expiryDate" : {
+					"from" : "صالح من",
+					"to" : "حتى"
+				},
+				"minSpending" : "الحد الأدنى للشراء",
+				"channel" : "يطبق العرض في" ,
+				"offerLink" : "رابط العرض",
+				"offerType" : "نوع العرض",
+				"applicableCards" : "البطاقات المطبقة"
+			},
+			"categories" : {
+				"shopping" : "تسوّق",
+				"travel" : "سفر",
+				"fastFood" : "مطاعم وكافيهات",
+				"entertainment" : "تسلية",
+				"carServices" : "خدمات سيارة",
+				"others" : "غيرها",
+				"groceries" : "البقالة",
+				"health" : "الصحة واللياقة"
+			}
 		},
 		"cards": {
-			"tabName": "البطاقات"
+			"tabName": "بطاقاتي",
+			"addCards" : "إضافة بطاقات",
+			"added": "مضافة",
+			"deleteCardsWarning" : {
+				"deleteCards": "حذف بطاقات",
+				"deleteCardsWarning": "هل أنت متأكد من رغبتك في حذف البطاقات المحددة؟"
+			}
 		},
 		"favorites": {
 			"tabName": "المفضلة"
@@ -52,72 +84,72 @@
 				"title": "الشروط والأحكام",
 				"terms": [
 					{
-						"title": "Introduction",
-						"discription": "Welcome to Offerly! These Terms and Conditions govern your use of our mobile application. By accessing or using Offerly, you agree to comply with and be bound by these terms."
+						"title": "المقدمة",
+						"discription": "مرحبًا بكم في [أوفرلي] تحكم هذه الشروط والأحكام استخدامك لتطبيقنا. من خلال الوصول إلى [أوفرلي] أو استخدامه، فإنك توافق على الامتثال لهذه الشروط."
 					},
 					{
-						"title": "Definitions",
-						"discription": "[\"App\"] refers to Offerly.\n[\"User\"] refers to anyone who uses the App.\n[\"We\", \"us\" and \"our\"] refers to the Offerly team."
+						"title": "التعريفات",
+						"discription": "[\"التطبيق\"] يشير إلى أوفرلي.\n[\"المستخدم\"] يشير إلى أي شخص يستخدم التطبيق.\n[\"نحن\", \"لنا\" و \"خاصتنا\"]  تشير إلى فريق أوفرلي."
 					},
 					{
-						"title": "Use of the App",
-						"discription": "Users agree to use the app only for lawful purposes and in a way that does not infringe the rights of others."
+						"title": "استخدام التطبيق",
+						"discription": "يوافق المستخدم على استخدام التطبيق لأغراض قانونية فقط وبطريقة لا تنتهك حقوق الآخرين."
 					},
 					{
-						"title": "Account Registration",
-						"discription": "Users will need to create an account to access certain features.\nUsers are responsible for maintaining the confidentiality of their account information."
+						"title": " تسجيل الحساب",
+						"discription": "سيحتاج المستخدمون إلى إنشاء حساب للوصول إلى ميزات معينة.\nيتحمل المستخدمون مسؤولية الحفاظ على سرية معلومات حسابهم."
 					},
 					{
-						"title": "Offers and Promotions",
-						"discription": "The app provides access to offers and promotions from various banks.\nWe do not guarantee the accuracy or availability of any offer."
+						"title": "العروض والترويج",
+						"discription": "يوفر التطبيق الوصول إلى العروض والترويج من مختلف البنوك.\nلا نضمن دقة أو توفر أي عرض."
 					},
 					{
-						"title": "Prohibited Conduct",
-						"discription": "Users must not misuse the app, including but not limited to hacking, spamming, or violating any laws.\nUsers must not use the app to distribute harmful or illegal content."
+						"title": "السلوك المحظور",
+						"discription": "يجب على المستخدمين عدم إساءة استخدام التطبيق، بما في ذلك على سبيل المثال لا الحصر القرصنة أو البريد العشوائي أو انتهاك أي قوانين.\nيجب على المستخدمين عدم استخدام التطبيق لتوزيع محتوى ضار أو غير قانوني."
 					},
 					{
-						"title": "Intellectual Property",
-						"discription": "All content on the app, including text, graphics, logos, and software, is the property of Offerly or its licensors.\nUsers may not reproduce, distribute, or create derivative works from the app content without our permission."
+						"title": "الملكية الفكرية",
+						"discription": "جميع المحتويات على التطبيق، بما في ذلك النصوص والرسومات والشعارات والبرمجيات، هي ملكية لـ [أوفرلي] أو المرخصين لها.\nلا يجوز للمستخدمين إعادة إنتاج أو توزيع أو إنشاء أعمال مشتقة من محتوى التطبيق دون إذن منا."
 					},
 					{
-						"title": "Termination",
-						"discription": "We reserve the right to terminate or suspend access to the app for any user who violates these terms.\nUsers can terminate their account at any time."
+						"title": "الإنهاء",
+						"discription": "نحتفظ بالحق في إنهاء أو تعليق الوصول إلى التطبيق لأي مستخدم ينتهك هذه الشروط.\nيمكن للمستخدمين إلغاء حسابهم في أي وقت."
 					},
 					{
-						"title": "Limitation of Liability",
-						"discription": "Offerly is provided \"as is\" without warranties of any kind.\nWe are not liable for any damages arising from the use or inability to use the app."
+						"title": "تحديد المسؤولية",
+						"discription": "يتم توفير [أوفرلي] \"كما هو\" دون أي ضمانات من أي نوع.\nنحن غير مسؤولين عن أي أضرار تنشأ عن استخدام التطبيق أو عدم القدرة على استخدامه."
 					},
 					{
-						"title": "Changes to Terms",
-						"discription": "We may update these terms from time to time. Users will be notified of any significant changes.\nContinued use of the app after changes are made constitutes acceptance of the new terms."
+						"title": "التغييرات على الشروط",
+						"discription": "قد نقوم بتحديث هذه الشروط من وقت لآخر. سيتم إخطار المستخدمين بأي تغييرات كبيرة.\nيعتبر استمرار استخدام التطبيق بعد إجراء التغييرات قبولاً للشروط الجديدة."
 					},
 					{
-						"title": "Contact Us",
-						"discription": "If you have any questions about these terms, please contact us using contacy us form."
+						"title": "اتصل بنا",
+						"discription": "إذا كان لديك أي أسئلة حول هذه الشروط، يرجى الاتصال بنا عبر نموذج الاتصال."
 					}
 				]
 			},
 			"about_modal": {
 				"title": "عن أوفرلي",
-				"aboutUsDisc": "Welcome to [Offerly] your one-stop solution for accessing the best payment card offers from various banks, all in one place.\n \n At Offerly, we understand that managing payment card offers can be overwhelming.That's why we've created a user-friendly platform that brings together the latest and greatest offers from a wide range of banks",
-				"ourGoal": "Our Goal",
-				"ourGoalDisc": "By consolidating offers from different banks into one convenient app, we save you time and effort, allowing you to focus on what matters most – enjoying the benefits of your payment cards.",
+				"aboutUsDisc": "مرحبًا بكم في  [أوفرلي] الحل الأمثل للوصول إلى أفضل عروض البطاقات البنكية من مختلف البنوك، كل ذلك في مكان واحد.\n \n في [أوفرلي] ، ندرك أن الوصول إلى عروض البطاقات البنكية يمكن أن تكون معقدة. لهذا السبب أنشأنا منصة سهلة الاستخدام تجمع أحدث وأفضل العروض من مجموعة واسعة من البنوك.",
+				"ourGoal": "هدفنا",
+				"ourGoalDisc": "من خلال تجميع العروض من بنوك مختلفة في تطبيق واحد مريح، نوفر لك الوقت والجهد، مما يتيح لك التركيز على الاستفادة من العروض والاستمتاع بمزايا البطاقات الخاصة بك.",
 				"perks": [
 					{
-						"title": "Comprehensive Coverage",
-						"discription": "Access offers from multiple banks without switching between apps."
+						"title": "تغطية شاملة",
+						"discription":"الوصول إلى العروض من عدة بنوك دون الحاجة إلى التنقل بين التطبيقات."
 					},
 					{
-						"title": "User-Friendly Interface",
-						"discription": "Navigate through offers effortlessly with our intuitive design."
+						"title": "واجهة سهلة الاستخدام",
+						"discription": "التنقل بين العروض بسهولة بفضل تصميمنا المريح."
 					},
 					{
-						"title": "Up-to-Date Information",
-						"discription": "Stay informed with the latest deals and promotions."
+						"title": "معلومات محدثة",
+						"discription": " البقاء على اطلاع بأحدث العروض الترويجية."
 					},
 					{
-						"title": "Personalized Experience",
-						"discription": "Receive recommendations tailored to your preferences."
+						"title": "تجربة مخصصة",
+						"discription": " تلقي توصيات مخصصة وفقًا لتفضيلاتك."
 					}
 				]
 			},
@@ -138,9 +170,7 @@
 				"light": "ساطع"
 			},
 			"deleteAccount": {
-				"title": "حذف الحساب",
-				"fullName": "Full name",
-				"phoneNumber": "Phone umber"
+				"title": "حذف الحساب"
 			},
 			"version": "الإصدار",
 			"cards": "بطاقة",
@@ -155,7 +185,10 @@
 		"login": "تسجيل الدخول",
 		"sendLink": "إرسال الرابط",
 		"verifyCode": "التحقق من الرمز",
-		"saveAndLogin": "حفظ و تسجيل الدخول"
+		"saveAndLogin": "إحفظ و تسجيل الدخول",
+		"add": "إضافة",
+		"confirm": "تأكيد",
+		"reload" : "إعادة التحميل"
 	},
 	"placeholders": {
 		"email": "البريد الإلكتروني",
@@ -163,6 +196,24 @@
 		"fullName": "الاسم الكامل",
 		"oldPasswordPlaceholder": "اكتب كلمة المرور القديمة",
 		"newPasswordPlaceholder": "اكتب كلمة المرور الجديدة",
-		"retypeNewPasswordPlaceholder": "أعد كتابة كلمة المرور الجديدة"
+		"retypeNewPasswordPlaceholder": "أعد كتابة كلمة المرور الجديدة",
+		"search": "بحث..",
+		"selectBank": "اٰختر بنك",
+		"selectCard": "اٰختر بطاقة"
+	},
+	"toast" : {
+		"addCards":"تمت إضافة البطاقات المحددة بنجاح",
+		"deleteCards":"تم حذف البطاقات المحددة بنجاح",
+		"addFavorite" : "تمت إضافة العرض إلى المفضلة"
+	},
+	"warning" : {
+		"deleteCards": {
+			"title": "حذف بطاقات",
+			"message": "هل أنت متأكد من رغبتك في حذف البطاقات المحددة؟"
+		},
+		"changeLanguage": {
+			"title": "مطلوب إعادة التحميل",
+			"message": "يُرجى إعادة تحميل التطبيق لتطبيق التغييرات."
+		}
 	}
 }

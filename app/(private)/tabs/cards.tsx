@@ -7,7 +7,7 @@ import { ICard } from '@/entities/card.entity';
 import CardCard from '@/features/Cards/components/CardCard';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import TabLayout from '@/layouts/TabLayout';
-import { cardsStore } from '@/stores';
+import { cardsStore, languageStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { observer } from 'mobx-react-lite';
@@ -20,6 +20,7 @@ import { useToast } from 'react-native-toast-notifications';
 const Cards = observer(() => {
 	// Hooks and theme
 	const theme = useThemeStyles();
+	const { translations, language } = languageStore();
 	const { userCardsList } = cardsStore();
 
 	// State and animations
@@ -48,20 +49,20 @@ const Cards = observer(() => {
 	const toast = useToast();
 	const handleRemove = () => {
 		Alert.alert(
-			'Delete Cards',
-			'Are you sure you want to delete the selected cards?',
+			translations.warning.deleteCards.title,
+			translations.warning.deleteCards.message,
 			[
-				{ text: 'Cancel', style: 'cancel' },
+				{ text: translations.buttons.cancel, style: 'cancel' },
 				{
 					style: 'destructive',
-					text: 'Confirm',
+					text: translations.buttons.confirm,
 					onPress: async () => {
 						setRemoving(true);
 						try {
 							await CardsApi.deleteUserCards(selectedCards);
 							await cardsStore().fetchUserCards();
 							setSelectedCards([]);
-							toast.show('Selected Cards deleted successfully', { type: 'success' });
+							toast.show(translations.toast.deleteCards, { type: 'success' });
 						} finally {
 							setRemoving(false);
 						}
@@ -78,7 +79,7 @@ const Cards = observer(() => {
 	const groupedCards = useMemo(() => {
 		const groups: Record<string, ICard[]> = {};
 		userCardsList.forEach((card) => {
-			const { en: bankName } = card.bank.name;
+			const bankName = language == 'ar' ? card.bank.name.ar : card.bank.name.en;
 			if (!groups[bankName]) {
 				groups[bankName] = [];
 			}
@@ -114,7 +115,7 @@ const Cards = observer(() => {
 
 	return (
 		<TabLayout
-			title='Cards'
+			title={translations.tabs.cards.tabName}
 			trailing={
 				<View style={styles.addButtonContainer}>
 					<Button

@@ -1,6 +1,7 @@
 import { OffersApi } from '@/api/offers.api';
 import BottomSheetWrapper from '@/components/BottomSheet/BottomSheetWrapper';
 import Input from '@/components/Input/Input';
+import Typography from '@/components/Typography/Typography';
 import { IOffer } from '@/entities/offer.entity';
 import Categories from '@/features/Offers/Categories';
 import OfferCard from '@/features/Offers/OfferCard';
@@ -8,16 +9,19 @@ import OffersFilter from '@/features/Offers/OffersFilter';
 import usePagination from '@/hooks/usePagination';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import TabLayout from '@/layouts/TabLayout';
+import { cardsStore, languageStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
 import { observer } from 'mobx-react-lite';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 
 type Props = {};
 
 const Offers = observer((props: Props) => {
 	const theme = useThemeStyles();
+	const { translations, language } = languageStore();
 	const [selectedCard, setSelectedCard] = useState<string>('');
+	const [offersHeader, setOffersHeader] = useState<string>('');
 	const [selectedCategory, setSelectedCategory] = useState<string>('');
 	const [search, setSearch] = useState<string>('');
 
@@ -39,8 +43,25 @@ const Offers = observer((props: Props) => {
 		if (!loadingMore || data.length < 8) return null;
 		return <ActivityIndicator color={theme['--primary']} animating size='small' />;
 	};
+
+	useEffect(() => {
+		if (selectedCard == '') return setOffersHeader(translations.tabs.offers.header);
+		if (language == 'ar')
+			return setOffersHeader(
+				translations.tabs.offers.headerForSelectedCard +
+					' ' +
+					cardsStore().getCardById(selectedCard).name.ar,
+			);
+		if (language == 'en')
+			return setOffersHeader(
+				translations.tabs.offers.headerForSelectedCard +
+					' ' +
+					cardsStore().getCardById(selectedCard).name.en,
+			);
+	}, [selectedCard]);
+
 	return (
-		<TabLayout title='Offers'>
+		<TabLayout title={translations.tabs.offers.tabName}>
 			<View className='gap-4 flex-1 pt-3'>
 				<Categories
 					selectedCategory={selectedCategory}
@@ -75,11 +96,21 @@ const Offers = observer((props: Props) => {
 							)}
 							value={search}
 							onChangeText={setSearch}
-							placeholder='Search...'
+							placeholder={translations.placeholders.search}
 							variant='primary'
 						/>
 					</View>
 				</View>
+				<Typography
+					numberOfLines={1}
+					align='center'
+					variant='h3'
+					className='m-auto'
+					weight='bold'
+				>
+					{offersHeader}
+				</Typography>
+
 				{initialLoader ? (
 					<ActivityIndicator
 						className='flex-1'

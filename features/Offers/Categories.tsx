@@ -12,37 +12,46 @@ type Props = {
 
 const Categories = ({ selectedCategory, setSelectedCategory }: Props) => {
 	const theme = useThemeStyles();
+	const { translations } = languageStore();
 	const CategoriesIcons = [
 		{
 			name: 'Shopping',
+			displayName: translations.tabs.offers.categories.shopping,
 			component: <MaterialCommunityIcons size={18} name='shopping-outline' />,
 		},
 		{
 			name: 'Travel',
+			displayName: translations.tabs.offers.categories.travel,
 			component: <SimpleLineIcons size={18} name='plane' />,
 		},
 		{
 			name: 'Restaurants & Cafes',
+			displayName: translations.tabs.offers.categories.fastFood,
 			component: <Ionicons size={18} name='fast-food-outline' />,
 		},
 		{
 			name: 'Entertainment',
+			displayName: translations.tabs.offers.categories.entertainment,
 			component: <MaterialCommunityIcons size={18} name='gamepad-variant-outline' />,
 		},
 		{
 			name: 'Car Services',
+			displayName: translations.tabs.offers.categories.carServices,
 			component: <MaterialCommunityIcons size={18} name='car-outline' />,
 		},
 		{
 			name: 'Health & Wellness',
+			displayName: translations.tabs.offers.categories.health,
 			component: <MaterialCommunityIcons size={18} name='medical-bag' />,
 		},
 		{
 			name: 'Others',
+			displayName: translations.tabs.offers.categories.others,
 			component: <Octicons size={18} name='stack' />,
 		},
 		{
 			name: 'Groceries',
+			displayName: translations.tabs.offers.categories.groceries,
 			component: <MaterialCommunityIcons size={18} name='food-apple-outline' />,
 		},
 	];
@@ -129,7 +138,7 @@ const Categories = ({ selectedCategory, setSelectedCategory }: Props) => {
 						weight='bold'
 						color={category.name === selectedCategory ? 'white' : theme['--secondary']}
 					>
-						{category.name}
+						{category.displayName}
 					</Typography>
 					{category.name === selectedCategory && (
 						<View className='absolute -right-1 -top-1 rounded-full bg-primary'>

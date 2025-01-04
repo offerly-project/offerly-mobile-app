@@ -12,7 +12,7 @@ const TermsAndConditionsModal = (props: Props) => {
 	const { translations } = languageStore();
 	return (
 		<ModalLayout>
-			<ScrollView className='px-6 mb-12'>
+			<ScrollView>
 				<Typography className='my-4' variant='h3' color={theme['--primary']}>
 					{translations.tabs.account.terms_and_conditions.title}
 				</Typography>

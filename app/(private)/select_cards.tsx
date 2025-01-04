@@ -24,6 +24,7 @@ import { observer } from 'mobx-react-lite';
 import { useToast } from 'react-native-toast-notifications';
 
 const SelectCards = observer(() => {
+	const { translations, language } = languageStore();
 	const [loading, setLoading] = useState({ banks: true, cards: false, adding: false });
 	const [banks, setBanks] = useState<IBank[]>([]);
 	const [bankCards, setBankCards] = useState<ICard[]>([]);
@@ -92,7 +93,7 @@ const SelectCards = observer(() => {
 				<Image source={formatUploadPath(item.data.logo)} style={styles.bankLogo} />
 				<View>
 					<Typography variant='body' color={theme['--text']}>
-						{item.data.name.en}
+						{language == 'ar' ? item.data.name.ar : item.data.name.en}
 					</Typography>
 				</View>
 			</View>
@@ -109,7 +110,7 @@ const SelectCards = observer(() => {
 			await CardsApi.patchUserCards(selectedCards);
 			await cardsStore().fetchUserCards();
 			router.back();
-			toast.show('Cards added successfully', { type: 'success' });
+			toast.show(translations.toast.addCards, { type: 'success' });
 		} catch (error) {
 			console.error(error);
 		} finally {
@@ -129,17 +130,17 @@ const SelectCards = observer(() => {
 	const layoutProps = isRtl ? { trailing: <BackButton /> } : { leading: <BackButton /> };
 
 	return (
-		<TabLayout title='Card Selection' {...layoutProps}>
+		<TabLayout title={translations.tabs.cards.addCards} {...layoutProps}>
 			<>
 				<Select
 					items={banks.map((bank) => ({
-						name: bank.name.en,
+						name: language == 'ar' ? bank.name.ar : bank.name.en,
 						value: bank.id,
 						data: bank,
 					}))}
 					onChange={setSelectedBank}
 					value={selectedBank}
-					placeHolder='Select Bank'
+					placeHolder={translations.placeholders.selectBank}
 					className='h-[40] w-[80%] m-auto my-4'
 					itemRenderer={(item, _, closeHandler) => renderBankItem(item, closeHandler)}
 					searchResolver={(item, search) =>
@@ -158,8 +159,8 @@ const SelectCards = observer(() => {
 								const isAUserCard = userCardsList.some((card) => card.id === a.id);
 								const isBUserCard = userCardsList.some((card) => card.id === b.id);
 
-								if (isAUserCard && !isBUserCard) return -1;
-								if (!isAUserCard && isBUserCard) return 1;
+								if (isAUserCard && !isBUserCard) return 1;
+								if (!isAUserCard && isBUserCard) return -1;
 								return 0;
 							})}
 							renderItem={({ item }) => (
@@ -198,7 +199,9 @@ const SelectCards = observer(() => {
 							onPress={onAdd}
 							hapticFeedback
 						>
-							<Typography color={theme['--background']}>Add</Typography>
+							<Typography color={theme['--background']}>
+								{translations.buttons.add}
+							</Typography>
 						</Button>
 					</Animated.View>
 				)}
