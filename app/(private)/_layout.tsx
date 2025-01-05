@@ -7,11 +7,16 @@ import { useEffect, useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 
 export const PrivateLayout = observer(() => {
-	const { authenticated } = userStore();
+	const { authenticated, isGuest } = userStore();
 	const theme = useThemeStyles();
 	const [loading, setLoading] = useState(true);
 	useEffect(() => {
-		Promise.all([cardsStore().fetchUserCards()]).then(() => setLoading(false));
+		(async function () {
+			if (!isGuest) {
+				await Promise.all([cardsStore().fetchUserCards()]);
+			}
+			setLoading(false);
+		})();
 	}, []);
 
 	if (loading)

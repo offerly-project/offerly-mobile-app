@@ -3,7 +3,7 @@ import { OtpApi } from '@/api/otp.api';
 import { UserApi } from '@/api/user.api';
 import { AxiosAuthInterceptorManager } from '@/configs/axios';
 import { PatchUserData, User } from '@/entities/user.entity';
-import { SecureStorage } from '@/services/storage.services';
+import { PlainStorage, SecureStorage } from '@/services/storage.services';
 import _ from 'lodash';
 import { action, makeAutoObservable, observable, runInAction } from 'mobx';
 import { RootStore } from '.';
@@ -11,6 +11,7 @@ import { RootStore } from '.';
 export class UserStore {
 	private rootStore: RootStore;
 	@observable user!: User;
+	@observable isGuest: boolean = false;
 
 	@observable authenticated: boolean = false;
 	constructor(rootStore: RootStore) {
@@ -27,13 +28,29 @@ export class UserStore {
 		}
 	};
 
+	guestLogin = async () => {
+		const { token } = await AuthApi.guestToken();
+		console.log(token);
+
+		AxiosAuthInterceptorManager.addInterceptor(token);
+		SecureStorage.setItem('token', token);
+		PlainStorage.setItem('guest', 'true');
+
+		runInAction(() => {
+			this.authenticated = true;
+			this.user = new User({ email: '', full_name: 'Guest' }, token);
+			this.isGuest = true;
+		});
+	};
+
 	@action
 	setup = async () => {
 		try {
 			await Promise.all([this.rootStore.languageStore.setup()]);
 
 			const token = await SecureStorage.getItem('token');
-			if (token) {
+			const isGuest = (await PlainStorage.getItem('guest')) === 'true';
+			if (token && !isGuest) {
 				AxiosAuthInterceptorManager.addInterceptor(token);
 				const user = await UserApi.me();
 				runInAction(() => {
@@ -57,6 +74,7 @@ export class UserStore {
 			this.rootStore.favoritesStore.setFavorites(user.favorites);
 		});
 		SecureStorage.setItem('token', token);
+		PlainStorage.deleteItem('guest');
 		AxiosAuthInterceptorManager.addInterceptor(token);
 	};
 

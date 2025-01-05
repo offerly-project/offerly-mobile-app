@@ -14,8 +14,10 @@ export class AuthApi {
 		return data!;
 	};
 
-	static checkAuth = async () => {
-		return axiosInstance.get('/user/auth').then((res) => res.data);
+	static guestToken = async () => {
+		return await axiosInstance
+			.get('/user/guest/token')
+			.then((res: AxiosResponse<{ token: string }>) => res.data);
 	};
 
 	static forgotPassword = async (email: string) => {

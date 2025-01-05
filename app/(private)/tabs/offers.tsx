@@ -23,6 +23,7 @@ const Offers = observer((props: Props) => {
 	const [selectedCard, setSelectedCard] = useState<string>('');
 	const [offersHeader, setOffersHeader] = useState<string>('');
 	const [selectedCategory, setSelectedCategory] = useState<string>('');
+
 	const [search, setSearch] = useState<string>('');
 
 	const { data, refreshing, loadingMore, handleRefresh, loadMore, initialLoader } =

@@ -5,7 +5,7 @@ import Link from '@/components/Typography/Link';
 import Typography from '@/components/Typography/Typography';
 import { useThemeContext } from '@/contexts/ThemeContext';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
-import { languageStore } from '@/stores';
+import { languageStore, userStore } from '@/stores';
 import { router } from 'expo-router';
 import { SafeAreaView, View } from 'react-native';
 
@@ -35,7 +35,13 @@ export default function index() {
 					</Button>
 				</View>
 				<View className='absolute bottom-0'>
-					<Link color={theme['--primary']} to='./login.tsx'>
+					<Link
+						color={theme['--primary']}
+						onPress={async () => {
+							await userStore().guestLogin();
+							router.push('/tabs/offers');
+						}}
+					>
 						{translations.auth.guest}
 					</Link>
 				</View>
