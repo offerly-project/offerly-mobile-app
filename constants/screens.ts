@@ -17,7 +17,7 @@ export const getAuthScreenLayout = (theme: ThemeStyle): object => {
 		headerBackVisible: true,
 		headerTransparent: true,
 		headerTitle: '',
-		headerTintColor: theme['--primary-1'],
+		headerTintColor: theme['--primary'],
 	};
 };
 

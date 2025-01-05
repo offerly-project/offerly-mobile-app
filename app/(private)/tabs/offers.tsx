@@ -46,18 +46,11 @@ const Offers = observer((props: Props) => {
 
 	useEffect(() => {
 		if (selectedCard == '') return setOffersHeader(translations.tabs.offers.header);
-		if (language == 'ar')
-			return setOffersHeader(
-				translations.tabs.offers.headerForSelectedCard +
-					' ' +
-					cardsStore().getCardById(selectedCard).name.ar,
-			);
-		if (language == 'en')
-			return setOffersHeader(
-				translations.tabs.offers.headerForSelectedCard +
-					' ' +
-					cardsStore().getCardById(selectedCard).name.en,
-			);
+		return setOffersHeader(
+			translations.tabs.offers.headerForSelectedCard +
+				' ' +
+				cardsStore().getCardById(selectedCard).name[language],
+		);
 	}, [selectedCard]);
 
 	return (

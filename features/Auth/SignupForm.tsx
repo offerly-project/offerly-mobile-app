@@ -7,32 +7,33 @@ import { useForm } from '@/hooks/useForm';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import KeyboardAvoidingLayout from '@/layouts/KeyboardAvoidingLayout';
 import { languageStore, userStore } from '@/stores';
+import { translateInvalidError, translateRequiredError } from '@/utils/utils';
 import { router } from 'expo-router';
-import { useState } from 'react';
-import { ActivityIndicator, Modal, View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
+import { useToast } from 'react-native-toast-notifications';
 import z from 'zod';
 
-const schema = z.object({
-	full_name: z.string().min(1, { message: 'Full name is required' }),
-	email: z
-		.string()
-		.email({ message: 'Invalid Email Address' })
-		.min(1, { message: 'Email is required' }),
-	password: z.string().min(1, { message: 'Password is required' }),
-});
-
-type FormValues = z.infer<typeof schema>;
-
 export default function SignupForm() {
-	const theme = useThemeStyles();
 	const { translations } = languageStore();
-	const [showModal, setShowModal] = useState(false);
+
+	const schema = z.object({
+		full_name: z.string().min(1, { message: translateRequiredError('fullName', translations) }),
+		email: z
+			.string()
+			.email({ message: translateInvalidError('email', translations) })
+			.min(1, { message: translateRequiredError('email', translations) }),
+		password: z.string().min(1, { message: translateRequiredError('password', translations) }),
+	});
+	type FormValues = z.infer<typeof schema>;
+	const theme = useThemeStyles();
+
+	const toast = useToast();
 
 	const { handleSubmit, setValues, loading, errors, submittable, values, serverError } =
 		useForm<FormValues>({
 			initialValues: {
-				email: 'jadhamwi4@gmail.com',
-				password: '1234',
+				email: '',
+				password: '',
 				full_name: '',
 			},
 			schema,
@@ -40,17 +41,13 @@ export default function SignupForm() {
 				const { full_name, email, password } = values;
 				const response = await userStore().signup(email, password, full_name);
 				if (response) {
-					setShowModal(true);
+					toast.show('Signup successful', { type: 'success' });
+					router.replace('/login');
 				}
 			},
 		});
 	const onInputChange = (key: keyof FormValues) => (value: string) => {
 		setValues((prev) => ({ ...prev, [key]: value }));
-	};
-
-	const closeModalAndNavigate = () => {
-		setShowModal(false);
-		router.replace('/login');
 	};
 
 	return (
@@ -93,7 +90,9 @@ export default function SignupForm() {
 							onPress={handleSubmit}
 							loadingComponent={<ActivityIndicator color={theme['--background']} />}
 						>
-							<Typography color='white'>{translations.buttons.signup}</Typography>
+							<Typography color={theme['--background']}>
+								{translations.buttons.signup}
+							</Typography>
 						</Button>
 						{serverError && (
 							<Typography align='center' variant='caption' color='red'>
@@ -111,32 +110,6 @@ export default function SignupForm() {
 					</Link>
 				</View>
 			</KeyboardAvoidingLayout>
-			<Modal
-				visible={showModal}
-				transparent={true}
-				animationType='fade'
-				onRequestClose={() => setShowModal(false)}
-			>
-				<View className='items-center justify-center flex-1 bg-[rgba(0,0,0,0.4)]'>
-					<View className='bg-white rounded-2xl p-10 w-[80%] gap-5'>
-						<Typography weight='medium' variant='h3' align='center'>
-							Signup Successful!
-						</Typography>
-						<Typography align='center' variant='body'>
-							Your account has been created. Click &quot;OK&quot; to log in.
-						</Typography>
-						<Button
-							className='rounded-lg py-2'
-							borderStyle='filled'
-							onPress={closeModalAndNavigate}
-						>
-							<Typography color='white' align='center'>
-								OK
-							</Typography>
-						</Button>
-					</View>
-				</View>
-			</Modal>
 		</>
 	);
 }

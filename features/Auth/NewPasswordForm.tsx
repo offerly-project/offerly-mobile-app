@@ -5,6 +5,7 @@ import { useForm } from '@/hooks/useForm';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import KeyboardAvoidingLayout from '@/layouts/KeyboardAvoidingLayout';
 import { languageStore, userStore } from '@/stores';
+import { translateRequiredError } from '@/utils/utils';
 import { ActivityIndicator, View } from 'react-native';
 import { z } from 'zod';
 
@@ -12,21 +13,24 @@ interface NewPasswordFormProps {
 	tempToken: string;
 }
 
-export const schema = z
-	.object({
-		password: z.string().min(1, 'New password must be chosen.'),
-		confirmPassword: z.string().min(1, 'Please confirm your new password'),
-	})
-	.refine((data) => data.password === data.confirmPassword, {
-		path: ['confirmPassword'],
-		message: 'Passwords must match',
-	});
-
-type FormValues = z.infer<typeof schema>;
-
 export default function NewPasswordForm({ tempToken }: NewPasswordFormProps) {
-	const theme = useThemeStyles();
 	const { translations } = languageStore();
+	const schema = z
+		.object({
+			password: z.string().min(1, {
+				message: translateRequiredError('password', translations),
+			}),
+			confirmPassword: z.string().min(1, {
+				message: translateRequiredError('confirmPassword', translations),
+			}),
+		})
+		.refine((data) => data.password === data.confirmPassword, {
+			path: ['confirmPassword'],
+			message: translations.errors.passwordMismatch,
+		});
+
+	type FormValues = z.infer<typeof schema>;
+	const theme = useThemeStyles();
 
 	const { handleSubmit, setValues, loading, errors, submittable, values, serverError } =
 		useForm<FormValues>({
@@ -71,7 +75,9 @@ export default function NewPasswordForm({ tempToken }: NewPasswordFormProps) {
 					loading={loading}
 					disabled={!submittable}
 				>
-					<Typography color='white'>{translations.buttons.saveAndLogin}</Typography>
+					<Typography color={theme['--background']}>
+						{translations.buttons.saveAndLogin}
+					</Typography>
 				</Button>
 				{serverError && (
 					<Typography variant='caption' color='red' align='center'>

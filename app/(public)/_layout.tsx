@@ -1,11 +1,12 @@
 import { getAuthScreenLayout } from '@/constants/screens';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
-import { userStore } from '@/stores';
+import { languageStore, userStore } from '@/stores';
 import { Redirect, Stack } from 'expo-router';
 import { observer } from 'mobx-react-lite';
 
 export const PublicLayout = observer(() => {
 	const { authenticated } = userStore();
+	const { translations } = languageStore();
 	const theme = useThemeStyles();
 
 	if (authenticated) {
@@ -13,7 +14,12 @@ export const PublicLayout = observer(() => {
 	}
 
 	return (
-		<Stack screenOptions={getAuthScreenLayout(theme)}>
+		<Stack
+			screenOptions={{
+				...getAuthScreenLayout(theme),
+				headerBackTitle: translations.header_buttons.back,
+			}}
+		>
 			<Stack.Screen name='login' />
 			<Stack.Screen name='forgetPassword' />
 			<Stack.Screen name='auth' />

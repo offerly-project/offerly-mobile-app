@@ -16,51 +16,46 @@ const Categories = ({ selectedCategory, setSelectedCategory }: Props) => {
 	const CategoriesIcons = [
 		{
 			name: 'Shopping',
-			displayName: translations.tabs.offers.categories.shopping,
+			displayName: translations.tabs.offers.categories.Shopping,
 			component: <MaterialCommunityIcons size={18} name='shopping-outline' />,
 		},
 		{
 			name: 'Travel',
-			displayName: translations.tabs.offers.categories.travel,
+			displayName: translations.tabs.offers.categories.Travel,
 			component: <SimpleLineIcons size={18} name='plane' />,
 		},
 		{
 			name: 'Restaurants & Cafes',
-			displayName: translations.tabs.offers.categories.fastFood,
+			displayName: translations.tabs.offers.categories['Restaurants & Cafes'],
 			component: <Ionicons size={18} name='fast-food-outline' />,
 		},
 		{
 			name: 'Entertainment',
-			displayName: translations.tabs.offers.categories.entertainment,
+			displayName: translations.tabs.offers.categories.Entertainment,
 			component: <MaterialCommunityIcons size={18} name='gamepad-variant-outline' />,
 		},
 		{
 			name: 'Car Services',
-			displayName: translations.tabs.offers.categories.carServices,
+			displayName: translations.tabs.offers.categories['Car Services'],
 			component: <MaterialCommunityIcons size={18} name='car-outline' />,
 		},
 		{
 			name: 'Health & Wellness',
-			displayName: translations.tabs.offers.categories.health,
+			displayName: translations.tabs.offers.categories['Health & Wellness'],
 			component: <MaterialCommunityIcons size={18} name='medical-bag' />,
 		},
 		{
 			name: 'Others',
-			displayName: translations.tabs.offers.categories.others,
+			displayName: translations.tabs.offers.categories.Others,
 			component: <Octicons size={18} name='stack' />,
 		},
 		{
 			name: 'Groceries',
-			displayName: translations.tabs.offers.categories.groceries,
+			displayName: translations.tabs.offers.categories.Groceries,
 			component: <MaterialCommunityIcons size={18} name='food-apple-outline' />,
 		},
 	];
-	// const staticCategories = staticDataStore().categories;
-	// const categoriesWithIcons: { catName: string; icon: React.ReactNode }[] = staticCategories.map(
-	// 	(cat) => {
-	// 		return { catName: cat, icon: CategoriesIcons.find((x) => x.name == cat)?.component };
-	// 	},
-	// );
+
 	const [categories, setCategories] = useState(CategoriesIcons);
 	const categoriesScrollViewRef = useRef<ScrollView>(null);
 

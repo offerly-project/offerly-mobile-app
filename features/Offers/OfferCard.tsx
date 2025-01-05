@@ -65,6 +65,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 
 	const footerBuildElements: FooterBuildElement[] = (function () {
 		const elements: FooterBuildElement[] = [];
+
 		if (offer.discount_code) {
 			elements.push({
 				key: translations.tabs.offers.offerDetails.discountCode,
@@ -86,10 +87,10 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 		if (offer.channels.length > 0) {
 			const channels = [];
 			if (offer.channels.includes('in-store')) {
-				channels.push('In Store');
+				channels.push(translations.tabs.offers.types['In-Store']);
 			}
 			if (offer.channels.includes('online')) {
-				channels.push('Online');
+				channels.push(translations.tabs.offers.types.Online);
 			}
 			elements.push({
 				key: translations.tabs.offers.offerDetails.offerType,
@@ -99,6 +100,8 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 
 		return elements;
 	})();
+
+	const langKey = language == 'ar' ? 'ar' : 'en';
 
 	return (
 		<>
@@ -121,7 +124,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 							numberOfLines={1}
 							className='flex-shrink pr-1'
 						>
-							{language == 'ar' ? offer.title.ar : offer.title.en}
+							{offer.title[langKey]}
 						</Typography>
 						<Pressable onPress={toggleFavorite}>
 							<Ionicons
@@ -137,9 +140,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 						className='leading-1'
 						color={theme['--text']}
 					>
-						{language == 'ar'
-							? offer.description.ar.trim()
-							: offer.description.en.trim()}
+						{offer.description[langKey].trim()}
 					</Typography>
 					<Typography variant='label' color={theme['--primary']}>
 						{moment(offer.expiry_date.toString()).format('DD/MM/YYYY')}
@@ -187,7 +188,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 									color={theme['--primary']}
 									weight='bold'
 								>
-									{language == 'ar' ? offer.title.ar : offer.title.en}
+									{offer.title[langKey].trim()}
 								</Typography>
 							</View>
 							{offer?.categories?.length > 0 &&
@@ -198,7 +199,11 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 										style={{ margin: 'auto' }}
 									>
 										<Typography color={theme['--static']}>
-											{category}
+											{
+												translations.tabs.offers.categories[
+													category as keyof typeof translations.tabs.offers.categories
+												]
+											}
 										</Typography>
 									</View>
 								))}
@@ -232,9 +237,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 									</Typography>
 								)}
 								<Typography variant='body' weight='light' color={theme['--text']}>
-									{language == 'ar'
-										? offer.description.ar.trim()
-										: offer.description.en.trim()}
+									{offer.description[langKey].trim()}
 								</Typography>
 							</View>
 							<View style={[styles.section]}>
@@ -243,9 +246,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 								</Typography>
 
 								<Typography variant='body' weight='light' color={theme['--text']}>
-									{language == 'ar'
-										? offer.terms_and_conditions.ar
-										: offer.terms_and_conditions.en}
+									{offer.terms_and_conditions[langKey].trim()}
 								</Typography>
 							</View>
 							<View style={[styles.section]}>

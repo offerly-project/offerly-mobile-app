@@ -7,28 +7,27 @@ import { useForm } from '@/hooks/useForm';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import KeyboardAvoidingLayout from '@/layouts/KeyboardAvoidingLayout';
 import { languageStore, userStore } from '@/stores';
-import { useEffect } from 'react';
+import { translateInvalidError, translateRequiredError } from '@/utils/utils';
 import { ActivityIndicator, View } from 'react-native';
 import z from 'zod';
 
-const schema = z.object({
-	email: z
-		.string()
-		.email({ message: 'Invalid Email Address' })
-		.min(1, { message: 'Email is required' }),
-	password: z.string().min(1, { message: 'Password is required' }),
-});
-
-type FormValues = z.infer<typeof schema>;
-
 const LoginForm = () => {
-	const theme = useThemeStyles();
 	const { translations } = languageStore();
+	const schema = z.object({
+		email: z
+			.string()
+			.email({ message: translateInvalidError('email', translations) })
+			.min(1, { message: translateRequiredError('email', translations) }),
+		password: z.string().min(1, { message: translateRequiredError('password', translations) }),
+	});
+
+	type FormValues = z.infer<typeof schema>;
+	const theme = useThemeStyles();
 	const { handleSubmit, setValues, loading, errors, submittable, values, serverError } =
 		useForm<FormValues>({
 			initialValues: {
-				email: 'testuser.offerly@gmail.com',
-				password: 'fares',
+				email: '',
+				password: '',
 			},
 			schema,
 			onSubmit: async (values) => {
@@ -39,9 +38,6 @@ const LoginForm = () => {
 	const onInputChange = (key: keyof FormValues) => (value: string) => {
 		setValues((prev) => ({ ...prev, [key]: value }));
 	};
-	useEffect(() => {
-		// handleSubmit();
-	}, []);
 
 	return (
 		<>
@@ -84,7 +80,9 @@ const LoginForm = () => {
 							loadingComponent={<ActivityIndicator color={theme['--background']} />}
 							onPress={handleSubmit}
 						>
-							<Typography color='white'>{translations.buttons.login}</Typography>
+							<Typography color={theme['--background']}>
+								{translations.buttons.login}
+							</Typography>
 						</Button>
 						{serverError && (
 							<Typography variant='caption' color='red' align='center'>

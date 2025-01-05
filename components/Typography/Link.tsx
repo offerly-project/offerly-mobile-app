@@ -1,3 +1,4 @@
+import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { Href, useRouter } from 'expo-router';
 import { ComponentProps } from 'react';
 import { Pressable } from 'react-native';
@@ -7,6 +8,7 @@ type Props = { to?: Href; replace?: boolean; goBack?: boolean } & ComponentProps
 
 const Link = ({ to, replace = false, goBack = false, ...rest }: Props) => {
 	const router = useRouter();
+	const theme = useThemeStyles();
 	return (
 		<Pressable
 			onPress={() => {
@@ -16,11 +18,12 @@ const Link = ({ to, replace = false, goBack = false, ...rest }: Props) => {
 			}}
 		>
 			<Typography
-				color='#444'
+				color={theme['--text']}
 				variant='label'
 				weight='bold'
 				{...rest}
-				className='border-b border-black'
+				className='border-b'
+				style={[rest.style, { borderBottomColor: rest.color }]}
 			/>
 		</Pressable>
 	);

@@ -2,7 +2,8 @@ import Button from '@/components/Button/Buttton';
 import Input from '@/components/Input/Input';
 import Typography from '@/components/Typography/Typography';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
-import { userStore } from '@/stores';
+import { languageStore, userStore } from '@/stores';
+import { translateRequiredError } from '@/utils/utils';
 import { useState } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
@@ -16,10 +17,11 @@ const FullNameEditSheet = ({ closeHandler, initialFullName }: Props) => {
 	const [error, setError] = useState('');
 	const [loading, setLoading] = useState(false);
 	const theme = useThemeStyles();
+	const { translations } = languageStore();
 	return (
 		<View className='gap-4'>
 			<Input
-				placeholder={'Full name'}
+				placeholder={translations.placeholders.fullName}
 				value={fullName}
 				onChangeText={(value) => {
 					setFullName(value);
@@ -35,7 +37,7 @@ const FullNameEditSheet = ({ closeHandler, initialFullName }: Props) => {
 					borderStyle='filled'
 					onPress={async () => {
 						if (fullName.length === 0) {
-							setError('Full name cannot be empty');
+							setError(translateRequiredError('fullName', translations));
 							return;
 						}
 						try {
@@ -49,10 +51,12 @@ const FullNameEditSheet = ({ closeHandler, initialFullName }: Props) => {
 						}
 					}}
 				>
-					<Typography color={theme['--background']}>Save</Typography>
+					<Typography color={theme['--background']}>
+						{translations.tabs.account.profile.save}
+					</Typography>
 				</Button>
 				<Button onPress={closeHandler} className='flex-1 h-[45]' borderStyle='ghost'>
-					<Typography>Cancel</Typography>
+					<Typography>{translations.tabs.account.profile.cancel}</Typography>
 				</Button>
 			</View>
 		</View>

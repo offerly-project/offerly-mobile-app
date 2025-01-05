@@ -72,5 +72,7 @@ export const useForm = <T extends Record<string, any>>({
 		loading,
 		submittable,
 		serverError,
+		setErrors,
+		setServerError,
 	};
 };

@@ -1,4 +1,23 @@
 {
+	"header_buttons": {
+		"back": "Back"
+	},
+	"forms": {
+		"email": "Email Address",
+		"password": "Password",
+		"fullName": "Full name",
+		"phoneNumber": "Phone number",
+		"oldPassword": "Old Password",
+		"newPassword": "New Password",
+		"confirmPassword": "Confirm Password"
+	},
+	"error_templates": {
+		"required": "[field] is required",
+		"invalid": "[field] is invalid"
+	},
+	"errors": {
+		"passwordMismatch": "Passwords do not match"
+	},
 	"auth": {
 		"guest": "Continue as a guest",
 		"signup": {
@@ -26,6 +45,10 @@
 	},
 	"tabs": {
 		"offers": {
+			"types": {
+				"Online": "Online",
+				"In-Store": "In-Store"
+			},
 			"tabName": "Offers",
 			"header": "Offers for all My Cards",
 			"headerForSelectedCard": "Offers for",
@@ -46,20 +69,20 @@
 				"applicableCards": "Applicable Cards"
 			},
 			"categories": {
-				"shopping": "Shopping",
-				"travel": "Travel",
-				"fastFood": "Restaurants & Cafe",
-				"entertainment": "Entertainment",
-				"carServices": "Car Services",
-				"others": "Others",
-				"groceries": "Groceries",
-				"health": "Health & Wellness"
+				"Shopping": "Shopping",
+				"Travel": "Travel",
+				"Restaurants & Cafes": "Restaurants & Cafes",
+				"Entertainment": "Entertainment",
+				"Car Services": "Car Services",
+				"Others": "Others",
+				"Groceries": "Groceries",
+				"Health & Wellness": "Health & Wellness"
 			}
 		},
 		"cards": {
 			"tabName": "My Cards",
 			"addCards": "Add Cards",
-			"added":"Added"
+			"added": "Added"
 		},
 		"favorites": {
 			"tabName": "Favorites"
@@ -70,7 +93,9 @@
 				"title": "Profile",
 				"fullName": "Full name",
 				"email": "Email Address",
-				"phoneNumber": "Phone number"
+				"phoneNumber": "Phone number",
+				"save": "Save",
+				"cancel": "Cancel"
 			},
 			"change_password": {
 				"title": "Change Password",
@@ -184,7 +209,7 @@
 		"saveAndLogin": "Save and login",
 		"add": "Add",
 		"confirm": "Confirm",
-		"reload" : "Reload"
+		"reload": "Reload"
 	},
 	"placeholders": {
 		"email": "Email Address",
@@ -195,21 +220,22 @@
 		"retypeNewPasswordPlaceholder": "Retype the new password",
 		"search": "search..",
 		"selectBank": "Select Bank",
-		"selectCard": "Select Card"
+		"selectCard": "Select Card",
+		"phoneNumber": "Phone number"
 	},
-	"toast" : {
-		"addCards":"Selected Cards added successfully",
-		"deleteCards":"Selected Cards deleted successfully",
-		"addFavorite" : "Offer added to favorites"
+	"toast": {
+		"addCards": "Selected Cards added successfully",
+		"deleteCards": "Selected Cards deleted successfully",
+		"addFavorite": "Offer added to favorites"
 	},
-	"warning" : {
-		"deleteCards" : {
+	"warning": {
+		"deleteCards": {
 			"title": "Delete Cards",
 			"message": "Are you sure you want to delete the selected cards?"
 		},
-		"changeLanguage" : {
-			"title" : "Reload Required",
-			"message" : "Please reload the app to apply the changes."
+		"changeLanguage": {
+			"title": "Reload Required",
+			"message": "Please reload the app to apply the changes."
 		}
 	}
 }

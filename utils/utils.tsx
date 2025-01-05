@@ -1,6 +1,7 @@
 import Typography from '@/components/Typography/Typography';
 import { BankType } from '@/entities/bank.entity';
 import { OfferChannel } from '@/entities/offer.entity';
+import { Translations } from '@/stores/language.store';
 
 export const formatUploadPath = (path: string) => {
 	return `${process.env.EXPO_PUBLIC_BASE_API_URL}/uploads${path}`;
@@ -56,4 +57,24 @@ export const processTranslationWithStyles = (text: string, style: object): JSX.E
 			)}
 		</>
 	);
+};
+
+export const translateRequiredError = (
+	field: keyof Translations['forms'],
+	translations: Translations,
+) => {
+	const requiredTemplate = translations.error_templates.required;
+	const fieldTranslation = translations.forms[field];
+
+	return requiredTemplate.replace('[field]', fieldTranslation);
+};
+
+export const translateInvalidError = (
+	field: keyof Translations['forms'],
+	translations: Translations,
+) => {
+	const invalidTemplate = translations.error_templates.invalid;
+	const fieldTranslation = translations.forms[field];
+
+	return invalidTemplate.replace('[field]', fieldTranslation);
 };

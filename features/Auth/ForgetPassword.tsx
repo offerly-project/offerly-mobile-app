@@ -6,33 +6,32 @@ import { useForm } from '@/hooks/useForm';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import KeyboardAvoidingLayout from '@/layouts/KeyboardAvoidingLayout';
 import { languageStore, userStore } from '@/stores';
+import { translateInvalidError, translateRequiredError } from '@/utils/utils';
 import { router } from 'expo-router';
 import { ActivityIndicator, View } from 'react-native';
 import z from 'zod';
 
-const schema = z.object({
-	email: z
-		.string()
-		.email({ message: 'Invalid Email Address' })
-		.min(1, { message: 'Email is required' }),
-});
-
-type FormValues = z.infer<typeof schema>;
-
 export default function ForgetPassword() {
 	const theme = useThemeStyles();
 	const { translations } = languageStore();
+	const schema = z.object({
+		email: z
+			.string()
+			.email({ message: translateInvalidError('email', translations) })
+			.min(1, { message: translateRequiredError('email', translations) }),
+	});
+	type FormValues = z.infer<typeof schema>;
 	const { handleSubmit, setValues, loading, errors, submittable, values, serverError } =
 		useForm<FormValues>({
 			initialValues: {
-				email: 'testuser.offerly@gmail.com',
+				email: '',
 			},
 			schema,
 			onSubmit: async (values) => {
 				const { email } = values;
 				const res = await userStore().forgetPassword(email);
 				if (res) {
-					router.push({
+					router.navigate({
 						pathname: '/(public)/otp',
 						params: {
 							email,
@@ -76,7 +75,9 @@ export default function ForgetPassword() {
 							loadingComponent={<ActivityIndicator />}
 							onPress={handleSubmit}
 						>
-							<Typography color='white'>{translations.buttons.sendLink}</Typography>
+							<Typography color={theme['--background']}>
+								{translations.buttons.sendLink}
+							</Typography>
 						</Button>
 						{serverError && (
 							<Typography variant='caption' color='red' align='center'>

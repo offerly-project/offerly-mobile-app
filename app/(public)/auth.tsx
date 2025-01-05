@@ -11,15 +11,19 @@ export default function index() {
 	const theme = useThemeStyles();
 	const { translations } = languageStore();
 	return (
-		<SafeAreaView className='flex-1 bg-white'>
+		<SafeAreaView className='flex-1 bg-background'>
 			<View className='flex-1 px-8 justify-center items-center'>
 				<View className='gap-5 w-full'>
 					<BrandLogo height={200} width={200} style={{ margin: 'auto' }} />
 					<Button onPress={() => router.push('/login')}>
-						<Typography color='black'>{translations.buttons.login}</Typography>
+						<Typography color={theme['--primary']}>
+							{translations.buttons.login}
+						</Typography>
 					</Button>
 					<Button onPress={() => router.push('/signup')} borderStyle='filled'>
-						<Typography color='white'>{translations.buttons.signup}</Typography>
+						<Typography color={theme['--background']}>
+							{translations.buttons.signup}
+						</Typography>
 					</Button>
 				</View>
 				<View className='absolute bottom-0'>

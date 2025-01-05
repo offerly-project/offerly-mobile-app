@@ -118,94 +118,99 @@ const SelectCards = observer(() => {
 		}
 	};
 
-	if (loading.banks)
-		return (
-			<View className='h-full w-full flex flex-col items-center justify-center'>
-				<ActivityIndicator color={theme['--primary']} />
-			</View>
-		);
-
 	const { isRtl } = languageStore();
 
 	const layoutProps = isRtl ? { trailing: <BackButton /> } : { leading: <BackButton /> };
 
 	return (
 		<TabLayout title={translations.tabs.cards.addCards} {...layoutProps}>
-			<>
-				<Select
-					items={banks.map((bank) => ({
-						name: language == 'ar' ? bank.name.ar : bank.name.en,
-						value: bank.id,
-						data: bank,
-					}))}
-					onChange={setSelectedBank}
-					value={selectedBank}
-					placeHolder={translations.placeholders.selectBank}
-					className='h-[40] w-[80%] m-auto my-4'
-					itemRenderer={(item, _, closeHandler) => renderBankItem(item, closeHandler)}
-					searchResolver={(item, search) =>
-						item.data.name.en.toLowerCase().includes(search.toLowerCase())
-					}
-				/>
-				{loading.banks || loading.cards ? (
-					<View className='h-[65%] items-center justify-center'>
-						<ActivityIndicator color={theme['--primary']} />
-					</View>
-				) : (
-					<View style={{ height: '70%' }}>
-						<CardsGridLayout
-							className='pt-3'
-							data={bankCards.sort((a, b) => {
-								const isAUserCard = userCardsList.some((card) => card.id === a.id);
-								const isBUserCard = userCardsList.some((card) => card.id === b.id);
+			{loading.banks ? (
+				<View className='h-full w-full flex flex-col items-center justify-center'>
+					<ActivityIndicator color={theme['--primary']} />
+				</View>
+			) : (
+				<>
+					<Select
+						items={banks.map((bank) => ({
+							name: language == 'ar' ? bank.name.ar : bank.name.en,
+							value: bank.id,
+							data: bank,
+						}))}
+						onChange={setSelectedBank}
+						value={selectedBank}
+						placeHolder={translations.placeholders.selectBank}
+						className='h-[40] w-[80%] m-auto my-4'
+						itemRenderer={(item, _, closeHandler) => renderBankItem(item, closeHandler)}
+						searchResolver={(item, search) =>
+							item.data.name.en.toLowerCase().includes(search.toLowerCase())
+						}
+					/>
+					{loading.banks || loading.cards ? (
+						<View className='h-[65%] items-center justify-center'>
+							<ActivityIndicator color={theme['--primary']} />
+						</View>
+					) : (
+						<View style={{ height: '70%' }}>
+							<CardsGridLayout
+								className='pt-3'
+								data={bankCards.sort((a, b) => {
+									const isAUserCard = userCardsList.some(
+										(card) => card.id === a.id,
+									);
+									const isBUserCard = userCardsList.some(
+										(card) => card.id === b.id,
+									);
 
-								if (isAUserCard && !isBUserCard) return 1;
-								if (!isAUserCard && isBUserCard) return -1;
-								return 0;
-							})}
-							renderItem={({ item }) => (
-								<CardCard
-									userCard={
-										userCardsList.find((card) => card.id === item.id) !==
-										undefined
-									}
-									card={item}
-									onPress={() => {
-										setSelectedCards((prev) => {
-											if (prev.includes(item.id)) {
-												return prev.filter((cardId) => cardId !== item.id);
-											}
-											return [...prev, item.id];
-										});
-									}}
-									selected={
-										selectedCards.includes(item.id) ||
-										userCardsList.some((card) => card.id === item.id)
-									}
-								/>
-							)}
-							keyExtractor={(item) => item.id}
-						/>
-					</View>
-				)}
-				{selectedCards.length > 0 && (
-					<Animated.View style={[styles.hapticPressContainer, animatedStyle]}>
-						<Button
-							borderStyle='filled'
-							style={{ borderRadius: 20 }}
-							loading={loading.adding}
-							className='px-10'
-							loadingComponent={<ActivityIndicator color={theme['--text']} />}
-							onPress={onAdd}
-							hapticFeedback
-						>
-							<Typography color={theme['--background']}>
-								{translations.buttons.add}
-							</Typography>
-						</Button>
-					</Animated.View>
-				)}
-			</>
+									if (isAUserCard && !isBUserCard) return 1;
+									if (!isAUserCard && isBUserCard) return -1;
+									return 0;
+								})}
+								renderItem={({ item }) => (
+									<CardCard
+										userCard={
+											userCardsList.find((card) => card.id === item.id) !==
+											undefined
+										}
+										card={item}
+										onPress={() => {
+											setSelectedCards((prev) => {
+												if (prev.includes(item.id)) {
+													return prev.filter(
+														(cardId) => cardId !== item.id,
+													);
+												}
+												return [...prev, item.id];
+											});
+										}}
+										selected={
+											selectedCards.includes(item.id) ||
+											userCardsList.some((card) => card.id === item.id)
+										}
+									/>
+								)}
+								keyExtractor={(item) => item.id}
+							/>
+						</View>
+					)}
+					{selectedCards.length > 0 && (
+						<Animated.View style={[styles.hapticPressContainer, animatedStyle]}>
+							<Button
+								borderStyle='filled'
+								style={{ borderRadius: 20 }}
+								loading={loading.adding}
+								className='px-10'
+								loadingComponent={<ActivityIndicator color={theme['--text']} />}
+								onPress={onAdd}
+								hapticFeedback
+							>
+								<Typography color={theme['--background']}>
+									{translations.buttons.add}
+								</Typography>
+							</Button>
+						</Animated.View>
+					)}
+				</>
+			)}
 		</TabLayout>
 	);
 });

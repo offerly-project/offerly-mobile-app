@@ -3,7 +3,8 @@ import Input from '@/components/Input/Input';
 import Typography from '@/components/Typography/Typography';
 import { createCustomError } from '@/entities/error.entity';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
-import { userStore } from '@/stores';
+import { languageStore, userStore } from '@/stores';
+import { translateInvalidError } from '@/utils/utils';
 import parsePhoneNumber, { ParseError, parsePhoneNumberWithError } from 'libphonenumber-js';
 import { useState } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
@@ -18,11 +19,12 @@ const PhoneNumberEditSheet = ({ closeHandler, initialPhoneNumber }: Props) => {
 	const [error, setError] = useState('');
 	const [loading, setLoading] = useState(false);
 	const theme = useThemeStyles();
+	const { translations } = languageStore();
 	return (
 		<View className='gap-4'>
 			<Input
 				sheeted
-				placeholder={'Phone Number'}
+				placeholder={translations.placeholders.phoneNumber}
 				value={phoneNumber}
 				onChangeText={(value) => {
 					const phoneNumb = parsePhoneNumber(value);
@@ -46,7 +48,7 @@ const PhoneNumberEditSheet = ({ closeHandler, initialPhoneNumber }: Props) => {
 							if (phoneNumber !== '') {
 								const finalPhoneNumb = parsePhoneNumberWithError(phoneNumber);
 								if (!finalPhoneNumb.isValid()) {
-									setError('Invalid phone number');
+									setError(translateInvalidError('phoneNumber', translations));
 									return;
 								}
 							}
@@ -60,7 +62,7 @@ const PhoneNumberEditSheet = ({ closeHandler, initialPhoneNumber }: Props) => {
 								});
 						} catch (e) {
 							if (e instanceof ParseError) {
-								setError('Invalid phone number');
+								setError(translateInvalidError('phoneNumber', translations));
 								return;
 							}
 							setError(createCustomError(e).message);
@@ -69,10 +71,12 @@ const PhoneNumberEditSheet = ({ closeHandler, initialPhoneNumber }: Props) => {
 						}
 					}}
 				>
-					<Typography color={theme['--background']}>Save</Typography>
+					<Typography color={theme['--background']}>
+						{translations.tabs.account.profile.save}
+					</Typography>
 				</Button>
 				<Button onPress={closeHandler} className='flex-1 h-[45]' borderStyle='ghost'>
-					<Typography>Cancel</Typography>
+					<Typography>{translations.tabs.account.profile.cancel}</Typography>
 				</Button>
 			</View>
 		</View>

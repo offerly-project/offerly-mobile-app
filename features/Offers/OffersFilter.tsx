@@ -27,6 +27,8 @@ const OffersFilter = ({
 	const { translations, language } = languageStore();
 	const { userCardsList } = cardsStore();
 
+	const langKey = language == 'ar' ? 'ar' : 'en';
+
 	return (
 		<View className='gap-5 py-3'>
 			<Categories
@@ -38,9 +40,9 @@ const OffersFilter = ({
 				value={selectedCard}
 				onChange={(value) => setSelectedCard(value)}
 				items={userCardsList
-					.sort((a, b) => a.bank.name.en.localeCompare(b.bank.name.en))
+					.sort((a, b) => a.bank.name[langKey].localeCompare(b.bank.name[langKey]))
 					.map((card) => ({
-						name: language == 'ar' ? card.name.ar : card.name.en,
+						name: card.bank.name[langKey],
 						value: card.id,
 						data: card,
 					}))}

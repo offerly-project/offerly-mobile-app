@@ -1,4 +1,23 @@
 {
+	"header_buttons": {
+		"back": "رجوع"
+	},
+	"forms": {
+		"email": "البريد الإلكتروني",
+		"password": "كلمة المرور",
+		"fullName": "الاسم الكامل",
+		"phoneNumber": "رقم الجوال",
+		"oldPassword": "كلمة المرور القديمة",
+		"newPassword": "كلمة المرور الجديدة",
+		"confirmPassword": "تأكيد كلمة المرور"
+	},
+	"error_templates": {
+		"required": "[field] متطلب",
+		"invalid": "[field] غير صالح"
+	},
+	"errors": {
+		"passwordMismatch": "كلمات المرور غير متطابقة"
+	},
 	"auth": {
 		"guest": "الاستمرار كزائر",
 		"signup": {
@@ -8,14 +27,14 @@
 		"forgetPassword": {
 			"forgetPassword": "نسيت كلمة المرور",
 			"forgetPasswordText": "سنرسل رابط إعادة تعيين كلمة المرور لبريدك الإلكتروني",
-			"setNewPassword" : "إنشاء كلمة مرور جديدة",
-			"footer" : "جرب تسجيل الدخول؟"
+			"setNewPassword": "إنشاء كلمة مرور جديدة",
+			"footer": "جرب تسجيل الدخول؟"
 		},
 		"otp": {
 			"enterCode": "أدخل رمز الدخول لمرة واحدة",
-			"resend" : "إعادة إرسال",
-			"in" :"خلال",
-			"otp" : "رمز الدخول لمرة واحدة"
+			"resend": "إعادة إرسال",
+			"in": "خلال",
+			"otp": "رمز الدخول لمرة واحدة"
 		},
 		"login": {
 			"welcome": "أهلاً",
@@ -26,41 +45,45 @@
 	},
 	"tabs": {
 		"offers": {
+			"types": {
+				"Online": "عبر الإنترنت",
+				"In-Store": "في المتجر"
+			},
 			"tabName": "العروض",
 			"header": "العروض الخاصة ببطاقاتي",
-			"headerForSelectedCard" : "عروض",
-			"offersFilter" : {
-				"myCardsOffers" : "عروض كل بظاقاتي"
+			"headerForSelectedCard": "عروض",
+			"offersFilter": {
+				"myCardsOffers": "عروض كل بظاقاتي"
 			},
-			"offerDetails" : {
-				"discountAmount" : "حد الخصم الأعلى",
-				"discountCode" : "الرمز الترويجي",
-				"expiryDate" : {
-					"from" : "صالح من",
-					"to" : "حتى"
+			"offerDetails": {
+				"discountAmount": "حد الخصم الأعلى",
+				"discountCode": "الرمز الترويجي",
+				"expiryDate": {
+					"from": "صالح من",
+					"to": "حتى"
 				},
-				"minSpending" : "الحد الأدنى للشراء",
-				"channel" : "يطبق العرض في" ,
-				"offerLink" : "رابط العرض",
-				"offerType" : "نوع العرض",
-				"applicableCards" : "البطاقات المطبقة"
+				"minSpending": "الحد الأدنى للشراء",
+				"channel": "يطبق العرض في",
+				"offerLink": "رابط العرض",
+				"offerType": "نوع العرض",
+				"applicableCards": "البطاقات المطبقة"
 			},
-			"categories" : {
-				"shopping" : "تسوّق",
-				"travel" : "سفر",
-				"fastFood" : "مطاعم وكافيهات",
-				"entertainment" : "تسلية",
-				"carServices" : "خدمات سيارة",
-				"others" : "غيرها",
-				"groceries" : "البقالة",
-				"health" : "الصحة واللياقة"
+			"categories": {
+				"Shopping": "تسوّق",
+				"Travel": "سفر",
+				"Restaurants & Cafes": "مطاعم وكافيهات",
+				"Entertainment": "تسلية",
+				"Car Services": "خدمات سيارة",
+				"Others": "غيرها",
+				"Groceries": "البقالة",
+				"Health & Wellness": "الصحة واللياقة"
 			}
 		},
 		"cards": {
 			"tabName": "بطاقاتي",
-			"addCards" : "إضافة بطاقات",
+			"addCards": "إضافة بطاقات",
 			"added": "مضافة",
-			"deleteCardsWarning" : {
+			"deleteCardsWarning": {
 				"deleteCards": "حذف بطاقات",
 				"deleteCardsWarning": "هل أنت متأكد من رغبتك في حذف البطاقات المحددة؟"
 			}
@@ -74,7 +97,9 @@
 				"title": "الملف الشخصي",
 				"email": "البريد الإلكتروني",
 				"fullName": "الاسم الكامل",
-				"phoneNumber": "رقم الجوال"
+				"phoneNumber": "رقم الجوال",
+				"save": "حفظ",
+				"cancel": "إلغاء"
 			},
 			"change_password": {
 				"title": "تغيير كلمة المرور",
@@ -137,7 +162,7 @@
 				"perks": [
 					{
 						"title": "تغطية شاملة",
-						"discription":"الوصول إلى العروض من عدة بنوك دون الحاجة إلى التنقل بين التطبيقات."
+						"discription": "الوصول إلى العروض من عدة بنوك دون الحاجة إلى التنقل بين التطبيقات."
 					},
 					{
 						"title": "واجهة سهلة الاستخدام",
@@ -188,7 +213,7 @@
 		"saveAndLogin": "إحفظ و تسجيل الدخول",
 		"add": "إضافة",
 		"confirm": "تأكيد",
-		"reload" : "إعادة التحميل"
+		"reload": "إعادة التحميل"
 	},
 	"placeholders": {
 		"email": "البريد الإلكتروني",
@@ -199,14 +224,15 @@
 		"retypeNewPasswordPlaceholder": "أعد كتابة كلمة المرور الجديدة",
 		"search": "بحث..",
 		"selectBank": "اٰختر بنك",
-		"selectCard": "اٰختر بطاقة"
+		"selectCard": "اٰختر بطاقة",
+		"phoneNumber": "رقم الجوال"
 	},
-	"toast" : {
-		"addCards":"تمت إضافة البطاقات المحددة بنجاح",
-		"deleteCards":"تم حذف البطاقات المحددة بنجاح",
-		"addFavorite" : "تمت إضافة العرض إلى المفضلة"
+	"toast": {
+		"addCards": "تمت إضافة البطاقات المحددة بنجاح",
+		"deleteCards": "تم حذف البطاقات المحددة بنجاح",
+		"addFavorite": "تمت إضافة العرض إلى المفضلة"
 	},
-	"warning" : {
+	"warning": {
 		"deleteCards": {
 			"title": "حذف بطاقات",
 			"message": "هل أنت متأكد من رغبتك في حذف البطاقات المحددة؟"
