@@ -18,7 +18,11 @@ export default function index() {
 		<SafeAreaView className='flex-1 bg-background'>
 			<View className='flex-1 px-8 justify-center items-center'>
 				<View className='gap-5 w-full'>
-					<Logo height={200} width={200} style={{ margin: 'auto' }} />
+					<Logo
+						height={200}
+						width={200}
+						style={{ margin: 'auto', transform: [{ scale: 1.5 }] }}
+					/>
 					<Button onPress={() => router.push('/login')}>
 						<Typography color={theme['--primary']}>
 							{translations.buttons.login}
