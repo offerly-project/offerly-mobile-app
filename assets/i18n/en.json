@@ -9,7 +9,9 @@
 		"phoneNumber": "Phone number",
 		"oldPassword": "Old Password",
 		"newPassword": "New Password",
-		"confirmPassword": "Confirm Password"
+		"confirmPassword": "Confirm Password",
+		"subject": "Subject",
+		"message": "Message"
 	},
 	"error_templates": {
 		"required": "[field] is required",
@@ -218,7 +220,7 @@
 		"oldPasswordPlaceholder": "Type your old password",
 		"newPasswordPlaceholder": "Type new password",
 		"retypeNewPasswordPlaceholder": "Retype the new password",
-		"search": "search..",
+		"search": "Search..",
 		"selectBank": "Select Bank",
 		"selectCard": "Select Card",
 		"phoneNumber": "Phone number"

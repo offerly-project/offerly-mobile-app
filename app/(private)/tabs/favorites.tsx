@@ -2,7 +2,7 @@ import NoData from '@/components/Fallback/NoData';
 import OfferCard from '@/features/Offers/OfferCard';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import TabLayout from '@/layouts/TabLayout';
-import { favoritesStore, languageStore } from '@/stores';
+import { favoritesStore, languageStore, userStore } from '@/stores';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
@@ -13,14 +13,17 @@ const Favorites = observer((props: Props) => {
 	const offers = favoritesStore().offers;
 	const theme = useThemeStyles();
 	const { translations } = languageStore();
-	const [loading, setLoading] = useState(true);
+	const { isGuest } = userStore();
+	const [loading, setLoading] = useState(!isGuest);
 
 	useEffect(() => {
-		favoritesStore()
-			.getFavorites()
-			.then(() => {
-				setLoading(false);
-			});
+		if (!isGuest) {
+			favoritesStore()
+				.getFavorites()
+				.finally(() => {
+					setLoading(false);
+				});
+		}
 	}, []);
 
 	return (

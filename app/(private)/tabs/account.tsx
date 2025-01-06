@@ -26,7 +26,7 @@ const AccountPage = observer(() => {
 		return [favoritesStore().favorites.length, cardsStore().userCardsList.length];
 	};
 
-	const { user } = userStore();
+	const { user, isGuest } = userStore();
 	const { isRtl } = languageStore();
 
 	return (
@@ -40,6 +40,7 @@ const AccountPage = observer(() => {
 							onPress={() => {
 								router.push('/(private)/edit_profile');
 							}}
+							disabled={isGuest}
 							leading={
 								<Ionicons
 									className='bg-primary p-1.5'
@@ -52,6 +53,7 @@ const AccountPage = observer(() => {
 						/>
 
 						<ConfigurationItem
+							disabled={isGuest}
 							label={translations.tabs.account.change_password.title}
 							onPress={() => {
 								router.push('/(private)/(modals)/change_password_modal');
@@ -182,6 +184,7 @@ const AccountPage = observer(() => {
 						>
 							{(openHandler) => (
 								<ConfigurationItem
+									disabled={isGuest}
 									label={translations.tabs.account.deleteAccount.title}
 									onPress={openHandler}
 									leading={

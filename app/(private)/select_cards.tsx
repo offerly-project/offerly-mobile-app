@@ -12,7 +12,7 @@ import Select from '@/components/Select/Select';
 import Typography from '@/components/Typography/Typography';
 import { IBank } from '@/entities/bank.entity';
 import { ICard } from '@/entities/card.entity';
-import CardCard from '@/features/Cards/components/CardCard';
+import CardCard from '@/features/Cards/CardCard';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { useUIState } from '@/hooks/useUIState';
 import CardsGridLayout from '@/layouts/CardsGridLayout';

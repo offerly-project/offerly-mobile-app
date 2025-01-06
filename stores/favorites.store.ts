@@ -12,11 +12,16 @@ export class FavoritesStore {
 		makeAutoObservable(this);
 	}
 	addFavorite = async (offer: IOffer) => {
-		FavoritesApi.addFavorite(offer.id);
-		runInAction(() => {
+		if (this.rootStore.userStore.isGuest) {
 			this.favorites = [...this.favorites, offer.id];
 			this.offers = [...this.offers, offer];
-		});
+		} else {
+			FavoritesApi.addFavorite(offer.id);
+			runInAction(() => {
+				this.favorites = [...this.favorites, offer.id];
+				this.offers = [...this.offers, offer];
+			});
+		}
 	};
 
 	@action
@@ -25,11 +30,16 @@ export class FavoritesStore {
 	};
 
 	removeFavorite = async (offer: IOffer) => {
-		FavoritesApi.removeFavorite(offer.id);
-		runInAction(() => {
+		if (this.rootStore.userStore.isGuest) {
 			this.favorites = this.favorites.filter((id) => id !== offer.id);
 			this.offers = this.offers.filter((o) => o.id !== offer.id);
-		});
+		} else {
+			FavoritesApi.removeFavorite(offer.id);
+			runInAction(() => {
+				this.favorites = this.favorites.filter((id) => id !== offer.id);
+				this.offers = this.offers.filter((o) => o.id !== offer.id);
+			});
+		}
 	};
 	getFavorites = async () => {
 		return FavoritesApi.getFavorites().then((offers) => {

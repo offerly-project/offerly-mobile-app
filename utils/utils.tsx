@@ -1,7 +1,9 @@
 import Typography from '@/components/Typography/Typography';
 import { BankType } from '@/entities/bank.entity';
 import { OfferChannel } from '@/entities/offer.entity';
+import { userStore } from '@/stores';
 import { Translations } from '@/stores/language.store';
+import { router } from 'expo-router';
 
 export const formatUploadPath = (path: string) => {
 	return `${process.env.EXPO_PUBLIC_BASE_API_URL}/uploads${path}`;
@@ -77,4 +79,12 @@ export const translateInvalidError = (
 	const fieldTranslation = translations.forms[field];
 
 	return invalidTemplate.replace('[field]', fieldTranslation);
+};
+
+export const guestSignup = () => {
+	userStore()
+		.logout()
+		.then(() => {
+			router.push('/signup');
+		});
 };

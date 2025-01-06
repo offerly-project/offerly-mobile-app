@@ -3,11 +3,13 @@ import { languageStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Tabs } from 'expo-router';
+import { observer } from 'mobx-react-lite';
 import { View } from 'react-native';
 
-export default function Layout() {
+export const Layout = observer(() => {
 	const theme = useThemeStyles();
 	const { translations } = languageStore();
+
 	return (
 		<View style={{ flex: 1, backgroundColor: theme['--background'] }}>
 			<Tabs
@@ -22,10 +24,10 @@ export default function Layout() {
 						height: 80,
 					},
 				}}
-				initialRouteName='offers'
+				initialRouteName={'offers'}
 			>
 				<Tabs.Screen
-					name='offers'
+					name={'offers'}
 					options={{
 						title: translations.tabs.offers.tabName,
 						tabBarIcon: ({ color }) => (
@@ -61,4 +63,6 @@ export default function Layout() {
 			</Tabs>
 		</View>
 	);
-}
+});
+
+export default Layout;

@@ -6,6 +6,7 @@ import { useForm } from '@/hooks/useForm';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import ModalLayout from '@/layouts/ModalLayout';
 import { languageStore, userStore } from '@/stores';
+import { translateInvalidError, translateRequiredError } from '@/utils/utils';
 import { router } from 'expo-router';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
@@ -15,22 +16,34 @@ type Props = {};
 
 const INPUT_CLASS = 'h-[45]';
 
-const schema = z.object({
-	subject: z.string().min(1, 'Subject is required'),
-	message: z.string().min(1, 'Message is required'),
-});
-
 const ContactUsModal = (props: Props) => {
-	const { user } = userStore();
+	const { user, isGuest } = userStore();
 	const toast = useToast();
-	const { values, setValues, handleSubmit, errors, loading } = useForm({
+	const { translations } = languageStore();
+	const theme = useThemeStyles();
+	const schema = z.object({
+		subject: z.string().min(1, translateRequiredError('subject', translations)),
+		message: z.string().min(1, translateRequiredError('message', translations)),
+		email: isGuest
+			? z
+					.string()
+					.email(translateInvalidError('email', translations))
+					.min(1, translateRequiredError('email', translations))
+			: z.string(),
+	});
+	const { values, setValues, handleSubmit, errors, loading, serverError } = useForm({
 		schema,
 		initialValues: {
 			subject: '',
 			message: '',
+			email: '',
 		},
 		onSubmit: async (values) => {
-			await UserApi.contactUs(values.subject, values.message);
+			if (isGuest) {
+				await UserApi.guestContact(values.email, values.subject, values.message);
+			} else {
+				await UserApi.userContact(values.subject, values.message);
+			}
 			router.back();
 			toast.show('Message sent successfully', { type: 'success' });
 		},
@@ -44,14 +57,27 @@ const ContactUsModal = (props: Props) => {
 		setValues((prev) => ({ ...prev, message }));
 	};
 
-	const theme = useThemeStyles();
-	const { translations } = languageStore();
+	const onEmailChange = (email: string) => {
+		setValues((prev) => ({ ...prev, email }));
+	};
 
 	return (
 		<ModalLayout title={translations.tabs.account.contact_us.title}>
 			<View className='gap-5 p-6'>
-				<Input value={user.full_name} className={INPUT_CLASS} disabled />
-				<Input value={user.email} disabled className={INPUT_CLASS} />
+				<Input
+					value={user.full_name}
+					className={INPUT_CLASS}
+					disabled
+					placeholder={translations.placeholders.fullName}
+				/>
+				<Input
+					value={isGuest ? values.email : user.email}
+					placeholder={translations.placeholders.email}
+					disabled={!isGuest}
+					className={INPUT_CLASS}
+					onChangeText={onEmailChange}
+					error={errors.email}
+				/>
 				<Input
 					value={values.subject}
 					onChangeText={onSubjectChange}
@@ -78,6 +104,11 @@ const ContactUsModal = (props: Props) => {
 						{translations.tabs.account.contact_us.sendFormButton}
 					</Typography>
 				</Button>
+				{serverError && (
+					<Typography color={theme['--danger']} align='center'>
+						{serverError}
+					</Typography>
+				)}
 			</View>
 		</ModalLayout>
 	);

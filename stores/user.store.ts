@@ -121,6 +121,7 @@ export class UserStore {
 			runInAction(() => {
 				this.authenticated = false;
 				this.user = null as unknown as User;
+				this.isGuest = false;
 			});
 		} catch (e) {
 			console.log('Error during logout:', e);

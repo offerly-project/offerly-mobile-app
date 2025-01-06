@@ -15,6 +15,7 @@ type Props = {
 	setSelectedCategory?: (cat: string) => void;
 	selectedCategory?: string;
 	closeHandler: () => void;
+	disabled?: boolean;
 };
 const OffersFilter = ({
 	selectedCard,

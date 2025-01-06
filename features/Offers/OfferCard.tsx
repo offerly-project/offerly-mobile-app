@@ -14,7 +14,7 @@ import { useMemo, useState } from 'react';
 import { Linking, Modal, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useToast } from 'react-native-toast-notifications';
-import CardCard from '../Cards/components/CardCard';
+import CardCard from '../Cards/CardCard';
 
 type Props = {
 	offer: IOffer;

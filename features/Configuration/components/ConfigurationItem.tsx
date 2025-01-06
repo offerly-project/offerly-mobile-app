@@ -26,6 +26,7 @@ export const ConfigurationItem = ({
 		<Pressable
 			className={`flex-row py-2 px-1 border-b ${border} items-center gap-3 ${className}`}
 			disabled={disabled}
+			style={{ opacity: disabled ? 0.5 : 1 }}
 			onPress={onPress}
 			{...rest}
 		>
