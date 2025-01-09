@@ -1,4 +1,5 @@
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import { languageStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
 import { Pressable, StyleProp, View, ViewStyle } from 'react-native';
@@ -6,7 +7,6 @@ import { FlatList } from 'react-native-gesture-handler';
 import BottomSheet from '../BottomSheet/BottomSheet';
 import Input from '../Input/Input';
 import Typography from '../Typography/Typography';
-import { languageStore } from '@/stores';
 
 type ItemType<T> = {
 	name: string;

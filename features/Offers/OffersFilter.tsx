@@ -43,7 +43,7 @@ const OffersFilter = ({
 				items={userCardsList
 					.sort((a, b) => a.bank.name[langKey].localeCompare(b.bank.name[langKey]))
 					.map((card) => ({
-						name: card.bank.name[langKey],
+						name: card.name[langKey],
 						value: card.id,
 						data: card,
 					}))}

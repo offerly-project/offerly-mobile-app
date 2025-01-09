@@ -24,6 +24,7 @@ Text.defaultProps = {
 ScrollView.defaultProps = {
 	showsVerticalScrollIndicator: false,
 	showsHorizontalScrollIndicator: false,
+	keyboardShouldPersistTaps: 'always',
 };
 
 export const RootLayout = observer(() => {
