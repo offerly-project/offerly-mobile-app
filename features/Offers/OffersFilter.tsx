@@ -57,7 +57,7 @@ const OffersFilter = ({
 								setSelectedCard(item.value);
 								closeHandler();
 							}}
-							className='flex flex-row items-center gap-4'
+							className='flex-1 flex flex-row items-center gap-4'
 						>
 							<Image
 								source={formatUploadPath(item.data.logo)}
