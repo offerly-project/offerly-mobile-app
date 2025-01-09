@@ -5,6 +5,7 @@ import Link from '@/components/Typography/Link';
 import Typography from '@/components/Typography/Typography';
 import { useThemeContext } from '@/contexts/ThemeContext';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import AuthLayout from '@/layouts/AuthLayout';
 import { languageStore, userStore } from '@/stores';
 import { router } from 'expo-router';
 import { SafeAreaView, View } from 'react-native';
@@ -15,8 +16,8 @@ export default function index() {
 	const themeName = useThemeContext().theme;
 	const Logo = themeName === 'dark' ? BrandLogoDark : BrandLogoLight;
 	return (
-		<SafeAreaView className='flex-1 bg-background'>
-			<View className='flex-1 px-8 justify-center items-center'>
+		<AuthLayout hideBackButton>
+			<View className='flex-1 justify-center items-center'>
 				<View className='gap-5 w-full'>
 					<Logo
 						height={200}
@@ -46,6 +47,6 @@ export default function index() {
 					</Link>
 				</View>
 			</View>
-		</SafeAreaView>
+		</AuthLayout>
 	);
 }

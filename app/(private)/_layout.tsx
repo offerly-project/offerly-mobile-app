@@ -27,7 +27,7 @@ export const PrivateLayout = observer(() => {
 		);
 
 	if (!authenticated) {
-		return <Redirect href={'/(public)/login'} />;
+		return <Redirect href={'/(public)/auth'} />;
 	}
 	return (
 		<Stack screenOptions={getBaseScreenLayout(theme)}>

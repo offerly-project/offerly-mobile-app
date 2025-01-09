@@ -2,7 +2,7 @@ import ArabicTranslations from '@/assets/i18n/ar.json';
 import EnglishTranslations from '@/assets/i18n/en.json';
 import { PlainStorage } from '@/services/storage.services';
 import { reloadAsync } from 'expo-updates';
-import { action } from 'mobx';
+import { action, makeAutoObservable } from 'mobx';
 import { I18nManager } from 'react-native';
 import { RootStore } from '.';
 
@@ -18,6 +18,7 @@ export class LanguageStore {
 	isRtl: boolean = false;
 	constructor(rootStore: RootStore) {
 		this.rootStore = rootStore;
+		makeAutoObservable(this);
 	}
 
 	setup = async () => {

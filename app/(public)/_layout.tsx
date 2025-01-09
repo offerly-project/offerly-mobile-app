@@ -17,7 +17,6 @@ export const PublicLayout = observer(() => {
 		<Stack
 			screenOptions={{
 				...getAuthScreenLayout(theme),
-				headerBackTitle: translations.header_buttons.back,
 			}}
 		>
 			<Stack.Screen name='login' />
