@@ -6,7 +6,7 @@ import { formatUploadPath } from '@/utils/utils';
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { Pressable, StyleSheet, View } from 'react-native';
-import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 
 type Props = {
 	card: ICard;
@@ -65,10 +65,12 @@ const CardCard = ({ card, onPress, selected, small, userCard }: Props) => {
 				</View>
 			)}
 			{userCard && (
-				<View style={styles.already_added} className='bg-primary px-1 py-0.5 opacity-40'>
-					<Typography variant='label' color='white' align='center'>
-						{translations.tabs.cards.added}
-					</Typography>
+				<View style={styles.already_added_container}>
+					<View className='bg-primary opacity-70 rounded-full px-3 mb-10'>
+						<Typography variant='label' color='white' align='center'>
+							{translations.tabs.cards.added}
+						</Typography>
+					</View>
 				</View>
 			)}
 		</View>
@@ -106,12 +108,14 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignContent: 'center',
 	},
-	already_added: {
+	already_added_container: {
 		position: 'absolute',
-		top: '40%',
-		left: '50%',
-		transform: [{ translateX: '50%' }, { translateY: '-50%' }],
-		width: '60%',
+		top: 0,
+		left: 0,
+		height: '100%',
+		width: '100%',
 		borderRadius: 50,
+		justifyContent: 'center',
+		alignItems: 'center',
 	},
 });
