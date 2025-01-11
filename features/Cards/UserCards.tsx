@@ -143,7 +143,7 @@ const Cards = observer(() => {
 									<Ionicons
 										name='trash-bin'
 										size={30}
-										color={theme['--primary']}
+										color={theme['--danger']}
 									/>
 								</Pressable>
 							</View>
