@@ -199,10 +199,11 @@ const styles = StyleSheet.create({
 	actionButtons: {
 		flexDirection: 'row',
 		gap: 40,
+		justifyContent: 'center',
+		alignItems: 'center',
+		width: '100%',
 	},
 	actionButton: {
-		alignItems: 'center',
-		justifyContent: 'center',
 		paddingHorizontal: 16,
 		paddingVertical: 16,
 	},
