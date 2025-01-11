@@ -145,6 +145,19 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 					<Typography variant='label' color={theme['--primary']}>
 						{moment(offer.expiry_date.toString()).format('DD/MM/YYYY')}
 					</Typography>
+					{offer.status === 'disabled' && (
+						<View className='flex flex-row justify-end items-center'>
+							<Typography
+								variant='body'
+								weight='bold'
+								color={theme['--danger']}
+								numberOfLines={1}
+								className='flex-shrink pr-1'
+							>
+								Expired
+							</Typography>
+						</View>
+					)}
 				</View>
 			</Pressable>
 

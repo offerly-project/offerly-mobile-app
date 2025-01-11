@@ -64,6 +64,7 @@ const CardCard = ({ card, onPress, selected, small, userCard }: Props) => {
 					<Ionicons name='checkmark' size={14} color={theme['--background']} />
 				</View>
 			)}
+
 			{userCard && (
 				<View style={styles.already_added_container}>
 					<View className='bg-primary opacity-70 rounded-full px-3 mb-10'>
