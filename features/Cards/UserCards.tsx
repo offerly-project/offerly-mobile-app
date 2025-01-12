@@ -88,7 +88,7 @@ const Cards = observer(() => {
 		return Object.entries(groups).sort(([a], [b]) => a.localeCompare(b));
 	}, [userCardsList]);
 
-	// Render grouped cards
+	const cardWidth = SCREEN_WIDTH < 400 ? SCREEN_WIDTH * 0.3 : SCREEN_WIDTH * 0.27;
 	const renderGroupedCards = () =>
 		groupedCards.map(([bankName, cards], index) => (
 			<View key={bankName} style={index > 0 ? styles.groupSeparator : undefined}>
@@ -98,16 +98,22 @@ const Cards = observer(() => {
 				<ScrollView
 					horizontal
 					showsHorizontalScrollIndicator={false}
-					contentContainerStyle={styles.cardRow}
-					className='overflow-visible'
+					contentContainerStyle={[styles.cardRow]}
 				>
 					{cards.map((card) => (
-						<CardCard
+						<View
+							style={{
+								width: cardWidth,
+								alignItems: 'flex-start',
+							}}
 							key={card.id}
-							card={card}
-							selected={selectedCards.includes(card.id)}
-							onPress={() => handleCardSelect(card.id)}
-						/>
+						>
+							<CardCard
+								card={card}
+								selected={selectedCards.includes(card.id)}
+								onPress={() => handleCardSelect(card.id)}
+							/>
+						</View>
 					))}
 				</ScrollView>
 			</View>
@@ -181,7 +187,6 @@ const styles = StyleSheet.create({
 	},
 	cardRow: {
 		flexDirection: 'row',
-		gap: 8,
 		paddingBottom: 16,
 		paddingEnd: 10,
 	},

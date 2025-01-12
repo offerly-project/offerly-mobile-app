@@ -1,7 +1,7 @@
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { languageStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Pressable, StyleProp, View, ViewStyle } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import BottomSheet from '../BottomSheet/BottomSheet';
@@ -42,12 +42,6 @@ const Select = <T = unknown,>({
 	const [open, setOpen] = useState(false);
 	const boxContent = items.find((item) => item.value === value)?.name;
 	const [search, setSearch] = useState('');
-	const [focused, setFocused] = useState(true);
-	useEffect(() => {
-		if (open) {
-			setFocused(true);
-		}
-	}, [open]);
 
 	const listItems = searchResolver
 		? items.filter((item) => searchResolver?.(item, search))
@@ -68,7 +62,7 @@ const Select = <T = unknown,>({
 				<Ionicons name='caret-down' size={14} color={theme['--text']} />
 			</Pressable>
 			<BottomSheet
-				snapPoints={['100%']}
+				snapPoints={['85%']}
 				enableDynamicSizing={false}
 				open={open}
 				onDismiss={() => {
@@ -84,19 +78,14 @@ const Select = <T = unknown,>({
 								borderStyle='underlined'
 								value={search}
 								onChangeText={setSearch}
-								focused={focused}
-								onFocus={() => setFocused(true)}
-								onBlur={() => setFocused(false)}
 								sheeted
 							/>
 						)}
 						<FlatList
 							data={listItems}
 							showsVerticalScrollIndicator={false}
-							onTouchStart={() => {
-								setFocused(false);
-							}}
 							keyboardShouldPersistTaps='always'
+							keyboardDismissMode='on-drag'
 							renderItem={({ item, index }) => (
 								<View key={item.value}>
 									{itemRenderer ? (

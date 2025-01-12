@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Pressable, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, FlatList, Pressable, StyleSheet, View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 
 import { BanksApi } from '@/api/banks.api';
@@ -15,13 +15,15 @@ import { ICard } from '@/entities/card.entity';
 import CardCard from '@/features/Cards/CardCard';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { useUIState } from '@/hooks/useUIState';
-import CardsGridLayout from '@/layouts/CardsGridLayout';
 import TabLayout from '@/layouts/TabLayout';
 import { cardsStore, languageStore } from '@/stores';
-import { formatUploadPath } from '@/utils/utils';
+import { fillArrayWithPlaceholders, formatUploadPath } from '@/utils/utils';
 import { router } from 'expo-router';
 import { observer } from 'mobx-react-lite';
 import { useToast } from 'react-native-toast-notifications';
+
+const COLUMNS_NUMBER = 3;
+const GAP = 10;
 
 const SelectCards = observer(() => {
 	const { translations, language } = languageStore();
@@ -103,6 +105,18 @@ const SelectCards = observer(() => {
 		</Pressable>
 	);
 
+	const bankCardsList = fillArrayWithPlaceholders(
+		bankCards.sort((a, b) => {
+			const isAUserCard = userCardsList.some((card) => card.id === a.id);
+			const isBUserCard = userCardsList.some((card) => card.id === b.id);
+
+			if (isAUserCard && !isBUserCard) return 1;
+			if (!isAUserCard && isBUserCard) return -1;
+			return 0;
+		}),
+		3,
+	);
+
 	const toast = useToast();
 	const onAdd = async () => {
 		setLoading((prev) => ({ ...prev, adding: true }));
@@ -147,44 +161,46 @@ const SelectCards = observer(() => {
 						</View>
 					) : (
 						<View style={{ height: '70%' }}>
-							<CardsGridLayout
+							<FlatList
+								columnWrapperStyle={{
+									justifyContent: 'center',
+									gap: GAP,
+								}}
+								contentContainerStyle={{
+									gap: GAP,
+								}}
 								className='pt-3'
-								data={bankCards.sort((a, b) => {
-									const isAUserCard = userCardsList.some(
-										(card) => card.id === a.id,
-									);
-									const isBUserCard = userCardsList.some(
-										(card) => card.id === b.id,
-									);
-
-									if (isAUserCard && !isBUserCard) return 1;
-									if (!isAUserCard && isBUserCard) return -1;
-									return 0;
-								})}
-								renderItem={({ item }) => (
-									<CardCard
-										userCard={
-											userCardsList.find((card) => card.id === item.id) !==
-											undefined
-										}
-										card={item}
-										onPress={() => {
-											setSelectedCards((prev) => {
-												if (prev.includes(item.id)) {
-													return prev.filter(
-														(cardId) => cardId !== item.id,
-													);
-												}
-												return [...prev, item.id];
-											});
-										}}
-										selected={
-											selectedCards.includes(item.id) ||
-											userCardsList.some((card) => card.id === item.id)
-										}
-									/>
-								)}
-								keyExtractor={(item) => item.id}
+								numColumns={COLUMNS_NUMBER}
+								data={bankCardsList}
+								renderItem={({ item }) =>
+									!item ? (
+										<View className='w-[120]' />
+									) : (
+										<CardCard
+											userCard={
+												userCardsList.find(
+													(card) => card.id === item.id,
+												) !== undefined
+											}
+											card={item}
+											onPress={() => {
+												setSelectedCards((prev) => {
+													if (prev.includes(item.id)) {
+														return prev.filter(
+															(cardId) => cardId !== item.id,
+														);
+													}
+													return [...prev, item.id];
+												});
+											}}
+											selected={
+												selectedCards.includes(item.id) ||
+												userCardsList.some((card) => card.id === item.id)
+											}
+										/>
+									)
+								}
+								keyExtractor={(item, index) => item?.id || index.toString()}
 							/>
 						</View>
 					)}

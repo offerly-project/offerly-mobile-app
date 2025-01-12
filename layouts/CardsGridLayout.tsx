@@ -5,18 +5,8 @@ import { FlatList } from 'react-native-gesture-handler';
 
 type Props = ComponentProps<typeof FlatList<ICard>>;
 
-const GAP = 10;
-
 const CardsGridLayout = (props: Props) => {
-	return (
-		<FlatList
-			{...props}
-			numColumns={3}
-			contentContainerStyle={{ gap: GAP }}
-			columnWrapperStyle={{ justifyContent: 'space-between', alignItems: 'center' }}
-			style={{ margin: 'auto', height: '75%', width: '100%', paddingHorizontal: 10 }}
-		/>
-	);
+	return <FlatList {...props} />;
 };
 
 export default CardsGridLayout;

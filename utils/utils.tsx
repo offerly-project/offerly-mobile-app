@@ -88,3 +88,11 @@ export const guestSignup = () => {
 			router.push('/signup');
 		});
 };
+
+export const fillArrayWithPlaceholders = (arr: any[], multipleOf: number) => {
+	const remainder = arr.length % multipleOf;
+	if (remainder === 0) {
+		return arr;
+	}
+	return [...arr, ...new Array(multipleOf - remainder).fill(null)];
+};
