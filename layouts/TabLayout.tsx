@@ -26,16 +26,16 @@ const TabLayout = ({ children, title, trailing, leading }: Props) => {
 				locations={[0, 0.5, 1]}
 			>
 				<View className='flex flex-row justify-between items-center h-[50] px-4'>
-					<View style={{ flex: 1 }}>{leading}</View>
+					<View className='flex-row flex-1 justify-start'>{leading}</View>
 					<Typography
-						color={'#FFFFFF'}
+						color={theme['--static']}
 						weight='bold'
 						variant='h3'
 						style={{ textAlign: 'center' }}
 					>
 						{title}
 					</Typography>
-					<View style={{ flex: 1 }}>{trailing}</View>
+					<View className='flex-row flex-1 justify-end'>{trailing}</View>
 				</View>
 			</LinearGradient>
 			{children}

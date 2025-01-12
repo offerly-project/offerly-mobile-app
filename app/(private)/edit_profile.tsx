@@ -19,12 +19,9 @@ export const EditProfile = observer(() => {
 	const phoneNumber = rootStore.userStore.user.phone_number
 		? parsePhoneNumber(rootStore.userStore.user.phone_number)?.formatInternational() || ''
 		: '';
-	const { isRtl } = languageStore();
-
-	const layoutProps = isRtl ? { trailing: <BackButton /> } : { leading: <BackButton /> };
 
 	return (
-		<TabLayout title={translations.tabs.account.profile.title} {...layoutProps}>
+		<TabLayout title={translations.tabs.account.profile.title} leading={<BackButton />}>
 			<View style={{ paddingBottom: bottom }} className='p-4 flex-1'>
 				<View className='w-full gap-6 flex-1'>
 					<View className='overflow-hidden rounded-2xl'>

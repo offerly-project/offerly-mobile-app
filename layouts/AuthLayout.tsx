@@ -1,14 +1,13 @@
 import Typography from '@/components/Typography/Typography';
 import { useThemeContext } from '@/contexts/ThemeContext';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
-import { languageStore, themeStore } from '@/stores';
+import { languageStore } from '@/stores';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { router } from 'expo-router';
+import * as Updates from 'expo-updates';
 import { observer } from 'mobx-react-lite';
 import { Alert, Pressable, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import * as Updates from 'expo-updates';
-import BackButton from '@/components/Button/BackButton';
-import { router } from 'expo-router';
 
 type Props = {
 	children: React.ReactNode;

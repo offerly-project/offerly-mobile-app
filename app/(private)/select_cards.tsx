@@ -118,12 +118,8 @@ const SelectCards = observer(() => {
 		}
 	};
 
-	const { isRtl } = languageStore();
-
-	const layoutProps = isRtl ? { trailing: <BackButton /> } : { leading: <BackButton /> };
-
 	return (
-		<TabLayout title={translations.tabs.cards.addCards} {...layoutProps}>
+		<TabLayout title={translations.tabs.cards.addCards} leading={<BackButton />}>
 			{loading.banks ? (
 				<View className='h-full w-full flex flex-col items-center justify-center'>
 					<ActivityIndicator color={theme['--primary']} />
