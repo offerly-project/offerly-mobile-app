@@ -97,15 +97,17 @@ const Cards = observer(() => {
 				<ScrollView
 					horizontal
 					showsHorizontalScrollIndicator={false}
-					contentContainerStyle={[styles.cardRow]}
+					contentContainerStyle={styles.cardRow}
 				>
 					{cards.map((card) => (
-						<CardCard
-							key={card.id}
-							card={card}
-							selected={selectedCards.includes(card.id)}
-							onPress={() => handleCardSelect(card.id)}
-						/>
+						<View key={card.id} className='mx-2'>
+							<CardCard
+								key={card.id}
+								card={card}
+								selected={selectedCards.includes(card.id)}
+								onPress={() => handleCardSelect(card.id)}
+							/>
+						</View>
 					))}
 				</ScrollView>
 			</View>
