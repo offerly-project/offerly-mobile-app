@@ -154,7 +154,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 								numberOfLines={1}
 								className='flex-shrink pr-1'
 							>
-								Expired
+								{translations.expired}
 							</Typography>
 						</View>
 					)}
