@@ -16,6 +16,7 @@ type ItemType<T> = {
 
 type Props<T> = {
 	value?: string | null;
+	snapPoints?: string[];
 	onChange?: (value: string) => void;
 	placeHolder?: string;
 	items: ItemType<T>[];
@@ -24,18 +25,21 @@ type Props<T> = {
 	styles?: StyleProp<ViewStyle>;
 	searchResolver?: (item: ItemType<T>, search: string) => boolean;
 	children?: (content?: string) => React.ReactNode;
+	renderChooseAllItem?: boolean;
 };
 
 const Select = <T = unknown,>({
 	className = '',
 	styles,
 	value,
+	snapPoints = ['85%'],
 	onChange,
 	items,
 	placeHolder,
 	itemRenderer,
 	searchResolver,
 	children,
+	renderChooseAllItem = false,
 }: Props<T>) => {
 	const theme = useThemeStyles();
 	const { translations } = languageStore();
@@ -46,6 +50,14 @@ const Select = <T = unknown,>({
 	const listItems = searchResolver
 		? items.filter((item) => searchResolver?.(item, search))
 		: items;
+
+	if (renderChooseAllItem) {
+		listItems.unshift({
+			name: translations.tabs.offers.offersFilter.myCardsOffers,
+			value: '',
+			data: {} as T,
+		});
+	}
 
 	return (
 		<>
@@ -62,7 +74,7 @@ const Select = <T = unknown,>({
 				<Ionicons name='caret-down' size={14} color={theme['--text']} />
 			</Pressable>
 			<BottomSheet
-				snapPoints={['85%']}
+				snapPoints={snapPoints}
 				enableDynamicSizing={false}
 				open={open}
 				onDismiss={() => {

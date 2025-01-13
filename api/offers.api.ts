@@ -8,6 +8,8 @@ interface IGetOfferQuery {
 	page: number;
 	limit: number;
 	q: string;
+	sort_by: string;
+	sort_direction: string;
 }
 
 export class OffersApi {
@@ -17,14 +19,14 @@ export class OffersApi {
 		if (params.category) query.append('category', encodeURI(params.category));
 		if (params.page) query.append('page', params.page.toString());
 		if (params.limit) query.append('limit', params.limit.toString());
-		if (params.q) query.append('q', encodeURI(params.q));
+		if (params.sort_by) query.append('sort_by', encodeURI(params.sort_by));
+		if (params.sort_direction) query.append('sort_direction', encodeURI(params.sort_direction));
 		console.log('query', query);
 
 		return query.toString();
 	};
 	public static getOffers = async (params: IGetOfferQuery) => {
 		const query = this.buildGetOffersQuery(params);
-
 		const results = await axiosInstance
 			.get(`/user/offers?${query}`)
 			.then((res: AxiosResponse<{ data: IOffer[]; metadata: IOfferMetadata }>) => res.data);

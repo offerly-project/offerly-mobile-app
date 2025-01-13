@@ -2,7 +2,7 @@ import { OffersApi } from '@/api/offers.api';
 import BottomSheetWrapper from '@/components/BottomSheet/BottomSheetWrapper';
 import Input from '@/components/Input/Input';
 import Typography from '@/components/Typography/Typography';
-import { IOffer } from '@/entities/offer.entity';
+import { IOffer, IOfferFilter, sortDirection, SortKey } from '@/entities/offer.entity';
 import Categories from '@/features/Offers/Categories';
 import OfferCard from '@/features/Offers/OfferCard';
 import OffersFilter from '@/features/Offers/OffersFilter';
@@ -13,16 +13,28 @@ import { cardsStore, languageStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, View } from 'react-native';
+import {
+	ActivityIndicator,
+	FlatList,
+	RefreshControl,
+	StyleSheet,
+	TouchableOpacity,
+	View,
+} from 'react-native';
 
 type Props = {};
 
 const Offers = observer((props: Props) => {
 	const theme = useThemeStyles();
 	const { translations, language } = languageStore();
-	const [selectedCard, setSelectedCard] = useState<string>('');
 	const [offersHeader, setOffersHeader] = useState<string>('');
-	const [selectedCategory, setSelectedCategory] = useState<string>('');
+	const [appliedFilterCount, setAppliedFilterCount] = useState<number>(0);
+	const [offersFilter, setOffersFilter] = useState<IOfferFilter>({
+		card: [''],
+		category: '',
+		sortKey: '' as SortKey,
+		sortDirection: 'asc' as sortDirection,
+	});
 
 	const [search, setSearch] = useState<string>('');
 
@@ -31,13 +43,18 @@ const Offers = observer((props: Props) => {
 			url: '/user/offers',
 			getQuery: (page, limit) =>
 				OffersApi.buildGetOffersQuery({
-					card: selectedCard,
-					category: selectedCategory,
+					card:
+						offersFilter.card.length > 1
+							? offersFilter.card.join(',')
+							: offersFilter.card[0],
+					category: offersFilter.category,
 					page,
 					limit,
 					q: search,
+					sort_by: offersFilter.sortKey,
+					sort_direction: offersFilter.sortDirection,
 				}),
-			queryDependencies: [search, selectedCategory, selectedCard],
+			queryDependencies: [search, offersFilter],
 		});
 
 	const renderFooter = () => {
@@ -46,40 +63,68 @@ const Offers = observer((props: Props) => {
 	};
 
 	useEffect(() => {
-		if (selectedCard == '') return setOffersHeader(translations.tabs.offers.header);
+		if (offersFilter.card[0] == '') return setOffersHeader(translations.tabs.offers.header);
+		if (offersFilter.card.length > 1)
+			return setOffersHeader(
+				translations.tabs.offers.headerForSelectedCard.segement1 +
+					' ' +
+					offersFilter.card.length +
+					' ' +
+					translations.tabs.offers.headerForSelectedCard.segement2,
+			);
 		return setOffersHeader(
-			translations.tabs.offers.headerForSelectedCard +
+			translations.tabs.offers.headerForSelectedCard.segement1 +
 				' ' +
-				cardsStore().getCardById(selectedCard).name[language],
+				cardsStore().getCardById(offersFilter.card[0]).name[language],
 		);
-	}, [selectedCard]);
+	}, [offersFilter.card]);
+
+	useEffect(() => {
+		const countAppliedFilters = () => {
+			let count = 0;
+			if (
+				offersFilter.card.length > 1 ||
+				(offersFilter.card.length === 1 && offersFilter.card[0] !== '')
+			)
+				count++;
+			if (offersFilter.category) count++;
+			if (offersFilter.sortKey) count++;
+			if (offersFilter.sortDirection !== 'asc') count++;
+			return count;
+		};
+
+		setAppliedFilterCount(countAppliedFilters());
+	}, [offersFilter]);
 
 	return (
 		<TabLayout title={translations.tabs.offers.tabName}>
 			<View className='gap-4 flex-1 pt-3'>
-				<Categories
-					selectedCategory={selectedCategory}
-					setSelectedCategory={setSelectedCategory}
-				/>
+				<Categories filter={offersFilter} setFilter={setOffersFilter!} />
 				<View className='w-[95%] flex-row gap-2 items-center m-auto'>
 					<BottomSheetWrapper
 						sheet={(closeHandler) => (
 							<OffersFilter
 								closeHandler={closeHandler}
-								selectedCategory={selectedCategory}
-								setSelectedCategory={setSelectedCategory}
-								selectedCard={selectedCard}
-								setSelectedCard={setSelectedCard}
+								filter={offersFilter}
+								setFilter={setOffersFilter}
 							/>
 						)}
 					>
 						{(openHandler) => (
-							<Ionicons
-								name='options-outline'
-								onPress={openHandler}
-								color={theme['--primary']}
-								size={36}
-							/>
+							<TouchableOpacity onPress={openHandler}>
+								{appliedFilterCount != 0 && (
+									<View className='absolute -top-1 opacity-80 z-10 -right-1 w-[20px] h-[20px] bg-selected rounded-full'>
+										<Typography align='center' weight='bold' variant='label'>
+											{appliedFilterCount}
+										</Typography>
+									</View>
+								)}
+								<Ionicons
+									name='options-outline'
+									color={theme['--primary']}
+									size={36}
+								/>
+							</TouchableOpacity>
 						)}
 					</BottomSheetWrapper>
 
@@ -98,8 +143,9 @@ const Offers = observer((props: Props) => {
 				<Typography
 					numberOfLines={1}
 					align='center'
-					variant='h3'
-					className='m-auto'
+					variant='body'
+					// color={theme['--primary']}
+					className='m-auto border-b-2 border-selected'
 					weight='bold'
 				>
 					{offersHeader}

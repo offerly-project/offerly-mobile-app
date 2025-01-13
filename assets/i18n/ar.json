@@ -58,9 +58,20 @@
 			},
 			"tabName": "العروض",
 			"header": "العروض الخاصة ببطاقاتي",
-			"headerForSelectedCard": "عروض",
+			"headerForSelectedCard": {
+				"segement1" : "عروض",
+				"segement2" : "بطاقات"
+			}
+			,
 			"offersFilter": {
-				"myCardsOffers": "عروض كل بظاقاتي"
+				"myCardsOffers": "عروض كل بطاقاتي",
+				"sort" : {
+					"title" : "ترتيب العروض حسب:",
+					"alphabet" : "الأبجدية",
+					"expiryDate" : "تاريخ الانتهاء",
+					"asc": "تصاعدي",
+					"desc": "تنازلي"
+				}
 			},
 			"offerDetails": {
 				"discountAmount": "حد الخصم الأعلى",
@@ -220,7 +231,10 @@
 		"saveAndLogin": "إحفظ و تسجيل الدخول",
 		"add": "إضافة",
 		"confirm": "تأكيد",
-		"reload": "إعادة التحميل"
+		"reload": "إعادة التحميل",
+		"apply": "تطبيق",
+		"default" : "افتراضي"
+
 	},
 	"placeholders": {
 		"email": "البريد الإلكتروني",
@@ -232,7 +246,8 @@
 		"search": "بحث..",
 		"selectBank": "اٰختر بنك",
 		"selectCard": "اٰختر بطاقة",
-		"phoneNumber": "رقم الجوال"
+		"phoneNumber": "رقم الجوال",
+		"multipleCardsSelected": "تم تحديد عدة بطاقات"
 	},
 	"toast": {
 		"addCards": "تمت إضافة البطاقات المحددة بنجاح",

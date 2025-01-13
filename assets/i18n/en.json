@@ -59,9 +59,19 @@
 			},
 			"tabName": "Offers",
 			"header": "Offers for all My Cards",
-			"headerForSelectedCard": "Offers for",
+			"headerForSelectedCard": {
+				"segement1":"Offers for",
+				"segement2":"cards"
+			},
 			"offersFilter": {
-				"myCardsOffers": "All My Cards offers"
+				"myCardsOffers": "All My Cards offers",
+				"sort" : {
+					"title" : "Sort Offers by:",
+					"alphabet" : "Alphabet",
+					"expiryDate" : "Expiry date",
+					"asc" : "Asc",
+					"desc" : "Desc"
+				}
 			},
 			"offerDetails": {
 				"discountAmount": "Discount Amount",
@@ -217,7 +227,9 @@
 		"saveAndLogin": "Save and login",
 		"add": "Add",
 		"confirm": "Confirm",
-		"reload": "Reload"
+		"reload": "Reload",
+		"apply": "Apply",
+		"default" : "Default"
 	},
 	"placeholders": {
 		"email": "Email Address",
@@ -229,7 +241,8 @@
 		"search": "Search..",
 		"selectBank": "Select Bank",
 		"selectCard": "Select Card",
-		"phoneNumber": "Phone number"
+		"phoneNumber": "Phone number",
+		"multipleCardsSelected": "Multiple cards selected"
 	},
 	"toast": {
 		"addCards": "Selected Cards added successfully",

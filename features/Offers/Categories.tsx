@@ -1,4 +1,5 @@
 import Typography from '@/components/Typography/Typography';
+import { IOfferFilter } from '@/entities/offer.entity';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { languageStore } from '@/stores';
 import { Ionicons, MaterialCommunityIcons, Octicons, SimpleLineIcons } from '@expo/vector-icons';
@@ -6,11 +7,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 
 type Props = {
-	setSelectedCategory: (cat: string) => void;
-	selectedCategory: string;
+	setFilter: (filter: IOfferFilter) => void;
+	filter: IOfferFilter;
 };
 
-const Categories = ({ selectedCategory, setSelectedCategory }: Props) => {
+const Categories = ({ filter, setFilter }: Props) => {
 	const theme = useThemeStyles();
 	const { translations } = languageStore();
 	const CategoriesIcons = [
@@ -72,11 +73,11 @@ const Categories = ({ selectedCategory, setSelectedCategory }: Props) => {
 	};
 
 	useEffect(() => {
-		if (selectedCategory) {
+		if (filter.category) {
 			setCategories((prevCategories) => {
 				const updatedCategories = [...prevCategories];
 				const selectedIndex = updatedCategories.findIndex(
-					(category) => category.name === selectedCategory,
+					(category) => category.name === filter.category,
 				);
 				if (selectedIndex > -1) {
 					const [selectedCategoryItem] = updatedCategories.splice(selectedIndex, 1);
@@ -86,7 +87,7 @@ const Categories = ({ selectedCategory, setSelectedCategory }: Props) => {
 			});
 			scrollToSelectedCategory();
 		}
-	}, [selectedCategory]);
+	}, [filter.category]);
 
 	return (
 		<ScrollView
@@ -108,8 +109,8 @@ const Categories = ({ selectedCategory, setSelectedCategory }: Props) => {
 			{categories.map((category) => (
 				<Pressable
 					onPress={() => {
-						if (category.name === selectedCategory) {
-							setSelectedCategory('');
+						if (category.name === filter.category) {
+							setFilter({ ...filter, category: '' });
 							return;
 						}
 						setCategories((prevCategories) => {
@@ -120,22 +121,22 @@ const Categories = ({ selectedCategory, setSelectedCategory }: Props) => {
 							scrollToSelectedCategory();
 							return updatedCategories;
 						});
-						setSelectedCategory(category.name);
+						setFilter({ ...filter, category: category.name });
 					}}
 					key={category.name}
-					className={`flex-row px-2.5 pt-1.5 mt-1 gap-2 rounded-full ${category.name === selectedCategory ? 'bg-selected' : 'border border-secondary'}`}
+					className={`flex-row px-2.5 pt-1.5 mt-1 gap-2 rounded-full ${category.name === filter.category ? 'bg-selected' : 'border border-secondary'}`}
 				>
 					{React.cloneElement(category.component, {
-						color: category.name === selectedCategory ? 'white' : theme['--primary'],
+						color: category.name === filter.category ? 'white' : theme['--primary'],
 					})}
 					<Typography
 						variant='body'
 						weight='bold'
-						color={category.name === selectedCategory ? 'white' : theme['--secondary']}
+						color={category.name === filter.category ? 'white' : theme['--secondary']}
 					>
 						{category.displayName}
 					</Typography>
-					{category.name === selectedCategory && (
+					{category.name === filter.category && (
 						<View className='absolute -right-1 -top-1 rounded-full bg-primary'>
 							<Ionicons size={14} color='white' name='close' />
 						</View>
