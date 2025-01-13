@@ -98,7 +98,11 @@ const OffersFilter = ({ filter, setFilter, closeHandler }: Props) => {
 			/>
 			<View>
 				<View className='flex-row justify-between items-center'>
-					<Typography className='border-b-hairline' weight='bold'>
+					<Typography
+						color={theme['--text']}
+						className='border-b-hairline border-text'
+						weight='bold'
+					>
 						{translations.tabs.offers.offersFilter.sort.title}
 					</Typography>
 					<TouchableOpacity
@@ -151,7 +155,9 @@ const OffersFilter = ({ filter, setFilter, closeHandler }: Props) => {
 					}}
 					borderStyle='filled'
 				>
-					<Typography color='white'>{translations.buttons.apply}</Typography>
+					<Typography color={theme['--background']}>
+						{translations.buttons.apply}
+					</Typography>
 				</Button>
 
 				<Button
@@ -163,9 +169,7 @@ const OffersFilter = ({ filter, setFilter, closeHandler }: Props) => {
 					}}
 					borderStyle='outlined'
 				>
-					<Typography color={theme['--primary']}>
-						{translations.buttons.default}
-					</Typography>
+					<Typography>{translations.buttons.default}</Typography>
 				</Button>
 			</View>
 		</View>

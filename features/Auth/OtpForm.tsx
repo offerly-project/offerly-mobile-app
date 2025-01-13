@@ -87,7 +87,9 @@ export default function OtpForm() {
 					loadingComponent={<ActivityIndicator color={theme['--background']} />}
 					onPress={handleSubmit}
 				>
-					<Typography color='white'>{translations.buttons.verifyCode}</Typography>
+					<Typography color={theme['--background']}>
+						{translations.buttons.verifyCode}
+					</Typography>
 				</Button>
 				{serverError && (
 					<Typography variant='caption' color='red' align='center'>
@@ -99,7 +101,7 @@ export default function OtpForm() {
 				<TouchableOpacity disabled={timeLeft != 0} onPress={handleResend}>
 					<Typography
 						className={`underline ${timeLeft != 0 && 'opacity-30'}`}
-						color={theme['--primary']}
+						color={theme['--secondary']}
 					>
 						{translations.auth.otp.resend}
 					</Typography>

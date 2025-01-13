@@ -89,7 +89,9 @@ const ChangePasswordModal = (props: Props) => {
 				borderStyle='filled'
 				onPress={handleSubmit}
 			>
-				<Typography color={'white'}>Change Password</Typography>
+				<Typography color={theme['--background']}>
+					{translations.tabs.account.change_password.title}
+				</Typography>
 			</Button>
 			{serverError && (
 				<Typography color={theme['--danger']} className='mx-auto my-4'>

@@ -209,7 +209,11 @@
 				"light": "Light"
 			},
 			"deleteAccount": {
-				"title": "Delete Account"
+				"title": "Delete Account",
+				"warningMessage" : {
+					"segment1" : "Please type",
+					"segment2" : "in the box below to confirm. Kindly note that this action is irreversible."
+				}
 			},
 			"version": "Version",
 			"cards": "Cards",

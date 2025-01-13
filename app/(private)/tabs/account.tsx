@@ -227,7 +227,12 @@ const AccountPage = observer(() => {
 					<Typography variant='label' color={styles['--text']}>
 						{getCardsAndFavCount()[0]}
 					</Typography>
-					<Ionicons size={21} className='h-[25]' name='heart-outline' color={'#6633cc'} />
+					<Ionicons
+						size={21}
+						className='h-[25]'
+						name='heart-outline'
+						color={styles['--primary']}
+					/>
 					<Typography variant='label' color={styles['--text']}>
 						{translations.tabs.account.favorites}
 					</Typography>
@@ -240,7 +245,12 @@ const AccountPage = observer(() => {
 					<Typography variant='label' color={styles['--text']}>
 						{getCardsAndFavCount()[1]}
 					</Typography>
-					<Ionicons size={21} className='h-[25]' color={'#6633cc'} name='card-outline' />
+					<Ionicons
+						size={21}
+						className='h-[25]'
+						color={styles['--primary']}
+						name='card-outline'
+					/>
 					<Typography variant='label' color={styles['--text']}>
 						{translations.tabs.account.cards}
 					</Typography>

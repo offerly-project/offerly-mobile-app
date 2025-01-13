@@ -2,6 +2,7 @@ import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import Typography from '../Typography/Typography';
 
 type RadioButtonProps = {
 	label: string;
@@ -20,9 +21,9 @@ const RadioButton: React.FC<RadioButtonProps> = ({ label, value, selectedValue, 
 				size={24}
 				color={theme['--primary']}
 			/>
-			<Text className='ml-2' style={{ color: theme['--text'] }}>
+			<Typography className='ml-2' color={theme['--text']}>
 				{label}
-			</Text>
+			</Typography>
 		</TouchableOpacity>
 	);
 };
