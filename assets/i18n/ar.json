@@ -59,16 +59,15 @@
 			"tabName": "العروض",
 			"header": "العروض الخاصة ببطاقاتي",
 			"headerForSelectedCard": {
-				"segement1" : "عروض",
-				"segement2" : "بطاقات"
-			}
-			,
+				"segement1": "عروض",
+				"segement2": "بطاقات"
+			},
 			"offersFilter": {
 				"myCardsOffers": "عروض كل بطاقاتي",
-				"sort" : {
-					"title" : "ترتيب العروض حسب:",
-					"alphabet" : "الأبجدية",
-					"expiryDate" : "تاريخ الانتهاء",
+				"sort": {
+					"title": "ترتيب العروض حسب:",
+					"alphabet": "الأبجدية",
+					"expiryDate": "تاريخ الانتهاء",
 					"asc": "تصاعدي",
 					"desc": "تنازلي"
 				}
@@ -214,10 +213,11 @@
 			},
 			"deleteAccount": {
 				"title": "حذف الحساب",
-				"warningMessage" : {
-					"segment1" : "يرجى كتابة",
-					"segment2" : "في المربع أدناه للتأكيد. يرجى ملاحظة أن هذا الإجراء لا رجعة فيه."
-				}
+				"warningMessage": {
+					"segment1": "يرجى كتابة",
+					"segment2": "في المربع أدناه للتأكيد. يرجى ملاحظة أن هذا الإجراء لا رجعة فيه."
+				},
+				"deleteAccountPrompt": "حذف"
 			},
 			"version": "الإصدار",
 			"cards": "بطاقة",
@@ -237,8 +237,7 @@
 		"confirm": "تأكيد",
 		"reload": "إعادة التحميل",
 		"apply": "تطبيق",
-		"default" : "افتراضي"
-
+		"default": "افتراضي"
 	},
 	"placeholders": {
 		"email": "البريد الإلكتروني",

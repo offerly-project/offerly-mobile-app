@@ -21,7 +21,7 @@ export class OffersApi {
 		if (params.limit) query.append('limit', params.limit.toString());
 		if (params.sort_by) query.append('sort_by', encodeURI(params.sort_by));
 		if (params.sort_direction) query.append('sort_direction', encodeURI(params.sort_direction));
-		console.log('query', query);
+		if (params.q) query.append('q', encodeURI(params.q));
 
 		return query.toString();
 	};

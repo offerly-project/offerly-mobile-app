@@ -60,17 +60,17 @@
 			"tabName": "Offers",
 			"header": "Offers for all My Cards",
 			"headerForSelectedCard": {
-				"segement1":"Offers for",
-				"segement2":"cards"
+				"segement1": "Offers for",
+				"segement2": "cards"
 			},
 			"offersFilter": {
 				"myCardsOffers": "All My Cards offers",
-				"sort" : {
-					"title" : "Sort Offers by:",
-					"alphabet" : "Alphabet",
-					"expiryDate" : "Expiry date",
-					"asc" : "Asc",
-					"desc" : "Desc"
+				"sort": {
+					"title": "Sort Offers by:",
+					"alphabet": "Alphabet",
+					"expiryDate": "Expiry date",
+					"asc": "Asc",
+					"desc": "Desc"
 				}
 			},
 			"offerDetails": {
@@ -210,10 +210,11 @@
 			},
 			"deleteAccount": {
 				"title": "Delete Account",
-				"warningMessage" : {
-					"segment1" : "Please type",
-					"segment2" : "in the box below to confirm. Kindly note that this action is irreversible."
-				}
+				"warningMessage": {
+					"segment1": "Please type",
+					"segment2": "in the box below to confirm. Kindly note that this action is irreversible."
+				},
+				"deleteAccountPrompt": "DELETE"
 			},
 			"version": "Version",
 			"cards": "Cards",
@@ -233,7 +234,7 @@
 		"confirm": "Confirm",
 		"reload": "Reload",
 		"apply": "Apply",
-		"default" : "Default"
+		"default": "Default"
 	},
 	"placeholders": {
 		"email": "Email Address",

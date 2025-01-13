@@ -11,15 +11,14 @@ type Props = {
 	onCancel: () => void;
 };
 
-const PROMPT_TEXT = 'DELETE';
-
 const DeleteAccount = ({ onCancel, onConfirm }: Props) => {
 	const [input, setInput] = useState('');
 	const { translations } = languageStore();
+	const deletePrompt = translations.tabs.account.deleteAccount.deleteAccountPrompt;
 	const theme = useThemeStyles();
 	const onTextChange = (value: string) => {
 		setInput(value);
-		if (value === PROMPT_TEXT) {
+		if (value === deletePrompt) {
 			Keyboard.dismiss();
 		}
 	};
@@ -28,12 +27,12 @@ const DeleteAccount = ({ onCancel, onConfirm }: Props) => {
 			<Typography variant='body'>
 				{translations.tabs.account.deleteAccount.warningMessage.segment1}{' '}
 				<Typography color='red' weight='bold' variant='body'>
-					{PROMPT_TEXT}
+					{deletePrompt}
 				</Typography>{' '}
 				{translations.tabs.account.deleteAccount.warningMessage.segment2}
 			</Typography>
 			<Input
-				placeholder={PROMPT_TEXT}
+				placeholder={deletePrompt}
 				value={input}
 				onChangeText={onTextChange}
 				borderStyle='outlined'
@@ -44,7 +43,7 @@ const DeleteAccount = ({ onCancel, onConfirm }: Props) => {
 					onPress={onConfirm}
 					borderStyle='filled'
 					variant='primary'
-					disabled={input !== PROMPT_TEXT}
+					disabled={input !== deletePrompt}
 					className='flex-1'
 				>
 					<Typography color={theme['--background']} weight='bold'>

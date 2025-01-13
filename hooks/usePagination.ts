@@ -13,7 +13,7 @@ interface PaginatedResult<T> {
 type Params = {
 	getQuery: (page: number, limit: number) => string;
 	url: string;
-	queryDependencies?: any[]; // Optional dependencies to track query changes
+	queryDependencies?: any[];
 };
 
 const LIMIT = 10;
