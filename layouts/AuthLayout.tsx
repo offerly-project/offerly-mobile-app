@@ -21,16 +21,18 @@ const AuthLayout = observer(({ children, hideBackButton }: Props) => {
 
 	return (
 		<SafeAreaView className='px-10 flex-1 w-full h-full justify-center bg-background'>
-			<View
-				className={`flex flex-row justify-between items-center h-[50] ${isRtl && 'flex-row-reverse'}`}
-			>
+			<View className={`flex flex-row justify-between items-center h-[50]`}>
 				<View>
 					{!hideBackButton && (
 						<Pressable
 							className='p-2 mr-auto bg-primary rounded-full'
 							onPress={router.back}
 						>
-							<Ionicons name='chevron-back' size={24} color={styles['--static']} />
+							<Ionicons
+								name={isRtl ? 'chevron-forward' : 'chevron-back'}
+								size={24}
+								color={styles['--static']}
+							/>
 						</Pressable>
 					)}
 				</View>
