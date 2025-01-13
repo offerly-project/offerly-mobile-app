@@ -1,3 +1,4 @@
+import { languageStore } from '@/stores';
 import React, { useRef, useState } from 'react';
 import { TextInput, View } from 'react-native';
 
@@ -8,6 +9,7 @@ interface OTPInputProps {
 const OTPInput: React.FC<OTPInputProps> = ({ onCodeChange }) => {
 	const [otp, setOtp] = useState<string[]>(['', '', '', '']);
 	const inputsRef = useRef<Array<TextInput | null>>([]);
+	const { isRtl } = languageStore();
 
 	const handleChange = (text: string, index: number) => {
 		const newOtp = [...otp];
@@ -28,7 +30,9 @@ const OTPInput: React.FC<OTPInputProps> = ({ onCodeChange }) => {
 	};
 
 	return (
-		<View className='flex-row justify-between w-full max-w-xs mx-auto'>
+		<View
+			className={`flex-row justify-between w-full max-w-xs mx-auto ${isRtl && 'flex-row-reverse'}`}
+		>
 			{otp.map((value, index) => (
 				<TextInput
 					key={index}
