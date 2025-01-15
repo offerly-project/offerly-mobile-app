@@ -99,7 +99,7 @@ const Offers = observer((props: Props) => {
 	return (
 		<TabLayout title={translations.tabs.offers.tabName}>
 			<View className='gap-4 flex-1 pt-3'>
-				<Categories filter={offersFilter} setFilter={setOffersFilter!} />
+				<Categories filter={offersFilter} setFilter={setOffersFilter} />
 				<View className='w-[95%] flex-row gap-2 items-center m-auto'>
 					<BottomSheetWrapper
 						sheet={(closeHandler) => (

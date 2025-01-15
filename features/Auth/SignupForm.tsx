@@ -61,7 +61,7 @@ export default function SignupForm() {
 							weight='light'
 							variant='h3'
 						>
-							{translations.buttons.signup}
+							{translations.auth.signup.createAccount}
 						</Typography>
 					</View>
 					<View className='gap-5'>

@@ -23,6 +23,11 @@ const OffersFilter = ({ filter, setFilter, closeHandler }: Props) => {
 	const { userCardsList } = cardsStore();
 	const langKey = language == 'ar' ? 'ar' : 'en';
 
+	const handleRadioSelection = (value: string) => {
+		if (filter.sortKey == value) return setFilter({ ...filter, sortKey: '' as SortKey });
+		setFilter({ ...filter, sortKey: value as SortKey });
+	};
+
 	return (
 		<View className='gap-5 py-3'>
 			<Categories filter={filter} setFilter={setFilter!} />
@@ -136,13 +141,13 @@ const OffersFilter = ({ filter, setFilter, closeHandler }: Props) => {
 					label={translations.tabs.offers.offersFilter.sort.expiryDate}
 					value='expiry_date'
 					selectedValue={filter.sortKey}
-					onPress={(value) => setFilter({ ...filter, sortKey: value as SortKey })}
+					onPress={(value) => handleRadioSelection(value)}
 				/>
 				<RadioButton
 					label={translations.tabs.offers.offersFilter.sort.alphabet}
 					value={language == 'ar' ? 'alphabet_ar' : 'alphabet_en'}
 					selectedValue={filter.sortKey}
-					onPress={(value) => setFilter({ ...filter, sortKey: value as SortKey })}
+					onPress={(value) => handleRadioSelection(value)}
 				/>
 			</View>
 

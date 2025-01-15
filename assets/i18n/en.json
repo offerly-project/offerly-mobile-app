@@ -234,7 +234,7 @@
 		"confirm": "Confirm",
 		"reload": "Reload",
 		"apply": "Apply",
-		"default": "Default"
+		"default" : "Reset"
 	},
 	"placeholders": {
 		"email": "Email Address",

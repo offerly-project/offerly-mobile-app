@@ -1,7 +1,7 @@
 import { OffersApi } from '@/api/offers.api';
 import BottomSheetWrapper from '@/components/BottomSheet/BottomSheetWrapper';
 import Input from '@/components/Input/Input';
-import { IOffer } from '@/entities/offer.entity';
+import { IOffer, IOfferFilter, sortDirection, SortKey } from '@/entities/offer.entity';
 import Categories from '@/features/Offers/Categories';
 import OfferCard from '@/features/Offers/OfferCard';
 import OffersFilter from '@/features/Offers/OffersFilter';
@@ -19,14 +19,18 @@ type Props = {};
 const GuestOffers = observer((props: Props) => {
 	const theme = useThemeStyles();
 	const { translations, language } = languageStore();
-	const [selectedCard, setSelectedCard] = useState<string>('');
-
-	const [selectedCategory, setSelectedCategory] = useState<string>('');
 
 	const [search, setSearch] = useState<string>('');
 
 	const [loading, setLoading] = useState(false);
 	const [data, setData] = useState<IOffer[]>([]);
+
+	const [offersFilter, setOffersFilter] = useState<IOfferFilter>({
+		card: [''],
+		category: '',
+		sortKey: '' as SortKey,
+		sortDirection: 'asc' as sortDirection,
+	});
 
 	useEffect(() => {
 		OffersApi.getGuestOffers()
@@ -43,28 +47,23 @@ const GuestOffers = observer((props: Props) => {
 				offer.title[language].toLowerCase().includes(search.toLowerCase()),
 			);
 		}
-		if (selectedCategory) {
-			list = list.filter((offer) => offer.categories.includes(selectedCategory));
+		if (offersFilter.category) {
+			list = list.filter((offer) => offer.categories.includes(offersFilter.category));
 		}
 		return list;
-	}, [data, selectedCategory, search]);
+	}, [data, offersFilter.category, search]);
 
 	return (
 		<TabLayout title={translations.tabs.offers.tabName}>
 			<View className='gap-4 flex-1 pt-3'>
-				<Categories
-					selectedCategory={selectedCategory}
-					setSelectedCategory={setSelectedCategory}
-				/>
+				<Categories filter={offersFilter} setFilter={setOffersFilter} />
 				<View className='w-[95%] flex-row gap-2 items-center m-auto'>
 					<BottomSheetWrapper
 						sheet={(closeHandler) => (
 							<OffersFilter
 								closeHandler={closeHandler}
-								selectedCategory={selectedCategory}
-								setSelectedCategory={setSelectedCategory}
-								selectedCard={selectedCard}
-								setSelectedCard={setSelectedCard}
+								filter={offersFilter}
+								setFilter={setOffersFilter}
 							/>
 						)}
 					>
