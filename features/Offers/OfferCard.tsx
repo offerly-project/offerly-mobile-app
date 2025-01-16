@@ -103,13 +103,15 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 
 	const langKey = language == 'ar' ? 'ar' : 'en';
 
+	const hasExpired = moment().isAfter(offer.expiry_date);
+
 	return (
 		<>
 			<Pressable
 				onPress={() => setModalVisible(true)}
 				className='flex-row items-center justify-between rounded-2xl py-4 px-2 gap-5 bg-card'
 			>
-				<View className='border-2 border-secondary rounded-2xl overflow-hidden'>
+				<View className='border-2 border-secondary rounded-2xl overflow-hidden ml-4'>
 					<Image
 						source={formatUploadPath(offer.logo)}
 						style={{ height: 100, width: 100, resizeMode: 'contain' }}
@@ -145,7 +147,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 					<Typography variant='label' color={theme['--primary']}>
 						{moment(offer.expiry_date.toString()).format('DD/MM/YYYY')}
 					</Typography>
-					{offer.status === 'disabled' && (
+					{hasExpired && (
 						<View className='flex flex-row justify-end items-center'>
 							<Typography
 								variant='body'
