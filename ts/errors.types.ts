@@ -66,3 +66,9 @@ export enum ErrorCodes {
 	VALIDATION_ERROR = 1800,
 	ZOD_VALIDATION_FAILED = 1801,
 }
+
+export type ErrorResponse = {
+	status: number;
+	code: ErrorCodes;
+	message: string;
+};

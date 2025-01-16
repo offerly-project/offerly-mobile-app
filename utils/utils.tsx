@@ -3,6 +3,8 @@ import { BankType } from '@/entities/bank.entity';
 import { OfferChannel } from '@/entities/offer.entity';
 import { userStore } from '@/stores';
 import { Translations } from '@/stores/language.store';
+import { ErrorResponse } from '@/ts/errors.types';
+import { AxiosError } from 'axios';
 import { router } from 'expo-router';
 
 export const formatUploadPath = (path: string) => {
@@ -95,4 +97,9 @@ export const fillArrayWithPlaceholders = (arr: any[], multipleOf: number) => {
 		return arr;
 	}
 	return [...arr, ...new Array(multipleOf - remainder).fill(null)];
+};
+
+export const extractApiError = (err: AxiosError) => {
+	const _err = err.response?.data as ErrorResponse;
+	return _err;
 };

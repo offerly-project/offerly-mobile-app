@@ -4,9 +4,12 @@ import Typography from '@/components/Typography/Typography';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import KeyboardAvoidingLayout from '@/layouts/KeyboardAvoidingLayout';
 import { languageStore, userStore } from '@/stores';
+import { ErrorCodes } from '@/ts/errors.types';
+import { extractApiError } from '@/utils/utils';
+import { isAxiosError } from 'axios';
 import { useLocalSearchParams } from 'expo-router/build/hooks';
-import { useEffect, useState } from 'react';
-import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, Animated, TouchableOpacity, View } from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
 import NewPasswordForm from './NewPasswordForm';
 
@@ -26,7 +29,16 @@ export default function OtpForm() {
 	const [resetPasswordTempToken, setResetPasswordTempToken] = useState('');
 
 	const [timeLeft, setTimeLeft] = useState(30);
-	let interval: NodeJS.Timeout;
+	const [showTimer, setShowTimer] = useState(true);
+	const fadeAnim = useRef(new Animated.Value(1)).current; // Animation value for fading
+
+	const toast = useToast();
+
+	const formatTime = (seconds: number) => {
+		const minutes = Math.floor(seconds / 60);
+		const secs = seconds % 60;
+		return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+	};
 
 	const handleOTPChange = (code: string) => {
 		setOtpCode(code);
@@ -34,18 +46,24 @@ export default function OtpForm() {
 			setCanSubmit(true);
 		} else setCanSubmit(false);
 	};
-	const toast = useToast();
+
 	const handleSubmit = async () => {
 		setLoading(true);
 		try {
 			const res = await userStore().verifyOTP(otpCode, email);
 			if (res) {
-				clearInterval(interval);
 				setResetPasswordTempToken(res);
 				setShowNewPasswordView(true);
 			}
 		} catch (err) {
-			toast.show(translations.errors.invalidOtp, { type: 'error' });
+			if (isAxiosError(err)) {
+				const apiError = extractApiError(err);
+				if (apiError.code === ErrorCodes.INVALID_OTP) {
+					toast.show(translations.errors.invalidOtp, { type: 'error' });
+				}
+			} else {
+				toast.show(translations.errors.error, { type: 'error' });
+			}
 		} finally {
 			setLoading(false);
 		}
@@ -56,17 +74,30 @@ export default function OtpForm() {
 		const res = await userStore().forgetPassword(email);
 		if (res) {
 			setTimeLeft(30);
+			setShowTimer(true); // Reset the timer visibility
+			Animated.timing(fadeAnim, {
+				toValue: 1,
+				duration: 500,
+				useNativeDriver: true,
+			}).start();
 			setLoading(false);
 		}
 	};
 
 	useEffect(() => {
 		if (timeLeft > 0) {
-			interval = setInterval(() => {
+			const interval = setInterval(() => {
 				setTimeLeft((prev) => prev - 1);
 			}, 1000);
 
 			return () => clearInterval(interval);
+		} else {
+			// Fade-out animation and unmount the timer
+			Animated.timing(fadeAnim, {
+				toValue: 0,
+				duration: 500,
+				useNativeDriver: true,
+			}).start(() => setShowTimer(false));
 		}
 	}, [timeLeft]);
 
@@ -99,19 +130,19 @@ export default function OtpForm() {
 				)}
 			</View>
 			<View className='flex-row justify-center gap-1'>
-				<TouchableOpacity disabled={timeLeft != 0} onPress={handleResend}>
-					<Typography
-						className={`underline ${timeLeft != 0 && 'opacity-30'}`}
-						color={theme['--secondary']}
-					>
-						{translations.auth.otp.resend}
-					</Typography>
-				</TouchableOpacity>
-				<Typography weight='medium'>
-					{timeLeft == 0
-						? translations.auth.otp.otp
-						: `${translations.auth.otp.otp} ${translations.auth.otp.in} ${timeLeft}s`}
-				</Typography>
+				{showTimer ? (
+					<Animated.View style={{ opacity: fadeAnim }}>
+						<Typography weight='medium' align='center'>
+							{`${translations.auth.otp.in} ${formatTime(timeLeft)}`}
+						</Typography>
+					</Animated.View>
+				) : (
+					<TouchableOpacity onPress={handleResend}>
+						<Typography className='underline' color={theme['--secondary']}>
+							{translations.auth.otp.resend}
+						</Typography>
+					</TouchableOpacity>
+				)}
 			</View>
 		</KeyboardAvoidingLayout>
 	);

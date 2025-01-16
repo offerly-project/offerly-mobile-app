@@ -17,7 +17,9 @@ import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { useUIState } from '@/hooks/useUIState';
 import TabLayout from '@/layouts/TabLayout';
 import { cardsStore, languageStore } from '@/stores';
-import { fillArrayWithPlaceholders, formatUploadPath } from '@/utils/utils';
+import { ErrorCodes } from '@/ts/errors.types';
+import { extractApiError, fillArrayWithPlaceholders, formatUploadPath } from '@/utils/utils';
+import { isAxiosError } from 'axios';
 import { router } from 'expo-router';
 import { observer } from 'mobx-react-lite';
 import { useToast } from 'react-native-toast-notifications';
@@ -126,7 +128,14 @@ const SelectCards = observer(() => {
 			router.back();
 			toast.show(translations.toast.addCards, { type: 'success' });
 		} catch (error) {
-			toast.show(translations.errors.addCards, { type: 'danger' });
+			if (isAxiosError(error)) {
+				const apiError = extractApiError(error);
+				if (apiError.code === ErrorCodes.UPDATE_USER_FAILED) {
+					toast.show(translations.errors.updatingCards, { type: 'danger' });
+				}
+			} else {
+				toast.show(translations.errors.error, { type: 'danger' });
+			}
 		} finally {
 			setLoading((prev) => ({ ...prev, adding: false }));
 		}
