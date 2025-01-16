@@ -126,7 +126,7 @@ const SelectCards = observer(() => {
 			router.back();
 			toast.show(translations.toast.addCards, { type: 'success' });
 		} catch (error) {
-			console.error(error);
+			toast.show(translations.errors.addCards, { type: 'danger' });
 		} finally {
 			setLoading((prev) => ({ ...prev, adding: false }));
 		}

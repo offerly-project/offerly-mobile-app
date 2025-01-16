@@ -14,6 +14,7 @@ module.exports = {
 				static: 'var(--static)',
 				danger: 'var(--danger)',
 				selected: 'var(--selected)',
+				shade: 'var(--shade)',
 			},
 		},
 	},

@@ -23,7 +23,11 @@
 		"invalid": "[field] غير صالح"
 	},
 	"errors": {
-		"passwordMismatch": "كلمات المرور غير متطابقة"
+		"passwordMismatch": "كلمات المرور غير متطابقة",
+		"error": "حدث خطأ ما",
+		"deleteCards": "خطأ في حذف البطاقات",
+		"addCards": "خطأ في إضافة البطاقات",
+		"invalidOtp": "رمز الدخول لمرة واحدة غير صالح"
 	},
 	"auth": {
 		"guest": "الاستمرار كزائر",

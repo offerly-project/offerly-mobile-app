@@ -21,6 +21,7 @@ export const themes = {
 		'--card': '#262626',
 		'--static': '#ffffff',
 		'--danger': '#E53935',
+		'--shade': 'rgba(255,255,255,0.2)',
 	},
 	light: {
 		'--primary': '#6633cc',
@@ -32,6 +33,7 @@ export const themes = {
 		'--card': '#F0F0F5',
 		'--static': '#ffffff',
 		'--danger': '#D32F2F',
+		'--shade': 'rgba(0,0,0,0.1)',
 	},
 };
 

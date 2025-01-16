@@ -45,7 +45,7 @@ const FullNameEditSheet = ({ closeHandler, initialFullName }: Props) => {
 							await userStore().updateUser({ full_name: fullName });
 							closeHandler();
 						} catch (e) {
-							setError('An error occurred');
+							setError(translations.errors.error);
 						} finally {
 							setLoading(false);
 						}

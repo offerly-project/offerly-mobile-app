@@ -4,10 +4,10 @@ import Typography from '@/components/Typography/Typography';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import KeyboardAvoidingLayout from '@/layouts/KeyboardAvoidingLayout';
 import { languageStore, userStore } from '@/stores';
-import { AxiosError } from 'axios';
 import { useLocalSearchParams } from 'expo-router/build/hooks';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
+import { useToast } from 'react-native-toast-notifications';
 import NewPasswordForm from './NewPasswordForm';
 
 export default function OtpForm() {
@@ -34,7 +34,7 @@ export default function OtpForm() {
 			setCanSubmit(true);
 		} else setCanSubmit(false);
 	};
-
+	const toast = useToast();
 	const handleSubmit = async () => {
 		setLoading(true);
 		try {
@@ -45,8 +45,9 @@ export default function OtpForm() {
 				setShowNewPasswordView(true);
 			}
 		} catch (err) {
+			toast.show(translations.errors.invalidOtp, { type: 'error' });
+		} finally {
 			setLoading(false);
-			if (err instanceof AxiosError) setServerError(err.response?.data.message);
 		}
 	};
 

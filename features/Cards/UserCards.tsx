@@ -63,6 +63,8 @@ const Cards = observer(() => {
 							await cardsStore().fetchUserCards();
 							setSelectedCards([]);
 							toast.show(translations.toast.deleteCards, { type: 'success' });
+						} catch (e) {
+							toast.show(translations.errors.deleteCards, { type: 'danger' });
 						} finally {
 							setRemoving(false);
 						}
@@ -134,7 +136,16 @@ const Cards = observer(() => {
 
 				{/* Action Buttons */}
 				{selectedCards.length > 0 && (
-					<Animated.View style={[styles.hapticPressContainer, animatedStyle]}>
+					<Animated.View
+						style={[
+							styles.hapticPressContainer,
+							animatedStyle,
+							{
+								borderColor: theme['--shade'],
+								backgroundColor: theme['--background'],
+							},
+						]}
+					>
 						{removing ? (
 							<ActivityIndicator color={theme['--primary']} />
 						) : (
@@ -142,7 +153,7 @@ const Cards = observer(() => {
 								<Pressable style={styles.actionButton} onPress={handleRemove}>
 									<Ionicons
 										name='trash-bin'
-										size={30}
+										size={26}
 										color={theme['--danger']}
 									/>
 								</Pressable>
@@ -160,9 +171,9 @@ export default Cards;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		paddingHorizontal: 8,
 		paddingVertical: 16,
 		marginHorizontal: 'auto',
+		width: '100%',
 	},
 	addButtonContainer: {
 		width: '100%',
@@ -178,6 +189,7 @@ const styles = StyleSheet.create({
 	},
 	cardList: {
 		flex: 1,
+		paddingHorizontal: 16,
 	},
 	cardRow: {
 		flexDirection: 'row',
@@ -191,9 +203,10 @@ const styles = StyleSheet.create({
 	groupSeparator: {},
 	hapticPressContainer: {
 		width: '100%',
-		height: 60,
 		justifyContent: 'center',
 		alignItems: 'center',
+		borderTopWidth: 2,
+		height: 65,
 	},
 	actionButtons: {
 		flexDirection: 'row',

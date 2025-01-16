@@ -12,7 +12,6 @@ import { observer } from 'mobx-react-lite';
 import moment from 'moment';
 import { useMemo, useState } from 'react';
 import { Linking, Modal, Pressable, ScrollView, StyleSheet, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useToast } from 'react-native-toast-notifications';
 import CardCard from '../Cards/CardCard';
 
@@ -29,7 +28,6 @@ type FooterBuildElement = {
 const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 	const theme = useThemeStyles();
 	const { translations, language } = languageStore();
-	const { top } = useSafeAreaInsets();
 	const { addFavorite, removeFavorite, isFavorite } = favoritesStore();
 	const [modalVisible, setModalVisible] = useState(false);
 	const favorite = isFavorite(offer.id);
@@ -109,9 +107,9 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 		<>
 			<Pressable
 				onPress={() => setModalVisible(true)}
-				className='flex-row items-center justify-between rounded-2xl py-4 px-2 gap-5 bg-card'
+				className='flex-row items-center justify-between rounded-2xl py-4 gap-5 bg-card px-5'
 			>
-				<View className='border-2 border-secondary rounded-2xl overflow-hidden ml-4'>
+				<View className='border-2 border-secondary rounded-2xl overflow-hidden'>
 					<Image
 						source={formatUploadPath(offer.logo)}
 						style={{ height: 100, width: 100, resizeMode: 'contain' }}
@@ -171,8 +169,8 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 				visible={modalVisible}
 				animationType='slide'
 			>
-				<View style={{ paddingTop: top }} className='flex-1 p-10 bg-background'>
-					<View className='flex-row items-end justify-between h-[50]'>
+				<View className='flex-1 px-10 py-4 bg-background'>
+					<View className='flex-row items-end justify-between py-6'>
 						<Pressable onPress={toggleFavorite} className='flex-[0.2] items-center'>
 							<Ionicons
 								size={25}

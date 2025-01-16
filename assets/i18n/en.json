@@ -1,6 +1,5 @@
 {
 	"expired": "Expired",
-
 	"guest": {
 		"cards": "Signup to start adding your cards",
 		"offers": "Signup to access all offers"
@@ -24,7 +23,11 @@
 		"invalid": "[field] is invalid"
 	},
 	"errors": {
-		"passwordMismatch": "Passwords do not match"
+		"passwordMismatch": "Passwords do not match",
+		"error": "An error occurred",
+		"deleteCards": "Error in deleting cards",
+		"addCards": "Error in adding cards",
+		"invalidOtp": "Invalid OTP"
 	},
 	"auth": {
 		"guest": "Continue as a guest",
@@ -234,7 +237,7 @@
 		"confirm": "Confirm",
 		"reload": "Reload",
 		"apply": "Apply",
-		"default" : "Reset"
+		"default": "Reset"
 	},
 	"placeholders": {
 		"email": "Email Address",
