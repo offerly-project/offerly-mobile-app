@@ -4,7 +4,7 @@ import { cardsStore, userStore } from '@/stores';
 import { Redirect, Stack } from 'expo-router';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, Platform, View } from 'react-native';
 
 export const PrivateLayout = observer(() => {
 	const { authenticated, isGuest } = userStore();
@@ -37,7 +37,8 @@ export const PrivateLayout = observer(() => {
 			<Stack.Screen
 				name='(modals)'
 				options={{
-					presentation: 'modal',
+					presentation: Platform.OS === 'android' ? 'card' : 'modal',
+					...(Platform.OS === 'android' ? { animation: 'slide_from_bottom' } : {}),
 				}}
 			/>
 		</Stack>

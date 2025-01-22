@@ -28,11 +28,6 @@ export class LanguageStore {
 		}
 
 		this._reactToLanguageChange();
-		if (!__DEV__) {
-			if (!I18nManager.isRTL) {
-				reloadAsync();
-			}
-		}
 	};
 
 	private _reactToLanguageChange = () => {
@@ -47,6 +42,9 @@ export class LanguageStore {
 		this.language = language;
 		PlainStorage.setItem('language', language);
 		this._reactToLanguageChange();
+		if (this.isRtl) {
+			reloadAsync();
+		}
 	};
 
 	get translations(): Translations {
