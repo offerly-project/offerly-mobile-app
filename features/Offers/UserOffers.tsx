@@ -9,7 +9,7 @@ import OffersFilter from '@/features/Offers/OffersFilter';
 import usePagination from '@/hooks/usePagination';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import TabLayout from '@/layouts/TabLayout';
-import { cardsStore, languageStore } from '@/stores';
+import { languageStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
@@ -30,8 +30,8 @@ const Offers = observer((props: Props) => {
 	const [offersHeader, setOffersHeader] = useState<string>('');
 	const [appliedFilterCount, setAppliedFilterCount] = useState<number>(0);
 	const [offersFilter, setOffersFilter] = useState<IOfferFilter>({
-		card: [''],
-		category: '',
+		card: [],
+		category: [],
 		sortKey: '' as SortKey,
 		sortDirection: 'asc' as sortDirection,
 	});
@@ -43,11 +43,8 @@ const Offers = observer((props: Props) => {
 			url: '/user/offers',
 			getQuery: (page, limit) =>
 				OffersApi.buildGetOffersQuery({
-					card:
-						offersFilter.card.length > 1
-							? offersFilter.card.join(',')
-							: offersFilter.card[0],
-					category: offersFilter.category,
+					card: offersFilter.card.join(','),
+					category: offersFilter.category.join(','),
 					page,
 					limit,
 					q: search,
@@ -63,8 +60,8 @@ const Offers = observer((props: Props) => {
 	};
 
 	useEffect(() => {
-		if (offersFilter.card[0] == '') return setOffersHeader(translations.tabs.offers.header);
-		if (offersFilter.card.length > 1)
+		if (offersFilter.card.length === 0) return setOffersHeader(translations.tabs.offers.header);
+		else
 			return setOffersHeader(
 				translations.tabs.offers.headerForSelectedCard.segement1 +
 					' ' +
@@ -72,11 +69,6 @@ const Offers = observer((props: Props) => {
 					' ' +
 					translations.tabs.offers.headerForSelectedCard.segement2,
 			);
-		return setOffersHeader(
-			translations.tabs.offers.headerForSelectedCard.segement1 +
-				' ' +
-				cardsStore().getCardById(offersFilter.card[0]).name[language],
-		);
 	}, [offersFilter.card]);
 
 	useEffect(() => {
@@ -87,7 +79,7 @@ const Offers = observer((props: Props) => {
 				(offersFilter.card.length === 1 && offersFilter.card[0] !== '')
 			)
 				count++;
-			if (offersFilter.category) count++;
+			if (offersFilter.category.length > 0) count++;
 			if (offersFilter.sortKey) count++;
 			if (offersFilter.sortDirection !== 'asc') count++;
 			return count;
@@ -112,7 +104,7 @@ const Offers = observer((props: Props) => {
 					>
 						{(openHandler) => (
 							<TouchableOpacity onPress={openHandler}>
-								{appliedFilterCount != 0 && (
+								{appliedFilterCount !== 0 && (
 									<View className='absolute -top-1 opacity-80 z-10 -right-1 w-[20px] h-[20px] bg-selected rounded-full'>
 										<Typography align='center' weight='bold' variant='label'>
 											{appliedFilterCount}

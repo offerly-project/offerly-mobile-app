@@ -34,7 +34,7 @@ export interface IOffer {
 
 export interface IOfferFilter {
 	card: string[];
-	category: string;
+	category: string[];
 	sortKey: SortKey;
 	sortDirection: sortDirection;
 }

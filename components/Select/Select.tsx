@@ -25,7 +25,6 @@ type Props<T> = {
 	styles?: StyleProp<ViewStyle>;
 	searchResolver?: (item: ItemType<T>, search: string) => boolean;
 	children?: (content?: string) => React.ReactNode;
-	renderChooseAllItem?: boolean;
 };
 
 const Select = <T = unknown,>({
@@ -39,7 +38,6 @@ const Select = <T = unknown,>({
 	itemRenderer,
 	searchResolver,
 	children,
-	renderChooseAllItem = false,
 }: Props<T>) => {
 	const theme = useThemeStyles();
 	const { translations } = languageStore();
@@ -50,14 +48,6 @@ const Select = <T = unknown,>({
 	const listItems = searchResolver
 		? items.filter((item) => searchResolver?.(item, search))
 		: items;
-
-	if (renderChooseAllItem) {
-		listItems.unshift({
-			name: translations.tabs.offers.offersFilter.myCardsOffers,
-			value: '',
-			data: {} as T,
-		});
-	}
 
 	return (
 		<>

@@ -28,77 +28,90 @@ const OffersFilter = ({ filter, setFilter, closeHandler }: Props) => {
 		setFilter({ ...filter, sortKey: value as SortKey });
 	};
 
+	const placeHolder = (function () {
+		if (filter.card.length === 1) {
+			return userCardsList.find((card) => card.id === filter.card[0])?.name[langKey];
+		}
+		if (filter.card.length > 1) {
+			return translations.placeholders.multipleCardsSelected;
+		}
+		return translations.placeholders.selectCard;
+	})();
+
 	return (
 		<View className='gap-5 py-3'>
 			<Categories sheeted filter={filter} setFilter={setFilter!} />
 			<Select
 				snapPoints={['65%']}
-				renderChooseAllItem={true}
-				placeHolder={
-					filter.card.length > 1
-						? translations.placeholders.multipleCardsSelected
-						: translations.placeholders.selectCard
-				}
-				value={filter.card.length == 1 ? filter.card[0] : ''}
-				items={userCardsList
-					.sort((a, b) => a.bank.name[langKey].localeCompare(b.bank.name[langKey]))
-					.map((card) => ({
-						name: card.name[langKey],
-						value: card.id,
-						data: card,
-					}))}
+				placeHolder={placeHolder}
+				items={[
+					{
+						name: translations.tabs.offers.offersFilter.myCardsOffers,
+						value: '',
+						data: {} as any,
+					},
+					...userCardsList
+						.sort((a, b) => a.bank.name[langKey].localeCompare(b.bank.name[langKey]))
+						.map((card) => ({
+							name: card.name[langKey],
+							value: card.id,
+							data: card,
+						})),
+				]}
 				searchResolver={(item, search) =>
 					item.name.toLowerCase().includes(search.toLowerCase())
 				}
-				itemRenderer={(item, index, closeHandler) => (
-					<View className='flex flex-row items-center h-[65px] gap-6 w-full justify-between'>
-						<Pressable
-							onPress={() => {
-								if (index == 0) {
-									setFilter({ ...filter, card: [''] });
-									return closeHandler();
-								}
-								filter.card = filter.card.filter((card) => card != '');
-								if (filter.card.includes(item.value)) {
-									const index = filter.card.indexOf(item.value);
-									filter.card.splice(index, 1);
-									if (filter.card.length == 0)
-										return setFilter({ ...filter, card: [''] });
-									return setFilter({ ...filter, card: [...filter.card] });
-								}
-								setFilter({ ...filter, card: [...filter.card, item.value] });
-							}}
-							className='flex-1 flex flex-row items-center gap-4'
-						>
-							{item.data.logo ? (
-								<Image
-									source={formatUploadPath(item.data.logo)}
-									style={{ height: 25, width: 50 }}
-								/>
-							) : (
-								<MaterialCommunityIcons
-									name='cards'
-									size={28}
+				itemRenderer={(item, index, closeHandler) => {
+					const selected =
+						(filter.card.length === 0 && index === 0) ||
+						filter.card.includes(item.value);
+					return (
+						<View className='flex flex-row items-center h-[65px] gap-6 w-full justify-between'>
+							<Pressable
+								onPress={() => {
+									if (index === 0) {
+										// All cards
+										setFilter({ ...filter, card: [] });
+										closeHandler();
+										return;
+									}
+									const updatedCards = filter.card.includes(item.value)
+										? filter.card.filter((id) => id !== item.value)
+										: [...filter.card, item.value];
+									setFilter({ ...filter, card: updatedCards });
+								}}
+								className='flex-1 flex flex-row items-center gap-4'
+							>
+								{item.data.logo ? (
+									<Image
+										source={formatUploadPath(item.data.logo)}
+										style={{ height: 25, width: 50 }}
+									/>
+								) : (
+									<MaterialCommunityIcons
+										name='cards'
+										size={28}
+										color={theme['--primary']}
+									/>
+								)}
+								<Typography
+									color={theme['--text']}
+									className='w-[150px]'
+									variant='label'
+								>
+									{item.name}
+								</Typography>
+							</Pressable>
+							{selected && (
+								<Ionicons
+									name='checkmark-circle'
+									size={25}
 									color={theme['--primary']}
 								/>
 							)}
-							<Typography
-								color={theme['--text']}
-								className='w-[150px]'
-								variant='label'
-							>
-								{item.name}
-							</Typography>
-						</Pressable>
-						{filter.card.includes(item.value) && (
-							<Ionicons
-								name='checkmark-circle'
-								size={25}
-								color={theme['--primary']}
-							/>
-						)}
-					</View>
-				)}
+						</View>
+					);
+				}}
 				className='mx-2 p-2'
 			/>
 			<View>
@@ -169,7 +182,12 @@ const OffersFilter = ({ filter, setFilter, closeHandler }: Props) => {
 					variant='primary'
 					className='flex-1'
 					onPress={() => {
-						setFilter({ card: [''], category: '', sortKey: '', sortDirection: 'asc' });
+						setFilter({
+							card: [],
+							category: [],
+							sortKey: '',
+							sortDirection: 'asc',
+						});
 						closeHandler();
 					}}
 					borderStyle='outlined'

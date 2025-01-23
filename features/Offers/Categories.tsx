@@ -5,7 +5,7 @@ import { languageStore } from '@/stores';
 import { Ionicons, MaterialCommunityIcons, Octicons, SimpleLineIcons } from '@expo/vector-icons';
 import React, { useEffect, useRef, useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
-import { ScrollView as NScrollview } from 'react-native-gesture-handler';
+import { ScrollView as NScrollView } from 'react-native-gesture-handler';
 
 type Props = {
 	setFilter: (filter: IOfferFilter) => void;
@@ -16,6 +16,8 @@ type Props = {
 const Categories = ({ filter, setFilter, sheeted }: Props) => {
 	const theme = useThemeStyles();
 	const { translations } = languageStore();
+	const isRtl = languageStore().isRtl;
+
 	const categoriesList = [
 		{
 			name: 'Shopping',
@@ -63,92 +65,96 @@ const Categories = ({ filter, setFilter, sheeted }: Props) => {
 	const categoriesScrollViewRef = useRef<ScrollView>(null);
 
 	const scrollToSelectedCategory = () => {
-		return languageStore().isRtl
-			? categoriesScrollViewRef.current?.scrollToEnd({
-					animated: true,
-				})
-			: categoriesScrollViewRef.current?.scrollTo({
-					x: 0,
-					y: 0,
-					animated: true,
-				});
+		return isRtl
+			? categoriesScrollViewRef.current?.scrollToEnd({ animated: true })
+			: categoriesScrollViewRef.current?.scrollTo({ x: 0, y: 0, animated: true });
 	};
 
 	useEffect(() => {
-		if (filter.category) {
+		if (filter.category.length) {
 			setCategories((prevCategories) => {
 				const updatedCategories = [...prevCategories];
-				const selectedIndex = updatedCategories.findIndex(
-					(category) => category.name === filter.category,
-				);
-				if (selectedIndex > -1) {
-					const [selectedCategoryItem] = updatedCategories.splice(selectedIndex, 1);
-					updatedCategories.unshift(selectedCategoryItem);
-				}
+				filter.category.forEach((selectedCategory) => {
+					const selectedIndex = updatedCategories.findIndex(
+						(category) => category.name === selectedCategory,
+					);
+					if (selectedIndex > -1) {
+						const [selectedCategoryItem] = updatedCategories.splice(selectedIndex, 1);
+						updatedCategories.unshift(selectedCategoryItem);
+					}
+				});
 				return updatedCategories;
 			});
 			scrollToSelectedCategory();
 		}
 	}, [filter.category]);
 
-	const Wrapper = sheeted ? NScrollview : ScrollView;
+	const Wrapper = sheeted ? NScrollView : ScrollView;
+
+	const toggleCategory = (categoryName: string) => {
+		const updatedCategories = filter.category.includes(categoryName)
+			? filter.category.filter((name) => name !== categoryName)
+			: [...filter.category, categoryName];
+		setFilter({ ...filter, category: updatedCategories });
+	};
 
 	return (
 		<Wrapper
 			horizontal
 			ref={categoriesScrollViewRef}
-			style={{
-				minHeight: 40,
-				maxHeight: 40,
-			}}
+			style={{ paddingVertical: 10, maxHeight: 50, minHeight: 50 }}
 			showsHorizontalScrollIndicator={false}
-			contentContainerStyle={{
-				gap: 10,
-			}}
-			contentContainerClassName={'px-5'}
+			contentContainerStyle={{ gap: 10, paddingHorizontal: 16 }}
 		>
-			{categories.map((category) => (
-				<Pressable
-					onPress={() => {
-						if (category.name === filter.category) {
-							setFilter({ ...filter, category: '' });
-							return;
-						}
-						setCategories((prevCategories) => {
-							const updatedCategories = prevCategories.filter(
-								(cat) => cat != category,
-							);
-							updatedCategories.unshift(category);
-							scrollToSelectedCategory();
-							return updatedCategories;
-						});
-						setFilter({ ...filter, category: category.name });
-					}}
-					key={category.name}
-				>
-					<View
-						className={`flex-row gap-2 rounded-full ${category.name === filter.category ? 'bg-selected' : 'border border-secondary'} items-center justify-center h-10 px-2 mt-1`}
+			{categories.map((category) => {
+				const isSelected = filter.category.includes(category.name);
+				return (
+					<Pressable
+						onPress={() => toggleCategory(category.name)}
+						key={category.name}
+						style={{
+							flexDirection: 'row',
+							alignItems: 'center',
+							justifyContent: 'center',
+							height: 40,
+
+							paddingHorizontal: 12,
+							borderRadius: 20,
+							backgroundColor: isSelected ? theme['--selected'] : 'transparent',
+							borderWidth: isSelected ? 0 : 1,
+							borderColor: theme['--secondary'],
+						}}
 					>
 						{React.cloneElement(category.component, {
-							color: category.name === filter.category ? 'white' : theme['--primary'],
+							color: isSelected ? 'white' : theme['--primary'],
 						})}
 						<Typography
 							variant='body'
 							weight='bold'
-							color={
-								category.name === filter.category ? 'white' : theme['--secondary']
-							}
+							color={isSelected ? 'white' : theme['--secondary']}
 						>
 							{category.displayName}
 						</Typography>
-						{category.name === filter.category && (
-							<View className='absolute -right-1 -top-1 rounded-full bg-primary'>
-								<Ionicons size={14} color='white' name='close' />
+						{isSelected && (
+							<View
+								style={{
+									position: 'absolute',
+									right: -5,
+									top: -5,
+									width: 18,
+									height: 18,
+									borderRadius: 9,
+									backgroundColor: theme['--primary'],
+									alignItems: 'center',
+									justifyContent: 'center',
+								}}
+							>
+								<Ionicons size={12} color='white' name='close' />
 							</View>
 						)}
-					</View>
-				</Pressable>
-			))}
+					</Pressable>
+				);
+			})}
 		</Wrapper>
 	);
 };
