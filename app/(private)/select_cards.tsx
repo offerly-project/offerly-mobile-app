@@ -151,7 +151,7 @@ const SelectCards = observer(() => {
 				<>
 					<Select
 						items={banks.map((bank) => ({
-							name: language == 'ar' ? bank.name.ar : bank.name.en,
+							name: bank.name[language],
 							value: bank.id,
 							data: bank,
 						}))}

@@ -5,16 +5,18 @@ import { languageStore } from '@/stores';
 import { Ionicons, MaterialCommunityIcons, Octicons, SimpleLineIcons } from '@expo/vector-icons';
 import React, { useEffect, useRef, useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
+import { ScrollView as NScrollview } from 'react-native-gesture-handler';
 
 type Props = {
 	setFilter: (filter: IOfferFilter) => void;
 	filter: IOfferFilter;
+	sheeted?: boolean;
 };
 
-const Categories = ({ filter, setFilter }: Props) => {
+const Categories = ({ filter, setFilter, sheeted }: Props) => {
 	const theme = useThemeStyles();
 	const { translations } = languageStore();
-	const CategoriesIcons = [
+	const categoriesList = [
 		{
 			name: 'Shopping',
 			displayName: translations.tabs.offers.categories.Shopping,
@@ -57,7 +59,7 @@ const Categories = ({ filter, setFilter }: Props) => {
 		},
 	];
 
-	const [categories, setCategories] = useState(CategoriesIcons);
+	const [categories, setCategories] = useState(categoriesList);
 	const categoriesScrollViewRef = useRef<ScrollView>(null);
 
 	const scrollToSelectedCategory = () => {
@@ -89,22 +91,21 @@ const Categories = ({ filter, setFilter }: Props) => {
 		}
 	}, [filter.category]);
 
+	const Wrapper = sheeted ? NScrollview : ScrollView;
+
 	return (
-		<ScrollView
+		<Wrapper
 			horizontal
 			ref={categoriesScrollViewRef}
 			style={{
-				width: '95%',
-				margin: 'auto',
-				minHeight: 35,
-				maxHeight: 35,
+				minHeight: 40,
+				maxHeight: 40,
 			}}
 			showsHorizontalScrollIndicator={false}
 			contentContainerStyle={{
 				gap: 10,
-				paddingHorizontal: 10,
-				margin: 'auto',
 			}}
+			contentContainerClassName={'px-5'}
 		>
 			{categories.map((category) => (
 				<Pressable
@@ -124,26 +125,31 @@ const Categories = ({ filter, setFilter }: Props) => {
 						setFilter({ ...filter, category: category.name });
 					}}
 					key={category.name}
-					className={`flex-row px-2.5 pt-1.5 mt-1 gap-2 rounded-full ${category.name === filter.category ? 'bg-selected' : 'border border-secondary'}`}
 				>
-					{React.cloneElement(category.component, {
-						color: category.name === filter.category ? 'white' : theme['--primary'],
-					})}
-					<Typography
-						variant='body'
-						weight='bold'
-						color={category.name === filter.category ? 'white' : theme['--secondary']}
+					<View
+						className={`flex-row gap-2 rounded-full ${category.name === filter.category ? 'bg-selected' : 'border border-secondary'} items-center justify-center h-10 px-2 mt-1`}
 					>
-						{category.displayName}
-					</Typography>
-					{category.name === filter.category && (
-						<View className='absolute -right-1 -top-1 rounded-full bg-primary'>
-							<Ionicons size={14} color='white' name='close' />
-						</View>
-					)}
+						{React.cloneElement(category.component, {
+							color: category.name === filter.category ? 'white' : theme['--primary'],
+						})}
+						<Typography
+							variant='body'
+							weight='bold'
+							color={
+								category.name === filter.category ? 'white' : theme['--secondary']
+							}
+						>
+							{category.displayName}
+						</Typography>
+						{category.name === filter.category && (
+							<View className='absolute -right-1 -top-1 rounded-full bg-primary'>
+								<Ionicons size={14} color='white' name='close' />
+							</View>
+						)}
+					</View>
 				</Pressable>
 			))}
-		</ScrollView>
+		</Wrapper>
 	);
 };
 

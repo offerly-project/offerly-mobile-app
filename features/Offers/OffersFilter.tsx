@@ -1,6 +1,8 @@
 import Button from '@/components/Button/Buttton';
+import RadioButton from '@/components/Button/RadioButton';
 import Select from '@/components/Select/Select';
 import Typography from '@/components/Typography/Typography';
+import { IOfferFilter, SortKey } from '@/entities/offer.entity';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { cardsStore, languageStore } from '@/stores';
 import { formatUploadPath } from '@/utils/utils';
@@ -8,8 +10,6 @@ import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icon
 import { Image } from 'expo-image';
 import { Pressable, TouchableOpacity, View } from 'react-native';
 import Categories from './Categories';
-import RadioButton from '@/components/Button/RadioButton';
-import { IOfferFilter, SortKey } from '@/entities/offer.entity';
 
 type Props = {
 	filter: IOfferFilter;
@@ -30,7 +30,7 @@ const OffersFilter = ({ filter, setFilter, closeHandler }: Props) => {
 
 	return (
 		<View className='gap-5 py-3'>
-			<Categories filter={filter} setFilter={setFilter!} />
+			<Categories sheeted filter={filter} setFilter={setFilter!} />
 			<Select
 				snapPoints={['65%']}
 				renderChooseAllItem={true}

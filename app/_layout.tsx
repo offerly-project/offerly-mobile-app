@@ -62,7 +62,11 @@ export const RootLayout = observer(() => {
 			<ThemeContextProvider>
 				{(theme) => (
 					<GestureHandlerRootView style={{ flex: 1 }}>
-						<StatusBar barStyle={'default'} />
+						<StatusBar
+							translucent
+							backgroundColor={'transparent'}
+							barStyle={'light-content'}
+						/>
 						<BottomSheetModalProvider>
 							<Stack screenOptions={getBaseScreenLayout(theme)}>
 								<Stack.Screen

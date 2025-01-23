@@ -1,9 +1,9 @@
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { languageStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
+import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import React, { useState } from 'react';
 import { Pressable, StyleProp, View, ViewStyle } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
 import BottomSheet from '../BottomSheet/BottomSheet';
 import Input from '../Input/Input';
 import Typography from '../Typography/Typography';
@@ -93,7 +93,7 @@ const Select = <T = unknown,>({
 								sheeted
 							/>
 						)}
-						<FlatList
+						<BottomSheetFlatList
 							data={listItems}
 							showsVerticalScrollIndicator={false}
 							keyboardShouldPersistTaps='always'

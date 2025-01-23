@@ -126,7 +126,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 						>
 							{offer.title[langKey]}
 						</Typography>
-						<Pressable onPress={toggleFavorite}>
+						<Pressable onPress={toggleFavorite} hitSlop={20}>
 							<Ionicons
 								size={22}
 								name={favorite ? 'heart' : 'hearto'}
@@ -171,7 +171,11 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 			>
 				<View className='flex-1 px-10 py-4 bg-background'>
 					<View className='flex-row items-end justify-between py-6'>
-						<Pressable onPress={toggleFavorite} className='flex-[0.2] items-center'>
+						<Pressable
+							onPress={toggleFavorite}
+							className='flex-[0.2] items-center'
+							hitSlop={20}
+						>
 							<Ionicons
 								size={25}
 								name={favorite ? 'heart' : 'hearto'}

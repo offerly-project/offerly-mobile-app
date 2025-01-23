@@ -56,6 +56,7 @@ const BottomSheet = ({ open, children, ...rest }: Props) => {
 					marginLeft: insets.left,
 					marginRight: insets.right,
 				}}
+				enableOverDrag={false}
 				enablePanDownToClose
 				topInset={insets.top}
 				backgroundComponent={({ style }) => (

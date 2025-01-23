@@ -266,5 +266,9 @@
 			"title": "Reload Required",
 			"message": "Please reload the app to apply the changes."
 		}
+	},
+	"noCards": {
+		"title": "You don't have any cards",
+		"link": "Tap here to add your cards"
 	}
 }

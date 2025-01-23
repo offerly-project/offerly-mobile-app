@@ -1,5 +1,6 @@
 import { CardsApi } from '@/api/cards.api';
 import Button from '@/components/Button/Buttton';
+import Link from '@/components/Typography/Link';
 import Typography from '@/components/Typography/Typography';
 import { SCREEN_WIDTH } from '@/constants/screens';
 import { useThemeContext } from '@/contexts/ThemeContext';
@@ -132,7 +133,21 @@ const Cards = observer(() => {
 		>
 			<View style={styles.container}>
 				{/* Cards List */}
-				<ScrollView style={styles.cardList}>{renderGroupedCards()}</ScrollView>
+				{userCardsList.length === 0 ? (
+					<View className='items-center justify-center h-full w-full'>
+						<Typography variant='body' color={theme['--text']}>
+							{translations.noCards.title}
+						</Typography>
+						<Link
+							onPress={() => router.push('/(private)/select_cards')}
+							color={theme['--primary']}
+						>
+							{translations.noCards.link}
+						</Link>
+					</View>
+				) : (
+					<ScrollView style={styles.cardList}>{renderGroupedCards()}</ScrollView>
+				)}
 
 				{/* Action Buttons */}
 				{selectedCards.length > 0 && (

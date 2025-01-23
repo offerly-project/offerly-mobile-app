@@ -2,7 +2,8 @@ import CloseButton from '@/components/Button/CloseButton';
 import Typography from '@/components/Typography/Typography';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { router } from 'expo-router';
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type Props = {
 	children: React.ReactNode;
@@ -11,8 +12,12 @@ type Props = {
 
 const ModalLayout = ({ children, title }: Props) => {
 	const theme = useThemeStyles();
+	const { top } = useSafeAreaInsets();
 	return (
-		<View className='px-4 pb-8 flex-1'>
+		<View
+			className='px-4 pb-8 flex-1'
+			style={{ paddingTop: Platform.OS === 'android' ? top + 20 : 0 }}
+		>
 			<View className='p-4'>
 				<View className='items-end'>
 					<CloseButton
