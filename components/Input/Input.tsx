@@ -1,10 +1,11 @@
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import { languageStore } from '@/stores';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import React, { useEffect } from 'react';
-import { TextInput, TextInputProps, View } from 'react-native';
+import { Keyboard, TextInput, TextInputProps, View } from 'react-native';
+import OutsidePressHandler from 'react-native-outside-press';
 import Typography from '../Typography/Typography';
-import { languageStore } from '@/stores';
 
 const COLORING = {
 	primary: 'border-primary',
@@ -77,31 +78,34 @@ const Input: React.FC<InputProps> = ({
 	const theme = useThemeStyles();
 	const { language } = languageStore();
 	return (
-		<View className='gap-2'>
-			<View className={containerStyles}>
-				{leadingIcon && leadingIcon()}
-				<Comp
-					ref={ref as any}
-					placeholder={placeholder}
-					style={language == 'ar' ? { textAlign: 'right' } : { textAlign: 'left' }}
-					placeholderTextColor='gray'
-					value={value}
-					onChangeText={onChangeText}
-					editable={!disabled}
-					keyboardType={getKeyboardType()}
-					{...rest}
-					selectionColor={theme['--secondary']}
-					autoCorrect={false}
-					className={[inputStyles, rest.className].join(' ')}
-				/>
-				{trailingIcon && trailingIcon()}
+		<OutsidePressHandler onOutsidePress={Keyboard.dismiss}>
+			<View className='gap-2'>
+				<View className={containerStyles}>
+					{leadingIcon && leadingIcon()}
+					<Comp
+						ref={ref as any}
+						placeholder={placeholder}
+						style={language == 'ar' ? { textAlign: 'right' } : { textAlign: 'left' }}
+						placeholderTextColor='gray'
+						value={value}
+						onChangeText={onChangeText}
+						editable={!disabled}
+						keyboardType={getKeyboardType()}
+						{...rest}
+						selectionColor={theme['--secondary']}
+						autoCorrect={false}
+						className={[inputStyles, rest.className].join(' ')}
+					/>
+					{trailingIcon && trailingIcon()}
+				</View>
+				{error && (
+					<Typography align='center' color={theme['--danger']} variant='caption'>
+						<MaterialCommunityIcons className='mr-2' name='information-outline' />{' '}
+						{error}
+					</Typography>
+				)}
 			</View>
-			{error && (
-				<Typography align='center' color={theme['--danger']} variant='caption'>
-					<MaterialCommunityIcons className='mr-2' name='information-outline' /> {error}
-				</Typography>
-			)}
-		</View>
+		</OutsidePressHandler>
 	);
 };
 

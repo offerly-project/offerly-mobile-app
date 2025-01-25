@@ -10,6 +10,7 @@ import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
 import { ScrollView, StatusBar, Text } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { EventProvider } from 'react-native-outside-press';
 import { ToastProvider } from 'react-native-toast-notifications';
 import '../global.css';
 
@@ -58,35 +59,37 @@ export const RootLayout = observer(() => {
 
 	if (loading) return null;
 	return (
-		<ToastProvider placement='top' offsetTop={TAB_LAYOUT_HEADER_HEIGHT}>
-			<ThemeContextProvider>
-				{(theme) => (
-					<GestureHandlerRootView style={{ flex: 1 }}>
-						<StatusBar
-							translucent
-							backgroundColor={'transparent'}
-							barStyle={'light-content'}
-						/>
-						<BottomSheetModalProvider>
-							<Stack screenOptions={getBaseScreenLayout(theme)}>
-								<Stack.Screen
-									name='(public)'
-									options={{
-										animation: 'none',
-									}}
-								/>
-								<Stack.Screen
-									name='(private)'
-									options={{
-										animation: 'none',
-									}}
-								/>
-							</Stack>
-						</BottomSheetModalProvider>
-					</GestureHandlerRootView>
-				)}
-			</ThemeContextProvider>
-		</ToastProvider>
+		<EventProvider>
+			<ToastProvider placement='top' offsetTop={TAB_LAYOUT_HEADER_HEIGHT}>
+				<ThemeContextProvider>
+					{(theme) => (
+						<GestureHandlerRootView style={{ flex: 1 }}>
+							<StatusBar
+								translucent
+								backgroundColor={'transparent'}
+								barStyle={'light-content'}
+							/>
+							<BottomSheetModalProvider>
+								<Stack screenOptions={getBaseScreenLayout(theme)}>
+									<Stack.Screen
+										name='(public)'
+										options={{
+											animation: 'none',
+										}}
+									/>
+									<Stack.Screen
+										name='(private)'
+										options={{
+											animation: 'none',
+										}}
+									/>
+								</Stack>
+							</BottomSheetModalProvider>
+						</GestureHandlerRootView>
+					)}
+				</ThemeContextProvider>
+			</ToastProvider>
+		</EventProvider>
 	);
 });
 
