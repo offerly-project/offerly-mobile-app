@@ -55,6 +55,9 @@
 		}
 	},
 	"tabs": {
+		"home": {
+			"tabName": "Home"
+		},
 		"offers": {
 			"types": {
 				"Online": "Online",
@@ -253,6 +256,7 @@
 		"multipleCardsSelected": "Multiple cards selected"
 	},
 	"toast": {
+		"discountCopied": "Discount code copied to clipboard",
 		"addCards": "Selected Cards added successfully",
 		"deleteCards": "Selected Cards deleted successfully",
 		"addFavorite": "Offer added to favorites"

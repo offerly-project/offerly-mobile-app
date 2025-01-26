@@ -55,6 +55,9 @@
 		}
 	},
 	"tabs": {
+		"home": {
+			"tabName": "الرئيسية"
+		},
 		"offers": {
 			"types": {
 				"Online": "عبر الإنترنت",
@@ -257,6 +260,7 @@
 		"multipleCardsSelected": "تم تحديد عدة بطاقات"
 	},
 	"toast": {
+		"discountCopied": "تم نسخ الرمز الترويجي بنجاح",
 		"addCards": "تمت إضافة البطاقات المحددة بنجاح",
 		"deleteCards": "تم حذف البطاقات المحددة بنجاح",
 		"addFavorite": "تمت إضافة العرض إلى المفضلة"

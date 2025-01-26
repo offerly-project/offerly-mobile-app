@@ -1,7 +1,9 @@
+import Logo from '@/assets/icons/logo-white.png';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { languageStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { Image } from 'expo-image';
 import { Tabs } from 'expo-router';
 import { observer } from 'mobx-react-lite';
 import { View } from 'react-native';
@@ -27,11 +29,11 @@ export const Layout = observer(() => {
 				initialRouteName={'offers'}
 			>
 				<Tabs.Screen
-					name={'offers'}
+					name={'home'}
 					options={{
-						title: translations.tabs.offers.tabName,
+						title: translations.tabs.home.tabName,
 						tabBarIcon: ({ color }) => (
-							<MaterialIcons size={28} name='discount' color={color} />
+							<MaterialIcons size={28} name='home' color={color} />
 						),
 					}}
 				/>
@@ -40,6 +42,27 @@ export const Layout = observer(() => {
 					options={{
 						title: translations.tabs.cards.tabName,
 						tabBarIcon: ({ color }) => <Ionicons size={28} name='card' color={color} />,
+					}}
+				/>
+				<Tabs.Screen
+					name={'offers'}
+					options={{
+						tabBarItemStyle: {
+							position: 'relative',
+							top: -6,
+						},
+						title: translations.tabs.offers.tabName,
+						tabBarIcon: ({ color }) => (
+							<View className='rounded-full bg-primary items-center justify-center h-12 w-12 mb-6'>
+								<Image
+									source={Logo}
+									style={{
+										height: 18,
+										width: 22,
+									}}
+								/>
+							</View>
+						),
 					}}
 				/>
 				<Tabs.Screen
