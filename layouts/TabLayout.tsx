@@ -1,5 +1,7 @@
+import Icon from '@/assets/icons/logo-white.png';
 import Typography from '@/components/Typography/Typography';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Platform, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -26,7 +28,19 @@ const TabLayout = ({ children, title, trailing, leading }: Props) => {
 				locations={[0, 0.5, 1]}
 			>
 				<View className='flex flex-row justify-between items-center h-[50] px-4'>
-					<View className='flex-row flex-1 justify-start'>{leading}</View>
+					<View className='flex-row flex-1 justify-start items-center'>
+						{leading ? (
+							leading
+						) : (
+							<Image
+								source={Icon}
+								style={{
+									height: 25,
+									width: 32,
+								}}
+							/>
+						)}
+					</View>
 					<Typography
 						color={theme['--static']}
 						weight='bold'
@@ -35,7 +49,7 @@ const TabLayout = ({ children, title, trailing, leading }: Props) => {
 					>
 						{title}
 					</Typography>
-					<View className='flex-row flex-1 justify-end'>{trailing}</View>
+					<View className='flex-row flex-1 justify-end items-center'>{trailing}</View>
 				</View>
 			</LinearGradient>
 			{children}
