@@ -9,7 +9,7 @@ import OffersFilter from '@/features/Offers/OffersFilter';
 import usePagination from '@/hooks/usePagination';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import TabLayout from '@/layouts/TabLayout';
-import { languageStore } from '@/stores';
+import { cardsStore, languageStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
@@ -26,6 +26,7 @@ type Props = {};
 
 const Offers = observer((props: Props) => {
 	const theme = useThemeStyles();
+	const { getCardById } = cardsStore();
 	const { translations, language } = languageStore();
 	const [offersHeader, setOffersHeader] = useState<string>('');
 	const [appliedFilterCount, setAppliedFilterCount] = useState<number>(0);
@@ -61,6 +62,12 @@ const Offers = observer((props: Props) => {
 
 	useEffect(() => {
 		if (offersFilter.card.length === 0) return setOffersHeader(translations.tabs.offers.header);
+		if (offersFilter.card.length === 1)
+			return setOffersHeader(
+				translations.tabs.offers.headerForSelectedCard.segement1 +
+					' ' +
+					getCardById(offersFilter.card[0]).name[language],
+			);
 		else
 			return setOffersHeader(
 				translations.tabs.offers.headerForSelectedCard.segement1 +

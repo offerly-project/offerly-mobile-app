@@ -4,7 +4,7 @@ import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { languageStore } from '@/stores';
 import { Ionicons, MaterialCommunityIcons, Octicons, SimpleLineIcons } from '@expo/vector-icons';
 import React, { useEffect, useRef, useState } from 'react';
-import { Pressable, ScrollView, View } from 'react-native';
+import { Platform, Pressable, ScrollView, View } from 'react-native';
 import { ScrollView as NScrollView } from 'react-native-gesture-handler';
 
 type Props = {
@@ -85,7 +85,7 @@ const Categories = ({ filter, setFilter, sheeted }: Props) => {
 				});
 				return updatedCategories;
 			});
-			scrollToSelectedCategory();
+			// scrollToSelectedCategory();
 		}
 	}, [filter.category]);
 
@@ -102,7 +102,7 @@ const Categories = ({ filter, setFilter, sheeted }: Props) => {
 		<Wrapper
 			horizontal
 			ref={categoriesScrollViewRef}
-			style={{ paddingVertical: 10, maxHeight: 50, minHeight: 50 }}
+			style={{ paddingVertical: 6, maxHeight: 50, minHeight: 50 }}
 			showsHorizontalScrollIndicator={false}
 			contentContainerStyle={{ gap: 10, paddingHorizontal: 16 }}
 		>
@@ -112,29 +112,22 @@ const Categories = ({ filter, setFilter, sheeted }: Props) => {
 					<Pressable
 						onPress={() => toggleCategory(category.name)}
 						key={category.name}
-						style={{
-							flexDirection: 'row',
-							alignItems: 'center',
-							justifyContent: 'center',
-							height: 40,
-
-							paddingHorizontal: 12,
-							borderRadius: 20,
-							backgroundColor: isSelected ? theme['--selected'] : 'transparent',
-							borderWidth: isSelected ? 0 : 1,
-							borderColor: theme['--secondary'],
-						}}
+						className={`rounded-full ${Platform.OS == 'ios' && 'justify-center px-2 pt-1'}  ${isSelected ? 'border-none bg-selected' : 'border border-secondary'}`}
 					>
-						{React.cloneElement(category.component, {
-							color: isSelected ? 'white' : theme['--primary'],
-						})}
-						<Typography
-							variant='body'
-							weight='bold'
-							color={isSelected ? 'white' : theme['--secondary']}
+						<View
+							className={`flex-row  gap-1 ${Platform.OS == 'android' && 'items-center pt-1 px-2'}`}
 						>
-							{category.displayName}
-						</Typography>
+							{React.cloneElement(category.component, {
+								color: isSelected ? 'white' : theme['--primary'],
+							})}
+							<Typography
+								variant='body'
+								weight='bold'
+								color={isSelected ? 'white' : theme['--secondary']}
+							>
+								{category.displayName}
+							</Typography>
+						</View>
 						{isSelected && (
 							<View
 								style={{

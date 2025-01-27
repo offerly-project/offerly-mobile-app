@@ -66,7 +66,7 @@ const OffersFilter = ({ filter, setFilter, closeHandler }: Props) => {
 						(filter.card.length === 0 && index === 0) ||
 						filter.card.includes(item.value);
 					return (
-						<View className='flex flex-row items-center h-[65px] gap-6 w-full justify-between'>
+						<View className='flex flex-row items-center h-[65px] gap-6 w-full'>
 							<Pressable
 								onPress={() => {
 									if (index === 0) {
@@ -80,7 +80,7 @@ const OffersFilter = ({ filter, setFilter, closeHandler }: Props) => {
 										: [...filter.card, item.value];
 									setFilter({ ...filter, card: updatedCards });
 								}}
-								className='flex-1 flex flex-row items-center gap-4'
+								className='flex-1 flex flex-row items-center gap-4 '
 							>
 								{item.data.logo ? (
 									<Image
@@ -101,14 +101,15 @@ const OffersFilter = ({ filter, setFilter, closeHandler }: Props) => {
 								>
 									{item.name}
 								</Typography>
+								{selected && (
+									<Ionicons
+										className='ml-auto'
+										name='checkmark-circle'
+										size={25}
+										color={theme['--primary']}
+									/>
+								)}
 							</Pressable>
-							{selected && (
-								<Ionicons
-									name='checkmark-circle'
-									size={25}
-									color={theme['--primary']}
-								/>
-							)}
 						</View>
 					);
 				}}

@@ -120,15 +120,14 @@ const Cards = observer(() => {
 		<TabLayout
 			title={translations.tabs.cards.tabName}
 			trailing={
-				<View style={styles.addButtonContainer}>
-					<Button
-						hapticFeedback
-						style={{ borderWidth: 0 }}
-						onPress={() => router.push('/(private)/select_cards')}
-					>
-						<Ionicons name='add' size={24} color={theme['--static']} />
-					</Button>
-				</View>
+				<Button
+					className='aspect-square '
+					hapticFeedback
+					style={{ borderColor: theme['--selected'] }}
+					onPress={() => router.push('/(private)/select_cards')}
+				>
+					<Ionicons name='add' size={24} color={theme['--static']} />
+				</Button>
 			}
 		>
 			<View style={styles.container}>
