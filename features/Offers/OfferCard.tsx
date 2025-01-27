@@ -8,7 +8,7 @@ import { Image } from 'expo-image';
 import { observer } from 'mobx-react-lite';
 import moment from 'moment';
 import { useState } from 'react';
-import { Modal, Pressable, StyleProp, TextStyle, View } from 'react-native';
+import { LayoutAnimation, Modal, Pressable, StyleProp, TextStyle, View } from 'react-native';
 import { ToastProvider, useToast } from 'react-native-toast-notifications';
 import OfferModalContent from './OfferModalContent';
 
@@ -37,6 +37,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 				setModalVisible(false);
 			}
 			removeFavorite(offer);
+			LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
 		} else {
 			addFavorite(offer);
 

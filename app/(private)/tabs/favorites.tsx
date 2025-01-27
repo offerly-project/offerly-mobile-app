@@ -5,7 +5,8 @@ import TabLayout from '@/layouts/TabLayout';
 import { favoritesStore, languageStore, userStore } from '@/stores';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import Animated, { LinearTransition } from 'react-native-reanimated';
 
 type Props = {};
 
@@ -36,8 +37,10 @@ const Favorites = observer((props: Props) => {
 				<NoData message='No Favorites' />
 			) : (
 				<View className='p-6 flex-1'>
-					<FlatList
+					<Animated.FlatList
 						data={offers}
+						itemLayoutAnimation={LinearTransition}
+						keyExtractor={(item) => item.id}
 						contentContainerStyle={{ gap: 14 }}
 						renderItem={({ item }) => (
 							<OfferCard offer={item} closeOnUnfavorite={true} />
