@@ -2,7 +2,7 @@ import Typography from '@/components/Typography/Typography';
 import { IOffer } from '@/entities/offer.entity';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { favoritesStore, languageStore } from '@/stores';
-import { formatUploadPath, wait } from '@/utils/utils';
+import { formatUploadPath } from '@/utils/utils';
 import Ionicons from '@expo/vector-icons/AntDesign';
 import { Image } from 'expo-image';
 import { observer } from 'mobx-react-lite';
@@ -31,15 +31,15 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 	const [modalVisible, setModalVisible] = useState(false);
 	const favorite = isFavorite(offer.id);
 	const toast = useToast();
-	const toggleFavorite = async () => {
-		if (closeOnUnfavorite) {
-			setModalVisible(false);
-			await wait(500);
-		}
+	const toggleFavorite = async ({ modal }: { modal: boolean }) => {
 		if (favorite) {
+			if (closeOnUnfavorite && modal) {
+				setModalVisible(false);
+			}
 			removeFavorite(offer);
 		} else {
 			addFavorite(offer);
+
 			toast.show(translations.toast.addFavorite, { type: 'success' });
 		}
 	};
@@ -71,7 +71,12 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 						>
 							{offer.title[langKey]}
 						</Typography>
-						<Pressable onPress={toggleFavorite} hitSlop={20}>
+						<Pressable
+							onPress={() => {
+								toggleFavorite({ modal: false });
+							}}
+							hitSlop={20}
+						>
 							<Ionicons
 								size={22}
 								name={favorite ? 'heart' : 'hearto'}
@@ -117,7 +122,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 				<ToastProvider placement='top' offsetTop={75}>
 					<OfferModalContent
 						offer={offer}
-						toggleFavorite={toggleFavorite}
+						toggleFavorite={() => toggleFavorite({ modal: true })}
 						favorite={favorite}
 						closeHandler={() => setModalVisible(false)}
 					/>
