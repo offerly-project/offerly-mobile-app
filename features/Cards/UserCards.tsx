@@ -3,6 +3,7 @@ import Button from '@/components/Button/Buttton';
 import Link from '@/components/Typography/Link';
 import Typography from '@/components/Typography/Typography';
 import { SCREEN_WIDTH } from '@/constants/screens';
+import { FLATLIST_TRANSITION } from '@/constants/transitions';
 import { useThemeContext } from '@/contexts/ThemeContext';
 import { ICard } from '@/entities/card.entity';
 import CardCard from '@/features/Cards/CardCard';
@@ -97,12 +98,13 @@ const Cards = observer(() => {
 				<Typography variant='body' weight='bold' color={theme['--text']} className='pb-2'>
 					{bankName}
 				</Typography>
-				<ScrollView
+				<Animated.FlatList
 					horizontal
 					showsHorizontalScrollIndicator={false}
+					data={cards}
+					itemLayoutAnimation={FLATLIST_TRANSITION}
 					contentContainerStyle={styles.cardRow}
-				>
-					{cards.map((card) => (
+					renderItem={({ item: card }) => (
 						<View key={card.id} className='mx-2'>
 							<CardCard
 								key={card.id}
@@ -111,8 +113,8 @@ const Cards = observer(() => {
 								onPress={() => handleCardSelect(card.id)}
 							/>
 						</View>
-					))}
-				</ScrollView>
+					)}
+				/>
 			</View>
 		));
 
