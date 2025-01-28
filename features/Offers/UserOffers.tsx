@@ -30,10 +30,11 @@ const Offers = observer((props: Props) => {
 	const { translations, language } = languageStore();
 	const [offersHeader, setOffersHeader] = useState<string>('');
 	const [appliedFilterCount, setAppliedFilterCount] = useState<number>(0);
+
 	const [offersFilter, setOffersFilter] = useState<IOfferFilter>({
 		card: [],
 		category: [],
-		sortKey: '' as SortKey,
+		sortKey: `expiry_date` as SortKey,
 		sortDirection: 'asc' as sortDirection,
 	});
 

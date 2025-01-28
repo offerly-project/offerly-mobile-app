@@ -262,7 +262,9 @@
 		"addFavorite": "Offer added to favorites",
 		"passwordChanged": "Password changed successfully",
 		"contactMessageSent": "Message sent successfully",
-		"signupSuccess": "Signup successful"
+		"signupSuccess": "Signup successful",
+		"nameUpdated": "Name updated successfully",
+		"phoneNumberUpdated": "Phone number updated successfully"
 	},
 	"warning": {
 		"deleteCards": {

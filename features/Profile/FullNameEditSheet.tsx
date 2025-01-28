@@ -6,6 +6,7 @@ import { languageStore, userStore } from '@/stores';
 import { translateRequiredError } from '@/utils/utils';
 import { useState } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 type Props = {
 	closeHandler: () => void;
@@ -43,6 +44,10 @@ const FullNameEditSheet = ({ closeHandler, initialFullName }: Props) => {
 						try {
 							setLoading(true);
 							await userStore().updateUser({ full_name: fullName });
+							Toast.show({
+								type: 'success',
+								text1: translations.toast.nameUpdated,
+							});
 							closeHandler();
 						} catch (e) {
 							setError(translations.errors.error);

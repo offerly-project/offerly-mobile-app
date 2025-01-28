@@ -159,7 +159,7 @@ const OffersFilter = ({ filter, setFilter, closeHandler }: Props) => {
 				/>
 				<RadioButton
 					label={translations.tabs.offers.offersFilter.sort.alphabet}
-					value={language == 'ar' ? 'alphabet_ar' : 'alphabet_en'}
+					value={`alphabet_${langKey}`}
 					selectedValue={filter.sortKey}
 					onPress={(value) => handleRadioSelection(value)}
 				/>

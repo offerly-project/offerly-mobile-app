@@ -8,6 +8,7 @@ import { translateInvalidError } from '@/utils/utils';
 import parsePhoneNumber, { ParseError, parsePhoneNumberWithError } from 'libphonenumber-js';
 import { useState } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 type Props = {
 	closeHandler: () => void;
@@ -58,6 +59,10 @@ const PhoneNumberEditSheet = ({ closeHandler, initialPhoneNumber }: Props) => {
 									phone_number: phoneNumber.split(' ').join(''),
 								})
 								.then(() => {
+									Toast.show({
+										type: 'success',
+										text1: translations.toast.phoneNumberUpdated,
+									});
 									closeHandler();
 								});
 						} catch (e) {
