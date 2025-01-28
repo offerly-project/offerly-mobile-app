@@ -263,7 +263,10 @@
 		"discountCopied": "تم نسخ الرمز الترويجي بنجاح",
 		"addCards": "تمت إضافة البطاقات المحددة بنجاح",
 		"deleteCards": "تم حذف البطاقات المحددة بنجاح",
-		"addFavorite": "تمت إضافة العرض إلى المفضلة"
+		"addFavorite": "تمت إضافة العرض إلى المفضلة",
+		"passwordChanged": "تم تغيير كلمة المرور بنجاح",
+		"contactMessageSent": "تم إرسال الرسالة بنجاح",
+		"signupSuccess": "تم التسجيل بنجاح"
 	},
 	"warning": {
 		"deleteCards": {

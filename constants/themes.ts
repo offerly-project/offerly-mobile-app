@@ -1,15 +1,3 @@
-/**
- * Variables
- * - primary
- * - secondary
- * - background
- * - light-background
- * - text
- * - card
- * - static
- * - danger
- */
-
 export const themes = {
 	dark: {
 		'--primary': '#8188d9',
@@ -22,6 +10,10 @@ export const themes = {
 		'--static': '#ffffff',
 		'--danger': '#E53935',
 		'--shade': 'rgba(255,255,255,0.2)',
+		'--toast-bg': '#1E1E1E',
+		'--toast-success': '#2E7D32',
+		'--toast-error': '#B71C1C',
+		'--toast-info': '#fffff',
 	},
 	light: {
 		'--primary': '#6633cc',
@@ -34,7 +26,10 @@ export const themes = {
 		'--static': '#ffffff',
 		'--danger': '#D32F2F',
 		'--shade': 'rgba(0,0,0,0.1)',
+		'--toast-bg': '#F9FAFB',
+		'--toast-success': '#4CAF50',
+		'--toast-error': '#E53935',
+		'--toast-info': '#00000',
 	},
 };
-
 export type ThemeStyle = (typeof themes)['dark'] | (typeof themes)['light'];

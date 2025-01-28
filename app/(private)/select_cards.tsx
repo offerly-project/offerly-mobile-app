@@ -22,7 +22,7 @@ import { extractApiError, fillArrayWithPlaceholders, formatUploadPath } from '@/
 import { isAxiosError } from 'axios';
 import { router } from 'expo-router';
 import { observer } from 'mobx-react-lite';
-import { useToast } from 'react-native-toast-notifications';
+import Toast from 'react-native-toast-message';
 
 const COLUMNS_NUMBER = 3;
 const GAP = 10;
@@ -119,22 +119,30 @@ const SelectCards = observer(() => {
 		3,
 	);
 
-	const toast = useToast();
 	const onAdd = async () => {
 		setLoading((prev) => ({ ...prev, adding: true }));
 		try {
 			await CardsApi.patchUserCards(selectedCards);
 			await cardsStore().fetchUserCards();
 			router.back();
-			toast.show(translations.toast.addCards, { type: 'success' });
+			Toast.show({
+				type: 'success',
+				text1: translations.toast.addCards,
+			});
 		} catch (error) {
 			if (isAxiosError(error)) {
 				const apiError = extractApiError(error);
 				if (apiError.code === ErrorCodes.UPDATE_USER_FAILED) {
-					toast.show(translations.errors.updatingCards, { type: 'danger' });
+					Toast.show({
+						type: 'danger',
+						text1: translations.errors.updatingCards,
+					});
 				}
 			} else {
-				toast.show(translations.errors.error, { type: 'danger' });
+				Toast.show({
+					type: 'danger',
+					text1: translations.errors.error,
+				});
 			}
 		} finally {
 			setLoading((prev) => ({ ...prev, adding: false }));

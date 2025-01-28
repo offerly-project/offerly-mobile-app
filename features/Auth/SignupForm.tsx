@@ -10,7 +10,7 @@ import { languageStore, userStore } from '@/stores';
 import { translateInvalidError, translateRequiredError } from '@/utils/utils';
 import { router } from 'expo-router';
 import { ActivityIndicator, View } from 'react-native';
-import { useToast } from 'react-native-toast-notifications';
+import Toast from 'react-native-toast-message';
 import z from 'zod';
 
 export default function SignupForm() {
@@ -27,8 +27,6 @@ export default function SignupForm() {
 	type FormValues = z.infer<typeof schema>;
 	const theme = useThemeStyles();
 
-	const toast = useToast();
-
 	const { handleSubmit, setValues, loading, errors, submittable, values, serverError } =
 		useForm<FormValues>({
 			initialValues: {
@@ -41,7 +39,10 @@ export default function SignupForm() {
 				const { full_name, email, password } = values;
 				const response = await userStore().signup(email, password, full_name);
 				if (response) {
-					toast.show('Signup successful', { type: 'success' });
+					Toast.show({
+						type: 'success',
+						text1: translations.toast.signupSuccess,
+					});
 					router.replace('/login');
 				}
 			},

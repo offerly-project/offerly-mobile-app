@@ -8,8 +8,9 @@ import { Image } from 'expo-image';
 import { observer } from 'mobx-react-lite';
 import moment from 'moment';
 import { useState } from 'react';
-import { LayoutAnimation, Modal, Pressable, StyleProp, TextStyle, View } from 'react-native';
-import { ToastProvider, useToast } from 'react-native-toast-notifications';
+import { Modal, Pressable, StyleProp, TextStyle, View } from 'react-native';
+
+import Toast from 'react-native-toast-message';
 import OfferModalContent from './OfferModalContent';
 
 type Props = {
@@ -30,18 +31,20 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 	const { addFavorite, removeFavorite, isFavorite } = favoritesStore();
 	const [modalVisible, setModalVisible] = useState(false);
 	const favorite = isFavorite(offer.id);
-	const toast = useToast();
+
 	const toggleFavorite = async ({ modal }: { modal: boolean }) => {
 		if (favorite) {
 			if (closeOnUnfavorite && modal) {
 				setModalVisible(false);
 			}
 			removeFavorite(offer);
-			LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
 		} else {
 			addFavorite(offer);
-
-			toast.show(translations.toast.addFavorite, { type: 'success' });
+			if (!modal)
+				Toast.show({
+					type: 'success',
+					text1: translations.toast.addFavorite,
+				});
 		}
 	};
 
@@ -120,14 +123,12 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 				visible={modalVisible}
 				animationType='slide'
 			>
-				<ToastProvider placement='top' offsetTop={75}>
-					<OfferModalContent
-						offer={offer}
-						toggleFavorite={() => toggleFavorite({ modal: true })}
-						favorite={favorite}
-						closeHandler={() => setModalVisible(false)}
-					/>
-				</ToastProvider>
+				<OfferModalContent
+					offer={offer}
+					toggleFavorite={() => toggleFavorite({ modal: true })}
+					favorite={favorite}
+					closeHandler={() => setModalVisible(false)}
+				/>
 			</Modal>
 		</>
 	);

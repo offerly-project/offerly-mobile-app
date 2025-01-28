@@ -9,7 +9,7 @@ import { languageStore, userStore } from '@/stores';
 import { translateInvalidError, translateRequiredError } from '@/utils/utils';
 import { router } from 'expo-router';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
-import { useToast } from 'react-native-toast-notifications';
+import Toast from 'react-native-toast-message';
 import { z } from 'zod';
 
 type Props = {};
@@ -18,7 +18,7 @@ const INPUT_CLASS = 'h-[45]';
 
 const ContactUsModal = (props: Props) => {
 	const { user, isGuest } = userStore();
-	const toast = useToast();
+
 	const { translations } = languageStore();
 	const theme = useThemeStyles();
 	const schema = z.object({
@@ -45,7 +45,10 @@ const ContactUsModal = (props: Props) => {
 				await UserApi.userContact(values.subject, values.message);
 			}
 			router.back();
-			toast.show('Message sent successfully', { type: 'success' });
+			Toast.show({
+				type: 'success',
+				text1: translations.toast.contactMessageSent,
+			});
 		},
 	});
 

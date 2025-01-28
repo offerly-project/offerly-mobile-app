@@ -1,7 +1,7 @@
 import { getBaseScreenLayout } from '@/constants/screens';
 import { ThemeContextProvider } from '@/contexts/ThemeContext';
 import { useNetworkObserver } from '@/hooks/useNetworkObserver';
-import { TAB_LAYOUT_HEADER_HEIGHT } from '@/layouts/TabLayout';
+import ToastLayout from '@/layouts/ToastLayout';
 import { languageStore, staticDataStore, themeStore, uiStore, userStore } from '@/stores';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useFonts } from 'expo-font';
@@ -11,7 +11,6 @@ import { useEffect, useState } from 'react';
 import { ScrollView, StatusBar, Text } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { EventProvider } from 'react-native-outside-press';
-import { ToastProvider } from 'react-native-toast-notifications';
 import '../global.css';
 
 SplashScreen.preventAutoHideAsync();
@@ -60,9 +59,9 @@ export const RootLayout = observer(() => {
 	if (loading) return null;
 	return (
 		<EventProvider>
-			<ToastProvider placement='top' offsetTop={TAB_LAYOUT_HEADER_HEIGHT}>
-				<ThemeContextProvider>
-					{(theme) => (
+			<ThemeContextProvider>
+				{(theme) => (
+					<ToastLayout>
 						<GestureHandlerRootView style={{ flex: 1 }}>
 							<StatusBar
 								translucent
@@ -86,9 +85,9 @@ export const RootLayout = observer(() => {
 								</Stack>
 							</BottomSheetModalProvider>
 						</GestureHandlerRootView>
-					)}
-				</ThemeContextProvider>
-			</ToastProvider>
+					</ToastLayout>
+				)}
+			</ThemeContextProvider>
 		</EventProvider>
 	);
 });

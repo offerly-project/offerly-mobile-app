@@ -12,7 +12,7 @@ import { Image } from 'expo-image';
 import moment from 'moment';
 import { useMemo } from 'react';
 import { Linking, Pressable, ScrollView, StyleSheet, View } from 'react-native';
-import { useToast } from 'react-native-toast-notifications';
+import Toast from 'react-native-toast-message';
 import CardCard from '../Cards/CardCard';
 import { OfferModalFooterBuildElement } from './OfferCard';
 
@@ -26,8 +26,6 @@ type Props = {
 const OfferModalContent = ({ offer, toggleFavorite, favorite, closeHandler }: Props) => {
 	const theme = useThemeStyles();
 	const { language: langKey, translations } = languageStore();
-
-	const Toast = useToast();
 
 	const offerDateRangeFormat = useMemo(() => {
 		const expFmt = moment(offer?.expiry_date?.toString()).format('DD/MM/YYYY');
@@ -61,9 +59,9 @@ const OfferModalContent = ({ offer, toggleFavorite, favorite, closeHandler }: Pr
 				onPress: async () => {
 					await Clipboard.setStringAsync(offer.discount_code);
 
-					Toast.show(translations.toast.discountCopied, {
-						type: 'normal',
-						duration: 2000,
+					Toast.show({
+						type: 'success',
+						text1: translations.toast.discountCopied,
 					});
 				},
 			});

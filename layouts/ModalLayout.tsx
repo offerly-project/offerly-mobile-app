@@ -4,8 +4,7 @@ import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { router } from 'expo-router';
 import { Platform, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ToastProvider } from 'react-native-toast-notifications';
-import { TAB_LAYOUT_HEADER_HEIGHT } from './TabLayout';
+import ToastLayout from './ToastLayout';
 
 type Props = {
 	children: React.ReactNode;
@@ -16,7 +15,7 @@ const ModalLayout = ({ children, title }: Props) => {
 	const theme = useThemeStyles();
 	const { top } = useSafeAreaInsets();
 	return (
-		<ToastProvider placement='top' offsetTop={TAB_LAYOUT_HEADER_HEIGHT}>
+		<ToastLayout>
 			<View
 				className='px-4 pb-8 flex-1'
 				style={{ paddingTop: Platform.OS === 'android' ? top + 20 : 0 }}
@@ -39,7 +38,7 @@ const ModalLayout = ({ children, title }: Props) => {
 				</View>
 				{children}
 			</View>
-		</ToastProvider>
+		</ToastLayout>
 	);
 };
 

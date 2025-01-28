@@ -11,7 +11,7 @@ type Props = {
 	leading?: React.ReactNode;
 };
 
-export const TAB_LAYOUT_HEADER_HEIGHT = 110;
+export const TOAST_OFFSET = 60;
 
 const TabLayout = ({ children, title, trailing, leading }: Props) => {
 	const { top } = useSafeAreaInsets();

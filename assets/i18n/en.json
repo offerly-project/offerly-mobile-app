@@ -259,7 +259,10 @@
 		"discountCopied": "Discount code copied to clipboard",
 		"addCards": "Selected Cards added successfully",
 		"deleteCards": "Selected Cards deleted successfully",
-		"addFavorite": "Offer added to favorites"
+		"addFavorite": "Offer added to favorites",
+		"passwordChanged": "Password changed successfully",
+		"contactMessageSent": "Message sent successfully",
+		"signupSuccess": "Signup successful"
 	},
 	"warning": {
 		"deleteCards": {

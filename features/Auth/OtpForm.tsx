@@ -10,7 +10,7 @@ import { isAxiosError } from 'axios';
 import { useLocalSearchParams } from 'expo-router/build/hooks';
 import { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Animated, TouchableOpacity, View } from 'react-native';
-import { useToast } from 'react-native-toast-notifications';
+import Toast from 'react-native-toast-message';
 import NewPasswordForm from './NewPasswordForm';
 
 export default function OtpForm() {
@@ -31,8 +31,6 @@ export default function OtpForm() {
 	const [timeLeft, setTimeLeft] = useState(30);
 	const [showTimer, setShowTimer] = useState(true);
 	const fadeAnim = useRef(new Animated.Value(1)).current; // Animation value for fading
-
-	const toast = useToast();
 
 	const formatTime = (seconds: number) => {
 		const minutes = Math.floor(seconds / 60);
@@ -59,10 +57,16 @@ export default function OtpForm() {
 			if (isAxiosError(err)) {
 				const apiError = extractApiError(err);
 				if (apiError.code === ErrorCodes.INVALID_OTP) {
-					toast.show(translations.errors.invalidOtp, { type: 'error' });
+					Toast.show({
+						type: 'error',
+						text1: translations.errors.invalidOtp,
+					});
 				}
 			} else {
-				toast.show(translations.errors.error, { type: 'error' });
+				Toast.show({
+					type: 'error',
+					text1: translations.errors.error,
+				});
 			}
 		} finally {
 			setLoading(false);

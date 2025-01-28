@@ -17,7 +17,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, Alert, Pressable, StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
-import { useToast } from 'react-native-toast-notifications';
+import Toast from 'react-native-toast-message';
 
 const Cards = observer(() => {
 	// Hooks and theme
@@ -48,7 +48,7 @@ const Cards = observer(() => {
 		);
 	};
 	const themeName = useThemeContext().theme;
-	const toast = useToast();
+
 	const handleRemove = () => {
 		Alert.alert(
 			translations.warning.deleteCards.title,
@@ -64,9 +64,15 @@ const Cards = observer(() => {
 							await CardsApi.deleteUserCards(selectedCards);
 							await cardsStore().fetchUserCards();
 							setSelectedCards([]);
-							toast.show(translations.toast.deleteCards, { type: 'success' });
+							Toast.show({
+								type: 'success',
+								text1: translations.toast.deleteCards,
+							});
 						} catch (e) {
-							toast.show(translations.errors.deleteCards, { type: 'danger' });
+							Toast.show({
+								type: 'error',
+								text1: translations.errors.error,
+							});
 						} finally {
 							setRemoving(false);
 						}
