@@ -1,4 +1,4 @@
-package com.jadhamwi21.offerlymobileapp
+package com.offerly.mobile
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build

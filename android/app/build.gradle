@@ -86,9 +86,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'com.jadhamwi21.offerlymobileapp'
+    namespace 'com.offerly.mobile'
     defaultConfig {
-        applicationId 'com.jadhamwi21.offerlymobileapp'
+        applicationId 'com.offerly.mobile'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

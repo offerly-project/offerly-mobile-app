@@ -25,7 +25,7 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="myapp"/>
-        <data android:scheme="com.jadhamwi21.offerlymobileapp"/>
+        <data android:scheme="com.offerly.mobile"/>
         <data android:scheme="exp+offerly-mobile-app"/>
       </intent-filter>
     </activity>

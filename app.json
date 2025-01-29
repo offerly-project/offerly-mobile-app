@@ -10,7 +10,7 @@
 		"newArchEnabled": true,
 		"ios": {
 			"supportsTablet": true,
-			"bundleIdentifier": "com.jadhamwi21.offerly-mobile-app",
+			"bundleIdentifier": "com.offerly.mobile",
 			"backgroundColor": "#6633cc",
 			"icon": "./assets/icons/app-icon-ios.png",
 			"infoPlist": {
@@ -24,7 +24,7 @@
 				"foregroundImage": "./assets/icons/app-icon-android.png",
 				"backgroundColor": "#6633cc"
 			},
-			"package": "com.jadhamwi21.offerlymobileapp"
+			"package": "com.offerly.mobile"
 		},
 		"web": {
 			"bundler": "metro",
