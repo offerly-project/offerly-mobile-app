@@ -1,7 +1,7 @@
 import Typography from '@/components/Typography/Typography';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Platform, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type Props = {
@@ -20,7 +20,7 @@ const TabLayout = ({ children, title, trailing, leading }: Props) => {
 		<View style={{ flex: 1, backgroundColor: theme['--background'] }}>
 			<LinearGradient
 				colors={['rgba(32,19,75,1)', 'rgba(90,46,182,1)', 'rgba(32,19,75,1)']}
-				style={{ paddingTop: top + (Platform.OS === 'android' ? 25 : 0) }}
+				style={{ paddingTop: top }}
 				start={{ x: 0, y: 0 }}
 				end={{ x: 1, y: 0 }}
 				locations={[0, 0.5, 1]}

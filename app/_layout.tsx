@@ -5,7 +5,8 @@ import ToastLayout from '@/layouts/ToastLayout';
 import { languageStore, staticDataStore, themeStore, uiStore, userStore } from '@/stores';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useFonts } from 'expo-font';
-import { SplashScreen, Stack } from 'expo-router';
+import { Stack } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
 import { ScrollView, StatusBar, Text } from 'react-native';
@@ -14,6 +15,9 @@ import { EventProvider } from 'react-native-outside-press';
 import '../global.css';
 
 SplashScreen.preventAutoHideAsync();
+SplashScreen.setOptions({
+	fade: true,
+});
 
 //@ts-ignore
 Text.defaultProps = {
