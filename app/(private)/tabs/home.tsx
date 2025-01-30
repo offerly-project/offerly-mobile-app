@@ -1,13 +1,14 @@
 import Typography from '@/components/Typography/Typography';
-import { StyleSheet, View } from 'react-native';
+import TabLayout from '@/layouts/TabLayout';
+import { StyleSheet } from 'react-native';
 
 type Props = {};
 
 const Home = (props: Props) => {
 	return (
-		<View>
+		<TabLayout title='Home'>
 			<Typography>home</Typography>
-		</View>
+		</TabLayout>
 	);
 };
 

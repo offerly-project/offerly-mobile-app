@@ -46,13 +46,12 @@ export class UserStore {
 	@action
 	setup = async () => {
 		try {
-			await Promise.all([this.rootStore.languageStore.setup()]);
-
 			const token = await SecureStorage.getItem('token');
 			const isGuest = (await PlainStorage.getItem('guest')) === 'true';
 			if (token && !isGuest) {
 				AxiosAuthInterceptorManager.addInterceptor(token);
 				const user = await UserApi.me();
+
 				runInAction(() => {
 					this.authenticated = true;
 					this.user = new User(_.omit(user, ['favorites', 'cards']), token);

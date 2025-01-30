@@ -50,7 +50,7 @@ export const RootLayout = observer(() => {
 					await Promise.all([languageStore().setup(), themeStore().setup()]);
 					await uiStore().setup();
 					await userStore().setup();
-					SplashScreen.hideAsync();
+					SplashScreen.hide();
 
 					setLoading(false);
 				});

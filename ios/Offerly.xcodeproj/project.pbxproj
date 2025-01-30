@@ -10,38 +10,38 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		2941927E8B8F442DB4C87A9E /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1609AFC6437B475D8E4AEC39 /* noop-file.swift */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		4188F39B7CB5462E9D60A08B /* Tajawal-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31679428E9504254A8FE15DA /* Tajawal-Medium.ttf */; };
-		6DAF983502624DE581581263 /* Tajawal-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 82D084E835754FC48CCABC9A /* Tajawal-Bold.ttf */; };
-		84B99074C1E142A1ADF11A3B /* Tajawal-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0D54A3FDA41145C09C622FDA /* Tajawal-Regular.ttf */; };
+		406816EED7F5407B90CA02B4 /* Tajawal-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6DCF18825BC49C6BE4D8162 /* Tajawal-Regular.ttf */; };
+		4649AA86DF864278B342C711 /* Tajawal-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7599F72724A74D36A5B9636F /* Tajawal-Bold.ttf */; };
+		574C69F977174DBB86D93461 /* Tajawal-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 38B29D56CF6C43419D72D30E /* Tajawal-Light.ttf */; };
 		96905EF65AED1B983A6B3ABC /* libPods-Offerly.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-Offerly.a */; };
-		A3DF2E4C71244617B3FC8C57 /* Tajawal-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F571C04D4D964C45BAC4F371 /* Tajawal-Light.ttf */; };
+		B09A011FECFB4BB68C65A47F /* Tajawal-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BE007D080EE74E33B8800E7A /* Tajawal-Medium.ttf */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		CFC3E37CEC7E46AA9F945DB2 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EDCB0B99EC4983B5FE3CB7 /* noop-file.swift */; };
-		F9EEA6FB3FED7B6160EAEED4 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 600895389E2CA7EF07245542 /* PrivacyInfo.xcprivacy */; };
+		EEAAF2EC3FFDF7E73C5FB633 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 31B96FB25EA6B30F96609930 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0D54A3FDA41145C09C622FDA /* Tajawal-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Tajawal-Regular.ttf"; path = "../assets/fonts/Tajawal-Regular.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Offerly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Offerly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Offerly/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = Offerly/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Offerly/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Offerly/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Offerly/main.m; sourceTree = "<group>"; };
-		31679428E9504254A8FE15DA /* Tajawal-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Tajawal-Medium.ttf"; path = "../assets/fonts/Tajawal-Medium.ttf"; sourceTree = "<group>"; };
+		1609AFC6437B475D8E4AEC39 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "Offerly/noop-file.swift"; sourceTree = "<group>"; };
+		31B96FB25EA6B30F96609930 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = Offerly/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		38B29D56CF6C43419D72D30E /* Tajawal-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Tajawal-Light.ttf"; path = "../assets/fonts/Tajawal-Light.ttf"; sourceTree = "<group>"; };
 		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-Offerly.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Offerly.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		600895389E2CA7EF07245542 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = Offerly/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		6C2E3173556A471DD304B334 /* Pods-Offerly.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offerly.debug.xcconfig"; path = "Target Support Files/Pods-Offerly/Pods-Offerly.debug.xcconfig"; sourceTree = "<group>"; };
+		7599F72724A74D36A5B9636F /* Tajawal-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Tajawal-Bold.ttf"; path = "../assets/fonts/Tajawal-Bold.ttf"; sourceTree = "<group>"; };
 		7A4D352CD337FB3A3BF06240 /* Pods-Offerly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offerly.release.xcconfig"; path = "Target Support Files/Pods-Offerly/Pods-Offerly.release.xcconfig"; sourceTree = "<group>"; };
-		82D084E835754FC48CCABC9A /* Tajawal-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Tajawal-Bold.ttf"; path = "../assets/fonts/Tajawal-Bold.ttf"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = Offerly/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		EAFFD359D79742649A06C898 /* Offerly-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "Offerly-Bridging-Header.h"; path = "Offerly/Offerly-Bridging-Header.h"; sourceTree = "<group>"; };
+		BE007D080EE74E33B8800E7A /* Tajawal-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Tajawal-Medium.ttf"; path = "../assets/fonts/Tajawal-Medium.ttf"; sourceTree = "<group>"; };
+		C572A18BB17E476FA2E6E3F8 /* Offerly-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "Offerly-Bridging-Header.h"; path = "Offerly/Offerly-Bridging-Header.h"; sourceTree = "<group>"; };
+		C6DCF18825BC49C6BE4D8162 /* Tajawal-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Tajawal-Regular.ttf"; path = "../assets/fonts/Tajawal-Regular.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F0EDCB0B99EC4983B5FE3CB7 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "Offerly/noop-file.swift"; sourceTree = "<group>"; };
-		F571C04D4D964C45BAC4F371 /* Tajawal-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Tajawal-Light.ttf"; path = "../assets/fonts/Tajawal-Light.ttf"; sourceTree = "<group>"; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-Offerly/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -57,18 +57,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0E649951CF30467585C9E88F /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				82D084E835754FC48CCABC9A /* Tajawal-Bold.ttf */,
-				0D54A3FDA41145C09C622FDA /* Tajawal-Regular.ttf */,
-				F571C04D4D964C45BAC4F371 /* Tajawal-Light.ttf */,
-				31679428E9504254A8FE15DA /* Tajawal-Medium.ttf */,
-			);
-			name = Resources;
-			path = "";
-			sourceTree = "<group>";
-		};
 		13B07FAE1A68108700A75B9A /* Offerly */ = {
 			isa = PBXGroup;
 			children = (
@@ -79,9 +67,9 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				F0EDCB0B99EC4983B5FE3CB7 /* noop-file.swift */,
-				EAFFD359D79742649A06C898 /* Offerly-Bridging-Header.h */,
-				600895389E2CA7EF07245542 /* PrivacyInfo.xcprivacy */,
+				1609AFC6437B475D8E4AEC39 /* noop-file.swift */,
+				C572A18BB17E476FA2E6E3F8 /* Offerly-Bridging-Header.h */,
+				31B96FB25EA6B30F96609930 /* PrivacyInfo.xcprivacy */,
 			);
 			name = Offerly;
 			sourceTree = "<group>";
@@ -111,7 +99,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D65327D7A22EEC0BE12398D9 /* Pods */,
 				D7E4C46ADA2E9064B798F356 /* ExpoModulesProviders */,
-				0E649951CF30467585C9E88F /* Resources */,
+				B1E6CF38D8974F56A7BB7964 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -132,6 +120,18 @@
 				FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */,
 			);
 			name = Offerly;
+			sourceTree = "<group>";
+		};
+		B1E6CF38D8974F56A7BB7964 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7599F72724A74D36A5B9636F /* Tajawal-Bold.ttf */,
+				C6DCF18825BC49C6BE4D8162 /* Tajawal-Regular.ttf */,
+				38B29D56CF6C43419D72D30E /* Tajawal-Light.ttf */,
+				BE007D080EE74E33B8800E7A /* Tajawal-Medium.ttf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 		BB2F792B24A3F905000567C9 /* Supporting */ = {
@@ -168,13 +168,13 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Offerly" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				43CA4EF52DFEB274DFBA3DCB /* [Expo] Configure project */,
+				BF562E2BAFC577F9624AEB13 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				866FFDC304F99FBF48F81545 /* [CP] Embed Pods Frameworks */,
+				B430ABB782F40A76D3383D98 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -224,11 +224,11 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				6DAF983502624DE581581263 /* Tajawal-Bold.ttf in Resources */,
-				84B99074C1E142A1ADF11A3B /* Tajawal-Regular.ttf in Resources */,
-				A3DF2E4C71244617B3FC8C57 /* Tajawal-Light.ttf in Resources */,
-				4188F39B7CB5462E9D60A08B /* Tajawal-Medium.ttf in Resources */,
-				F9EEA6FB3FED7B6160EAEED4 /* PrivacyInfo.xcprivacy in Resources */,
+				4649AA86DF864278B342C711 /* Tajawal-Bold.ttf in Resources */,
+				406816EED7F5407B90CA02B4 /* Tajawal-Regular.ttf in Resources */,
+				574C69F977174DBB86D93461 /* Tajawal-Light.ttf in Resources */,
+				B09A011FECFB4BB68C65A47F /* Tajawal-Medium.ttf in Resources */,
+				EEAAF2EC3FFDF7E73C5FB633 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,25 +271,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
-		};
-		43CA4EF52DFEB274DFBA3DCB /* [Expo] Configure project */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[Expo] Configure project";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-Offerly/expo-configure-project.sh\"\n";
 		};
 		800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -341,7 +322,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Offerly/Pods-Offerly-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		866FFDC304F99FBF48F81545 /* [CP] Embed Pods Frameworks */ = {
+		B430ABB782F40A76D3383D98 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -359,6 +340,25 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Offerly/Pods-Offerly-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		BF562E2BAFC577F9624AEB13 /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-Offerly/expo-configure-project.sh\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -369,7 +369,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
-				CFC3E37CEC7E46AA9F945DB2 /* noop-file.swift in Sources */,
+				2941927E8B8F442DB4C87A9E /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,7 +400,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.offerly.mobile;
-				PRODUCT_NAME = Offerly;
+				PRODUCT_NAME = "Offerly";
 				SWIFT_OBJC_BRIDGING_HEADER = "Offerly/Offerly-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -428,7 +428,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.offerly.mobile;
-				PRODUCT_NAME = Offerly;
+				PRODUCT_NAME = "Offerly";
 				SWIFT_OBJC_BRIDGING_HEADER = "Offerly/Offerly-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
