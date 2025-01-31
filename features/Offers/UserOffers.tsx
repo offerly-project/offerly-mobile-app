@@ -56,6 +56,10 @@ const Offers = observer((props: Props) => {
 			queryDependencies: [search, offersFilter],
 		});
 
+	useEffect(() => {
+		handleRefresh();
+	}, [cardsStore().userCardsList]);
+
 	const renderFooter = () => {
 		if (!loadingMore || data.length < 8) return null;
 		return <ActivityIndicator color={theme['--primary']} animating size='small' />;
