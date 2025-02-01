@@ -1,12 +1,13 @@
 import NoData from '@/components/Fallback/NoData';
-import { FLATLIST_TRANSITION } from '@/constants/transitions';
+import { FLATLIST_TRANSITION, SKELETON_TRANSITIONS } from '@/constants/transitions';
 import OfferCard from '@/features/Offers/OfferCard';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import TabLayout from '@/layouts/TabLayout';
 import { favoritesStore, languageStore, userStore } from '@/stores';
 import { observer } from 'mobx-react-lite';
+import { Skeleton } from 'moti/skeleton';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Animated from 'react-native-reanimated';
 
 type Props = {};
@@ -31,9 +32,18 @@ const Favorites = observer((props: Props) => {
 	return (
 		<TabLayout title={translations.tabs.favorites.tabName}>
 			{loading ? (
-				<View className='flex-1 justify-center items-center'>
-					<ActivityIndicator size='small' color={theme['--primary']} />
-				</View>
+				new Array(Math.floor(3)).fill(0).map((_, i) => (
+					<View className='m-6' key={i}>
+						<Skeleton
+							radius={20}
+							transition={SKELETON_TRANSITIONS}
+							colors={theme.skeleton}
+							show={true}
+							height={125}
+							width={'100%'}
+						/>
+					</View>
+				))
 			) : offers.length === 0 ? (
 				<NoData message='No Favorites' />
 			) : (
