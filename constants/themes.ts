@@ -22,7 +22,7 @@ export const themes = {
 		'--toast-success': '#2E7D32',
 		'--toast-error': '#B71C1C',
 		'--toast-info': '#fffff',
-		skeleton: constructSkeletonColor('#ABB1E5', '#BDC5EC', '#ABB1E5'),
+		skeleton: constructSkeletonColor('#8188d9', '#A1B0D6', '#8188d9'),
 	},
 	light: {
 		'--primary': '#6633cc',
@@ -39,8 +39,7 @@ export const themes = {
 		'--toast-success': '#4CAF50',
 		'--toast-error': '#E53935',
 		'--toast-info': '#00000',
-		skeleton: ['#9270E8', '#9270E8', '#A996F0', '#9270E8', '#9270E8'],
-		Skeleton: constructSkeletonColor('#9270E8', '#A996F0', '#9270E8'),
+		skeleton: constructSkeletonColor('#9270E8', '#A996F0', '#9270E8'),
 	},
 };
 export type ThemeStyle = (typeof themes)['dark'] | (typeof themes)['light'];

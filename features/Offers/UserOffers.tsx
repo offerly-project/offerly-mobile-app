@@ -3,6 +3,7 @@ import BottomSheetWrapper from '@/components/BottomSheet/BottomSheetWrapper';
 import Input from '@/components/Input/Input';
 import NoCards from '@/components/Messages/NoCards';
 import Typography from '@/components/Typography/Typography';
+import { SKELETON_TRANSITIONS } from '@/constants/transitions';
 import { IOffer, IOfferFilter, sortDirection, SortKey } from '@/entities/offer.entity';
 import Categories from '@/features/Offers/Categories';
 import OfferCard from '@/features/Offers/OfferCard';
@@ -13,6 +14,7 @@ import TabLayout from '@/layouts/TabLayout';
 import { cardsStore, languageStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
 import { observer } from 'mobx-react-lite';
+import { Skeleton } from 'moti/skeleton';
 import { useEffect, useState } from 'react';
 import {
 	ActivityIndicator,
@@ -66,7 +68,13 @@ const Offers = observer((props: Props) => {
 		return <ActivityIndicator color={theme['--primary']} animating size='small' />;
 	};
 
+	const userCards = cardsStore().userCardsList;
+
 	useEffect(() => {
+		if (cardsStore().userCardsList.length === 0) {
+			setOffersHeader('');
+			return;
+		}
 		if (offersFilter.card.length === 0) return setOffersHeader(translations.tabs.offers.header);
 		if (offersFilter.card.length === 1)
 			return setOffersHeader(
@@ -82,7 +90,7 @@ const Offers = observer((props: Props) => {
 					' ' +
 					translations.tabs.offers.headerForSelectedCard.segement2,
 			);
-	}, [offersFilter.card]);
+	}, [offersFilter.card, userCards]);
 
 	useEffect(() => {
 		const countAppliedFilters = () => {
@@ -145,28 +153,36 @@ const Offers = observer((props: Props) => {
 						/>
 					</View>
 				</View>
+				<Typography
+					numberOfLines={1}
+					align='center'
+					variant='body'
+					// color={theme['--primary']}
+					className='m-auto border-b-2 border-selected'
+					weight='bold'
+				>
+					{offersHeader}
+				</Typography>
 
-				{cardsStore().userCardsList.length === 0 ? (
+				{userCards.length === 0 ? (
 					<NoCards />
 				) : initialLoader ? (
-					<ActivityIndicator
-						className='flex-1'
-						size='small'
-						animating
-						color={theme['--primary']}
-					/>
+					<View className='flex-1 px-4'>
+						<Skeleton.Group show={true}>
+							{new Array(4).fill(0).map((_, i) => (
+								<View className='my-4' key={i}>
+									<Skeleton
+										colors={theme.skeleton}
+										height={110}
+										width={'100%'}
+										transition={SKELETON_TRANSITIONS}
+									/>
+								</View>
+							))}
+						</Skeleton.Group>
+					</View>
 				) : (
 					<>
-						<Typography
-							numberOfLines={1}
-							align='center'
-							variant='body'
-							// color={theme['--primary']}
-							className='m-auto border-b-2 border-selected'
-							weight='bold'
-						>
-							{offersHeader}
-						</Typography>
 						<FlatList
 							data={data}
 							contentContainerStyle={{ gap: 10, paddingHorizontal: 12 }}
