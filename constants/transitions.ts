@@ -8,6 +8,6 @@ export const SKELETON_TRANSITIONS: MotiTransitionProp = {
 		loop: true,
 		repeatReverse: false,
 		type: 'timing',
-		duration: 1500,
+		duration: 1000,
 	},
 };
