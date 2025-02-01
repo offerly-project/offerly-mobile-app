@@ -8,7 +8,7 @@ import { useThemeStyles } from '@/hooks/useThemeStyles';
 import AuthLayout from '@/layouts/AuthLayout';
 import { languageStore, userStore } from '@/stores';
 import { router } from 'expo-router';
-import { SafeAreaView, View } from 'react-native';
+import { View } from 'react-native';
 
 export default function index() {
 	const theme = useThemeStyles();
@@ -35,7 +35,7 @@ export default function index() {
 						</Typography>
 					</Button>
 				</View>
-				<View className='absolute bottom-0'>
+				<View className='absolute bottom-4'>
 					<Link
 						color={theme['--primary']}
 						onPress={async () => {
