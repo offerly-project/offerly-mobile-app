@@ -1,6 +1,6 @@
 import { CardsApi } from '@/api/cards.api';
 import Button from '@/components/Button/Buttton';
-import Link from '@/components/Typography/Link';
+import NoCards from '@/components/Messages/NoCards';
 import Typography from '@/components/Typography/Typography';
 import { SCREEN_WIDTH } from '@/constants/screens';
 import { FLATLIST_TRANSITION } from '@/constants/transitions';
@@ -141,17 +141,7 @@ const Cards = observer(() => {
 			<View style={styles.container}>
 				{/* Cards List */}
 				{userCardsList.length === 0 ? (
-					<View className='items-center justify-center h-full w-full'>
-						<Typography variant='body' color={theme['--text']}>
-							{translations.noCards.title}
-						</Typography>
-						<Link
-							onPress={() => router.push('/(private)/select_cards')}
-							color={theme['--primary']}
-						>
-							{translations.noCards.link}
-						</Link>
-					</View>
+					<NoCards />
 				) : (
 					<ScrollView style={styles.cardList}>{renderGroupedCards()}</ScrollView>
 				)}

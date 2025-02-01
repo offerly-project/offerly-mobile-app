@@ -1,6 +1,7 @@
 import { OffersApi } from '@/api/offers.api';
 import BottomSheetWrapper from '@/components/BottomSheet/BottomSheetWrapper';
 import Input from '@/components/Input/Input';
+import NoCards from '@/components/Messages/NoCards';
 import Typography from '@/components/Typography/Typography';
 import { IOffer, IOfferFilter, sortDirection, SortKey } from '@/entities/offer.entity';
 import Categories from '@/features/Offers/Categories';
@@ -34,7 +35,7 @@ const Offers = observer((props: Props) => {
 	const [offersFilter, setOffersFilter] = useState<IOfferFilter>({
 		card: [],
 		category: [],
-		sortKey: `expiry_date` as SortKey,
+		sortKey: '' as SortKey,
 		sortDirection: 'asc' as sortDirection,
 	});
 
@@ -144,18 +145,10 @@ const Offers = observer((props: Props) => {
 						/>
 					</View>
 				</View>
-				<Typography
-					numberOfLines={1}
-					align='center'
-					variant='body'
-					// color={theme['--primary']}
-					className='m-auto border-b-2 border-selected'
-					weight='bold'
-				>
-					{offersHeader}
-				</Typography>
 
-				{initialLoader ? (
+				{cardsStore().userCardsList.length === 0 ? (
+					<NoCards />
+				) : initialLoader ? (
 					<ActivityIndicator
 						className='flex-1'
 						size='small'
@@ -163,22 +156,34 @@ const Offers = observer((props: Props) => {
 						color={theme['--primary']}
 					/>
 				) : (
-					<FlatList
-						data={data}
-						contentContainerStyle={{ gap: 10, paddingHorizontal: 12 }}
-						keyExtractor={(item) => item.id.toString()}
-						renderItem={({ item }) => <OfferCard offer={item} />}
-						refreshControl={
-							<RefreshControl
-								tintColor={theme['--primary']}
-								refreshing={refreshing}
-								onRefresh={handleRefresh}
-							/>
-						}
-						ListFooterComponent={renderFooter}
-						onEndReached={loadMore}
-						onEndReachedThreshold={0.1}
-					/>
+					<>
+						<Typography
+							numberOfLines={1}
+							align='center'
+							variant='body'
+							// color={theme['--primary']}
+							className='m-auto border-b-2 border-selected'
+							weight='bold'
+						>
+							{offersHeader}
+						</Typography>
+						<FlatList
+							data={data}
+							contentContainerStyle={{ gap: 10, paddingHorizontal: 12 }}
+							keyExtractor={(item) => item.id.toString()}
+							renderItem={({ item }) => <OfferCard offer={item} />}
+							refreshControl={
+								<RefreshControl
+									tintColor={theme['--primary']}
+									refreshing={refreshing}
+									onRefresh={handleRefresh}
+								/>
+							}
+							ListFooterComponent={renderFooter}
+							onEndReached={loadMore}
+							onEndReachedThreshold={0.1}
+						/>
+					</>
 				)}
 			</View>
 		</TabLayout>
