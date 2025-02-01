@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "329651075241",
+    "project_id": "offerly-f1f24",
+    "storage_bucket": "offerly-f1f24.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:329651075241:android:1df17fc6d8db602eaf91b8",
+        "android_client_info": {
+          "package_name": "com.offerly.me"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoRI5pjWcG5IsCMpjwkdYvx8EY52Kcfyw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

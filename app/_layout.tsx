@@ -1,6 +1,7 @@
 import { getBaseScreenLayout } from '@/constants/screens';
 import { ThemeContextProvider } from '@/contexts/ThemeContext';
 import { useNetworkObserver } from '@/hooks/useNetworkObserver';
+import { useNotifications } from '@/hooks/useNotifications';
 import ToastLayout from '@/layouts/ToastLayout';
 import { languageStore, staticDataStore, themeStore, uiStore, userStore } from '@/stores';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
@@ -38,6 +39,8 @@ export const RootLayout = observer(() => {
 		'Tajawal-Bold': require('@/assets/fonts/Tajawal-Bold.ttf'),
 		'Tajawal-Light': require('@/assets/fonts/Tajawal-Light.ttf'),
 	});
+
+	useNotifications();
 
 	const [loading, setLoading] = useState(true);
 

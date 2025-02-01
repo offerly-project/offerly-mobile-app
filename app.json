@@ -10,21 +10,23 @@
 		"newArchEnabled": true,
 		"ios": {
 			"supportsTablet": true,
-			"bundleIdentifier": "com.offerly.mobile",
+			"bundleIdentifier": "com.offerly.me",
 			"backgroundColor": "#6633cc",
 			"icon": "./assets/icons/app-icon-ios.png",
 			"infoPlist": {
 				"NSAppTransportSecurity": {
 					"NSAllowsArbitraryLoads": true
 				}
-			}
+			},
+			"googleServicesFile": "./GoogleService-Info.plist"
 		},
 		"android": {
 			"adaptiveIcon": {
 				"foregroundImage": "./assets/icons/app-icon-android.png",
 				"backgroundColor": "#6633cc"
 			},
-			"package": "com.offerly.mobile"
+			"package": "com.offerly.me",
+			"googleServicesFile": "./google-services.json"
 		},
 		"web": {
 			"bundler": "metro",
@@ -32,6 +34,7 @@
 			"favicon": "./assets/images/favicon.png"
 		},
 		"plugins": [
+			"@react-native-firebase/app",
 			"expo-router",
 			[
 				"expo-splash-screen",

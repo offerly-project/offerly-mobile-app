@@ -1,4 +1,4 @@
-package com.offerly.mobile
+package com.offerly.me
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build

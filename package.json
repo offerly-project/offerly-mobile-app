@@ -20,6 +20,8 @@
     "@gorhom/bottom-sheet": "^5.0.6",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-native-community/netinfo": "^11.4.1",
+    "@react-native-firebase/app": "^21.7.1",
+    "@react-native-firebase/messaging": "^21.7.1",
     "@react-navigation/bottom-tabs": "^7.0.0",
     "@react-navigation/native": "^7.0.0",
     "axios": "^1.7.8",
@@ -66,7 +68,8 @@
     "react-native-toast-notifications": "^3.4.0",
     "react-native-web": "~0.19.13",
     "react-native-webview": "13.12.5",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "expo-notifications": "~0.29.13"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
