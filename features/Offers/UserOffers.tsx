@@ -153,16 +153,18 @@ const Offers = observer((props: Props) => {
 						/>
 					</View>
 				</View>
-				<Typography
-					numberOfLines={1}
-					align='center'
-					variant='body'
-					// color={theme['--primary']}
-					className='m-auto border-b-2 border-selected'
-					weight='bold'
-				>
-					{offersHeader}
-				</Typography>
+				{offersHeader && (
+					<Typography
+						numberOfLines={1}
+						align='center'
+						variant='body'
+						// color={theme['--primary']}
+						className='m-auto border-b-2 border-selected'
+						weight='bold'
+					>
+						{offersHeader}
+					</Typography>
+				)}
 
 				{userCards.length === 0 ? (
 					<NoCards />

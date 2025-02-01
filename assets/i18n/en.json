@@ -63,7 +63,7 @@
 				"Online": "Online",
 				"In-Store": "In-Store"
 			},
-			"tabName": "Offers",
+			"tabName": "My Offers",
 			"header": "Offers for all My Cards",
 			"headerForSelectedCard": {
 				"segement1": "Offers for",

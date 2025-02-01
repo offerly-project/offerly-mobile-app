@@ -64,12 +64,6 @@ const Categories = ({ filter, setFilter, sheeted }: Props) => {
 	const [categories, setCategories] = useState(categoriesList);
 	const categoriesScrollViewRef = useRef<ScrollView>(null);
 
-	const scrollToSelectedCategory = () => {
-		return isRtl
-			? categoriesScrollViewRef.current?.scrollToEnd({ animated: true })
-			: categoriesScrollViewRef.current?.scrollTo({ x: 0, y: 0, animated: true });
-	};
-
 	useEffect(() => {
 		if (filter.category.length) {
 			setCategories((prevCategories) => {

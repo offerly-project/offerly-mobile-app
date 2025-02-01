@@ -131,10 +131,14 @@ const Cards = observer(() => {
 				<Button
 					className='aspect-square '
 					hapticFeedback
-					style={{ borderColor: theme['--selected'] }}
+					style={{
+						backgroundColor: theme['--primary'],
+						height: 30,
+						borderWidth: 0,
+					}}
 					onPress={() => router.push('/(private)/select_cards')}
 				>
-					<Ionicons name='add' size={24} color={theme['--static']} />
+					<Ionicons name='add' size={28} color={theme['--static']} />
 				</Button>
 			}
 		>

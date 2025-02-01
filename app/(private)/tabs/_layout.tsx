@@ -49,16 +49,16 @@ export const Layout = observer(() => {
 					options={{
 						tabBarItemStyle: {
 							position: 'relative',
-							top: -6,
+							top: -0,
 						},
 						title: translations.tabs.offers.tabName,
-						tabBarIcon: ({ color }) => (
-							<View className='rounded-full bg-primary items-center justify-center h-12 w-12 mb-6'>
+						tabBarIcon: () => (
+							<View className='rounded-full bg-primary items-center justify-center h-14 w-14 mb-8'>
 								<Image
 									source={Logo}
 									style={{
-										height: 18,
-										width: 22,
+										height: 20,
+										width: 26,
 									}}
 								/>
 							</View>
