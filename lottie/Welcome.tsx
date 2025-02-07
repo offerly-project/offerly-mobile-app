@@ -22,7 +22,7 @@ const Welcome = ({ onFinish }: Props) => {
 			source={require('./animations/welcome-animation.json')}
 			autoPlay
 			loop={false}
-			speed={2.5}
+			speed={1.25}
 			style={{
 				width: '100%',
 				height: '100%',
