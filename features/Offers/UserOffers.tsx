@@ -49,6 +49,7 @@ const Offers = observer((props: Props) => {
 			getQuery: (page, limit) =>
 				OffersApi.buildGetOffersQuery({
 					card: offersFilter.card.join(','),
+					bank: '',
 					category: offersFilter.category.join(','),
 					page,
 					limit,

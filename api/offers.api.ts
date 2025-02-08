@@ -4,6 +4,7 @@ import { AxiosResponse } from 'axios';
 
 interface IGetOfferQuery {
 	card: string;
+	bank: string;
 	category: string;
 	page: number;
 	limit: number;
@@ -16,6 +17,7 @@ export class OffersApi {
 	public static buildGetOffersQuery = (params: IGetOfferQuery) => {
 		const query = new URLSearchParams();
 		if (params.card) query.append('card', params.card);
+		if (params.bank) query.append('bank', params.bank);
 		if (params.category) query.append('category', encodeURIComponent(params.category));
 		if (params.page) query.append('page', params.page.toString());
 		if (params.limit) query.append('limit', params.limit.toString());
