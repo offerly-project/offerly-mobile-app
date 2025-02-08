@@ -1,10 +1,10 @@
+import Logo from '@/assets/icons/logo-white.png';
 import Typography from '@/components/Typography/Typography';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Logo from '@/assets/icons/logo-white.png';
-import { Image } from 'expo-image';
 
 type Props = {
 	children: React.ReactNode;
@@ -29,11 +29,12 @@ const TabLayout = ({ children, title, trailing, leading }: Props) => {
 			>
 				<Image
 					source={Logo}
+					key={Logo}
 					style={{
 						transform: [{ scale: 1.5 }],
 						height: 100,
 						width: 300,
-						opacity: 0.05,
+						opacity: 0.027,
 						position: 'absolute',
 						left: 0,
 					}}
