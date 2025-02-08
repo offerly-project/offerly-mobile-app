@@ -1,37 +1,44 @@
+import { userStore } from '@/stores';
 import messaging from '@react-native-firebase/messaging';
 import * as Notifications from 'expo-notifications';
 import { useEffect } from 'react';
 
-const requestUserPermission = async () => {
-	const authStatus = await messaging().requestPermission();
-	const enabled =
-		authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-		authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
-	if (enabled) {
-		console.log('Authorization status:', authStatus);
-	}
-};
-
-Notifications.setNotificationHandler({
-	handleNotification: async () => ({
-		shouldShowAlert: true,
-		shouldPlaySound: true,
-		shouldSetBadge: false,
-	}),
-});
-
 export const useNotifications = () => {
+	const getUserPermission = async () => {
+		const authStatus = await messaging().requestPermission();
+		return authStatus;
+	};
 	useEffect(() => {
-		requestUserPermission().then(() => {
+		(async function () {
+			Notifications.setNotificationHandler({
+				handleNotification: async () => ({
+					shouldShowAlert: true,
+					shouldPlaySound: true,
+					shouldSetBadge: true,
+				}),
+			});
+
+			const permissions = await getUserPermission();
+			if (
+				permissions !== messaging.AuthorizationStatus.AUTHORIZED &&
+				permissions !== messaging.AuthorizationStatus.PROVISIONAL
+			) {
+				userStore().updateUser({
+					notification_token: null,
+				});
+				return;
+			}
+
 			messaging()
 				.getToken()
 				.then((token) => {
-					console.log('Token:', token);
+					userStore().updateUser({
+						notification_token: token,
+					});
 				})
 				.catch((e) => {
 					console.error(e);
 				});
-		});
+		})();
 	}, []);
 };

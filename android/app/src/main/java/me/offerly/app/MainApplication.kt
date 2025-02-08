@@ -1,4 +1,4 @@
-package com.offerly.me
+package me.offerly.app
 
 import android.app.Application
 import android.content.res.Configuration

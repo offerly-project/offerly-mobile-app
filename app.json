@@ -10,7 +10,7 @@
 		"newArchEnabled": true,
 		"ios": {
 			"supportsTablet": true,
-			"bundleIdentifier": "com.offerly.me",
+			"bundleIdentifier": "me.offerly.app",
 			"backgroundColor": "#6633cc",
 			"icon": "./assets/icons/app-icon-ios.png",
 			"infoPlist": {
@@ -25,8 +25,7 @@
 				"foregroundImage": "./assets/icons/app-icon-android.png",
 				"backgroundColor": "#6633cc"
 			},
-			"package": "com.offerly.me",
-			"googleServicesFile": "./google-services.json"
+			"package": "me.offerly.app"
 		},
 		"web": {
 			"bundler": "metro",
@@ -64,7 +63,8 @@
 						"usesCleartextTraffic": true
 					},
 					"ios": {
-						"flipper": true
+						"flipper": true,
+						"useFrameworks": "static"
 					}
 				}
 			],

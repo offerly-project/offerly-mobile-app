@@ -1,4 +1,5 @@
 import { getBaseScreenLayout } from '@/constants/screens';
+import { useNotifications } from '@/hooks/useNotifications';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { cardsStore, userStore } from '@/stores';
 import { Redirect, Stack } from 'expo-router';
@@ -18,6 +19,7 @@ export const PrivateLayout = observer(() => {
 			setLoading(false);
 		})();
 	}, []);
+	useNotifications();
 
 	if (loading)
 		return (
@@ -29,6 +31,7 @@ export const PrivateLayout = observer(() => {
 	if (!authenticated) {
 		return <Redirect href={'/(public)/auth'} />;
 	}
+
 	return (
 		<Stack screenOptions={getBaseScreenLayout(theme)}>
 			<Stack.Screen name='tabs' />
