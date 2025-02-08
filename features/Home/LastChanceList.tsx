@@ -14,6 +14,7 @@ import { SKELETON_TRANSITIONS } from '@/constants/transitions';
 import OfferModalContent from '../Offers/OfferModalContent';
 import React from 'react';
 import { observer } from 'mobx-react-lite';
+import moment from 'moment';
 
 const LastChanceList = observer(() => {
 	const [lastChanceOffers, setLastChanceOffers] = useState<IOffer[]>([]);
@@ -51,7 +52,12 @@ const LastChanceList = observer(() => {
 		setLastChanceModalVisible(true);
 		setSelectedOffer(offer);
 	};
-
+	const calculateReminingTime = (offer: IOffer) => {
+		const now = new Date();
+		const expireDate = new Date(offer.expiry_date);
+		const diffDays = moment(expireDate).diff(moment(now), 'days');
+		return diffDays + ' ' + translations.tabs.home.headers.days;
+	};
 	return (
 		<View className='gap-2 p-2 shadow-sm  bg-selected rounded-lg '>
 			<View className='flex-row gap-2 ml-3 items-baseline'>
@@ -96,7 +102,7 @@ const LastChanceList = observer(() => {
 									style={styles.logo}
 									contentFit='cover'
 								/>
-								<View className='gap-2'>
+								<View className='gap-1'>
 									<Typography
 										style={{ lineHeight: 22 }}
 										weight='bold'
@@ -106,6 +112,15 @@ const LastChanceList = observer(() => {
 										color={theme['--text']}
 									>
 										{item.title[language]}
+									</Typography>
+									<Typography
+										variant='caption'
+										weight='bold'
+										color={theme['--danger']}
+									>
+										{translations.tabs.home.headers.expiresIn +
+											' ' +
+											calculateReminingTime(item)}
 									</Typography>
 									<Typography
 										style={{ lineHeight: 18 }}

@@ -60,7 +60,10 @@
 			"headers": {
 				"banks": "Banks we support",
 				"lastChance": "Last chance",
-				"recentlyAdded": "Recently added"
+				"recentlyAdded": "Recently added",
+				"expiresIn": "Expires in",
+				"days": "days"
+
 			}
 		},
 		"offers": {
