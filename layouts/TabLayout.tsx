@@ -3,6 +3,8 @@ import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Logo from '@/assets/icons/logo-white.png';
+import { Image } from 'expo-image';
 
 type Props = {
 	children: React.ReactNode;
@@ -25,6 +27,17 @@ const TabLayout = ({ children, title, trailing, leading }: Props) => {
 				end={{ x: 1, y: 0 }}
 				locations={[0, 0.5, 1]}
 			>
+				<Image
+					source={Logo}
+					style={{
+						transform: [{ scale: 1.5 }],
+						height: 100,
+						width: 300,
+						opacity: 0.05,
+						position: 'absolute',
+						left: 0,
+					}}
+				/>
 				<View className='flex flex-row justify-between items-center h-[50] px-4'>
 					<View className='flex-row flex-1 justify-start items-center'>{leading}</View>
 					<Typography
