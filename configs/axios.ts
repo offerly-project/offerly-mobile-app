@@ -7,14 +7,12 @@ export const axiosInstance = axios.create({
 // Log requests and URLs
 axiosInstance.interceptors.request.use(
 	(config) => {
-		console.log(`Request URL: ${config.baseURL}${config.url}`);
-		console.log(`Request Method: ${config.method}`);
-		if (config.headers) {
-			console.log('Request Headers:', config.headers);
+		// write log here for request full url
+		if (config.url) {
+			config.url = encodeURI(config.url);
 		}
-		if (config.data) {
-			console.log('Request Data:', config.data);
-		}
+		console.log('Request:', config.url);
+
 		return config;
 	},
 	(error) => {

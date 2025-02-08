@@ -1,17 +1,17 @@
-import { View, Modal, TouchableOpacity, StyleSheet } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { BanksApi } from '@/api/banks.api';
 import BankOffers from '@/app/(private)/(modals)/bank_offers';
 import Typography from '@/components/Typography/Typography';
 import { SKELETON_TRANSITIONS } from '@/constants/transitions';
 import { IBank } from '@/entities/bank.entity';
+import { useThemeStyles } from '@/hooks/useThemeStyles';
+import { languageStore } from '@/stores';
 import { formatUploadPath } from '@/utils/utils';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Skeleton } from 'moti/skeleton';
-import { ScrollView } from 'react-native-gesture-handler';
 import { Image } from 'expo-image';
-import { useThemeStyles } from '@/hooks/useThemeStyles';
-import { BanksApi } from '@/api/banks.api';
-import { languageStore } from '@/stores';
+import { Skeleton } from 'moti/skeleton';
+import React, { useEffect, useState } from 'react';
+import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const BanksList = () => {
 	const [banks, setBanks] = useState<IBank[]>([]);
@@ -42,7 +42,7 @@ const BanksList = () => {
 	return (
 		<View className='gap-2'>
 			<View className='flex-row gap-2 ml-3 items-baseline'>
-				<MaterialCommunityIcons size={24} name='bank' />
+				<MaterialCommunityIcons size={24} name='bank' color={theme['--text']} />
 
 				<Typography variant='h3' weight='bold'>
 					{translations.tabs.home.headers.banks}
