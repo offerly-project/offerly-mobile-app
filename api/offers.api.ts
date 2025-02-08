@@ -16,12 +16,13 @@ export class OffersApi {
 	public static buildGetOffersQuery = (params: IGetOfferQuery) => {
 		const query = new URLSearchParams();
 		if (params.card) query.append('card', params.card);
-		if (params.category) query.append('category', encodeURI(params.category));
+		if (params.category) query.append('category', encodeURIComponent(params.category));
 		if (params.page) query.append('page', params.page.toString());
 		if (params.limit) query.append('limit', params.limit.toString());
-		if (params.sort_by) query.append('sort_by', encodeURI(params.sort_by));
-		if (params.sort_direction) query.append('sort_direction', encodeURI(params.sort_direction));
-		if (params.q) query.append('q', encodeURI(params.q));
+		if (params.sort_by) query.append('sort_by', encodeURIComponent(params.sort_by));
+		if (params.sort_direction)
+			query.append('sort_direction', encodeURIComponent(params.sort_direction));
+		if (params.q) query.append('q', encodeURIComponent(params.q));
 
 		return query.toString();
 	};
