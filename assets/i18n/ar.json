@@ -56,7 +56,14 @@
 	},
 	"tabs": {
 		"home": {
-			"tabName": "الرئيسية"
+			"tabName": "الرئيسية",
+			"headers": {
+				"banks": "البنوك التي ندعمها",
+				"lastChance": "آخر فرصة",
+				"recentlyAdded": "اضيف مؤخرًا",
+				"expiresIn": "ينتهي خلال",
+				"days": "أيام"
+			}
 		},
 		"offers": {
 			"types": {
@@ -257,7 +264,8 @@
 		"selectBank": "اٰختر بنك",
 		"selectCard": "اٰختر بطاقة",
 		"phoneNumber": "رقم الجوال",
-		"multipleCardsSelected": "تم تحديد عدة بطاقات"
+		"multipleCardsSelected": "تم تحديد عدة بطاقات",
+		"homePagePlaceholder" : "ابحث عن العروض أو المتاجر.."
 	},
 	"toast": {
 		"discountCopied": "تم نسخ الرمز الترويجي بنجاح",

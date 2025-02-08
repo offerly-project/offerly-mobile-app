@@ -1,12 +1,12 @@
 import { getAuthScreenLayout } from '@/constants/screens';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
-import { languageStore, userStore } from '@/stores';
+import { userStore } from '@/stores';
 import { Redirect, Stack } from 'expo-router';
 import { observer } from 'mobx-react-lite';
 
 export const PublicLayout = observer(() => {
 	const { authenticated } = userStore();
-	const { translations } = languageStore();
+
 	const theme = useThemeStyles();
 
 	if (authenticated) {

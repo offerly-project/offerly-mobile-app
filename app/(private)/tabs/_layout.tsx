@@ -22,8 +22,6 @@ export const Layout = observer(() => {
 						backgroundColor: theme['--background'],
 						borderTopWidth: 1,
 						borderTopColor: theme['--background'],
-						paddingTop: 6,
-						height: 80,
 					},
 				}}
 				initialRouteName={'offers'}
@@ -47,10 +45,6 @@ export const Layout = observer(() => {
 				<Tabs.Screen
 					name={'offers'}
 					options={{
-						tabBarItemStyle: {
-							position: 'relative',
-							top: -0,
-						},
 						title: translations.tabs.offers.tabName,
 						tabBarIcon: () => (
 							<View className='rounded-full bg-primary items-center justify-center h-14 w-14 mb-8'>

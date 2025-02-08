@@ -56,7 +56,15 @@
 	},
 	"tabs": {
 		"home": {
-			"tabName": "Home"
+			"tabName": "Home",
+			"headers": {
+				"banks": "Banks we support",
+				"lastChance": "Last chance",
+				"recentlyAdded": "Recently added",
+				"expiresIn": "Expires in",
+				"days": "days"
+
+			}
 		},
 		"offers": {
 			"types": {
@@ -253,7 +261,8 @@
 		"selectBank": "Select Bank",
 		"selectCard": "Select Card",
 		"phoneNumber": "Phone number",
-		"multipleCardsSelected": "Multiple cards selected"
+		"multipleCardsSelected": "Multiple cards selected",
+		"homePagePlaceholder" : "Search for offers or shops.."
 	},
 	"toast": {
 		"discountCopied": "Discount code copied to clipboard",
