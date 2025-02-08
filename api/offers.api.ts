@@ -52,4 +52,11 @@ export class OffersApi {
 			.then((res: AxiosResponse<IOffer[]>) => res.data);
 		return results;
 	};
+
+	public static searchOffers = async (query: string) => {
+		const results = await axiosInstance
+			.get(`/user/offers?q=${query}&card=*&limit=50`)
+			.then((res: AxiosResponse<{ data: IOffer[]; metadata: IOfferMetadata }>) => res.data);
+		return results.data;
+	};
 }
