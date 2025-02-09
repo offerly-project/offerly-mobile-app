@@ -5,7 +5,6 @@ import ConfigurationRouteChevronIcon from '@/features/Configuration/components/C
 import DeleteAccount from '@/features/Configuration/DeleteAccount';
 import LanguageSwitchList from '@/features/Configuration/LanguageSwitchList';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
-import TabLayout from '@/layouts/TabLayout';
 import { version as AppVersion } from '@/package.json';
 import { cardsStore, favoritesStore, languageStore, userStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
@@ -26,11 +25,10 @@ const AccountPage = observer(() => {
 		return [favoritesStore().favorites.length, cardsStore().userCardsList.length];
 	};
 
-	const { user, isGuest } = userStore();
-	const { isRtl } = languageStore();
+	const { isGuest } = userStore();
 
 	return (
-		<TabLayout title={user.full_name}>
+		<>
 			<View className='px-6'>
 				<View className='mt-3 items-center justify-center'>
 					<View className='mt-6 w-full'>
@@ -256,7 +254,7 @@ const AccountPage = observer(() => {
 					</Typography>
 				</View>
 			</View>
-		</TabLayout>
+		</>
 	);
 });
 

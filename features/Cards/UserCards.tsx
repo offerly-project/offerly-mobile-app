@@ -1,5 +1,4 @@
 import { CardsApi } from '@/api/cards.api';
-import Button from '@/components/Button/Buttton';
 import NoCards from '@/components/Messages/NoCards';
 import Typography from '@/components/Typography/Typography';
 import { SCREEN_WIDTH } from '@/constants/screens';
@@ -8,10 +7,8 @@ import { useThemeContext } from '@/contexts/ThemeContext';
 import { ICard } from '@/entities/card.entity';
 import CardCard from '@/features/Cards/CardCard';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
-import TabLayout from '@/layouts/TabLayout';
 import { cardsStore, languageStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, Alert, Pressable, StyleSheet, View } from 'react-native';
@@ -125,23 +122,7 @@ const Cards = observer(() => {
 		));
 
 	return (
-		<TabLayout
-			title={translations.tabs.cards.tabName}
-			trailing={
-				<Button
-					className='aspect-square '
-					hapticFeedback
-					style={{
-						backgroundColor: theme['--primary'],
-						height: 30,
-						borderWidth: 0,
-					}}
-					onPress={() => router.push('/(private)/select_cards')}
-				>
-					<Ionicons name='add' size={28} color={theme['--static']} />
-				</Button>
-			}
-		>
+		<>
 			<View style={styles.container}>
 				{/* Cards List */}
 				{userCardsList.length === 0 ? (
@@ -178,7 +159,7 @@ const Cards = observer(() => {
 					</Animated.View>
 				)}
 			</View>
-		</TabLayout>
+		</>
 	);
 });
 

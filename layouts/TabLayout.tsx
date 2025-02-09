@@ -22,14 +22,13 @@ const TabLayout = ({ children, title, trailing, leading }: Props) => {
 		<View style={{ flex: 1, backgroundColor: theme['--background'] }}>
 			<LinearGradient
 				colors={['rgba(32,19,75,1)', 'rgba(90,46,182,1)', 'rgba(32,19,75,1)']}
-				style={{ paddingTop: top }}
+				style={{ paddingTop: top, zIndex: 100 }}
 				start={{ x: 0, y: 0 }}
 				end={{ x: 1, y: 0 }}
 				locations={[0, 0.5, 1]}
 			>
 				<Image
 					source={Logo}
-					key={Logo}
 					style={{
 						transform: [{ scale: 1.5 }],
 						height: 100,
@@ -52,7 +51,7 @@ const TabLayout = ({ children, title, trailing, leading }: Props) => {
 					<View className='flex-row flex-1 justify-end items-center'>{trailing}</View>
 				</View>
 			</LinearGradient>
-			{children}
+			<View className='flex-1 relative'>{children}</View>
 		</View>
 	);
 };

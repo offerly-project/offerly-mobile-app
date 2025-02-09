@@ -6,7 +6,6 @@ import Categories from '@/features/Offers/Categories';
 import OfferCard from '@/features/Offers/OfferCard';
 import OffersFilter from '@/features/Offers/OffersFilter';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
-import TabLayout from '@/layouts/TabLayout';
 import { languageStore, userStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
 import { observer } from 'mobx-react-lite';
@@ -27,7 +26,7 @@ const GuestOffers = observer((props: Props) => {
 
 	const [offersFilter, setOffersFilter] = useState<IOfferFilter>({
 		card: [''],
-		category: '',
+		category: [],
 		sortKey: '' as SortKey,
 		sortDirection: 'asc' as sortDirection,
 	});
@@ -48,13 +47,15 @@ const GuestOffers = observer((props: Props) => {
 			);
 		}
 		if (offersFilter.category) {
-			list = list.filter((offer) => offer.categories.includes(offersFilter.category));
+			list = list.filter((offer) =>
+				offer.categories.some((cat) => offersFilter.category.includes(cat)),
+			);
 		}
 		return list;
 	}, [data, offersFilter.category, search]);
 
 	return (
-		<TabLayout title={translations.tabs.offers.tabName}>
+		<>
 			<View className='gap-4 flex-1 pt-3'>
 				<Categories filter={offersFilter} setFilter={setOffersFilter} />
 				<View className='w-[95%] flex-row gap-2 items-center m-auto'>
@@ -109,7 +110,7 @@ const GuestOffers = observer((props: Props) => {
 				)}
 				<GuestOffersMessage />
 			</View>
-		</TabLayout>
+		</>
 	);
 });
 

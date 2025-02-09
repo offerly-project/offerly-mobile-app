@@ -1,21 +1,10 @@
 import { SCREEN_WIDTH } from '@/constants/screens';
-import { useThemeStyles } from '@/hooks/useThemeStyles';
-import TabLayout from '@/layouts/TabLayout';
-import { languageStore } from '@/stores';
 import { observer } from 'mobx-react-lite';
 import { StyleSheet } from 'react-native';
 import CardsGuestMessage from './CardsGuestMessage';
 
 const Cards = observer(() => {
-	// Hooks and theme
-	const theme = useThemeStyles();
-	const { translations } = languageStore();
-
-	return (
-		<TabLayout title={translations.tabs.cards.tabName}>
-			<CardsGuestMessage />
-		</TabLayout>
-	);
+	return <CardsGuestMessage />;
 });
 
 export default Cards;

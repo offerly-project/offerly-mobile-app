@@ -2,7 +2,6 @@ import NoData from '@/components/Fallback/NoData';
 import { FLATLIST_TRANSITION, SKELETON_TRANSITIONS } from '@/constants/transitions';
 import OfferCard from '@/features/Offers/OfferCard';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
-import TabLayout from '@/layouts/TabLayout';
 import { favoritesStore, languageStore, userStore } from '@/stores';
 import { observer } from 'mobx-react-lite';
 import { Skeleton } from 'moti/skeleton';
@@ -30,7 +29,7 @@ const Favorites = observer((props: Props) => {
 	}, []);
 
 	return (
-		<TabLayout title={translations.tabs.favorites.tabName}>
+		<>
 			{loading ? (
 				new Array(Math.floor(3)).fill(0).map((_, i) => (
 					<View className='m-6' key={i}>
@@ -52,14 +51,14 @@ const Favorites = observer((props: Props) => {
 						data={offers}
 						itemLayoutAnimation={FLATLIST_TRANSITION}
 						keyExtractor={(item) => item.id}
-						contentContainerStyle={{ gap: 14, paddingBottom: 20 }}
+						contentContainerStyle={{ gap: 10, paddingBottom: 20 }}
 						renderItem={({ item }) => (
 							<OfferCard offer={item} closeOnUnfavorite={true} />
 						)}
 					/>
 				</View>
 			)}
-		</TabLayout>
+		</>
 	);
 });
 

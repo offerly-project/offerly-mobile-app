@@ -1,5 +1,6 @@
 import { OffersApi } from '@/api/offers.api';
 import BottomSheetWrapper from '@/components/BottomSheet/BottomSheetWrapper';
+import GoTopButton from '@/components/Button/GoTopButton';
 import Input from '@/components/Input/Input';
 import NoCards from '@/components/Messages/NoCards';
 import Typography from '@/components/Typography/Typography';
@@ -10,12 +11,11 @@ import OfferCard from '@/features/Offers/OfferCard';
 import OffersFilter from '@/features/Offers/OffersFilter';
 import usePagination from '@/hooks/usePagination';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
-import TabLayout from '@/layouts/TabLayout';
 import { cardsStore, languageStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
 import { observer } from 'mobx-react-lite';
 import { Skeleton } from 'moti/skeleton';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
 	ActivityIndicator,
 	FlatList,
@@ -24,6 +24,7 @@ import {
 	TouchableOpacity,
 	View,
 } from 'react-native';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 type Props = {};
 
@@ -110,50 +111,67 @@ const Offers = observer((props: Props) => {
 		setAppliedFilterCount(countAppliedFilters());
 	}, [offersFilter]);
 
-	return (
-		<TabLayout title={translations.tabs.offers.tabName}>
-			<View className='gap-4 flex-1 pt-3'>
-				<Categories filter={offersFilter} setFilter={setOffersFilter} />
-				<View className='w-[95%] flex-row gap-2 items-center m-auto'>
-					<BottomSheetWrapper
-						sheet={(closeHandler) => (
-							<OffersFilter
-								closeHandler={closeHandler}
-								filter={offersFilter}
-								setFilter={setOffersFilter}
-							/>
-						)}
-					>
-						{(openHandler) => (
-							<TouchableOpacity onPress={openHandler}>
-								{appliedFilterCount !== 0 && (
-									<View className='absolute -top-1 opacity-80 z-10 -right-1 w-[20px] h-[20px] bg-selected rounded-full'>
-										<Typography align='center' weight='bold' variant='label'>
-											{appliedFilterCount}
-										</Typography>
-									</View>
-								)}
-								<Ionicons
-									name='options-outline'
-									color={theme['--primary']}
-									size={36}
-								/>
-							</TouchableOpacity>
-						)}
-					</BottomSheetWrapper>
+	const scrollY = useSharedValue(0);
 
-					<View className='flex-1'>
-						<Input
-							trailingIcon={() => (
-								<Ionicons size={22} color={theme['--primary']} name='search' />
+	const goTopAnimation = useAnimatedStyle(() => {
+		const opacity = withTiming(scrollY.value > 150 ? 1 : 0, { duration: 250 });
+		return {
+			opacity,
+		};
+	});
+
+	const flatlistRef = useRef<FlatList<IOffer> | null>(null);
+
+	return (
+		<>
+			<View className='gap-4 flex-1 pt-3'>
+				<>
+					<Categories filter={offersFilter} setFilter={setOffersFilter} />
+					<View className='w-[95%] flex-row gap-2 items-center m-auto'>
+						<BottomSheetWrapper
+							sheet={(closeHandler) => (
+								<OffersFilter
+									closeHandler={closeHandler}
+									filter={offersFilter}
+									setFilter={setOffersFilter}
+								/>
 							)}
-							value={search}
-							onChangeText={setSearch}
-							placeholder={translations.placeholders.search}
-							variant='primary'
-						/>
+						>
+							{(openHandler) => (
+								<TouchableOpacity onPress={openHandler}>
+									{appliedFilterCount !== 0 && (
+										<View className='absolute -top-1 opacity-80 z-10 -right-1 w-[20px] h-[20px] bg-selected rounded-full'>
+											<Typography
+												align='center'
+												weight='bold'
+												variant='label'
+											>
+												{appliedFilterCount}
+											</Typography>
+										</View>
+									)}
+									<Ionicons
+										name='options-outline'
+										color={theme['--primary']}
+										size={36}
+									/>
+								</TouchableOpacity>
+							)}
+						</BottomSheetWrapper>
+
+						<View className='flex-1'>
+							<Input
+								trailingIcon={() => (
+									<Ionicons size={22} color={theme['--primary']} name='search' />
+								)}
+								value={search}
+								onChangeText={setSearch}
+								placeholder={translations.placeholders.search}
+								variant='primary'
+							/>
+						</View>
 					</View>
-				</View>
+				</>
 				{offersHeader && (
 					<Typography
 						numberOfLines={1}
@@ -185,7 +203,7 @@ const Offers = observer((props: Props) => {
 						</Skeleton.Group>
 					</View>
 				) : (
-					<>
+					<View className='relative flex-1'>
 						<FlatList
 							data={data}
 							contentContainerStyle={{ gap: 10, paddingHorizontal: 12 }}
@@ -198,17 +216,46 @@ const Offers = observer((props: Props) => {
 									onRefresh={handleRefresh}
 								/>
 							}
+							onScroll={(event) => {
+								scrollY.value = event.nativeEvent.contentOffset.y;
+							}}
+							ref={flatlistRef}
 							ListFooterComponent={renderFooter}
 							onEndReached={loadMore}
 							onEndReachedThreshold={0.1}
 						/>
-					</>
+
+						<Animated.View
+							style={[
+								styles.goTop,
+								goTopAnimation,
+								{ backgroundColor: theme['--primary'] },
+							]}
+						>
+							<GoTopButton
+								onPress={() => {
+									flatlistRef.current?.scrollToOffset({ offset: 0 });
+								}}
+							/>
+						</Animated.View>
+					</View>
 				)}
 			</View>
-		</TabLayout>
+		</>
 	);
 });
 
 export default Offers;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+	goTop: {
+		position: 'absolute',
+		bottom: 15,
+		right: 25,
+		height: 35,
+		width: 35,
+		borderRadius: 25,
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+});

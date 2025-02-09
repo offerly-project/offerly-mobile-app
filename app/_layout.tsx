@@ -10,7 +10,7 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
-import { ScrollView, StatusBar, Text, TouchableOpacity } from 'react-native';
+import { FlatList, ScrollView, StatusBar, Text, TouchableOpacity } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { EventProvider } from 'react-native-outside-press';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
@@ -25,6 +25,12 @@ Text.defaultProps = { allowFontScaling: false };
 // Disable scroll indicators globally
 //@ts-ignore
 ScrollView.defaultProps = {
+	showsVerticalScrollIndicator: false,
+	showsHorizontalScrollIndicator: false,
+	keyboardShouldPersistTaps: 'always',
+};
+//@ts-ignore
+FlatList.defaultProps = {
 	showsVerticalScrollIndicator: false,
 	showsHorizontalScrollIndicator: false,
 	keyboardShouldPersistTaps: 'always',
