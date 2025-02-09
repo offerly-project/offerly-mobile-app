@@ -65,7 +65,7 @@ const LastChanceList = observer(() => {
 			colors={gradient}
 			style={{
 				flex: 1,
-				padding: 20,
+				padding: 10,
 				borderRadius: 10,
 				position: 'relative',
 			}}
@@ -79,7 +79,7 @@ const LastChanceList = observer(() => {
 						style={{ width: 400, height: 600, opacity: 0.04 }}
 					/>
 				</View>
-				<View className='z-20'>
+				<View className='z-20 gap-3'>
 					<View className='flex-row gap-2 ml-3 items-baseline'>
 						<Octicons size={24} name='stopwatch' color='white' />
 
@@ -129,7 +129,7 @@ const LastChanceList = observer(() => {
 												numberOfLines={1}
 												align='center'
 												variant='body'
-												color={theme['--text']}
+												color={theme['--primary']}
 											>
 												{item.title[language]}
 											</Typography>

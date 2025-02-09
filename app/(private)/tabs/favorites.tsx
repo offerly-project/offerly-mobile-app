@@ -47,12 +47,12 @@ const Favorites = observer((props: Props) => {
 			) : offers.length === 0 ? (
 				<NoData message='No Favorites' />
 			) : (
-				<View className='p-6 flex-1'>
+				<View className='p-4 pb-0 flex-1'>
 					<Animated.FlatList
 						data={offers}
 						itemLayoutAnimation={FLATLIST_TRANSITION}
 						keyExtractor={(item) => item.id}
-						contentContainerStyle={{ gap: 14 }}
+						contentContainerStyle={{ gap: 14, paddingBottom: 20 }}
 						renderItem={({ item }) => (
 							<OfferCard offer={item} closeOnUnfavorite={true} />
 						)}

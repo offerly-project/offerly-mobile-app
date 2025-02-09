@@ -29,7 +29,7 @@ const Home = () => {
 
 	return (
 		<TabLayout title='Home'>
-			<View className='px-4 py-2'>
+			<View className='p-4'>
 				<Input
 					trailingIcon={() => (
 						<Ionicons size={22} color={theme['--primary']} name='search' />
@@ -40,7 +40,7 @@ const Home = () => {
 					variant='primary'
 				/>
 			</View>
-			<ScrollView className='px-3 py-5 mb-5' contentContainerClassName='gap-4'>
+			<ScrollView className='mx-3' contentContainerClassName='gap-4 last:pb-6'>
 				<BanksList />
 				<LastChanceList />
 				<RecenetlyAddedList />
