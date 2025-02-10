@@ -27,10 +27,12 @@ const getTitle = (name: string) => {
 
 const getTrailing = (name: string) => {
 	const theme = useThemeStyles();
+	const guest = userStore().isGuest;
 	switch (name) {
 		case 'cards':
 			return (
 				<Button
+					disabled={guest}
 					className='aspect-square '
 					hapticFeedback
 					style={{

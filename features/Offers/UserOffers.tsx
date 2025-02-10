@@ -67,15 +67,18 @@ const Offers = observer(() => {
 		if (!loadingMore) return null;
 		return (
 			<View className='flex-1 px-4'>
-				<View className='my-4'>
-					<Skeleton
-						colors={theme.skeleton}
-						height={110}
-						show
-						width={'100%'}
-						transition={SKELETON_TRANSITIONS}
-					/>
-				</View>
+				<Skeleton.Group show={true}>
+					{new Array(2).fill(0).map((_, i) => (
+						<View className='my-4' key={i}>
+							<Skeleton
+								colors={theme.skeleton}
+								height={110}
+								width={'100%'}
+								transition={SKELETON_TRANSITIONS}
+							/>
+						</View>
+					))}
+				</Skeleton.Group>
 			</View>
 		);
 	};
@@ -173,19 +176,21 @@ const Offers = observer(() => {
 						<Animated.View style={[animatedPaddingStyle, { flex: 1 }]}>
 							{initialLoader && (
 								<View className='flex-1 px-4'>
-									<View className='my-4'>
-										<Skeleton
-											colors={theme.skeleton}
-											height={110}
-											show
-											width={'100%'}
-											transition={SKELETON_TRANSITIONS}
-										/>
-									</View>
+									<Skeleton.Group show={true}>
+										{new Array(4).fill(0).map((_, i) => (
+											<View className='my-4' key={i}>
+												<Skeleton
+													colors={theme.skeleton}
+													height={110}
+													width={'100%'}
+													transition={SKELETON_TRANSITIONS}
+												/>
+											</View>
+										))}
+									</Skeleton.Group>
 								</View>
 							)}
 
-							{/* 🟢 FlatList with onScroll tracking */}
 							<FlatList
 								data={data}
 								keyExtractor={(item) => item.id.toString()}

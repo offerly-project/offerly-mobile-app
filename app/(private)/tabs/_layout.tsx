@@ -1,10 +1,9 @@
-import Logo from '@/assets/icons/logo-white.png';
+import Logo from '@/assets/icons/logo.svg';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import ScreensLayout from '@/layouts/ScreensLayout';
 import { languageStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { Image } from 'expo-image';
 import { Tabs } from 'expo-router';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
@@ -65,17 +64,26 @@ export const Layout = observer(() => {
 								position: 'relative',
 								top: 2,
 							},
-							tabBarIcon: () => (
-								<View className='rounded-full bg-primary items-center justify-center h-14 w-14 mb-8'>
-									<Image
-										source={Logo}
+							tabBarIcon: ({ focused }) => {
+								const iconColor = !focused ? theme['--primary'] : theme['--static'];
+								const bgColor = !focused ? 'bg-background' : 'bg-primary';
+								return (
+									<View
+										className={`rounded-full items-center justify-center mb-8 border border-primary ${bgColor}`}
 										style={{
-											height: 20,
-											width: 26,
+											height: 55,
+											width: 55,
 										}}
-									/>
-								</View>
-							),
+									>
+										<Logo
+											fill={iconColor}
+											style={{
+												transform: [{ scale: 0.7 }],
+											}}
+										/>
+									</View>
+								);
+							},
 						}}
 					/>
 					<Tabs.Screen

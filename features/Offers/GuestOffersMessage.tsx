@@ -10,7 +10,7 @@ const GuestOffersMessage = (props: Props) => {
 	const theme = useThemeStyles();
 	const { translations } = languageStore();
 	return (
-		<View className='w-full justify-center items-center'>
+		<View className='w-full justify-center items-center pb-10'>
 			<Link variant='body' color={theme['--primary']} weight='bold' onPress={guestSignup}>
 				{translations.guest.offers}
 			</Link>

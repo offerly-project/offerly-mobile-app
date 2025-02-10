@@ -1,3 +1,4 @@
+import ErrorBoundary from '@/components/ErrorBoundary';
 import { getBaseScreenLayout } from '@/constants/screens';
 import { ThemeContextProvider } from '@/contexts/ThemeContext';
 import { useNetworkObserver } from '@/hooks/useNetworkObserver';
@@ -88,35 +89,37 @@ export const RootLayout = observer(() => {
 		return <Welcome onFinish={() => setAnimationFinished(true)} />;
 
 	return (
-		<EventProvider>
-			<ThemeContextProvider>
-				{(theme) => (
-					<ToastLayout>
-						<GestureHandlerRootView style={{ flex: 1 }}>
-							<StatusBar
-								translucent
-								backgroundColor={'transparent'}
-								barStyle={'light-content'}
-							/>
-							<BottomSheetModalProvider>
-								<Animated.View style={[{ flex: 1 }, animatedStyle]}>
-									<Stack screenOptions={getBaseScreenLayout(theme)}>
-										<Stack.Screen
-											name='(public)'
-											options={{ animation: 'none' }}
-										/>
-										<Stack.Screen
-											name='(private)'
-											options={{ animation: 'none' }}
-										/>
-									</Stack>
-								</Animated.View>
-							</BottomSheetModalProvider>
-						</GestureHandlerRootView>
-					</ToastLayout>
-				)}
-			</ThemeContextProvider>
-		</EventProvider>
+		<ErrorBoundary>
+			<EventProvider>
+				<ThemeContextProvider>
+					{(theme) => (
+						<ToastLayout>
+							<GestureHandlerRootView style={{ flex: 1 }}>
+								<StatusBar
+									translucent
+									backgroundColor={'transparent'}
+									barStyle={'light-content'}
+								/>
+								<BottomSheetModalProvider>
+									<Animated.View style={[{ flex: 1 }, animatedStyle]}>
+										<Stack screenOptions={getBaseScreenLayout(theme)}>
+											<Stack.Screen
+												name='(public)'
+												options={{ animation: 'none' }}
+											/>
+											<Stack.Screen
+												name='(private)'
+												options={{ animation: 'none' }}
+											/>
+										</Stack>
+									</Animated.View>
+								</BottomSheetModalProvider>
+							</GestureHandlerRootView>
+						</ToastLayout>
+					)}
+				</ThemeContextProvider>
+			</EventProvider>
+		</ErrorBoundary>
 	);
 });
 

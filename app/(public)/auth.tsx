@@ -1,9 +1,7 @@
-import BrandLogoDark from '@/assets/images/offerly-logo-dark.svg';
-import BrandLogoLight from '@/assets/images/offerly-logo-light.svg';
+import Logo from '@/assets/icons/logo.svg';
 import Button from '@/components/Button/Buttton';
 import Link from '@/components/Typography/Link';
 import Typography from '@/components/Typography/Typography';
-import { useThemeContext } from '@/contexts/ThemeContext';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import AuthLayout from '@/layouts/AuthLayout';
 import { languageStore, userStore } from '@/stores';
@@ -13,8 +11,7 @@ import { View } from 'react-native';
 export default function index() {
 	const theme = useThemeStyles();
 	const { translations } = languageStore();
-	const themeName = useThemeContext().theme;
-	const Logo = themeName === 'dark' ? BrandLogoDark : BrandLogoLight;
+
 	return (
 		<AuthLayout hideBackButton>
 			<View className='flex-1 justify-center items-center'>
@@ -22,7 +19,12 @@ export default function index() {
 					<Logo
 						height={200}
 						width={200}
-						style={{ margin: 'auto', transform: [{ scale: 1.5 }] }}
+						fill={theme['--primary']}
+						style={{
+							margin: 'auto',
+
+							transform: [{ scale: 0.75 }],
+						}}
 					/>
 					<Button onPress={() => router.push('/login')}>
 						<Typography color={theme['--primary']}>
