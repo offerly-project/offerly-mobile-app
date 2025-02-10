@@ -52,7 +52,7 @@ const Home = () => {
 	return (
 		<>
 			<Animated.View
-				className='px-4 py-2 absolute top-0 left-0 w-full bg-background z-20'
+				className='px-4 py-2 absolute top-0 left-0 w-full bg-transparent z-20'
 				style={headerAnimation}
 			>
 				<Input

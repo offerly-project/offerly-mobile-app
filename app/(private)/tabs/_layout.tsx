@@ -28,6 +28,9 @@ export const Layout = observer(() => {
 					screenOptions={{
 						tabBarActiveTintColor: theme['--primary'],
 						headerShown: false,
+						sceneStyle: {
+							backgroundColor: theme['--background'],
+						},
 						tabBarStyle: {
 							backgroundColor: theme['--background'],
 							borderTopWidth: 1,

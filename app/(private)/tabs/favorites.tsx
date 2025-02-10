@@ -1,4 +1,5 @@
 import NoData from '@/components/Fallback/NoData';
+import { CARDS_GAP } from '@/constants/layout';
 import { FLATLIST_TRANSITION, SKELETON_TRANSITIONS } from '@/constants/transitions';
 import OfferCard from '@/features/Offers/OfferCard';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
@@ -51,7 +52,7 @@ const Favorites = observer((props: Props) => {
 						data={offers}
 						itemLayoutAnimation={FLATLIST_TRANSITION}
 						keyExtractor={(item) => item.id}
-						contentContainerStyle={{ gap: 10, paddingBottom: 20 }}
+						contentContainerStyle={{ gap: CARDS_GAP, paddingBottom: 20 }}
 						renderItem={({ item }) => (
 							<OfferCard offer={item} closeOnUnfavorite={true} />
 						)}

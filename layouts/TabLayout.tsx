@@ -51,7 +51,7 @@ const TabLayout = ({ children, title, trailing, leading }: Props) => {
 					<View className='flex-row flex-1 justify-end items-center'>{trailing}</View>
 				</View>
 			</LinearGradient>
-			<View className='flex-1 relative'>{children}</View>
+			<View className='relative flex-1'>{children}</View>
 		</View>
 	);
 };
