@@ -1,7 +1,9 @@
+import { NotificationToken } from '@/entities/user.entity';
 import { userStore } from '@/stores';
 import messaging from '@react-native-firebase/messaging';
 import * as Notifications from 'expo-notifications';
 import { useEffect } from 'react';
+import DeviceInfo from 'react-native-device-info';
 
 export const useNotifications = () => {
 	const getUserPermission = async () => {
@@ -29,15 +31,29 @@ export const useNotifications = () => {
 				return;
 			}
 
+			messaging().onMessage((message) => {
+				Notifications.scheduleNotificationAsync({
+					content: {
+						title: message.notification?.title,
+						body: message.notification?.body,
+					},
+					trigger: null,
+				});
+			});
+
 			messaging()
 				.getToken()
-				.then((token) => {
+				.then(async (token) => {
+					const deviceId = await DeviceInfo.getUniqueId();
+
+					const tokenPayload: NotificationToken = {
+						token,
+						timestamp: Date.now(),
+						device: deviceId,
+					};
 					userStore().updateUser({
-						notification_token: token,
+						notification_token: tokenPayload,
 					});
-				})
-				.catch((e) => {
-					console.error(e);
 				});
 		})();
 	}, []);

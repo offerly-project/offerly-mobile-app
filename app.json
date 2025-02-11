@@ -25,6 +25,7 @@
 				"foregroundImage": "./assets/icons/app-icon-android.png",
 				"backgroundColor": "#6633cc"
 			},
+			"googleServicesFile": "./google-services.json",
 			"package": "me.offerly.app"
 		},
 		"web": {
@@ -68,7 +69,14 @@
 					}
 				}
 			],
-			"expo-asset"
+			"expo-asset",
+			[
+				"expo-notifications",
+				{
+					"icon": "./assets/icons/app-icon-android.png",
+					"enableBackgroundRemoteNotifications": true
+				}
+			]
 		],
 		"experiments": {
 			"typedRoutes": true
