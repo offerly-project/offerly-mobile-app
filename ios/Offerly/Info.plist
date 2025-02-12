@@ -28,7 +28,7 @@
         <key>CFBundleURLSchemes</key>
         <array>
           <string>myapp</string>
-          <string>com.offerly.mobile</string>
+          <string>me.offerly.app</string>
         </array>
       </dict>
       <dict>

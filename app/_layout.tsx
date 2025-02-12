@@ -56,6 +56,7 @@ export const RootLayout = observer(() => {
 		'Tajawal-Light': require('@/assets/fonts/Tajawal-Light.ttf'),
 	});
 
+	useNetworkObserver();
 	useEffect(() => {
 		const loadApp = async () => {
 			if (loaded) {
