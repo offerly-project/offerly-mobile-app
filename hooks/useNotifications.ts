@@ -3,7 +3,7 @@ import { userStore } from '@/stores';
 import messaging from '@react-native-firebase/messaging';
 import * as Notifications from 'expo-notifications';
 import { useEffect } from 'react';
-import DeviceInfo from 'react-native-device-info';
+import { Platform } from 'react-native';
 
 export const useNotifications = () => {
 	const getUserPermission = async () => {
@@ -44,12 +44,10 @@ export const useNotifications = () => {
 			messaging()
 				.getToken()
 				.then(async (token) => {
-					const deviceId = await DeviceInfo.getUniqueId();
-
 					const tokenPayload: NotificationToken = {
 						token,
 						timestamp: Date.now(),
-						device: deviceId,
+						platform: Platform.OS,
 					};
 					userStore().updateUser({
 						notification_token: tokenPayload,

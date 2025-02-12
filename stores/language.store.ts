@@ -4,7 +4,7 @@ import { PlainStorage } from '@/services/storage.services';
 import { reloadAsync } from 'expo-updates';
 import { action, makeAutoObservable } from 'mobx';
 import { I18nManager } from 'react-native';
-import { RootStore } from '.';
+import { RootStore, userStore } from '.';
 
 export type LanguageType = 'en' | 'ar';
 
@@ -41,6 +41,9 @@ export class LanguageStore {
 	setLanguage = (language: LanguageType) => {
 		this.language = language;
 		PlainStorage.setItem('language', language);
+		userStore().updateUser({
+			language,
+		});
 		this._reactToLanguageChange();
 		if (this.isRtl) {
 			reloadAsync();

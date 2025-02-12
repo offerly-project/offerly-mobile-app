@@ -1,9 +1,10 @@
+import { LanguageType } from '@/stores/language.store';
 import { makeAutoObservable, observable } from 'mobx';
 
 export type NotificationToken = {
 	token: string;
 	timestamp: number;
-	device: string;
+	platform: string;
 };
 
 export interface IUser {
@@ -12,11 +13,12 @@ export interface IUser {
 	favorites: string[];
 	cards: string[];
 	phone_number?: string;
+	language?: LanguageType;
 	notification_token?: NotificationToken | null;
 }
 
 export type PatchUserData = Partial<
-	Pick<IUser, 'full_name' | 'phone_number' | 'notification_token'>
+	Pick<IUser, 'full_name' | 'phone_number' | 'notification_token' | 'language'>
 >;
 
 export class User {
