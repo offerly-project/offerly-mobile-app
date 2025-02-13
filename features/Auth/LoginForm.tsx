@@ -23,11 +23,12 @@ const LoginForm = () => {
 
 	type FormValues = z.infer<typeof schema>;
 	const theme = useThemeStyles();
+
 	const { handleSubmit, setValues, loading, errors, submittable, values, serverError } =
 		useForm<FormValues>({
 			initialValues: {
-				email: 'testuser.offerly@gmail.com',
-				password: 'fares',
+				email: __DEV__ ? 'testuser.offerly@gmail.com' : '',
+				password: __DEV__ ? 'fares' : '',
 			},
 			schema,
 			onSubmit: async (values) => {

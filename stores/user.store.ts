@@ -114,6 +114,7 @@ export class UserStore {
 
 	@action
 	logout = async () => {
+		await AuthApi.logout();
 		AxiosAuthInterceptorManager.removeInterceptor();
 		await SecureStorage.deleteItem('token');
 		try {

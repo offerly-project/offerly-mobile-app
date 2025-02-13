@@ -3,7 +3,7 @@ import { languageStore } from '@/stores';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import React, { useEffect } from 'react';
-import { Keyboard, TextInput, TextInputProps, View } from 'react-native';
+import { TextInput, TextInputProps, View } from 'react-native';
 import OutsidePressHandler from 'react-native-outside-press';
 import Typography from '../Typography/Typography';
 
@@ -78,7 +78,11 @@ const Input: React.FC<InputProps> = ({
 	const theme = useThemeStyles();
 	const { language } = languageStore();
 	return (
-		<OutsidePressHandler onOutsidePress={Keyboard.dismiss}>
+		<OutsidePressHandler
+			onOutsidePress={() => {
+				ref?.current?.blur();
+			}}
+		>
 			<View className='gap-2'>
 				<View className={containerStyles}>
 					{leadingIcon && leadingIcon()}
