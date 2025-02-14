@@ -1,4 +1,4 @@
-import Logo from '@/assets/icons/logo.svg';
+import { OfferlyTabIcon } from '@/components/OfferlyTabIcon';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import ScreensLayout from '@/layouts/ScreensLayout';
 import { languageStore } from '@/stores';
@@ -26,14 +26,17 @@ export const Layout = observer(() => {
 					}}
 					screenOptions={{
 						tabBarActiveTintColor: theme['--primary'],
+						tabBarInactiveTintColor: theme['--shade'],
 						headerShown: false,
 						sceneStyle: {
 							backgroundColor: theme['--background'],
+							padding: 16,
+							paddingBottom: 0,
 						},
 						tabBarStyle: {
 							backgroundColor: theme['--background'],
 							borderTopWidth: 1,
-							borderTopColor: theme['--background'],
+							borderTopColor: theme['--shade'],
 						},
 					}}
 					initialRouteName={INITIAL_TAB}
@@ -62,28 +65,9 @@ export const Layout = observer(() => {
 							title: translations.tabs.offers.tabName,
 							tabBarItemStyle: {
 								position: 'relative',
-								top: 2,
+								top: -1,
 							},
-							tabBarIcon: ({ focused }) => {
-								const iconColor = !focused ? theme['--primary'] : theme['--static'];
-								const bgColor = !focused ? 'bg-background' : 'bg-primary';
-								return (
-									<View
-										className={`rounded-full items-center justify-center mb-8 border border-primary ${bgColor}`}
-										style={{
-											height: 55,
-											width: 55,
-										}}
-									>
-										<Logo
-											fill={iconColor}
-											style={{
-												transform: [{ scale: 0.7 }],
-											}}
-										/>
-									</View>
-								);
-							},
+							tabBarIcon: ({ focused }) => <OfferlyTabIcon focused={focused} />,
 						}}
 					/>
 					<Tabs.Screen

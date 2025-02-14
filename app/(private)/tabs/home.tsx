@@ -52,7 +52,7 @@ const Home = () => {
 	return (
 		<>
 			<Animated.View
-				className='px-4 py-2 absolute top-0 left-0 w-full bg-transparent z-20'
+				className='py-2 absolute top-0 left-0 w-full bg-transparent z-20'
 				style={headerAnimation}
 			>
 				<Input
@@ -69,7 +69,6 @@ const Home = () => {
 			<Animated.ScrollView
 				onScroll={scrollOnChange}
 				scrollEventThrottle={16}
-				className='mx-3'
 				contentContainerClassName='gap-4 last:pb-6 z-10 pt-20'
 			>
 				<BanksList />

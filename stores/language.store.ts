@@ -1,10 +1,9 @@
 import ArabicTranslations from '@/assets/i18n/ar.json';
 import EnglishTranslations from '@/assets/i18n/en.json';
 import { PlainStorage } from '@/services/storage.services';
-import { reloadAsync } from 'expo-updates';
 import { action, makeAutoObservable } from 'mobx';
 import { I18nManager } from 'react-native';
-import { RootStore, userStore } from '.';
+import { RootStore } from '.';
 
 export type LanguageType = 'en' | 'ar';
 
@@ -31,7 +30,12 @@ export class LanguageStore {
 	};
 
 	private _reactToLanguageChange = () => {
-		const rtl = RTL_LANGUAGES.includes(this.language);
+		const language = this.language;
+		PlainStorage.setItem('language', language);
+		this.rootStore.userStore.updateUser({
+			language,
+		});
+		const rtl = RTL_LANGUAGES.includes(language);
 		this.isRtl = rtl;
 		I18nManager.forceRTL(rtl);
 		I18nManager.allowRTL(rtl);
@@ -40,14 +44,7 @@ export class LanguageStore {
 	@action
 	setLanguage = (language: LanguageType) => {
 		this.language = language;
-		PlainStorage.setItem('language', language);
-		userStore().updateUser({
-			language,
-		});
 		this._reactToLanguageChange();
-		if (this.isRtl) {
-			reloadAsync();
-		}
 	};
 
 	get translations(): Translations {

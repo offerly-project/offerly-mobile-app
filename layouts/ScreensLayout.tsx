@@ -59,7 +59,7 @@ const ScreensLayout = ({ children, name }: Props) => {
 	const trailing = getTrailing(name);
 
 	return (
-		<TabLayout title={title} trailing={trailing}>
+		<TabLayout title={title} trailing={trailing} childrenStyles={{ padding: 0 }}>
 			{children}
 		</TabLayout>
 	);

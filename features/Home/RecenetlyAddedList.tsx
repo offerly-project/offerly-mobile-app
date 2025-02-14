@@ -50,7 +50,7 @@ const RecentlyAddedList = observer(() => {
 		setSelectedOffer(offer);
 	};
 
-	const gradient: [string, string] = ['#FCC097', '#E5C4A8'];
+	const gradient: [string, string, string] = ['#6A4CBB', '#6C5CE7', '#A29BFE'];
 
 	return (
 		<LinearGradient
@@ -68,7 +68,7 @@ const RecentlyAddedList = observer(() => {
 				<View className='z-10 absolute'>
 					<Image
 						source={require('../../assets/icons/logo-white.png')}
-						style={{ width: 400, height: 600, opacity: 0.15 }}
+						style={{ width: 300, height: 300, opacity: 0.04 }}
 					/>
 				</View>
 				<View className='z-20 gap-3'>
@@ -84,7 +84,7 @@ const RecentlyAddedList = observer(() => {
 						className='pb-5'
 						horizontal
 						persistentScrollbar
-						showsHorizontalScrollIndicator
+						showsHorizontalScrollIndicator={false}
 					>
 						{loading ? (
 							<View className='flex-row gap-4 mx-2'>

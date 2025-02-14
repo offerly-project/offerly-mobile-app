@@ -138,7 +138,6 @@ const Cards = observer(() => {
 							styles.hapticPressContainer,
 							animatedStyle,
 							{
-								borderColor: theme['--shade'],
 								backgroundColor: theme['--background'],
 							},
 						]}
@@ -186,7 +185,6 @@ const styles = StyleSheet.create({
 	},
 	cardList: {
 		flex: 1,
-		paddingHorizontal: 16,
 	},
 	cardRow: {
 		flexDirection: 'row',
@@ -202,7 +200,6 @@ const styles = StyleSheet.create({
 		width: '100%',
 		justifyContent: 'center',
 		alignItems: 'center',
-		borderTopWidth: 2,
 		height: 65,
 	},
 	actionButtons: {

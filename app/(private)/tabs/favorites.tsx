@@ -3,7 +3,7 @@ import { CARDS_GAP } from '@/constants/layout';
 import { FLATLIST_TRANSITION, SKELETON_TRANSITIONS } from '@/constants/transitions';
 import OfferCard from '@/features/Offers/OfferCard';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
-import { favoritesStore, languageStore, userStore } from '@/stores';
+import { favoritesStore, userStore } from '@/stores';
 import { observer } from 'mobx-react-lite';
 import { Skeleton } from 'moti/skeleton';
 import { useEffect, useState } from 'react';
@@ -15,7 +15,7 @@ type Props = {};
 const Favorites = observer((props: Props) => {
 	const offers = favoritesStore().offers;
 	const theme = useThemeStyles();
-	const { translations } = languageStore();
+
 	const { isGuest } = userStore();
 	const [loading, setLoading] = useState(!isGuest);
 
@@ -47,7 +47,7 @@ const Favorites = observer((props: Props) => {
 			) : offers.length === 0 ? (
 				<NoData message='No Favorites' />
 			) : (
-				<View className='p-4 pb-0 flex-1'>
+				<View className='flex-1'>
 					<Animated.FlatList
 						data={offers}
 						itemLayoutAnimation={FLATLIST_TRANSITION}

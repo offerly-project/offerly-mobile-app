@@ -59,7 +59,7 @@ const LastChanceList = observer(() => {
 		return diffDays + ' ' + translations.tabs.home.headers.days;
 	};
 
-	const gradient: [string, string, string] = ['#6633CC', '#4A3792', '#222222'];
+	const gradient: [string, string, string] = ['#E64A19', '#FF7043', '#FFAB91'];
 	return (
 		<LinearGradient
 			colors={gradient}
@@ -76,7 +76,7 @@ const LastChanceList = observer(() => {
 				<View className='z-10 absolute'>
 					<Image
 						source={require('../../assets/icons/logo-white.png')}
-						style={{ width: 400, height: 600, opacity: 0.04 }}
+						style={{ width: 300, height: 300, opacity: 0.15 }}
 					/>
 				</View>
 				<View className='z-20 gap-3'>
@@ -92,7 +92,7 @@ const LastChanceList = observer(() => {
 						className='pb-5'
 						horizontal
 						persistentScrollbar
-						showsHorizontalScrollIndicator
+						showsHorizontalScrollIndicator={false}
 					>
 						{loading ? (
 							<View className='flex-row gap-4 mx-2'>

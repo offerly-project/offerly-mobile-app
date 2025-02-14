@@ -29,9 +29,9 @@ const AccountPage = observer(() => {
 
 	return (
 		<>
-			<View className='px-6'>
-				<View className='mt-3 items-center justify-center'>
-					<View className='mt-6 w-full'>
+			<View>
+				<View className='items-center justify-center'>
+					<View className='w-full'>
 						<ConfigurationItem
 							label={translations.tabs.account.profile.title}
 							trailing={<ConfigurationRouteChevronIcon />}
@@ -220,7 +220,10 @@ const AccountPage = observer(() => {
 					{translations.tabs.account.version} : {AppVersion}
 				</Typography>
 			</View>
-			<View className='flex-row mt-2 items-center gap-4 w-full justify-center py-6 flex-1 absolute bottom-0'>
+			<View
+				aria-label='footer'
+				className='flex-row mt-2 right-4 items-center gap-4 w-full justify-center py-6 flex-1 absolute bottom-0'
+			>
 				<View className='flex flex-row gap-1 items-center'>
 					<Typography variant='label' color={styles['--text']}>
 						{getCardsAndFavCount()[0]}
@@ -236,9 +239,7 @@ const AccountPage = observer(() => {
 					</Typography>
 				</View>
 
-				<View className='w-[1] h-[18] bg-text' />
-
-				<View className='flex flex-row gap-1 items-center'>
+				<View className='flex flex-row gap-1 items-center '>
 					<View className='items-center gap-4' />
 					<Typography variant='label' color={styles['--text']}>
 						{getCardsAndFavCount()[1]}

@@ -1,6 +1,6 @@
 import { OffersApi } from '@/api/offers.api';
 import CloseButton from '@/components/Button/CloseButton';
-import GoTopButton from '@/components/Button/GoTopButton';
+import GoTopLayout from '@/components/Button/GoTopButton';
 import Typography from '@/components/Typography/Typography';
 import { IBank } from '@/entities/bank.entity';
 import { IOffer, IOfferFilter, sortDirection, SortKey } from '@/entities/offer.entity';
@@ -11,7 +11,7 @@ import { languageStore } from '@/stores';
 import { useEffect, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 type Props = {
 	bank: IBank;
@@ -82,15 +82,14 @@ const BankOffers = ({ bank, closeHandler }: Props) => {
 					scrollY.value = e.nativeEvent.contentOffset.y;
 				}}
 			/>
-			<Animated.View
-				style={[styles.goTop, goTopAnimation, { backgroundColor: theme['--primary'] }]}
-			>
-				<GoTopButton
-					onPress={() => {
-						flatlistRef.current?.scrollToOffset({ offset: 0 });
-					}}
-				/>
-			</Animated.View>
+
+			<GoTopLayout
+				style={{ bottom: 50 }}
+				onPress={() => {
+					flatlistRef.current?.scrollToOffset({ offset: 0 });
+				}}
+				scrollY={scrollY}
+			/>
 		</View>
 	);
 };

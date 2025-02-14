@@ -3,7 +3,7 @@ import Typography from '@/components/Typography/Typography';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
-import { StyleSheet, View } from 'react-native';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type Props = {
@@ -11,11 +11,12 @@ type Props = {
 	title: string;
 	trailing?: React.ReactNode;
 	leading?: React.ReactNode;
+	childrenStyles?: StyleProp<ViewStyle>;
 };
 
 export const TOAST_OFFSET = 60;
 
-const TabLayout = ({ children, title, trailing, leading }: Props) => {
+const TabLayout = ({ children, title, trailing, leading, childrenStyles }: Props) => {
 	const { top } = useSafeAreaInsets();
 	const theme = useThemeStyles();
 	return (
@@ -51,7 +52,9 @@ const TabLayout = ({ children, title, trailing, leading }: Props) => {
 					<View className='flex-row flex-1 justify-end items-center'>{trailing}</View>
 				</View>
 			</LinearGradient>
-			<View className='relative flex-1'>{children}</View>
+			<View className='relative flex-1 p-4' style={childrenStyles}>
+				{children}
+			</View>
 		</View>
 	);
 };
