@@ -2,6 +2,7 @@ import { OffersApi } from '@/api/offers.api';
 import GoTopLayout from '@/components/Button/GoTopButton';
 import NoCards from '@/components/Messages/NoCards';
 import Typography from '@/components/Typography/Typography';
+import { CARDS_GAP } from '@/constants/layout';
 import { SKELETON_TRANSITIONS } from '@/constants/transitions';
 import { IOffer, IOfferFilter, sortDirection, SortKey } from '@/entities/offer.entity';
 import usePagination from '@/hooks/usePagination';
@@ -10,9 +11,10 @@ import { cardsStore, languageStore } from '@/stores';
 import { observer } from 'mobx-react-lite';
 import { Skeleton } from 'moti/skeleton';
 import { useEffect, useRef, useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import Animated, { interpolate, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import OfferCard from './OfferCard';
 import OffersToolbar from './OffersToolbar';
 
 const Offers = observer(() => {
@@ -114,12 +116,16 @@ const Offers = observer(() => {
 						colors={theme.skeleton}
 						height={110}
 						width='100%'
+						disableExitAnimation
 						transition={SKELETON_TRANSITIONS}
 					/>
 				</View>
 			))}
 		</Skeleton.Group>
 	);
+
+	const renderFooter = () =>
+		loadingMore ? <View className='flex-1 px-4'>{renderSkeleton(2)}</View> : null;
 
 	return (
 		<View className='flex-1'>
@@ -154,8 +160,8 @@ const Offers = observer(() => {
 					</Animated.View>
 
 					<Animated.View style={[animatedPaddingStyle, { flex: 1 }]}>
-						{true && <View className='flex-1 px-4'>{renderSkeleton(4)}</View>}
-						{/* <FlatList
+						{initialLoader && <View className='flex-1 px-4'>{renderSkeleton(4)}</View>}
+						<FlatList
 							data={data}
 							keyExtractor={(item) => item.id.toString()}
 							renderItem={({ item }) => <OfferCard offer={item} />}
@@ -175,7 +181,7 @@ const Offers = observer(() => {
 							ListFooterComponent={renderFooter}
 							onEndReached={loadMore}
 							onEndReachedThreshold={0.1}
-						/> */}
+						/>
 
 						<GoTopLayout
 							onPress={() => {

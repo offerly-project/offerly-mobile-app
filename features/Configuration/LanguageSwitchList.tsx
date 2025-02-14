@@ -3,8 +3,8 @@ import { useThemeContext } from '@/contexts/ThemeContext';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { languageStore } from '@/stores';
 import { LanguageType } from '@/stores/language.store';
+import { restartApp } from '@/utils/utils';
 import { Ionicons } from '@expo/vector-icons';
-import * as Updates from 'expo-updates';
 import { Alert, Pressable, StyleSheet, View } from 'react-native';
 
 const LanguageOption = ({
@@ -46,7 +46,7 @@ const LanguageSwitchList = ({ onSelect }: Props) => {
 				{
 					text: translations.buttons.reload,
 					onPress: () => {
-						Updates.reloadAsync();
+						restartApp();
 					},
 				},
 			],

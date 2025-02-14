@@ -2,9 +2,9 @@ import Typography from '@/components/Typography/Typography';
 import { useThemeContext } from '@/contexts/ThemeContext';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { languageStore } from '@/stores';
+import { restartApp } from '@/utils/utils';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import * as Updates from 'expo-updates';
 import { observer } from 'mobx-react-lite';
 import { Alert, Pressable, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -48,8 +48,8 @@ const AuthLayout = observer(({ children, hideBackButton }: Props) => {
 									{
 										text: translations.buttons.reload,
 										onPress: () => {
-											Updates.reloadAsync();
 											setLanguage(language == 'en' ? 'ar' : 'en');
+											restartApp();
 										},
 									},
 								],
