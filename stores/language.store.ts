@@ -2,7 +2,6 @@ import ArabicTranslations from '@/assets/i18n/ar.json';
 import EnglishTranslations from '@/assets/i18n/en.json';
 import { PlainStorage } from '@/services/storage.services';
 import { action, makeAutoObservable } from 'mobx';
-import { I18nManager } from 'react-native';
 import { RootStore } from '.';
 
 export type LanguageType = 'en' | 'ar';
@@ -20,11 +19,14 @@ export class LanguageStore {
 		makeAutoObservable(this);
 	}
 
+	getDirection = () => (this.isRtl ? 'rtl' : 'ltr');
+
 	setup = async () => {
 		const storedLanguage = await PlainStorage.getItem('language');
 		if (storedLanguage) {
 			this.language = storedLanguage as LanguageType;
 		}
+		this.isRtl = RTL_LANGUAGES.includes(this.language);
 
 		this._reactToLanguageChange();
 	};
@@ -37,8 +39,6 @@ export class LanguageStore {
 		});
 		const rtl = RTL_LANGUAGES.includes(language);
 		this.isRtl = rtl;
-		I18nManager.forceRTL(rtl);
-		I18nManager.allowRTL(rtl);
 	};
 
 	@action

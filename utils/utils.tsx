@@ -6,7 +6,6 @@ import { Translations } from '@/stores/language.store';
 import { ErrorResponse } from '@/ts/errors.types';
 import { AxiosError } from 'axios';
 import { router } from 'expo-router';
-import RNRestart from 'react-native-restart';
 
 export const formatUploadPath = (path: string) => {
 	return `${process.env.EXPO_PUBLIC_BASE_API_URL}/uploads${path}`;
@@ -103,8 +102,4 @@ export const fillArrayWithPlaceholders = (arr: any[], multipleOf: number) => {
 export const extractApiError = (err: AxiosError) => {
 	const _err = err.response?.data as ErrorResponse;
 	return _err;
-};
-
-export const restartApp = () => {
-	RNRestart.Restart();
 };

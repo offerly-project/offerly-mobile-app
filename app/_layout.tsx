@@ -11,7 +11,7 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
-import { FlatList, ScrollView, StatusBar, Text, TouchableOpacity } from 'react-native';
+import { FlatList, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { EventProvider } from 'react-native-outside-press';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
@@ -90,37 +90,39 @@ export const RootLayout = observer(() => {
 		return <Welcome onFinish={() => setAnimationFinished(true)} />;
 
 	return (
-		<ErrorBoundary>
-			<EventProvider>
-				<ThemeContextProvider>
-					{(theme) => (
-						<ToastLayout>
-							<GestureHandlerRootView style={{ flex: 1 }}>
-								<StatusBar
-									translucent
-									backgroundColor={'transparent'}
-									barStyle={'light-content'}
-								/>
-								<BottomSheetModalProvider>
-									<Animated.View style={[{ flex: 1 }, animatedStyle]}>
-										<Stack screenOptions={getBaseScreenLayout(theme)}>
-											<Stack.Screen
-												name='(public)'
-												options={{ animation: 'none' }}
-											/>
-											<Stack.Screen
-												name='(private)'
-												options={{ animation: 'none' }}
-											/>
-										</Stack>
-									</Animated.View>
-								</BottomSheetModalProvider>
-							</GestureHandlerRootView>
-						</ToastLayout>
-					)}
-				</ThemeContextProvider>
-			</EventProvider>
-		</ErrorBoundary>
+		<View style={{ direction: languageStore().getDirection(), flex: 1 }}>
+			<ErrorBoundary>
+				<EventProvider>
+					<ThemeContextProvider>
+						{(theme) => (
+							<ToastLayout>
+								<GestureHandlerRootView style={{ flex: 1 }}>
+									<StatusBar
+										translucent
+										backgroundColor={'transparent'}
+										barStyle={'light-content'}
+									/>
+									<BottomSheetModalProvider>
+										<Animated.View style={[{ flex: 1 }, animatedStyle]}>
+											<Stack screenOptions={getBaseScreenLayout(theme)}>
+												<Stack.Screen
+													name='(public)'
+													options={{ animation: 'none' }}
+												/>
+												<Stack.Screen
+													name='(private)'
+													options={{ animation: 'none' }}
+												/>
+											</Stack>
+										</Animated.View>
+									</BottomSheetModalProvider>
+								</GestureHandlerRootView>
+							</ToastLayout>
+						)}
+					</ThemeContextProvider>
+				</EventProvider>
+			</ErrorBoundary>
+		</View>
 	);
 });
 

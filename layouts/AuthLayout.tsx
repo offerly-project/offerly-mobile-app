@@ -2,11 +2,10 @@ import Typography from '@/components/Typography/Typography';
 import { useThemeContext } from '@/contexts/ThemeContext';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { languageStore } from '@/stores';
-import { restartApp } from '@/utils/utils';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { observer } from 'mobx-react-lite';
-import { Alert, Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 type Props = {
@@ -41,22 +40,7 @@ const AuthLayout = observer(({ children, hideBackButton }: Props) => {
 					<Typography
 						weight='bold'
 						onPress={() => {
-							Alert.alert(
-								translations.warning.changeLanguage.title,
-								translations.warning.changeLanguage.message,
-								[
-									{
-										text: translations.buttons.reload,
-										onPress: () => {
-											setLanguage(language == 'en' ? 'ar' : 'en');
-											restartApp();
-										},
-									},
-								],
-								{
-									userInterfaceStyle: theme,
-								},
-							);
+							setLanguage(language == 'en' ? 'ar' : 'en');
 						}}
 						variant='body'
 						color={styles['--primary']}

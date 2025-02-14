@@ -1,11 +1,9 @@
 import Typography from '@/components/Typography/Typography';
-import { useThemeContext } from '@/contexts/ThemeContext';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { languageStore } from '@/stores';
 import { LanguageType } from '@/stores/language.store';
-import { restartApp } from '@/utils/utils';
 import { Ionicons } from '@expo/vector-icons';
-import { Alert, Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
 const LanguageOption = ({
 	label,
@@ -34,26 +32,11 @@ type Props = {
 
 const LanguageSwitchList = ({ onSelect }: Props) => {
 	const theme = useThemeStyles();
-	const themeName = useThemeContext().theme;
+
 	const { translations, language, setLanguage } = languageStore();
 	const selectHandler = (language: LanguageType) => {
 		setLanguage(language);
 		onSelect();
-		Alert.alert(
-			translations.warning.changeLanguage.title,
-			translations.warning.changeLanguage.message,
-			[
-				{
-					text: translations.buttons.reload,
-					onPress: () => {
-						restartApp();
-					},
-				},
-			],
-			{
-				userInterfaceStyle: themeName,
-			},
-		);
 	};
 	return (
 		<View>
