@@ -25,10 +25,6 @@ const GoTopLayout = observer(({ onPress, scrollY, style }: Props) => {
 				goTopAnimation,
 				{ backgroundColor: theme['--primary'] },
 				style,
-				{
-					left: rtl ? 25 : undefined,
-					right: rtl ? undefined : 25,
-				},
 			]}
 		>
 			<TouchableOpacity hitSlop={25} onPress={onPress}>
@@ -43,6 +39,7 @@ const styles = StyleSheet.create({
 	container: {
 		position: 'absolute',
 		bottom: 25,
+		right: 25,
 		height: 35,
 		width: 35,
 		borderRadius: 25,
