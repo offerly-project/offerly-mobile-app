@@ -7,6 +7,7 @@ export const getToastStyles = (theme: ThemeStyle) =>
 		container: {
 			borderRadius: 8,
 			padding: 8,
+			maxWidth: '75%',
 			backgroundColor: theme['--toast-bg'],
 		},
 	});

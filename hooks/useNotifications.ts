@@ -1,15 +1,88 @@
 import { NotificationToken } from '@/entities/user.entity';
 import { userStore } from '@/stores';
 import messaging from '@react-native-firebase/messaging';
+import EventEmitter from 'eventemitter3';
 import * as Notifications from 'expo-notifications';
-import { useEffect } from 'react';
+import { router, usePathname } from 'expo-router';
+import React, { useEffect } from 'react';
 import { Platform } from 'react-native';
+import Toast from 'react-native-toast-message';
+
+export enum NotificationActions {
+	SHOW_SORTED_BY_NEW_ORDERS = 'SHOW_SORTED_BY_NEW_ORDERS',
+	EXPIRING_FAVOURITES = 'EXPIRING_FAVOURITES',
+}
+
+export const readyEvent = (action: NotificationActions) => action + '-ready';
+
+export type NewOffersNotificationData = {
+	action: NotificationActions.SHOW_SORTED_BY_NEW_ORDERS;
+};
+
+export type ExpiringOffersNotificationData = {
+	action: NotificationActions.EXPIRING_FAVOURITES;
+	offers: string;
+};
+
+export type NotificationPayload = NewOffersNotificationData | ExpiringOffersNotificationData;
+
+export const notificationsEventsEmitter = new EventEmitter();
 
 export const useNotifications = () => {
 	const getUserPermission = async () => {
 		const authStatus = await messaging().requestPermission();
 		return authStatus;
 	};
+	const pathname = usePathname();
+	const notificationPressHandler = async (data: NotificationPayload) => {
+		if (data.action === NotificationActions.SHOW_SORTED_BY_NEW_ORDERS) {
+			const isInOffers = pathname === '/tabs/offers';
+
+			if (!isInOffers) {
+				router.push('/tabs/offers');
+			}
+			if (!isInOffers) {
+				notificationsEventsEmitter.once(
+					readyEvent(NotificationActions.SHOW_SORTED_BY_NEW_ORDERS),
+					() => {
+						notificationsEventsEmitter.emit(
+							NotificationActions.SHOW_SORTED_BY_NEW_ORDERS,
+						);
+					},
+				);
+			} else {
+				notificationsEventsEmitter.emit(NotificationActions.SHOW_SORTED_BY_NEW_ORDERS);
+			}
+		}
+		if (data.action === NotificationActions.EXPIRING_FAVOURITES) {
+			const isInFavorites = pathname === '/tabs/favorites';
+			console.log(pathname);
+
+			if (!isInFavorites) {
+				router.push('/tabs/favorites');
+			}
+
+			if (!isInFavorites) {
+				notificationsEventsEmitter.once(
+					readyEvent(NotificationActions.EXPIRING_FAVOURITES),
+
+					() => {
+						notificationsEventsEmitter.emit(
+							NotificationActions.EXPIRING_FAVOURITES,
+							data.offers,
+						);
+					},
+				);
+			} else {
+				notificationsEventsEmitter.emit(
+					NotificationActions.EXPIRING_FAVOURITES,
+					data.offers,
+				);
+			}
+		}
+	};
+
+	const unsubRef = React.useRef<() => void>();
 	useEffect(() => {
 		(async function () {
 			Notifications.setNotificationHandler({
@@ -31,15 +104,26 @@ export const useNotifications = () => {
 				return;
 			}
 
-			messaging().onMessage((message) => {
-				Notifications.scheduleNotificationAsync({
-					content: {
-						title: message.notification?.title,
-						body: message.notification?.body,
+			unsubRef.current = messaging().onMessage((message) => {
+				const data = message.data as NotificationPayload;
+				Toast.show({
+					text1: message.notification?.title,
+					text2: message.notification?.body,
+					type: 'info',
+					onPress: () => {
+						notificationPressHandler(data);
 					},
-					trigger: null,
 				});
 			});
+
+			messaging()
+				.getInitialNotification()
+				.then((message) => {
+					if (!message) return;
+					const data = message.data as NotificationPayload;
+
+					notificationPressHandler(data);
+				});
 
 			messaging()
 				.getToken()
@@ -54,5 +138,10 @@ export const useNotifications = () => {
 					});
 				});
 		})();
-	}, []);
+		return () => {
+			console.log('UNSUB', unsubRef.current);
+
+			unsubRef.current?.();
+		};
+	}, [pathname]);
 };

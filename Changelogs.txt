@@ -1,0 +1,8 @@
+Bugfixes:
+- Email lowercasing
+- Email sent logo width fixed
+
+
+
+Features:
+- Notification Press: Go to new offers

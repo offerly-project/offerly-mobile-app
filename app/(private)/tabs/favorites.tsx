@@ -2,11 +2,16 @@ import NoData from '@/components/Fallback/NoData';
 import { CARDS_GAP } from '@/constants/layout';
 import { FLATLIST_TRANSITION, SKELETON_TRANSITIONS } from '@/constants/transitions';
 import OfferCard from '@/features/Offers/OfferCard';
+import {
+	NotificationActions,
+	notificationsEventsEmitter,
+	readyEvent,
+} from '@/hooks/useNotifications';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { favoritesStore, userStore } from '@/stores';
 import { observer } from 'mobx-react-lite';
 import { Skeleton } from 'moti/skeleton';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Animated from 'react-native-reanimated';
 
@@ -27,6 +32,33 @@ const Favorites = observer((props: Props) => {
 					setLoading(false);
 				});
 		}
+	}, []);
+
+	const [highlighted, setHighlighted] = useState<string[] | null>(null);
+
+	const resetTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+	useEffect(() => {
+		// Reset highlighted state after 15 seconds
+		if (highlighted !== null) {
+			if (resetTimeoutRef.current) clearTimeout(resetTimeoutRef.current);
+
+			resetTimeoutRef.current = setTimeout(() => {
+				setHighlighted(null);
+			}, 15 * 1000); // 15 seconds
+		}
+	}, [highlighted]);
+
+	useLayoutEffect(() => {
+		const handler = (offers: string) => {
+			const offersArr = offers.split(',');
+			setHighlighted(offersArr);
+		};
+		notificationsEventsEmitter.on(NotificationActions.EXPIRING_FAVOURITES, handler);
+		notificationsEventsEmitter.emit(readyEvent(NotificationActions.EXPIRING_FAVOURITES));
+		return () => {
+			notificationsEventsEmitter.off(NotificationActions.EXPIRING_FAVOURITES, handler);
+		};
 	}, []);
 
 	return (
@@ -54,7 +86,11 @@ const Favorites = observer((props: Props) => {
 						keyExtractor={(item) => item.id}
 						contentContainerStyle={{ gap: CARDS_GAP, paddingBottom: 20 }}
 						renderItem={({ item }) => (
-							<OfferCard offer={item} closeOnUnfavorite={true} />
+							<OfferCard
+								offer={item}
+								closeOnUnfavorite={true}
+								highlighted={highlighted !== null && highlighted.includes(item.id)}
+							/>
 						)}
 					/>
 				</View>

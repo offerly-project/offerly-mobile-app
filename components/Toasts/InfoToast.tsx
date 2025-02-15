@@ -18,18 +18,31 @@ const InfoToast = (props: Props) => {
 	const hideHandler = () => {
 		Toast.hide();
 	};
+	const pressAndClose = () => {
+		if (props.onPress) {
+			props.onPress();
+			hideHandler();
+		}
+	};
 	const color = theme['--toast-info'];
 	return (
-		<View style={[toastStyles.container]}>
+		<Pressable style={[toastStyles.container]} onPress={pressAndClose}>
 			<View className='flex flex-row items-start gap-4'>
-				<Typography variant='label' color={color} weight='medium'>
-					{props.text1}
-				</Typography>
+				<View className='flex-col'>
+					<Typography variant='label' color={theme['--shade']} weight='medium'>
+						{props.text1}
+					</Typography>
+					{props.text2 && (
+						<Typography variant='label' color={color} weight='medium'>
+							{props.text2}
+						</Typography>
+					)}
+				</View>
 				<Pressable hitSlop={TOAST_CLOSE_HIT_SLOP} onPress={hideHandler}>
 					<FontAwesome name='close' color={color} />
 				</Pressable>
 			</View>
-		</View>
+		</Pressable>
 	);
 };
 

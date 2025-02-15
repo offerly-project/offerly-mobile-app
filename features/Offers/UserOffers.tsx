@@ -4,14 +4,19 @@ import NoCards from '@/components/Messages/NoCards';
 import Typography from '@/components/Typography/Typography';
 import { CARDS_GAP } from '@/constants/layout';
 import { SKELETON_TRANSITIONS } from '@/constants/transitions';
-import { IOffer, IOfferFilter, sortDirection, SortKey } from '@/entities/offer.entity';
+import { IOffer, IOfferFilter } from '@/entities/offer.entity';
+import {
+	NotificationActions,
+	notificationsEventsEmitter,
+	readyEvent,
+} from '@/hooks/useNotifications';
 import usePagination from '@/hooks/usePagination';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { cardsStore, languageStore } from '@/stores';
 import { observer } from 'mobx-react-lite';
 import { Skeleton } from 'moti/skeleton';
-import { useEffect, useRef, useState } from 'react';
-import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { FlatList, RefreshControl, View } from 'react-native';
 import Animated, { interpolate, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import OfferCard from './OfferCard';
@@ -27,9 +32,25 @@ const Offers = observer(() => {
 	const [offersFilter, setOffersFilter] = useState<IOfferFilter>({
 		card: [],
 		category: [],
-		sortKey: '' as SortKey,
-		sortDirection: 'asc' as sortDirection,
+		sortKey: 'expiry_date',
+		sortDirection: 'desc',
 	});
+
+	useLayoutEffect(() => {
+		const handler = () => {
+			setOffersFilter({
+				...offersFilter,
+				sortKey: 'expiry_date',
+				sortDirection: 'desc',
+			});
+		};
+		notificationsEventsEmitter.on(NotificationActions.SHOW_SORTED_BY_NEW_ORDERS, handler);
+		notificationsEventsEmitter.emit(readyEvent(NotificationActions.SHOW_SORTED_BY_NEW_ORDERS));
+		return () => {
+			notificationsEventsEmitter.off(NotificationActions.SHOW_SORTED_BY_NEW_ORDERS, handler);
+		};
+	}, []);
+
 	const [search, setSearch] = useState<string>('');
 
 	const { data, refreshing, loadingMore, handleRefresh, loadMore, initialLoader } =
@@ -197,16 +218,3 @@ const Offers = observer(() => {
 });
 
 export default Offers;
-
-const styles = StyleSheet.create({
-	goTop: {
-		position: 'absolute',
-		bottom: 25,
-		right: 25,
-		height: 35,
-		width: 35,
-		borderRadius: 25,
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-});

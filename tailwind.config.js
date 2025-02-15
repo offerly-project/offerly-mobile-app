@@ -19,6 +19,7 @@ module.exports = {
 				'toast-success': 'var(--toast-success)',
 				'toast-error': 'var(--toast-error)',
 				'toast-info': 'var(--toast-info)',
+				'card-highlighted': 'var(--card-highlighted)',
 			},
 		},
 	},

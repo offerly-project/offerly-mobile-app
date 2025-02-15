@@ -16,6 +16,7 @@ import OfferModalContent from './OfferModalContent';
 type Props = {
 	offer: IOffer;
 	closeOnUnfavorite?: boolean;
+	highlighted?: boolean;
 };
 
 export type OfferModalFooterBuildElement = {
@@ -25,7 +26,7 @@ export type OfferModalFooterBuildElement = {
 	onPress?: () => void;
 };
 
-const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
+const OfferCard = observer(({ offer, closeOnUnfavorite = false, highlighted }: Props) => {
 	const theme = useThemeStyles();
 	const { translations, language } = languageStore();
 	const { addFavorite, removeFavorite, isFavorite } = favoritesStore();
@@ -52,11 +53,13 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false }: Props) => {
 
 	const hasExpired = moment().isAfter(offer.expiry_date);
 
+	const cardBg = highlighted ? 'bg-card-highlighted' : 'bg-card';
+
 	return (
 		<>
 			<Pressable
 				onPress={() => setModalVisible(true)}
-				className='flex-row items-center justify-between rounded-2xl py-4 gap-5 bg-card px-5'
+				className={`flex-row items-center justify-between rounded-2xl py-4 gap-5 ${cardBg} px-5`}
 			>
 				<View className='border-2 border-secondary rounded-2xl overflow-hidden'>
 					<Image

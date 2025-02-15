@@ -19,17 +19,23 @@ const ErrorToast = (props: Props) => {
 		Toast.hide();
 	};
 	const color = theme['--toast-error'];
+	const pressAndClose = () => {
+		if (props.onPress) {
+			props.onPress();
+			hideHandler();
+		}
+	};
 	return (
-		<View style={[toastStyles.container]}>
+		<Pressable style={[toastStyles.container]} onPress={pressAndClose}>
 			<View className='flex flex-row items-start gap-4'>
-				<Typography variant='label' color={color} weight='medium'>
+				<Typography variant='label' color={theme['--shade']} weight='medium'>
 					{props.text1}
 				</Typography>
 				<Pressable hitSlop={TOAST_CLOSE_HIT_SLOP} onPress={hideHandler}>
 					<FontAwesome name='close' color={color} />
 				</Pressable>
 			</View>
-		</View>
+		</Pressable>
 	);
 };
 
