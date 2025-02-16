@@ -37,8 +37,12 @@ const DeleteAccount = ({ onCancel, onConfirm }: Props) => {
 				onChangeText={onTextChange}
 				borderStyle='outlined'
 				sheeted
+				autoCapitalize='characters'
 			/>
 			<View className='flex-row gap-4 w-full py-6'>
+				<Button onPress={onCancel} className='flex-1' borderStyle='ghost'>
+					<Typography>{translations.buttons.cancel}</Typography>
+				</Button>
 				<Button
 					onPress={onConfirm}
 					borderStyle='filled'
@@ -49,9 +53,6 @@ const DeleteAccount = ({ onCancel, onConfirm }: Props) => {
 					<Typography color={theme['--background']} weight='bold'>
 						{translations.buttons.confirm}
 					</Typography>
-				</Button>
-				<Button onPress={onCancel} className='flex-1' borderStyle='ghost'>
-					<Typography>{translations.buttons.cancel}</Typography>
 				</Button>
 			</View>
 		</View>

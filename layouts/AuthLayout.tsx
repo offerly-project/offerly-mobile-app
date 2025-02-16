@@ -1,11 +1,11 @@
+import BackButton from '@/components/Button/BackButton';
 import Typography from '@/components/Typography/Typography';
 import { useThemeContext } from '@/contexts/ThemeContext';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { languageStore } from '@/stores';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { router } from 'expo-router';
+import { MaterialIcons } from '@expo/vector-icons';
 import { observer } from 'mobx-react-lite';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 type Props = {
@@ -16,25 +16,12 @@ type Props = {
 const AuthLayout = observer(({ children, hideBackButton }: Props) => {
 	const { theme, switchTheme } = useThemeContext();
 	const styles = useThemeStyles();
-	const { language, setLanguage, translations, isRtl } = languageStore();
+	const { language, setLanguage } = languageStore();
 
 	return (
 		<SafeAreaView className='px-10 flex-1 w-full h-full justify-center bg-background'>
 			<View className={`flex flex-row justify-between items-center h-[50]`}>
-				<View>
-					{!hideBackButton && (
-						<Pressable
-							className='p-2 mr-auto bg-primary rounded-full'
-							onPress={router.back}
-						>
-							<Ionicons
-								name={isRtl ? 'chevron-forward' : 'chevron-back'}
-								size={24}
-								color={styles['--static']}
-							/>
-						</Pressable>
-					)}
-				</View>
+				<View>{!hideBackButton && <BackButton />}</View>
 
 				<View className='flex-row gap-8'>
 					<Typography

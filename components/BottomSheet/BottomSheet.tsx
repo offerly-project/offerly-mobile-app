@@ -70,7 +70,7 @@ const BottomSheet = ({ open, children, ...rest }: Props) => {
 					<View
 						style={[
 							{
-								backgroundColor: theme['--light-background'],
+								backgroundColor: theme['--bottomsheet-bg'],
 								borderTopLeftRadius: 50,
 								borderTopRightRadius: 50,
 							},
@@ -79,7 +79,7 @@ const BottomSheet = ({ open, children, ...rest }: Props) => {
 					/>
 				)}
 				handleStyle={{
-					backgroundColor: theme['--light-background'],
+					backgroundColor: theme['--bottomsheet-bg'],
 					borderTopLeftRadius: 50,
 					borderTopRightRadius: 50,
 				}}
@@ -90,7 +90,7 @@ const BottomSheet = ({ open, children, ...rest }: Props) => {
 					className={`px-6`}
 					style={{
 						paddingBottom: insets.bottom,
-						backgroundColor: theme['--light-background'],
+						backgroundColor: theme['--bottomsheet-bg'],
 					}}
 				>
 					{children(() => ref.current?.close())}

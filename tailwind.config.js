@@ -20,6 +20,7 @@ module.exports = {
 				'toast-error': 'var(--toast-error)',
 				'toast-info': 'var(--toast-info)',
 				'card-highlighted': 'var(--card-highlighted)',
+				'bottomsheet-bg': 'var(--bottomsheet-bg)',
 			},
 		},
 	},

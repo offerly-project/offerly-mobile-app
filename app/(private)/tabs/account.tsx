@@ -12,6 +12,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import { router } from 'expo-router';
 import { observer } from 'mobx-react-lite';
 import { View } from 'react-native';
+import Toast from 'react-native-toast-message';
 import { ConfigurationItem } from '../../../features/Configuration/components/ConfigurationItem';
 import ThemeSwitchList from '../../../features/Configuration/ThemeSwitchList';
 
@@ -174,7 +175,16 @@ const AccountPage = observer(() => {
 								<DeleteAccount
 									onConfirm={() => {
 										closeHandler();
-										userStore().deleteAccount();
+										router.push('/loading_modal');
+										userStore()
+											.deleteAccount()
+											.catch(() => {
+												Toast.show({
+													type: 'error',
+													text1: translations.errors.error,
+												});
+												router.back();
+											});
 									}}
 									onCancel={closeHandler}
 								/>
@@ -203,7 +213,15 @@ const AccountPage = observer(() => {
 							label={translations.tabs.account.logout}
 							onPress={() => {
 								router.push('/(private)/(fullscreen_modals)/loading_modal');
-								userStore().logout();
+								userStore()
+									.logout()
+									.catch(() => {
+										Toast.show({
+											type: 'error',
+											text1: translations.errors.error,
+										});
+										router.back();
+									});
 							}}
 							leading={
 								<Ionicons
