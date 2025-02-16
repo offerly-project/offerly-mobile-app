@@ -201,7 +201,10 @@ const AccountPage = observer(() => {
 						<ConfigurationItem
 							className='border-none'
 							label={translations.tabs.account.logout}
-							onPress={userStore().logout}
+							onPress={() => {
+								router.push('/(private)/(fullscreen_modals)/loading_modal');
+								userStore().logout();
+							}}
 							leading={
 								<Ionicons
 									className='bg-primary p-1.5'

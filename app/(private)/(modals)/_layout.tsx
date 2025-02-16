@@ -5,6 +5,7 @@ import { Stack } from 'expo-router';
 
 export default function ModalsLayout() {
 	const theme = useThemeStyles();
+
 	return (
 		<BottomSheetModalProvider>
 			<Stack

@@ -44,6 +44,16 @@ export const PrivateLayout = observer(() => {
 					...(Platform.OS === 'android' ? { animation: 'slide_from_bottom' } : {}),
 				}}
 			/>
+			<Stack.Screen
+				name='(fullscreen_modals)'
+				options={{
+					presentation: 'transparentModal',
+					animation: 'fade',
+					contentStyle: {
+						backgroundColor: 'transparent',
+					},
+				}}
+			/>
 		</Stack>
 	);
 });
