@@ -88,8 +88,8 @@ const OTPInput: React.FC<OTPInputProps> = ({ onCodeChange }) => {
 				{otp.map((value, index) => (
 					<TextInput
 						key={index}
-						className={`border-2 border-primary w-[60px] h-[70px] text-3xl text-center rounded-lg text-primary font-light ${
-							focusedIndex === index ? 'border-primary' : 'border-light-background'
+						className={`border-2 w-[60px] h-[70px] text-3xl text-center rounded-lg text-text font-light ${
+							focusedIndex === index ? 'border-selected' : 'border-light-background'
 						}`}
 						value={value}
 						selectionColor={'transparent'}

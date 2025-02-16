@@ -66,7 +66,6 @@ export const RootLayout = observer(() => {
 					await Promise.all([languageStore().setup(), themeStore().setup()]);
 					await uiStore().setup();
 					await userStore().setup();
-					console.log('done');
 
 					setLoading(false);
 				}
