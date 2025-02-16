@@ -58,11 +58,14 @@
 		"home": {
 			"tabName": "الرئيسية",
 			"headers": {
+				"today": "اليوم",
+				"tomorrow": "غدًا",
 				"banks": "البنوك التي ندعمها",
-				"lastChance": "آخر فرصة",
+				"trendingOffers": "العروض الشائعة",
 				"recentlyAdded": "اضيف مؤخرًا",
 				"expiresIn": "ينتهي خلال",
-				"days": "أيام"
+				"expires": "ينتهي",
+				"days": "يوم"
 			}
 		},
 		"offers": {
@@ -265,7 +268,7 @@
 		"selectCard": "اٰختر بطاقة",
 		"phoneNumber": "رقم الجوال",
 		"multipleCardsSelected": "تم تحديد عدة بطاقات",
-		"homePagePlaceholder" : "ابحث عن العروض أو المتاجر.."
+		"homePagePlaceholder": "ابحث عن العروض أو المتاجر.."
 	},
 	"toast": {
 		"discountCopied": "تم نسخ الرمز الترويجي بنجاح",

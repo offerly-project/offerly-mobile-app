@@ -6,6 +6,7 @@ import { Translations } from '@/stores/language.store';
 import { ErrorResponse } from '@/ts/errors.types';
 import { AxiosError } from 'axios';
 import { router } from 'expo-router';
+import moment from 'moment';
 
 export const formatUploadPath = (path: string) => {
 	return `${process.env.EXPO_PUBLIC_BASE_API_URL}/uploads${path}`;
@@ -102,4 +103,30 @@ export const fillArrayWithPlaceholders = (arr: any[], multipleOf: number) => {
 export const extractApiError = (err: AxiosError) => {
 	const _err = err.response?.data as ErrorResponse;
 	return _err;
+};
+
+export const formatExpiryMessage = (expiryDate: Date, translations: Translations) => {
+	const now = new Date();
+	const expireDate = new Date(expiryDate);
+	const diffDays = moment(expireDate).diff(moment(now), 'days');
+	switch (diffDays) {
+		case 0:
+			return (
+				translations.tabs.home.headers.expires + ' ' + translations.tabs.home.headers.today
+			);
+		case 1:
+			return (
+				translations.tabs.home.headers.expires +
+				' ' +
+				translations.tabs.home.headers.tomorrow
+			);
+		default:
+			return (
+				translations.tabs.home.headers.expiresIn +
+				' ' +
+				diffDays +
+				' ' +
+				translations.tabs.home.headers.days
+			);
+	}
 };

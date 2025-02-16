@@ -2,8 +2,8 @@ import { OffersApi } from '@/api/offers.api';
 import Input from '@/components/Input/Input';
 import { IOffer } from '@/entities/offer.entity';
 import BanksList from '@/features/Home/BanksList';
-import LastChanceList from '@/features/Home/LastChanceList';
 import RecenetlyAddedList from '@/features/Home/RecenetlyAddedList';
+import TrendingOffersList from '@/features/Home/TrendingOffersList';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { languageStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
@@ -72,7 +72,7 @@ const Home = () => {
 				contentContainerClassName='gap-4 last:pb-6 z-10 pt-20'
 			>
 				<BanksList />
-				<LastChanceList />
+				<TrendingOffersList />
 				<RecenetlyAddedList />
 			</Animated.ScrollView>
 		</>

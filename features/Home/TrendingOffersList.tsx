@@ -4,22 +4,21 @@ import { SKELETON_TRANSITIONS } from '@/constants/transitions';
 import { IOffer } from '@/entities/offer.entity';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { favoritesStore, languageStore } from '@/stores';
-import { formatUploadPath } from '@/utils/utils';
+import { formatExpiryMessage, formatUploadPath } from '@/utils/utils';
 import { Octicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { observer } from 'mobx-react-lite';
-import moment from 'moment';
 import { Skeleton } from 'moti/skeleton';
 import React, { useEffect, useState } from 'react';
 import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import OfferModalContent from '../Offers/OfferModalContent';
 
-const LastChanceList = observer(() => {
-	const [lastChanceOffers, setLastChanceOffers] = useState<IOffer[]>([]);
+const TrendingOffersList = observer(() => {
+	const [trendingOffers, setTrendingOffers] = useState<IOffer[]>([]);
 
-	const [lastChanceOffersModalVisible, setLastChanceModalVisible] = useState(false);
+	const [modalVisible, setModalVisible] = useState(false);
 	const [selectedOffer, setSelectedOffer] = useState<IOffer | null>(null);
 	const { addFavorite, removeFavorite, isFavorite } = favoritesStore();
 
@@ -28,16 +27,16 @@ const LastChanceList = observer(() => {
 	const { translations, language } = languageStore();
 
 	useEffect(() => {
-		const fetchLastChanceOffers = async () => {
+		const fetchTrendingOffers = async () => {
 			setLoading(true);
 			try {
-				const lastOffersList = await OffersApi.getLastChanceOffers();
-				setLastChanceOffers(lastOffersList);
+				const trendingOffersList = await OffersApi.getTrendingOffers();
+				setTrendingOffers(trendingOffersList);
 			} finally {
 				setLoading(false);
 			}
 		};
-		fetchLastChanceOffers();
+		fetchTrendingOffers();
 	}, []);
 
 	const toggleFavorite = () => {
@@ -49,14 +48,8 @@ const LastChanceList = observer(() => {
 	};
 
 	const handleOfferPress = (offer: IOffer) => {
-		setLastChanceModalVisible(true);
+		setModalVisible(true);
 		setSelectedOffer(offer);
-	};
-	const calculateReminingTime = (offer: IOffer) => {
-		const now = new Date();
-		const expireDate = new Date(offer.expiry_date);
-		const diffDays = moment(expireDate).diff(moment(now), 'days');
-		return diffDays + ' ' + translations.tabs.home.headers.days;
 	};
 
 	const gradient: [string, string, string] = ['#E64A19', '#FF7043', '#FFAB91'];
@@ -84,7 +77,7 @@ const LastChanceList = observer(() => {
 						<Octicons size={24} name='stopwatch' color='white' />
 
 						<Typography variant='h3' weight='bold' color='white'>
-							{translations.tabs.home.headers.lastChance}
+							{translations.tabs.home.headers.trendingOffers}
 						</Typography>
 					</View>
 
@@ -111,7 +104,7 @@ const LastChanceList = observer(() => {
 								</Skeleton.Group>
 							</View>
 						) : (
-							lastChanceOffers.map((item: IOffer) => (
+							trendingOffers.map((item: IOffer) => (
 								<React.Fragment key={item.id}>
 									<TouchableOpacity
 										className='mx-2 w-[155px] flex flex-col items-center gap-3 shadow-sm bg-card  rounded-2xl p-1.5'
@@ -138,9 +131,10 @@ const LastChanceList = observer(() => {
 												weight='bold'
 												color={theme['--danger']}
 											>
-												{translations.tabs.home.headers.expiresIn +
-													' ' +
-													calculateReminingTime(item)}
+												{formatExpiryMessage(
+													item.expiry_date,
+													translations,
+												)}
 											</Typography>
 											<Typography
 												style={{ lineHeight: 18 }}
@@ -162,16 +156,16 @@ const LastChanceList = observer(() => {
 						<Modal
 							presentationStyle='pageSheet'
 							onRequestClose={() => {
-								setLastChanceModalVisible(false);
+								setModalVisible(false);
 							}}
-							visible={lastChanceOffersModalVisible}
+							visible={modalVisible}
 							animationType='slide'
 						>
 							<OfferModalContent
 								offer={selectedOffer!}
 								toggleFavorite={() => toggleFavorite()}
 								favorite={isFavorite(selectedOffer!.id)}
-								closeHandler={() => setLastChanceModalVisible(false)}
+								closeHandler={() => setModalVisible(false)}
 							/>
 						</Modal>
 					)}
@@ -181,7 +175,7 @@ const LastChanceList = observer(() => {
 	);
 });
 
-export default LastChanceList;
+export default TrendingOffersList;
 
 const styles = StyleSheet.create({
 	logo: {

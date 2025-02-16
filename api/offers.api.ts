@@ -42,9 +42,9 @@ export class OffersApi {
 		return results;
 	};
 
-	public static getLastChanceOffers = async () => {
+	public static getTrendingOffers = async () => {
 		const results = await axiosInstance
-			.get(`/user/offers/last-chance`)
+			.get(`/user/offers/trending-offers`)
 			.then((res: AxiosResponse<IOffer[]>) => res.data);
 		return results;
 	};
