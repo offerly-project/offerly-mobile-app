@@ -69,7 +69,7 @@ const BankOffers = ({ bank, closeHandler }: Props) => {
 						' ' +
 						bank.name[language]}
 				</Typography>
-				<CloseButton onPress={closeHandler} />
+				<CloseButton onTouchEnd={closeHandler} />
 			</View>
 			<Categories filter={offersFilter} setFilter={setOffersFilter} />
 			<FlatList

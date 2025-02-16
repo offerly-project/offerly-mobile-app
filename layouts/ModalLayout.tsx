@@ -22,11 +22,7 @@ const ModalLayout = ({ children, title }: Props) => {
 			>
 				<View className='p-4'>
 					<View className='items-end'>
-						<CloseButton
-							onPress={() => {
-								router.back();
-							}}
-						/>
+						<CloseButton onTouchEnd={router.back} />
 					</View>
 					{title && (
 						<View>

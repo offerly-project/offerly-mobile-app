@@ -1,8 +1,7 @@
 import { useThemeStyles } from '@/hooks/useThemeStyles';
-import { languageStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
 import { observer } from 'mobx-react-lite';
-import { StyleProp, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
+import { Pressable, StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import Animated, { SharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 
 type Props = {
@@ -17,7 +16,7 @@ const GoTopLayout = observer(({ onPress, scrollY, style }: Props) => {
 	const goTopAnimation = useAnimatedStyle(() => {
 		return { opacity: withTiming(scrollY.value > 150 ? 1 : 0, { duration: 250 }) };
 	});
-	const rtl = languageStore().isRtl;
+
 	return (
 		<Animated.View
 			style={[
@@ -27,9 +26,9 @@ const GoTopLayout = observer(({ onPress, scrollY, style }: Props) => {
 				style,
 			]}
 		>
-			<TouchableOpacity hitSlop={25} onPress={onPress}>
+			<Pressable hitSlop={25} onTouchEnd={onPress}>
 				<Ionicons size={25} color={theme['--static']} name='arrow-up' />
-			</TouchableOpacity>
+			</Pressable>
 		</Animated.View>
 	);
 });

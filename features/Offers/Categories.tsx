@@ -103,7 +103,7 @@ const Categories = ({ filter, setFilter, sheeted }: Props) => {
 				const isSelected = filter.category.includes(category.name);
 				return (
 					<Pressable
-						onPress={() => toggleCategory(category.name)}
+						onTouchEnd={() => toggleCategory(category.name)}
 						key={category.name}
 						className={`rounded-full ${Platform.OS == 'ios' && 'justify-center px-2 pt-1'}  ${isSelected ? 'border-none bg-selected' : 'border border-primary'}`}
 					>
