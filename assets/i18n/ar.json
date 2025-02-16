@@ -82,6 +82,7 @@
 			"offersFilter": {
 				"myCardsOffers": "عروض كل بطاقاتي",
 				"sort": {
+					"creationDate": "تاريخ الإنشاء",
 					"title": "ترتيب العروض حسب:",
 					"alphabet": "الأبجدية",
 					"expiryDate": "تاريخ الانتهاء",

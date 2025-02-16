@@ -59,15 +59,21 @@ export const RootLayout = observer(() => {
 	useNetworkObserver();
 	useEffect(() => {
 		const loadApp = async () => {
-			if (loaded) {
-				await SplashScreen.hideAsync();
-				await staticDataStore().fetchStaticData();
-				await Promise.all([languageStore().setup(), themeStore().setup()]);
-				await uiStore().setup();
-				await userStore().setup();
+			try {
+				if (loaded) {
+					await SplashScreen.hideAsync();
+					await staticDataStore().fetchStaticData();
+					await Promise.all([languageStore().setup(), themeStore().setup()]);
+					await uiStore().setup();
+					await userStore().setup();
+					console.log('done');
+
+					setLoading(false);
+				}
+				if (error) throw new Error('Failed to load fonts');
+			} finally {
 				setLoading(false);
 			}
-			if (error) throw new Error('Failed to load fonts');
 		};
 		loadApp();
 	}, [loaded, error]);

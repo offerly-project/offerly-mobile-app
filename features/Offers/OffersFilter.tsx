@@ -163,6 +163,12 @@ const OffersFilter = ({ filter, setFilter, closeHandler }: Props) => {
 					selectedValue={filter.sortKey}
 					onPress={(value) => handleRadioSelection(value)}
 				/>
+				<RadioButton
+					label={translations.tabs.offers.offersFilter.sort.creationDate}
+					value={`created_at`}
+					selectedValue={filter.sortKey}
+					onPress={(value) => handleRadioSelection(value)}
+				/>
 			</View>
 
 			<View className='flex-row gap-4 justify-center'>

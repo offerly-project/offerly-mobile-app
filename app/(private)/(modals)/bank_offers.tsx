@@ -37,8 +37,8 @@ const BankOffers = ({ bank, closeHandler }: Props) => {
 			page: 0,
 			limit: 50,
 			q: '',
-			sort_by: '',
-			sort_direction: 'asc',
+			sort_by: 'created_at',
+			sort_direction: 'desc',
 		}).then((res) => {
 			setBankOffers(res);
 		});

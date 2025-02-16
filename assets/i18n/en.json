@@ -82,6 +82,7 @@
 			"offersFilter": {
 				"myCardsOffers": "All My Cards offers",
 				"sort": {
+					"creationDate": "Creation Date",
 					"title": "Sort Offers by:",
 					"alphabet": "Alphabet",
 					"expiryDate": "Expiry date",
