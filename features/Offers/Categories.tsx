@@ -16,7 +16,6 @@ type Props = {
 const Categories = ({ filter, setFilter, sheeted }: Props) => {
 	const theme = useThemeStyles();
 	const { translations } = languageStore();
-	const isRtl = languageStore().isRtl;
 
 	const categoriesList = [
 		{
@@ -106,7 +105,7 @@ const Categories = ({ filter, setFilter, sheeted }: Props) => {
 					<Pressable
 						onPress={() => toggleCategory(category.name)}
 						key={category.name}
-						className={`rounded-full ${Platform.OS == 'ios' && 'justify-center px-2 pt-1'}  ${isSelected ? 'border-none bg-selected' : 'border border-secondary'}`}
+						className={`rounded-full ${Platform.OS == 'ios' && 'justify-center px-2 pt-1'}  ${isSelected ? 'border-none bg-selected' : 'border border-primary'}`}
 					>
 						<View
 							className={`flex-row  gap-1 ${Platform.OS == 'android' && 'items-center pt-1 px-2'}`}
@@ -117,7 +116,7 @@ const Categories = ({ filter, setFilter, sheeted }: Props) => {
 							<Typography
 								variant='body'
 								weight='bold'
-								color={isSelected ? 'white' : theme['--secondary']}
+								color={isSelected ? 'white' : theme['--primary']}
 							>
 								{category.displayName}
 							</Typography>

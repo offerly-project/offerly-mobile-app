@@ -17,12 +17,10 @@ import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-na
 import Toast from 'react-native-toast-message';
 
 const Cards = observer(() => {
-	// Hooks and theme
 	const theme = useThemeStyles();
 	const { translations, language } = languageStore();
 	const { userCardsList } = cardsStore();
 
-	// State and animations
 	const [selectedCards, setSelectedCards] = useState<string[]>([]);
 	const [removing, setRemoving] = useState(false);
 	const opacity = useSharedValue(0);
@@ -38,7 +36,6 @@ const Cards = observer(() => {
 		opacity: opacity.value,
 	}));
 
-	// Handlers
 	const handleCardSelect = (cardId: string) => {
 		setSelectedCards((prev) =>
 			prev.includes(cardId) ? prev.filter((id) => id !== cardId) : [...prev, cardId],
@@ -82,18 +79,17 @@ const Cards = observer(() => {
 		);
 	};
 
-	// Utility functions
 	const groupedCards = useMemo(() => {
 		const groups: Record<string, ICard[]> = {};
 		userCardsList.forEach((card) => {
-			const bankName = language == 'ar' ? card.bank.name.ar : card.bank.name.en;
+			const bankName = card.bank.name[language];
 			if (!groups[bankName]) {
 				groups[bankName] = [];
 			}
 			groups[bankName].push(card);
 		});
 		return Object.entries(groups).sort(([a], [b]) => a.localeCompare(b));
-	}, [userCardsList]);
+	}, [userCardsList, language]);
 
 	const renderGroupedCards = () =>
 		groupedCards.map(([bankName, cards], index) => (

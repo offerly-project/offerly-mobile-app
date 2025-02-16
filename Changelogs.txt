@@ -1,8 +1,14 @@
 Bugfixes:
 - Email lowercasing
 - Email sent logo width fixed
+- Cards Banks title language translation fixed
 
+
+Enhancements:
+- Offers toolbar transition
+- Dark theme colors
 
 
 Features:
-- Notification Press: Go to new offers
+- New Offers Notification Press: Go to new offers
+- Favorite Offers Notification: Go to favorites and highlight

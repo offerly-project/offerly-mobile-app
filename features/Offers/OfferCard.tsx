@@ -99,7 +99,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false, highlighted }: P
 					>
 						{offer.description[langKey].trim()}
 					</Typography>
-					<Typography variant='label' color={theme['--primary']}>
+					<Typography variant='label' color={theme['--primary']} weight='bold'>
 						{moment(offer.expiry_date.toString()).format('DD/MM/YYYY')}
 					</Typography>
 					{hasExpired && (

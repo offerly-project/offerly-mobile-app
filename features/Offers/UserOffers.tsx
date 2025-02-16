@@ -16,9 +16,20 @@ import { cardsStore, languageStore } from '@/stores';
 import { observer } from 'mobx-react-lite';
 import { Skeleton } from 'moti/skeleton';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { FlatList, RefreshControl, View } from 'react-native';
-import Animated, { interpolate, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {
+	FlatList,
+	NativeScrollEvent,
+	NativeSyntheticEvent,
+	RefreshControl,
+	View,
+} from 'react-native';
+import Animated, {
+	Easing,
+	runOnJS,
+	useAnimatedStyle,
+	useSharedValue,
+	withTiming,
+} from 'react-native-reanimated';
 import OfferCard from './OfferCard';
 import OffersToolbar from './OffersToolbar';
 
@@ -36,6 +47,8 @@ const Offers = observer(() => {
 		sortDirection: 'desc',
 	});
 
+	const [search, setSearch] = useState<string>('');
+
 	useLayoutEffect(() => {
 		const handler = () => {
 			setOffersFilter({
@@ -50,8 +63,6 @@ const Offers = observer(() => {
 			notificationsEventsEmitter.off(NotificationActions.SHOW_SORTED_BY_NEW_ORDERS, handler);
 		};
 	}, []);
-
-	const [search, setSearch] = useState<string>('');
 
 	const { data, refreshing, loadingMore, handleRefresh, loadMore, initialLoader } =
 		usePagination<IOffer>({
@@ -72,9 +83,9 @@ const Offers = observer(() => {
 
 	const userCards = cardsStore().userCardsList;
 	const flatlistRef = useRef<FlatList<IOffer> | null>(null);
-	const scrollY = useSharedValue(0);
 
-	const { top } = useSafeAreaInsets();
+	const lastScrollY = useSharedValue(0);
+	const toolbarVisible = useSharedValue(1);
 
 	useEffect(() => {
 		handleRefresh();
@@ -119,14 +130,61 @@ const Offers = observer(() => {
 		setHeaderText();
 	}, [offersFilter.card, userCards]);
 
+	const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+		const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
+		const currentY = contentOffset.y;
+		const isAtBottom = currentY + layoutMeasurement.height >= contentSize.height - 10;
+		const isAtTop = currentY <= 0;
+
+		if (data.length === 0) return;
+
+		if (isAtTop) {
+			return;
+		}
+
+		if (currentY > lastScrollY.value + 5) {
+			if (toolbarVisible.value !== 0) {
+				runOnJS(() => {
+					toolbarVisible.value = 0;
+				})();
+			}
+		} else if (currentY < lastScrollY.value - 10 && !isAtBottom) {
+			if (toolbarVisible.value !== 1) {
+				runOnJS(() => {
+					toolbarVisible.value = 1;
+				})();
+			}
+		}
+
+		lastScrollY.value = currentY;
+	};
+
 	const toolbarAnimation = useAnimatedStyle(() => {
-		const translateY = interpolate(scrollY.value, [0, 150], [0, -top - 50], 'clamp');
-		return { transform: [{ translateY }] };
+		const isShowing = toolbarVisible.value === 1;
+		return {
+			transform: [
+				{
+					translateY: withTiming(isShowing ? 0 : -500, {
+						duration: isShowing ? 600 : 150,
+						easing: isShowing ? Easing.out(Easing.exp) : Easing.linear,
+					}),
+				},
+			],
+			opacity: withTiming(toolbarVisible.value, {
+				duration: isShowing ? 400 : 100,
+				easing: isShowing ? Easing.out(Easing.exp) : Easing.linear,
+			}),
+		};
 	});
 
-	const animatedPaddingStyle = useAnimatedStyle(() => {
-		const paddingTop = interpolate(scrollY.value, [0, 150], [130, 25], 'clamp');
-		return { paddingTop };
+	const viewAnimation = useAnimatedStyle(() => {
+		const isShowing = toolbarVisible.value === 1;
+		return {
+			paddingTop: withTiming(isShowing ? 150 : 0, {
+				duration: isShowing ? 600 : 150,
+				easing: isShowing ? Easing.out(Easing.exp) : Easing.linear,
+			}),
+		};
 	});
 
 	const renderSkeleton = (count: number) => (
@@ -153,10 +211,11 @@ const Offers = observer(() => {
 			{userCards.length === 0 ? (
 				<NoCards />
 			) : (
-				<View className='relative flex-1 pt-3'>
+				<View className='relative flex-1'>
+					{/* Floating Toolbar (Now fully animating in and out) */}
 					<Animated.View
 						className='absolute top-0 left-0 w-full z-20'
-						style={[toolbarAnimation]}
+						style={toolbarAnimation}
 					>
 						<OffersToolbar
 							offersFilter={offersFilter}
@@ -179,36 +238,32 @@ const Offers = observer(() => {
 							</View>
 						)}
 					</Animated.View>
+					<Animated.View className='flex-1 relative' style={[viewAnimation]}>
+						{initialLoader && renderSkeleton(4)}
 
-					<Animated.View style={[animatedPaddingStyle, { flex: 1 }]}>
-						{initialLoader && <View className='flex-1 px-4'>{renderSkeleton(4)}</View>}
 						<FlatList
 							data={data}
 							keyExtractor={(item) => item.id.toString()}
 							renderItem={({ item }) => <OfferCard offer={item} />}
 							refreshControl={
 								<RefreshControl
-									tintColor={theme['--primary']}
+									tintColor={theme['--selected']}
 									refreshing={refreshing}
 									onRefresh={handleRefresh}
 								/>
 							}
-							onScroll={(event) => {
-								scrollY.value = event.nativeEvent.contentOffset.y;
-							}}
+							onScroll={handleScroll}
 							scrollEventThrottle={16}
 							ref={flatlistRef}
-							contentContainerStyle={{ gap: CARDS_GAP }}
 							ListFooterComponent={renderFooter}
+							contentContainerStyle={{ gap: CARDS_GAP }}
 							onEndReached={loadMore}
 							onEndReachedThreshold={0.1}
 						/>
 
 						<GoTopLayout
-							onPress={() => {
-								flatlistRef.current?.scrollToOffset({ offset: 0 });
-							}}
-							scrollY={scrollY}
+							scrollY={lastScrollY}
+							onPress={() => flatlistRef.current?.scrollToOffset({ offset: 0 })}
 						/>
 					</Animated.View>
 				</View>
