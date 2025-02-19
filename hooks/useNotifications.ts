@@ -33,6 +33,7 @@ export const useNotifications = () => {
 		const authStatus = await messaging().requestPermission();
 		return authStatus;
 	};
+
 	const pathname = usePathname();
 	const notificationPressHandler = async (data: NotificationPayload) => {
 		if (data.action === NotificationActions.SHOW_SORTED_BY_NEW_ORDERS) {
@@ -56,7 +57,6 @@ export const useNotifications = () => {
 		}
 		if (data.action === NotificationActions.EXPIRING_FAVOURITES) {
 			const isInFavorites = pathname === '/tabs/favorites';
-			console.log(pathname);
 
 			if (!isInFavorites) {
 				router.push('/tabs/favorites');
@@ -98,9 +98,7 @@ export const useNotifications = () => {
 				permissions !== messaging.AuthorizationStatus.AUTHORIZED &&
 				permissions !== messaging.AuthorizationStatus.PROVISIONAL
 			) {
-				userStore().updateUser({
-					notification_token: null,
-				});
+				messaging().deleteToken();
 				return;
 			}
 
@@ -138,9 +136,8 @@ export const useNotifications = () => {
 					});
 				});
 		})();
-		return () => {
-			console.log('UNSUB', unsubRef.current);
 
+		return () => {
 			unsubRef.current?.();
 		};
 	}, [pathname]);

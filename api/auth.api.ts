@@ -14,12 +14,6 @@ export class AuthApi {
 		return data!;
 	};
 
-	static logout = async () => {
-		return await axiosInstance
-			.post('/user/auth/logout')
-			.then((res: AxiosResponse<{ message: string }>) => res.data);
-	};
-
 	static guestToken = async () => {
 		return await axiosInstance
 			.get('/user/guest/token')

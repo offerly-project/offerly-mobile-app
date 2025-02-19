@@ -4,6 +4,7 @@ import { UserApi } from '@/api/user.api';
 import { AxiosAuthInterceptorManager } from '@/configs/axios';
 import { PatchUserData, User } from '@/entities/user.entity';
 import { PlainStorage, SecureStorage } from '@/services/storage.services';
+import messaging from '@react-native-firebase/messaging';
 import _ from 'lodash';
 import { action, makeAutoObservable, observable, runInAction } from 'mobx';
 import { RootStore } from '.';
@@ -114,7 +115,13 @@ export class UserStore {
 
 	@action
 	logout = async () => {
-		if (!this.isGuest) await AuthApi.logout();
+		if (!this.isGuest) {
+			try {
+				messaging().deleteToken();
+			} catch (e) {
+				console.error('Error deleting token:', e);
+			}
+		}
 		AxiosAuthInterceptorManager.removeInterceptor();
 		await SecureStorage.deleteItem('token');
 		try {
