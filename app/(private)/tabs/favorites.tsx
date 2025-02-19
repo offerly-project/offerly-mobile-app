@@ -50,8 +50,13 @@ const Favorites = observer((props: Props) => {
 	}, [highlighted]);
 
 	useLayoutEffect(() => {
-		const handler = (offers: string) => {
-			const offersArr = offers.split(',');
+		const handler = (offersData: string) => {
+			if (offersData.length === 0) return;
+
+			const offersArr = offersData.split(',');
+			if (!offers.some((offer) => offersArr.includes(offer.id))) {
+				return;
+			}
 			setHighlighted(offersArr);
 		};
 		notificationsEventsEmitter.on(NotificationActions.EXPIRING_FAVOURITES, handler);
