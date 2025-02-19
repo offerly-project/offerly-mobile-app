@@ -40,7 +40,7 @@ const OffersFilter = ({ filter, setFilter, closeHandler }: Props) => {
 
 	return (
 		<View className='gap-5 py-3'>
-			<Categories sheeted filter={filter} setFilter={setFilter!} />
+			<Categories filter={filter} setFilter={setFilter!} />
 			<Select
 				snapPoints={['65%']}
 				placeHolder={placeHolder}

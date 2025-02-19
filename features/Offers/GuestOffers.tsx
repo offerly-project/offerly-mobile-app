@@ -4,7 +4,7 @@ import { IOffer, IOfferFilter, sortDirection, SortKey } from '@/entities/offer.e
 import Categories from '@/features/Offers/Categories';
 import OfferCard from '@/features/Offers/OfferCard';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
-import { languageStore } from '@/stores';
+import { languageStore, staticDataStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useMemo, useState } from 'react';
@@ -36,6 +36,7 @@ const GuestOffers = observer((props: Props) => {
 			})
 			.finally(() => setLoading(false));
 	}, []);
+	const categoriesData = staticDataStore().categories;
 
 	const offersList = useMemo(() => {
 		let list = data;
@@ -46,7 +47,7 @@ const GuestOffers = observer((props: Props) => {
 		}
 		if (offersFilter.category.length !== 0) {
 			list = list.filter((offer) =>
-				offer.categories.some((cat) => offersFilter.category.includes(cat)),
+				offer.categories.some((cat) => offersFilter.category.includes(categoriesData[cat])),
 			);
 		}
 		return list;

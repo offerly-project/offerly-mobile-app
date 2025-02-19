@@ -1,23 +1,22 @@
-import { StaticDataApi } from '@/api/static-data.api';
+import { ICountry, StaticDataApi } from '@/api/static-data.api';
 import { RootStore } from '.';
 
 export class StaticDataStore {
-	categories: string[] = [];
-	countries: string[] = [];
-	languages: string[] = [];
+	categories: Record<string, string> = {};
+	countries: ICountry[] = [];
+
 	rootStore: RootStore;
 	constructor(rootStore: RootStore) {
 		this.rootStore = rootStore;
 	}
 	async fetchStaticData() {
-		Promise.all([
-			StaticDataApi.getCategories(),
-			StaticDataApi.getCountries(),
-			StaticDataApi.getLanguages(),
-		]).then(([categories, countries, languages]) => {
-			this.categories = categories;
-			this.countries = countries;
-			this.languages = languages;
-		});
+		Promise.all([StaticDataApi.getCategories(), StaticDataApi.getCountries()]).then(
+			([categories, countries]) => {
+				this.categories = Object.fromEntries(
+					categories.map((category) => [category.name, category.id]),
+				);
+				this.countries = countries;
+			},
+		);
 	}
 }

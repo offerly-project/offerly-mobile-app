@@ -24,12 +24,14 @@ SplashScreen.setOptions({ fade: true });
 //@ts-ignore
 Text.defaultProps = { allowFontScaling: false };
 // Disable scroll indicators globally
+
 //@ts-ignore
 ScrollView.defaultProps = {
 	showsVerticalScrollIndicator: false,
 	showsHorizontalScrollIndicator: false,
 	keyboardShouldPersistTaps: 'always',
 };
+
 //@ts-ignore
 FlatList.defaultProps = {
 	showsVerticalScrollIndicator: false,
@@ -77,7 +79,6 @@ export const RootLayout = observer(() => {
 		loadApp();
 	}, [loaded, error]);
 
-	// Trigger fade-in animation when welcome screen finishes
 	useEffect(() => {
 		if (animationFinished) {
 			opacity.value = withTiming(1, { duration: 500 });

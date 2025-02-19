@@ -101,7 +101,7 @@ const Offers = observer(() => {
 				count++;
 			if (offersFilter.category.length > 0) count++;
 			if (offersFilter.sortKey) count++;
-			if (offersFilter.sortDirection !== 'asc') count++;
+
 			return count;
 		};
 		setAppliedFilterCount(countAppliedFilters());
