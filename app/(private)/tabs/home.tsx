@@ -7,21 +7,15 @@ import { SKELETON_TRANSITIONS } from '@/constants/transitions';
 import { IOffer } from '@/entities/offer.entity';
 import BanksList from '@/features/Home/BanksList';
 import RecenetlyAddedList from '@/features/Home/RecenetlyAddedList';
-import OfferCard from '@/features/Offers/OfferCard';
 import TrendingOffersList from '@/features/Home/TrendingOffersList';
+import OfferCard from '@/features/Offers/OfferCard';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { languageStore } from '@/stores';
 import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { BlurView } from 'expo-blur';
 import { Skeleton } from 'moti/skeleton';
 import { useEffect, useRef, useState } from 'react';
-import {
-	KeyboardAvoidingView,
-	Modal,
-	NativeScrollEvent,
-	NativeSyntheticEvent,
-	Platform,
-	View,
-} from 'react-native';
+import { Modal, NativeScrollEvent, NativeSyntheticEvent, View } from 'react-native';
 import { FlatList, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Animated, {
 	Easing,
@@ -30,14 +24,13 @@ import Animated, {
 	useSharedValue,
 	withTiming,
 } from 'react-native-reanimated';
-import { BlurView } from 'expo-blur';
 
 const Home = () => {
 	const theme = useThemeStyles();
 	const [search, setSearch] = useState('');
 	const [loading, setLoading] = useState(false);
 	const [offers, setOffers] = useState<IOffer[]>([]);
-	const { language, translations } = languageStore();
+	const { translations } = languageStore();
 	const [modalVisible, setModalVisible] = useState(false);
 	const flatlistRef = useRef<FlatList<IOffer>>(null);
 
