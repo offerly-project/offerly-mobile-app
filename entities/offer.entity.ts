@@ -10,7 +10,7 @@ export interface IOfferMetadata {
 
 export type OfferChannel = 'online' | 'in-store';
 
-export type SortKey = 'expiry_date' | 'alphabet_ar' | 'alphabet_en' | '';
+export type SortKey = 'expiry_date' | 'alphabet_ar' | 'alphabet_en' | 'created_at' | '';
 
 export type sortDirection = 'asc' | 'desc' | '';
 

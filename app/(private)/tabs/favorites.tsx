@@ -11,7 +11,7 @@ import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { favoritesStore, userStore } from '@/stores';
 import { observer } from 'mobx-react-lite';
 import { Skeleton } from 'moti/skeleton';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Animated from 'react-native-reanimated';
 
@@ -49,7 +49,10 @@ const Favorites = observer((props: Props) => {
 		}
 	}, [highlighted]);
 
-	useLayoutEffect(() => {
+	useEffect(() => {
+		console.log(offers);
+
+		if (!offers) return;
 		const handler = (offersData: string) => {
 			if (offersData.length === 0) return;
 
@@ -64,7 +67,7 @@ const Favorites = observer((props: Props) => {
 		return () => {
 			notificationsEventsEmitter.off(NotificationActions.EXPIRING_FAVOURITES, handler);
 		};
-	}, []);
+	}, [offers]);
 
 	return (
 		<>

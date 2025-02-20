@@ -43,7 +43,7 @@ export const useNotifications = () => {
 				router.push('/tabs/offers');
 			}
 			if (!isInOffers) {
-				notificationsEventsEmitter.once(
+				notificationsEventsEmitter.on(
 					readyEvent(NotificationActions.SHOW_SORTED_BY_NEW_ORDERS),
 					() => {
 						notificationsEventsEmitter.emit(
@@ -63,7 +63,7 @@ export const useNotifications = () => {
 			}
 
 			if (!isInFavorites) {
-				notificationsEventsEmitter.once(
+				notificationsEventsEmitter.on(
 					readyEvent(NotificationActions.EXPIRING_FAVOURITES),
 
 					() => {

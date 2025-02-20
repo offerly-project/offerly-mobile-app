@@ -43,7 +43,7 @@ const Offers = observer(() => {
 	const [offersFilter, setOffersFilter] = useState<IOfferFilter>({
 		card: [],
 		category: [],
-		sortKey: 'expiry_date',
+		sortKey: 'created_at',
 		sortDirection: 'desc',
 	});
 
@@ -53,7 +53,7 @@ const Offers = observer(() => {
 		const handler = () => {
 			setOffersFilter({
 				...offersFilter,
-				sortKey: 'expiry_date',
+				sortKey: 'created_at',
 				sortDirection: 'desc',
 			});
 		};
