@@ -1,14 +1,28 @@
 import { OffersApi } from '@/api/offers.api';
+import CloseButton from '@/components/Button/CloseButton';
+import GoTopLayout from '@/components/Button/GoTopButton';
 import Input from '@/components/Input/Input';
+import Typography from '@/components/Typography/Typography';
+import { SKELETON_TRANSITIONS } from '@/constants/transitions';
 import { IOffer } from '@/entities/offer.entity';
 import BanksList from '@/features/Home/BanksList';
 import RecenetlyAddedList from '@/features/Home/RecenetlyAddedList';
+import OfferCard from '@/features/Offers/OfferCard';
 import TrendingOffersList from '@/features/Home/TrendingOffersList';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { languageStore } from '@/stores';
-import { Ionicons } from '@expo/vector-icons';
-import { useEffect, useState } from 'react';
-import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
+import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { Skeleton } from 'moti/skeleton';
+import { useEffect, useRef, useState } from 'react';
+import {
+	KeyboardAvoidingView,
+	Modal,
+	NativeScrollEvent,
+	NativeSyntheticEvent,
+	Platform,
+	View,
+} from 'react-native';
+import { FlatList, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Animated, {
 	Easing,
 	interpolate,
@@ -16,18 +30,47 @@ import Animated, {
 	useSharedValue,
 	withTiming,
 } from 'react-native-reanimated';
+import { BlurView } from 'expo-blur';
 
 const Home = () => {
 	const theme = useThemeStyles();
 	const [search, setSearch] = useState('');
+	const [loading, setLoading] = useState(false);
 	const [offers, setOffers] = useState<IOffer[]>([]);
-	const { translations } = languageStore();
+	const { language, translations } = languageStore();
+	const [modalVisible, setModalVisible] = useState(false);
+	const flatlistRef = useRef<FlatList<IOffer>>(null);
+
+	const slideAnim = useSharedValue(-100); // Initial position above the screen
 
 	useEffect(() => {
-		(async () => {
+		if (modalVisible) {
+			slideAnim.value = withTiming(0, { duration: 300 });
+		} else {
+			slideAnim.value = withTiming(-100, { duration: 300 });
+		}
+	}, [modalVisible]);
+
+	const slideStyle = useAnimatedStyle(() => {
+		const translateY = interpolate(slideAnim.value, [-100, 0], [-100, 0], 'clamp');
+		return {
+			transform: [{ translateY }],
+		};
+	});
+
+	useEffect(() => {
+		const fetchOffers = async () => {
+			setLoading(true);
 			const offerList = await OffersApi.searchOffers(search);
 			setOffers(offerList);
-		})();
+			setLoading(false);
+		};
+
+		if (search) {
+			fetchOffers();
+		} else {
+			setOffers([]);
+		}
 	}, [search]);
 
 	const scrollY = useSharedValue(0);
@@ -43,11 +86,67 @@ const Home = () => {
 		const translateY = interpolate(scrollY.value, [0, 100], [0, -80], 'clamp');
 		const opacity = interpolate(scrollY.value, [0, 100], [1, 0], 'clamp');
 
-		return {
-			transform: [{ translateY }],
-			opacity,
-		};
+		return { transform: [{ translateY }], opacity };
 	});
+
+	const renderPlaceholder = () => {
+		if (!search) {
+			return (
+				<View className='flex-1 justify-start items-center p-10'>
+					<MaterialIcons name='manage-search' size={120} color={theme['--static']} />
+					<Typography
+						weight='medium'
+						align='center'
+						color={theme['--static']}
+						variant='body'
+					>
+						Enter text to start looking for offers
+					</Typography>
+				</View>
+			);
+		} else if (offers.length === 0 && !loading) {
+			return (
+				<View className='flex-1 justify-start items-center p-10'>
+					<MaterialCommunityIcons
+						name='emoticon-sad-outline'
+						size={120}
+						color={theme['--static']}
+					/>
+					<Typography
+						weight='medium'
+						align='center'
+						color={theme['--static']}
+						variant='body'
+					>
+						No offers found for your search query
+					</Typography>
+				</View>
+			);
+		}
+		return null;
+	};
+	const renderSkeleton = (count: number) =>
+		loading &&
+		offers.length != 0 && (
+			<Skeleton.Group show={true}>
+				{new Array(count).fill(0).map((_, i) => (
+					<View className='mx-4 my-2' key={i}>
+						<Skeleton
+							colors={theme.skeleton}
+							height={130}
+							width='100%'
+							disableExitAnimation
+							transition={SKELETON_TRANSITIONS}
+						/>
+					</View>
+				))}
+			</Skeleton.Group>
+		);
+
+	const handleModalClose = () => {
+		setModalVisible(false);
+		setSearch('');
+	};
 
 	return (
 		<>
@@ -55,15 +154,18 @@ const Home = () => {
 				className='py-2 absolute top-0 left-0 w-full bg-transparent z-20'
 				style={headerAnimation}
 			>
-				<Input
-					trailingIcon={() => (
-						<Ionicons size={22} color={theme['--primary']} name='search' />
-					)}
-					value={search}
-					onChangeText={setSearch}
-					placeholder={translations.placeholders.homePagePlaceholder}
-					variant='primary'
-				/>
+				<TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
+					<Input
+						pointerEvents='none'
+						trailingIcon={() => (
+							<Ionicons size={22} color={theme['--primary']} name='search' />
+						)}
+						value={search}
+						// onPress={() => setModalVisible(true)}
+						placeholder={translations.placeholders.homePagePlaceholder}
+						variant='primary'
+					/>
+				</TouchableWithoutFeedback>
 			</Animated.View>
 
 			<Animated.ScrollView
@@ -75,6 +177,63 @@ const Home = () => {
 				<TrendingOffersList />
 				<RecenetlyAddedList />
 			</Animated.ScrollView>
+			<Modal
+				animationType='fade'
+				transparent={true}
+				visible={modalVisible}
+				onDismiss={handleModalClose}
+			>
+				<BlurView
+					className='flex-1 pb-10  gap-5'
+					intensity={40}
+					experimentalBlurMethod='dimezisBlurView'
+					blurReductionFactor={40}
+					tint='dark'
+				>
+					<Animated.View
+						className='bg-card flex-row flex-grow-0 items-center gap-3 p-5 pt-20 rounded-b-2xl'
+						style={slideStyle}
+					>
+						<CloseButton onPress={() => setModalVisible(false)} />
+						<View className='flex-1 '>
+							<Input
+								trailingIcon={() => (
+									<Ionicons size={22} color={theme['--primary']} name='search' />
+								)}
+								onPress={() => setModalVisible(true)}
+								value={search}
+								autoFocus
+								debounceDelay={1000}
+								onChangeText={setSearch}
+								placeholder={translations.placeholders.homePagePlaceholder}
+								variant='primary'
+							/>
+						</View>
+					</Animated.View>
+					{loading ? renderSkeleton(5) : renderPlaceholder()}
+					{!loading && offers.length > 0 && (
+						<FlatList
+							data={offers}
+							contentContainerStyle={{ gap: 10, paddingInline: 10 }}
+							className='flex-1'
+							keyExtractor={(item) => item.id}
+							renderItem={({ item }) => <OfferCard key={item.id} offer={item} />}
+							ref={flatlistRef}
+							onScroll={(e) => {
+								scrollY.value = e.nativeEvent.contentOffset.y;
+							}}
+						/>
+					)}
+
+					<GoTopLayout
+						style={{ bottom: 50 }}
+						onPress={() => {
+							flatlistRef.current?.scrollToOffset({ offset: 0 });
+						}}
+						scrollY={scrollY}
+					/>
+				</BlurView>
+			</Modal>
 		</>
 	);
 };

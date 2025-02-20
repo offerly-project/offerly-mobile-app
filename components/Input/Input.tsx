@@ -2,7 +2,7 @@ import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { languageStore } from '@/stores';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextInput, TextInputProps, View } from 'react-native';
 import OutsidePressHandler from 'react-native-outside-press';
 import Typography from '../Typography/Typography';
@@ -34,6 +34,7 @@ interface InputProps extends Omit<TextInputProps, 'onChange'> {
 	error?: string;
 	focused?: boolean;
 	textArea?: boolean;
+	debounceDelay?: number; // New debounceDelay prop
 }
 
 const Input: React.FC<InputProps> = ({
@@ -49,12 +50,15 @@ const Input: React.FC<InputProps> = ({
 	sheeted,
 	error,
 	focused,
+	debounceDelay = 0,
 	...rest
 }) => {
+	const [debouncedValue, setDebouncedValue] = useState(value);
 	const inputStyles = `flex-1 py-3 px-2 color-text`;
 	const containerStyles = `bg-transparent flex-row items-center ${BORDER_STYLE[borderStyle]} ${COLORING[variant]} ${disabled ? 'opacity-40' : ''}`;
 
 	const ref = React.useRef<TextInput>(null);
+
 	useEffect(() => {
 		if (focused) {
 			ref.current?.focus();
@@ -62,6 +66,22 @@ const Input: React.FC<InputProps> = ({
 			ref.current?.blur();
 		}
 	}, [focused]);
+
+	useEffect(() => {
+		const handler = setTimeout(() => {
+			if (onChangeText) {
+				onChangeText(debouncedValue!);
+			}
+		}, debounceDelay);
+
+		return () => {
+			clearTimeout(handler);
+		};
+	}, [debouncedValue, debounceDelay, onChangeText]);
+
+	const handleChangeText = (text: string) => {
+		setDebouncedValue(text);
+	};
 
 	const getKeyboardType = () => {
 		switch (type) {
@@ -91,8 +111,8 @@ const Input: React.FC<InputProps> = ({
 						placeholder={placeholder}
 						style={language == 'ar' ? { textAlign: 'right' } : { textAlign: 'left' }}
 						placeholderTextColor='gray'
-						value={value}
-						onChangeText={onChangeText}
+						value={debouncedValue}
+						onChangeText={handleChangeText}
 						editable={!disabled}
 						keyboardType={getKeyboardType()}
 						{...rest}

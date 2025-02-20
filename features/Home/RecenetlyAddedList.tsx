@@ -107,7 +107,7 @@ const RecentlyAddedList = observer(() => {
 								<React.Fragment key={item.id}>
 									<TouchableOpacity
 										key={item.id}
-										className='mx-2 w-[155px] flex flex-col items-center gap-3 shadow-sm bg-card rounded-2xl p-1.5'
+										className='mx-2 w-[140px] flex flex-col items-center gap-3 shadow-sm bg-card rounded-2xl p-1.5'
 										onPress={() => handleOfferPress(item)}
 									>
 										<Image
@@ -168,8 +168,8 @@ export default RecentlyAddedList;
 
 const styles = StyleSheet.create({
 	logo: {
-		width: 140,
-		height: 140,
+		width: 125,
+		height: 125,
 		borderRadius: 8,
 	},
 });

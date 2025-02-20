@@ -70,7 +70,7 @@ const BanksList = () => {
 					banks.map((item: IBank) => (
 						<React.Fragment key={item.id}>
 							<TouchableOpacity
-								className='w-[130px] flex flex-col items-center gap-3 rounded-2xl p-1.5'
+								className='w-[85px] flex flex-col items-center gap-3 rounded-2xl p-1.5'
 								onPress={() => handleBankPress(item)}
 							>
 								<Image
@@ -82,7 +82,7 @@ const BanksList = () => {
 									weight='medium'
 									numberOfLines={2}
 									align='center'
-									variant='body'
+									variant='label'
 									color={theme['--text']}
 								>
 									{item.name[language]}
@@ -113,8 +113,8 @@ export default BanksList;
 
 const styles = StyleSheet.create({
 	bankLogo: {
-		width: 100,
-		height: 100,
+		width: 60,
+		height: 60,
 		borderRadius: 50,
 	},
 });
