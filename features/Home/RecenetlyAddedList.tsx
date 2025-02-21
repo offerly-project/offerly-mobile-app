@@ -3,7 +3,7 @@ import Typography from '@/components/Typography/Typography';
 import { SKELETON_TRANSITIONS } from '@/constants/transitions';
 import { IOffer } from '@/entities/offer.entity';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
-import { favoritesStore, languageStore } from '@/stores';
+import { banksStore, favoritesStore, languageStore } from '@/stores';
 import { formatUploadPath } from '@/utils/utils';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Image } from 'expo-image';
@@ -23,6 +23,7 @@ const RecentlyAddedList = observer(() => {
 	const theme = useThemeStyles();
 	const [loading, setLoading] = useState(true);
 	const { translations, language } = languageStore();
+	const { getBankById } = banksStore();
 
 	useEffect(() => {
 		const fetchRecentlyAddedOffers = async () => {
@@ -115,16 +116,25 @@ const RecentlyAddedList = observer(() => {
 											style={styles.logo}
 										/>
 										<View className='gap-2'>
-											<Typography
-												style={{ lineHeight: 22 }}
-												weight='bold'
-												numberOfLines={1}
-												align='center'
-												variant='body'
-												color={theme['--primary']}
-											>
-												{item.title[language]}
-											</Typography>
+											<View className='flex-row justify-between gap-2'>
+												<Typography
+													style={{ lineHeight: 22 }}
+													weight='bold'
+													numberOfLines={1}
+													variant='body'
+													className='flex-1'
+													color={theme['--primary']}
+												>
+													{item.title[language]}
+												</Typography>
+
+												<Image
+													source={formatUploadPath(
+														getBankById(item.bankId).logo,
+													)}
+													style={styles.bankLogo}
+												/>
+											</View>
 											<Typography
 												style={{ lineHeight: 18 }}
 												weight='medium'
@@ -171,5 +181,10 @@ const styles = StyleSheet.create({
 		width: 125,
 		height: 125,
 		borderRadius: 8,
+	},
+	bankLogo: {
+		width: 18,
+		height: 18,
+		borderRadius: 50,
 	},
 });

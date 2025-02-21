@@ -3,7 +3,7 @@ import Typography from '@/components/Typography/Typography';
 import { SKELETON_TRANSITIONS } from '@/constants/transitions';
 import { IOffer } from '@/entities/offer.entity';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
-import { favoritesStore, languageStore } from '@/stores';
+import { banksStore, favoritesStore, languageStore } from '@/stores';
 import { formatExpiryMessage, formatUploadPath } from '@/utils/utils';
 import { Octicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
@@ -25,7 +25,7 @@ const TrendingOffersList = observer(() => {
 	const theme = useThemeStyles();
 	const [loading, setLoading] = useState(true);
 	const { translations, language } = languageStore();
-
+	const { getBankById } = banksStore();
 	useEffect(() => {
 		const fetchTrendingOffers = async () => {
 			setLoading(true);
@@ -116,17 +116,26 @@ const TrendingOffersList = observer(() => {
 											contentFit='cover'
 										/>
 										<View className='gap-1'>
-											<Typography
-												style={{ lineHeight: 22 }}
-												weight='bold'
-												numberOfLines={1}
-												align='center'
-												variant='body'
-												color={theme['--primary']}
-											>
-												{item.title[language]}
-											</Typography>
-											<Typography
+											<View className='flex-row justify-between gap-2'>
+												<Typography
+													style={{ lineHeight: 22 }}
+													weight='bold'
+													numberOfLines={1}
+													variant='body'
+													className='flex-1'
+													color={theme['--primary']}
+												>
+													{item.title[language]}
+												</Typography>
+
+												<Image
+													source={formatUploadPath(
+														getBankById(item.bankId).logo,
+													)}
+													style={styles.bankLogo}
+												/>
+											</View>
+											{/* <Typography
 												variant='caption'
 												weight='bold'
 												color={theme['--danger']}
@@ -135,7 +144,7 @@ const TrendingOffersList = observer(() => {
 													item.expiry_date,
 													translations,
 												)}
-											</Typography>
+											</Typography> */}
 											<Typography
 												style={{ lineHeight: 18 }}
 												weight='medium'
@@ -182,5 +191,10 @@ const styles = StyleSheet.create({
 		width: 125,
 		height: 125,
 		borderRadius: 8,
+	},
+	bankLogo: {
+		width: 18,
+		height: 18,
+		borderRadius: 50,
 	},
 });

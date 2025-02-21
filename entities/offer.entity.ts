@@ -23,6 +23,7 @@ export interface IOffer {
 	minimum_amount: number;
 	channels: OfferChannel[];
 	categories: string[];
+	bankId: string;
 	applicable_cards: ICard[];
 	logo: string;
 	discount_code: string;

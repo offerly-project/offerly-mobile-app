@@ -1,14 +1,14 @@
 import Typography from '@/components/Typography/Typography';
 import { IOffer } from '@/entities/offer.entity';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
-import { favoritesStore, languageStore } from '@/stores';
+import { banksStore, favoritesStore, languageStore } from '@/stores';
 import { formatUploadPath } from '@/utils/utils';
 import Ionicons from '@expo/vector-icons/AntDesign';
 import { Image } from 'expo-image';
 import { observer } from 'mobx-react-lite';
 import moment from 'moment';
 import { useState } from 'react';
-import { Modal, Pressable, StyleProp, TextStyle, View } from 'react-native';
+import { Modal, Pressable, StyleProp, StyleSheet, TextStyle, View } from 'react-native';
 
 import Toast from 'react-native-toast-message';
 import OfferModalContent from './OfferModalContent';
@@ -32,7 +32,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false, highlighted }: P
 	const { addFavorite, removeFavorite, isFavorite } = favoritesStore();
 	const [modalVisible, setModalVisible] = useState(false);
 	const favorite = isFavorite(offer.id);
-
+	const { getBankById } = banksStore();
 	const toggleFavorite = async ({ modal }: { modal: boolean }) => {
 		if (favorite) {
 			if (closeOnUnfavorite && modal) {
@@ -99,9 +99,11 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false, highlighted }: P
 					>
 						{offer.description[langKey].trim()}
 					</Typography>
+
 					<Typography variant='label' color={theme['--primary']} weight='bold'>
 						{moment(offer.expiry_date.toString()).format('DD/MM/YYYY')}
 					</Typography>
+
 					{hasExpired && (
 						<View className='flex flex-row justify-end items-center'>
 							<Typography
@@ -115,6 +117,12 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false, highlighted }: P
 							</Typography>
 						</View>
 					)}
+				</View>
+				<View className='absolute bottom-3 right-3' style={styles.customShadow}>
+					<Image
+						source={formatUploadPath(getBankById(offer.bankId)?.logo)}
+						style={styles.bankLogo}
+					/>
 				</View>
 			</Pressable>
 
@@ -138,3 +146,20 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false, highlighted }: P
 });
 
 export default OfferCard;
+
+const styles = StyleSheet.create({
+	bankLogo: {
+		width: 30,
+		height: 30,
+		borderRadius: 50,
+	},
+	customShadow: {
+		shadowColor: '#000',
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.5,
+	},
+});

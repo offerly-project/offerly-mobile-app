@@ -113,7 +113,7 @@ const OfferModalContent = ({ offer, toggleFavorite, favorite, closeHandler }: Pr
 							color={theme['--primary']}
 						/>
 					</Pressable>
-					<CloseButton onPress={closeHandler} />
+					<CloseButton onTouchEnd={closeHandler} />
 				</View>
 
 				<View className='flex-1 gap-4'>

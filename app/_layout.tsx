@@ -4,7 +4,14 @@ import { ThemeContextProvider } from '@/contexts/ThemeContext';
 import { useNetworkObserver } from '@/hooks/useNetworkObserver';
 import ToastLayout from '@/layouts/ToastLayout';
 import Welcome from '@/lottie/Welcome';
-import { languageStore, staticDataStore, themeStore, uiStore, userStore } from '@/stores';
+import {
+	banksStore,
+	languageStore,
+	staticDataStore,
+	themeStore,
+	uiStore,
+	userStore,
+} from '@/stores';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
@@ -68,6 +75,7 @@ export const RootLayout = observer(() => {
 					await Promise.all([languageStore().setup(), themeStore().setup()]);
 					await uiStore().setup();
 					await userStore().setup();
+					await banksStore().fetchBanks();
 
 					setLoading(false);
 				}

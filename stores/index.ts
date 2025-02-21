@@ -6,12 +6,14 @@ import { StaticDataStore } from './static.store';
 import { ThemeStore } from './theme.store';
 import { UIStore } from './ui.store';
 import { UserStore } from './user.store';
+import { BanksStore } from './banks.store';
 
 export class RootStore {
 	@observable userStore: UserStore;
 	@observable cardsStore: CardsStore;
 	@observable staticDataStore: StaticDataStore;
 	@observable favoritesStore: FavoritesStore;
+	@observable banksStore: BanksStore;
 	@observable languageStore: LanguageStore;
 	@observable themeStore: ThemeStore;
 	@observable uiStore: UIStore;
@@ -21,6 +23,7 @@ export class RootStore {
 		this.staticDataStore = new StaticDataStore(this);
 		this.favoritesStore = new FavoritesStore(this);
 		this.languageStore = new LanguageStore(this);
+		this.banksStore = new BanksStore(this);
 		this.themeStore = new ThemeStore(this);
 		this.uiStore = new UIStore(this);
 		makeAutoObservable(this);
@@ -32,6 +35,8 @@ export const rootStore = new RootStore();
 export const userStore = () => rootStore.userStore;
 
 export const cardsStore = () => rootStore.cardsStore;
+
+export const banksStore = () => rootStore.banksStore;
 
 export const staticDataStore = () => rootStore.staticDataStore;
 
