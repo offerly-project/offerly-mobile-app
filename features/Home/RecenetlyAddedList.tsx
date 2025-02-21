@@ -128,13 +128,16 @@ const RecentlyAddedList = observer(() => {
 													{item.title[language]}
 												</Typography>
 
-												<Image
-													source={formatUploadPath(
-														getBankById(item.bankId).logo,
-													)}
-													style={styles.bankLogo}
-												/>
+												<View style={styles.customShadow}>
+													<Image
+														source={formatUploadPath(
+															getBankById(item.bankId).logo,
+														)}
+														style={styles.bankLogo}
+													/>
+												</View>
 											</View>
+
 											<Typography
 												style={{ lineHeight: 18 }}
 												weight='medium'
@@ -186,5 +189,14 @@ const styles = StyleSheet.create({
 		width: 18,
 		height: 18,
 		borderRadius: 50,
+	},
+	customShadow: {
+		shadowColor: '#000',
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.5,
 	},
 });
