@@ -34,7 +34,6 @@ interface InputProps extends Omit<TextInputProps, 'onChange'> {
 	error?: string;
 	focused?: boolean;
 	textArea?: boolean;
-	debounceDelay?: number; // New debounceDelay prop
 }
 
 const Input: React.FC<InputProps> = ({

@@ -182,7 +182,6 @@ const Home = () => {
 								onPress={() => setModalVisible(true)}
 								value={search}
 								autoFocus
-								debounceDelay={1000}
 								onChangeText={setSearch}
 								placeholder={translations.placeholders.homePagePlaceholder}
 								variant='primary'

@@ -50,8 +50,6 @@ const Favorites = observer((props: Props) => {
 	}, [highlighted]);
 
 	useEffect(() => {
-		console.log(offers);
-
 		if (!offers) return;
 		const handler = (offersData: string) => {
 			if (offersData.length === 0) return;
