@@ -57,7 +57,14 @@ const Home = () => {
 		data: offers,
 	} = usePagination<IOffer>({
 		url: '/user/offers',
-		getQuery: (page, limit) => OffersApi.buildGetOffersQuery({ page, limit, q: search }),
+		getQuery: (page, limit) =>
+			OffersApi.buildGetOffersQuery({
+				page,
+				limit,
+				q: search,
+				sort_by: 'created_at',
+				sort_direction: 'desc',
+			}),
 		queryDependencies: [search],
 	});
 
