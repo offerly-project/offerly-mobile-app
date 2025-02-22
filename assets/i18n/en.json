@@ -255,6 +255,8 @@
 	},
 	"placeholders": {
 		"email": "Email Address",
+		"homePageSearchPlaceholder" : "Enter text to start looking for offers",
+		"homePageSearchNoDataPlaceholder" : "No offers found for your search query",
 		"password": "Password",
 		"fullName": "Full name",
 		"oldPasswordPlaceholder": "Type your old password",

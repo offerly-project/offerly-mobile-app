@@ -56,6 +56,7 @@ const Home = () => {
 			setLoading(true);
 			const offerList = await OffersApi.searchOffers(search);
 			setOffers(offerList);
+
 			setLoading(false);
 		};
 
@@ -93,11 +94,11 @@ const Home = () => {
 						color={theme['--static']}
 						variant='body'
 					>
-						Enter text to start looking for offers
+						{translations.placeholders.homePageSearchPlaceholder}
 					</Typography>
 				</View>
 			);
-		} else if (offers.length === 0 && !loading) {
+		} else if (!offers && !loading) {
 			return (
 				<View className='flex-1 justify-start items-center p-10'>
 					<MaterialCommunityIcons
@@ -111,7 +112,7 @@ const Home = () => {
 						color={theme['--static']}
 						variant='body'
 					>
-						No offers found for your search query
+						{translations.placeholders.homePageSearchNoDataPlaceholder}
 					</Typography>
 				</View>
 			);
@@ -204,7 +205,9 @@ const Home = () => {
 						</View>
 					</Animated.View>
 					{loading ? renderSkeleton(5) : renderPlaceholder()}
-					{!loading && offers.length > 0 && (
+					{/* {!renderPlaceholder()} */}
+
+					{
 						<FlatList
 							data={offers}
 							contentContainerStyle={{ gap: 10, paddingInline: 10 }}
@@ -216,7 +219,7 @@ const Home = () => {
 								scrollY.value = e.nativeEvent.contentOffset.y;
 							}}
 						/>
-					)}
+					}
 
 					<GoTopLayout
 						style={{ bottom: 50 }}

@@ -115,8 +115,8 @@ const TrendingOffersList = observer(() => {
 											style={styles.logo}
 											contentFit='cover'
 										/>
-										<View className='gap-2'>
-											<View className='flex-row justify-between gap-2'>
+										<View className='gap-2 w-full'>
+											<View className='flex-row  gap-2'>
 												<Typography
 													style={{ lineHeight: 22 }}
 													weight='bold'

@@ -259,6 +259,8 @@
 	},
 	"placeholders": {
 		"email": "البريد الإلكتروني",
+		"homePageSearchPlaceholder" :"أدخل النص للبدء في البحث عن العروض",
+		"homePageSearchNoDataPlaceholder" : "لم يتم العثور على عروض لطلب البحث الخاص بك",
 		"password": "كلمة المرور",
 		"fullName": "الاسم الكامل",
 		"oldPasswordPlaceholder": "اكتب كلمة المرور القديمة",

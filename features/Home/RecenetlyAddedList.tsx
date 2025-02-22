@@ -115,8 +115,8 @@ const RecentlyAddedList = observer(() => {
 											source={formatUploadPath(item.logo)}
 											style={styles.logo}
 										/>
-										<View className='gap-2'>
-											<View className='flex-row justify-between gap-2'>
+										<View className='gap-2 w-full'>
+											<View className='flex-row gap-2'>
 												<Typography
 													style={{ lineHeight: 22 }}
 													weight='bold'
@@ -143,6 +143,7 @@ const RecentlyAddedList = observer(() => {
 												weight='medium'
 												numberOfLines={2}
 												align='center'
+												className=''
 												variant='label'
 												color={theme['--text']}
 											>
