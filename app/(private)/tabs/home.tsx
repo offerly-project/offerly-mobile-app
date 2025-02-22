@@ -12,7 +12,7 @@ import OfferCard from '@/features/Offers/OfferCard';
 import usePagination from '@/hooks/usePagination';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { languageStore } from '@/stores';
-import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
 import { Skeleton } from 'moti/skeleton';
 import { useEffect, useRef, useState } from 'react';
@@ -59,7 +59,6 @@ const Home = () => {
 		url: '/user/offers',
 		getQuery: (page, limit) => OffersApi.buildGetOffersQuery({ page, limit, q: search }),
 		queryDependencies: [search],
-		predicate: search !== '',
 	});
 
 	const scrollY = useSharedValue(0);
@@ -79,21 +78,7 @@ const Home = () => {
 	});
 
 	const renderPlaceholder = () => {
-		if (!search) {
-			return (
-				<View className='flex-1 justify-start items-center p-10'>
-					<MaterialIcons name='manage-search' size={120} color={theme['--static']} />
-					<Typography
-						weight='medium'
-						align='center'
-						color={theme['--static']}
-						variant='body'
-					>
-						{translations.placeholders.homePageSearchPlaceholder}
-					</Typography>
-				</View>
-			);
-		} else if (!offers && !initialLoader) {
+		if (!offers && !initialLoader) {
 			return (
 				<View className='flex-1 justify-start items-center p-10'>
 					<MaterialCommunityIcons

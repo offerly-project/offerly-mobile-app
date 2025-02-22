@@ -14,4 +14,4 @@ Features:
 - New Offers Notification Press: Go to new offers
 - Favorite Offers Notification: Go to favorites and highlight
 - Trending Offers'
-- Home Search
+- Home Offers Search with Pagination
