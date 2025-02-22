@@ -3,6 +3,7 @@ import GoTopLayout from '@/components/Button/GoTopButton';
 import NoCards from '@/components/Messages/NoCards';
 import Typography from '@/components/Typography/Typography';
 import { CARDS_GAP } from '@/constants/layout';
+import { SCREEN_HEIGHT } from '@/constants/screens';
 import { SKELETON_TRANSITIONS } from '@/constants/transitions';
 import { IOffer, IOfferFilter } from '@/entities/offer.entity';
 import {
@@ -32,6 +33,8 @@ import Animated, {
 } from 'react-native-reanimated';
 import OfferCard from './OfferCard';
 import OffersToolbar from './OffersToolbar';
+
+const ANIMATION_TRIGGER_ITEMS_THRESHHOLD = Math.floor(SCREEN_HEIGHT / 250);
 
 const Offers = observer(() => {
 	const theme = useThemeStyles();
@@ -64,7 +67,7 @@ const Offers = observer(() => {
 		};
 	}, []);
 
-	const { data, refreshing, loadingMore, handleRefresh, loadMore, initialLoader } =
+	const { data, refreshing, loadingMore, handleRefresh, loadMore, initialLoader, totalResult } =
 		usePagination<IOffer>({
 			url: '/user/offers',
 			getQuery: (page, limit) =>
@@ -136,9 +139,16 @@ const Offers = observer(() => {
 		const isAtBottom = currentY + layoutMeasurement.height >= contentSize.height - 10;
 		const isAtTop = currentY <= 0;
 
-		if (data.length === 0) return;
+		if (data.length === 0 || isAtTop) return;
 
-		if (isAtTop) {
+		if (
+			data.length <= ANIMATION_TRIGGER_ITEMS_THRESHHOLD &&
+			totalResult <= ANIMATION_TRIGGER_ITEMS_THRESHHOLD
+		) {
+			runOnJS(() => {
+				toolbarVisible.value = 1;
+			})();
+
 			return;
 		}
 
