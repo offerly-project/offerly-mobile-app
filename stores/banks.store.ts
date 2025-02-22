@@ -8,6 +8,7 @@ export class BanksStore {
 	rootStore: RootStore;
 
 	constructor(rootStore: RootStore) {
+		this._banks = {};
 		makeAutoObservable(this);
 		this.rootStore = rootStore;
 	}
@@ -16,7 +17,6 @@ export class BanksStore {
 	fetchBanks = async () => {
 		const banks = await BanksApi.fetchBanks();
 		runInAction(() => {
-			this._banks = {};
 			banks.forEach((bank) => {
 				this._banks[bank.id] = bank;
 			});
@@ -29,6 +29,8 @@ export class BanksStore {
 	}
 
 	public getBankById = (id: string) => {
+		console.log('getBankById', id);
+
 		return this._banks[id];
 	};
 }

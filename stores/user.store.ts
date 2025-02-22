@@ -52,7 +52,7 @@ export class UserStore {
 			if (token && !isGuest) {
 				AxiosAuthInterceptorManager.addInterceptor(token);
 				const user = await UserApi.me();
-
+				await this.rootStore.banksStore.fetchBanks();
 				runInAction(() => {
 					this.authenticated = true;
 					this.user = new User(_.omit(user, ['favorites', 'cards']), token);
@@ -76,6 +76,7 @@ export class UserStore {
 		SecureStorage.setItem('token', token);
 		PlainStorage.deleteItem('guest');
 		AxiosAuthInterceptorManager.addInterceptor(token);
+		await this.rootStore.banksStore.fetchBanks();
 	};
 
 	@action
