@@ -29,8 +29,6 @@ export class BanksStore {
 	}
 
 	public getBankById = (id: string) => {
-		console.log('getBankById', id);
-
 		return this._banks[id];
 	};
 }

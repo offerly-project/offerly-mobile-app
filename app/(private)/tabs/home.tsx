@@ -9,6 +9,7 @@ import BanksList from '@/features/Home/BanksList';
 import RecenetlyAddedList from '@/features/Home/RecenetlyAddedList';
 import TrendingOffersList from '@/features/Home/TrendingOffersList';
 import OfferCard from '@/features/Offers/OfferCard';
+import usePagination from '@/hooks/usePagination';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { languageStore } from '@/stores';
 import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
@@ -28,12 +29,9 @@ import Animated, {
 const Home = () => {
 	const theme = useThemeStyles();
 	const [search, setSearch] = useState('');
-	const [loading, setLoading] = useState(false);
-	const [offers, setOffers] = useState<IOffer[]>([]);
 	const { translations } = languageStore();
 	const [modalVisible, setModalVisible] = useState(false);
 	const flatlistRef = useRef<FlatList<IOffer>>(null);
-	const [page, setPage] = useState(1);
 
 	const slideAnim = useSharedValue(-100); // Initial position above the screen
 
@@ -51,38 +49,18 @@ const Home = () => {
 			transform: [{ translateY }],
 		};
 	});
-	const [total, setTotal] = useState(0);
 
-	const [loadingMore, setLoadingMore] = useState(false);
-
-	const loadMore = async () => {
-		const newPage = page + 1;
-		if (offers.length === total) return;
-		setLoadingMore(true);
-
-		const newOffers = await OffersApi.searchOffers(search, newPage);
-		setPage(newPage);
-		setOffers([...offers, ...newOffers.data]);
-		setLoadingMore(false);
-	};
-
-	useEffect(() => {
-		const fetchOffers = async () => {
-			setLoading(true);
-
-			const offerList = await OffersApi.searchOffers(search, 1);
-			setOffers(offerList.data);
-			setTotal(offerList.metadata.total);
-
-			setLoading(false);
-		};
-
-		if (search) {
-			fetchOffers();
-		} else {
-			setOffers([]);
-		}
-	}, [search]);
+	const {
+		loadMore,
+		loadingMore,
+		initialLoader,
+		data: offers,
+	} = usePagination<IOffer>({
+		url: '/user/offers',
+		getQuery: (page, limit) => OffersApi.buildGetOffersQuery({ page, limit, q: search }),
+		queryDependencies: [search],
+		predicate: search !== '',
+	});
 
 	const scrollY = useSharedValue(0);
 
@@ -115,7 +93,7 @@ const Home = () => {
 					</Typography>
 				</View>
 			);
-		} else if (!offers && !loading) {
+		} else if (!offers && !initialLoader) {
 			return (
 				<View className='flex-1 justify-start items-center p-10'>
 					<MaterialCommunityIcons
@@ -219,7 +197,7 @@ const Home = () => {
 							/>
 						</View>
 					</Animated.View>
-					{loading ? renderSkeleton(5) : renderPlaceholder()}
+					{initialLoader ? renderSkeleton(5) : renderPlaceholder()}
 					{/* {!renderPlaceholder()} */}
 
 					{

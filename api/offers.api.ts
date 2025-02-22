@@ -14,7 +14,7 @@ interface IGetOfferQuery {
 }
 
 export class OffersApi {
-	public static buildGetOffersQuery = (params: IGetOfferQuery) => {
+	public static buildGetOffersQuery = (params: Partial<IGetOfferQuery>) => {
 		const query = new URLSearchParams();
 		if (params.card) query.append('card', params.card);
 		if (params.bank) query.append('bank', params.bank);
@@ -52,13 +52,6 @@ export class OffersApi {
 		const results = await axiosInstance
 			.get(`/user/offers/newly-added`)
 			.then((res: AxiosResponse<IOffer[]>) => res.data);
-		return results;
-	};
-
-	public static searchOffers = async (query: string, page: number) => {
-		const results = await axiosInstance
-			.get(`/user/offers?q=${query}&card=*&limit=50&page=${page}`)
-			.then((res: AxiosResponse<{ data: IOffer[]; metadata: IOfferMetadata }>) => res.data);
 		return results;
 	};
 }

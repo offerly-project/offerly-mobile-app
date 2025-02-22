@@ -13,12 +13,13 @@ interface PaginatedResult<T> {
 type Params = {
 	getQuery: (page: number, limit: number) => string;
 	url: string;
+	predicate?: boolean;
 	queryDependencies?: any[];
 };
 
 const LIMIT = 10;
 
-const usePagination = <T>({ getQuery, url, queryDependencies = [] }: Params) => {
+const usePagination = <T>({ getQuery, url, queryDependencies = [], predicate }: Params) => {
 	const [initialLoader, setInitialLoader] = useState<boolean>(true);
 	const [data, setData] = useState<T[]>([]);
 	const [totalResult, setTotalResult] = useState<number>(0);
@@ -52,6 +53,10 @@ const usePagination = <T>({ getQuery, url, queryDependencies = [] }: Params) => 
 	};
 
 	useEffect(() => {
+		if (!predicate) {
+			setData([]);
+			return;
+		}
 		setInitialLoader(true);
 		setData([]);
 		const timeoutId = setTimeout(() => {
