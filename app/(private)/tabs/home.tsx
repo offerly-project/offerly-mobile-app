@@ -33,6 +33,7 @@ const Home = () => {
 	const { translations } = languageStore();
 	const [modalVisible, setModalVisible] = useState(false);
 	const flatlistRef = useRef<FlatList<IOffer>>(null);
+	const [page, setPage] = useState(1);
 
 	const slideAnim = useSharedValue(-100); // Initial position above the screen
 
@@ -50,12 +51,28 @@ const Home = () => {
 			transform: [{ translateY }],
 		};
 	});
+	const [total, setTotal] = useState(0);
+
+	const [loadingMore, setLoadingMore] = useState(false);
+
+	const loadMore = async () => {
+		const newPage = page + 1;
+		if (offers.length === total) return;
+		setLoadingMore(true);
+
+		const newOffers = await OffersApi.searchOffers(search, newPage);
+		setPage(newPage);
+		setOffers([...offers, ...newOffers.data]);
+		setLoadingMore(false);
+	};
 
 	useEffect(() => {
 		const fetchOffers = async () => {
 			setLoading(true);
-			const offerList = await OffersApi.searchOffers(search);
-			setOffers(offerList);
+
+			const offerList = await OffersApi.searchOffers(search, 1);
+			setOffers(offerList.data);
+			setTotal(offerList.metadata.total);
 
 			setLoading(false);
 		};
@@ -119,23 +136,21 @@ const Home = () => {
 		}
 		return null;
 	};
-	const renderSkeleton = (count: number) =>
-		loading &&
-		offers.length != 0 && (
-			<Skeleton.Group show={true}>
-				{new Array(count).fill(0).map((_, i) => (
-					<View className='mx-4 my-2' key={i}>
-						<Skeleton
-							colors={theme.skeleton}
-							height={130}
-							width='100%'
-							disableExitAnimation
-							transition={SKELETON_TRANSITIONS}
-						/>
-					</View>
-				))}
-			</Skeleton.Group>
-		);
+	const renderSkeleton = (count: number) => (
+		<Skeleton.Group show={true}>
+			{new Array(count).fill(0).map((_, i) => (
+				<View className='mx-4 my-2' key={i}>
+					<Skeleton
+						colors={theme.skeleton}
+						height={130}
+						width='100%'
+						disableExitAnimation
+						transition={SKELETON_TRANSITIONS}
+					/>
+				</View>
+			))}
+		</Skeleton.Group>
+	);
 
 	const handleModalClose = () => {
 		setModalVisible(false);
@@ -215,6 +230,8 @@ const Home = () => {
 							keyExtractor={(item) => item.id}
 							renderItem={({ item }) => <OfferCard key={item.id} offer={item} />}
 							ref={flatlistRef}
+							ListFooterComponent={() => <>{loadingMore && renderSkeleton(2)}</>}
+							onEndReached={loadMore}
 							onScroll={(e) => {
 								scrollY.value = e.nativeEvent.contentOffset.y;
 							}}

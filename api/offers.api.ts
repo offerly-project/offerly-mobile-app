@@ -55,10 +55,10 @@ export class OffersApi {
 		return results;
 	};
 
-	public static searchOffers = async (query: string) => {
+	public static searchOffers = async (query: string, page: number) => {
 		const results = await axiosInstance
-			.get(`/user/offers?q=${query}&card=*&limit=50`)
+			.get(`/user/offers?q=${query}&card=*&limit=50&page=${page}`)
 			.then((res: AxiosResponse<{ data: IOffer[]; metadata: IOfferMetadata }>) => res.data);
-		return results.data;
+		return results;
 	};
 }
