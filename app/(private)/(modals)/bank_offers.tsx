@@ -11,7 +11,7 @@ import usePagination from '@/hooks/usePagination';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { languageStore } from '@/stores';
 import { Skeleton } from 'moti/skeleton';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
@@ -31,7 +31,7 @@ const BankOffers = ({ bank, closeHandler }: Props) => {
 		sortDirection: 'asc' as sortDirection,
 	});
 
-	const { data, loadingMore, loadMore, initialLoader } = usePagination<IOffer>({
+	const { data, loadingMore, handleRefresh, loadMore, initialLoader } = usePagination<IOffer>({
 		url: '/user/offers',
 		getQuery: (page, limit) =>
 			OffersApi.buildGetOffersQuery({
@@ -47,11 +47,21 @@ const BankOffers = ({ bank, closeHandler }: Props) => {
 		queryDependencies: [offersFilter],
 	});
 
+	useEffect(() => {
+		handleRefresh();
+	}, [offersFilter]);
+
 	const flatlistRef = useRef<FlatList<IOffer>>(null);
 	const theme = useThemeStyles();
 
 	const scrollY = useSharedValue(0);
 
+	// const goTopAnimation = useAnimatedStyle(() => {
+	// 	const opacity = withTiming(scrollY.value > 150 ? 1 : 0, { duration: 250 });
+	// 	return {
+	// 		opacity,
+	// 	};
+	// });
 	const renderSkeleton = (count: number) => (
 		<Skeleton.Group show={true}>
 			{new Array(count).fill(0).map((_, i) => (
@@ -87,21 +97,24 @@ const BankOffers = ({ bank, closeHandler }: Props) => {
 				<CloseButton onTouchEnd={closeHandler} />
 			</View>
 			<Categories filter={offersFilter} setFilter={setOffersFilter} />
-			{initialLoader && renderSkeleton(5)}
-			<FlatList
-				data={data}
-				contentContainerStyle={{ gap: 10 }}
-				keyExtractor={(item) => item.id}
-				scrollEventThrottle={16}
-				onEndReached={loadMore}
-				onEndReachedThreshold={0.1}
-				ListFooterComponent={renderFooter}
-				renderItem={({ item }) => <OfferCard key={item.id} offer={item} />}
-				ref={flatlistRef}
-				onScroll={(e) => {
-					scrollY.value = e.nativeEvent.contentOffset.y;
-				}}
-			/>
+			{initialLoader ? (
+				renderSkeleton(5)
+			) : (
+				<FlatList
+					data={data}
+					contentContainerStyle={{ gap: 10 }}
+					keyExtractor={(item) => item.id}
+					scrollEventThrottle={16}
+					onEndReached={loadMore}
+					onEndReachedThreshold={0.1}
+					ListFooterComponent={renderFooter}
+					renderItem={({ item }) => <OfferCard key={item.id} offer={item} />}
+					ref={flatlistRef}
+					onScroll={(e) => {
+						scrollY.value = e.nativeEvent.contentOffset.y;
+					}}
+				/>
+			)}
 
 			<GoTopLayout
 				style={{ bottom: 50 }}
@@ -113,5 +126,15 @@ const BankOffers = ({ bank, closeHandler }: Props) => {
 		</View>
 	);
 };
+
+const styles = StyleSheet.create({
+	goTop: {
+		position: 'absolute',
+		bottom: 45,
+		right: 20,
+		borderRadius: 100,
+		padding: 10,
+	},
+});
 
 export default BankOffers;
