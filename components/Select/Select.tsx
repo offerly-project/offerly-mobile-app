@@ -17,7 +17,7 @@ type ItemType<T> = {
 type Props<T> = {
 	value?: string | null;
 	snapPoints?: string[];
-	onChange?: (value: string) => void;
+	onChange?: (value: T) => void;
 	placeHolder?: string;
 	items: ItemType<T>[];
 	itemRenderer?: (item: ItemType<T>, index: number, closeHandler: () => void) => JSX.Element;
@@ -52,7 +52,7 @@ const Select = <T = unknown,>({
 	return (
 		<>
 			<Pressable
-				className={`rounded-full bg-transparent border-primary border px-4 flex flex-row justify-between items-center ${className}`}
+				className={`rounded-2xl bg-transparent border-primary border-2 px-4 flex flex-row justify-between items-center ${className} gap-4`}
 				style={styles}
 				onPress={() => {
 					setOpen(true);
@@ -98,7 +98,7 @@ const Select = <T = unknown,>({
 											onPress={() => {
 												closeHandler();
 												if (onChange) {
-													onChange(item.value);
+													onChange(item.data);
 												}
 											}}
 										>

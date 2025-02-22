@@ -2,7 +2,7 @@ import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { languageStore } from '@/stores';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { TextInput, TextInputProps, View } from 'react-native';
 import OutsidePressHandler from 'react-native-outside-press';
 import Typography from '../Typography/Typography';
@@ -50,10 +50,9 @@ const Input: React.FC<InputProps> = ({
 	sheeted,
 	error,
 	focused,
-	debounceDelay = 0,
+
 	...rest
 }) => {
-	const [debouncedValue, setDebouncedValue] = useState(value);
 	const inputStyles = `flex-1 py-3 px-2 color-text`;
 	const containerStyles = `bg-transparent flex-row items-center ${BORDER_STYLE[borderStyle]} ${COLORING[variant]} ${disabled ? 'opacity-40' : ''}`;
 
@@ -67,20 +66,8 @@ const Input: React.FC<InputProps> = ({
 		}
 	}, [focused]);
 
-	useEffect(() => {
-		const handler = setTimeout(() => {
-			if (onChangeText) {
-				onChangeText(debouncedValue!);
-			}
-		}, debounceDelay);
-
-		return () => {
-			clearTimeout(handler);
-		};
-	}, [debouncedValue, debounceDelay, onChangeText]);
-
 	const handleChangeText = (text: string) => {
-		setDebouncedValue(text);
+		onChangeText?.(text);
 	};
 
 	const getKeyboardType = () => {
@@ -111,7 +98,7 @@ const Input: React.FC<InputProps> = ({
 						placeholder={placeholder}
 						style={language == 'ar' ? { textAlign: 'right' } : { textAlign: 'left' }}
 						placeholderTextColor='gray'
-						value={debouncedValue}
+						value={value}
 						onChangeText={handleChangeText}
 						editable={!disabled}
 						keyboardType={getKeyboardType()}

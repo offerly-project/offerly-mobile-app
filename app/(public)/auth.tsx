@@ -1,10 +1,9 @@
 import Logo from '@/assets/icons/logo.svg';
 import Button from '@/components/Button/Buttton';
-import Link from '@/components/Typography/Link';
 import Typography from '@/components/Typography/Typography';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import AuthLayout from '@/layouts/AuthLayout';
-import { languageStore, userStore } from '@/stores';
+import { languageStore } from '@/stores';
 import { router } from 'expo-router';
 import { View } from 'react-native';
 
@@ -37,7 +36,7 @@ export default function index() {
 						</Typography>
 					</Button>
 				</View>
-				<View className='absolute bottom-4'>
+				{/* <View className='absolute bottom-4'>
 					<Link
 						color={theme['--primary']}
 						onPress={async () => {
@@ -47,7 +46,7 @@ export default function index() {
 					>
 						{translations.auth.guest}
 					</Link>
-				</View>
+				</View> */}
 			</View>
 		</AuthLayout>
 	);

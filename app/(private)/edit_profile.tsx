@@ -7,7 +7,6 @@ import PhoneNumberEditSheet from '@/features/Profile/PhoneNumberEditSheet';
 import TabLayout from '@/layouts/TabLayout';
 import { languageStore, rootStore } from '@/stores';
 import Ionicons from '@expo/vector-icons/build/Ionicons';
-import parsePhoneNumber from 'libphonenumber-js';
 import { observer } from 'mobx-react-lite';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -16,9 +15,7 @@ import { ConfigurationItem } from '../../features/Configuration/components/Confi
 export const EditProfile = observer(() => {
 	const { bottom } = useSafeAreaInsets();
 	const { translations } = languageStore();
-	const phoneNumber = rootStore.userStore.user.phone_number
-		? parsePhoneNumber(rootStore.userStore.user.phone_number)?.formatInternational() || ''
-		: '';
+	const phoneNumber = rootStore.userStore.user.phone_number || '';
 
 	return (
 		<TabLayout title={translations.tabs.account.profile.title} leading={<BackButton />}>

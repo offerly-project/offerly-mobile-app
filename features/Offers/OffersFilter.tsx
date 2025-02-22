@@ -64,7 +64,7 @@ const OffersFilter = ({ filter, setFilter, closeHandler }: Props) => {
 				itemRenderer={(item, index, closeHandler) => {
 					const selected =
 						(filter.card.length === 0 && index === 0) ||
-						filter.card.includes(item.value);
+						filter.card.includes(item.data.id);
 					return (
 						<View className='flex flex-row items-center h-[65px] gap-6 w-full'>
 							<Pressable
@@ -75,9 +75,9 @@ const OffersFilter = ({ filter, setFilter, closeHandler }: Props) => {
 										closeHandler();
 										return;
 									}
-									const updatedCards = filter.card.includes(item.value)
-										? filter.card.filter((id) => id !== item.value)
-										: [...filter.card, item.value];
+									const updatedCards = filter.card.includes(item.data.id)
+										? filter.card.filter((id) => id !== item.data.id)
+										: [...filter.card, item.data.id];
 									setFilter({ ...filter, card: updatedCards });
 								}}
 								className='flex-1 flex flex-row items-center gap-4 '
