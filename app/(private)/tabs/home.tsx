@@ -61,6 +61,7 @@ const Home = () => {
 			OffersApi.buildGetOffersQuery({
 				page,
 				limit,
+				card: '*',
 				q: search,
 				sort_by: 'created_at',
 				sort_direction: 'desc',
