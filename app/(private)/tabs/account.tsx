@@ -16,7 +16,7 @@ import Toast from 'react-native-toast-message';
 import { ConfigurationItem } from '../../../features/Configuration/components/ConfigurationItem';
 import ThemeSwitchList from '../../../features/Configuration/ThemeSwitchList';
 
-// type Props = {};
+export const ACCOUNT_ICON_SIZE = 18;
 
 const AccountPage = observer(() => {
 	const { theme, switchTheme } = useThemeContext();
@@ -46,7 +46,7 @@ const AccountPage = observer(() => {
 									color='white'
 									style={{ borderRadius: 12 }}
 									name='person'
-									size={18}
+									size={ACCOUNT_ICON_SIZE}
 								/>
 							}
 						/>
@@ -64,7 +64,7 @@ const AccountPage = observer(() => {
 									color='white'
 									style={{ borderRadius: 12 }}
 									name='lock-closed'
-									size={18}
+									size={ACCOUNT_ICON_SIZE}
 								/>
 							}
 						/>
@@ -81,7 +81,7 @@ const AccountPage = observer(() => {
 									color='white'
 									style={{ borderRadius: 12 }}
 									name='document'
-									size={18}
+									size={ACCOUNT_ICON_SIZE}
 								/>
 							}
 						/>
@@ -98,7 +98,7 @@ const AccountPage = observer(() => {
 									color='white'
 									style={{ borderRadius: 12 }}
 									name='information'
-									size={18}
+									size={ACCOUNT_ICON_SIZE}
 								/>
 							}
 						/>
@@ -115,7 +115,7 @@ const AccountPage = observer(() => {
 									color='white'
 									style={{ borderRadius: 12 }}
 									name='send'
-									size={18}
+									size={ACCOUNT_ICON_SIZE}
 								/>
 							}
 						/>
@@ -134,7 +134,7 @@ const AccountPage = observer(() => {
 											color='white'
 											style={{ borderRadius: 12 }}
 											name='language'
-											size={18}
+											size={ACCOUNT_ICON_SIZE}
 										/>
 									}
 								/>
@@ -163,7 +163,7 @@ const AccountPage = observer(() => {
 											color='white'
 											style={{ borderRadius: 12 }}
 											name='color-fill'
-											size={18}
+											size={ACCOUNT_ICON_SIZE}
 										/>
 									}
 								/>
@@ -201,7 +201,7 @@ const AccountPage = observer(() => {
 											color='white'
 											style={{ borderRadius: 12 }}
 											name='deleteuser'
-											size={18}
+											size={ACCOUNT_ICON_SIZE}
 										/>
 									}
 								/>
@@ -229,7 +229,7 @@ const AccountPage = observer(() => {
 									color='white'
 									style={{ borderRadius: 12 }}
 									name={'exit'}
-									size={18}
+									size={ACCOUNT_ICON_SIZE}
 								/>
 							}
 						/>
@@ -243,9 +243,9 @@ const AccountPage = observer(() => {
 			</View>
 			<View
 				aria-label='footer'
-				className='flex-row mt-2 right-4 items-center gap-4 w-full justify-center py-6 flex-1 absolute bottom-0'
+				className='flex-row mt-2 items-center gap-4 w-full justify-center py-6 flex-1 absolute bottom-0'
 			>
-				<View className='flex flex-row gap-1 items-center'>
+				<View className='flex flex-row gap-1 items-center justify-start w-[100px]'>
 					<Typography variant='label' color={styles['--text']}>
 						{getCardsAndFavCount()[0]}
 					</Typography>
@@ -260,8 +260,7 @@ const AccountPage = observer(() => {
 					</Typography>
 				</View>
 
-				<View className='flex flex-row gap-1 items-center '>
-					<View className='items-center gap-4' />
+				<View className='flex flex-row gap-1 items-center justify-start w-[100px]'>
 					<Typography variant='label' color={styles['--text']}>
 						{getCardsAndFavCount()[1]}
 					</Typography>

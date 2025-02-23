@@ -47,6 +47,9 @@ const PhoneNumberEditSheet = ({ closeHandler, initialPhoneNumber }: Props) => {
 			</View>
 			{error && <Typography color='red'>{error}</Typography>}
 			<View className='flex-row gap-4 w-full'>
+				<Button onPress={closeHandler} className='flex-1 h-[45]' borderStyle='ghost'>
+					<Typography>{translations.tabs.account.profile.cancel}</Typography>
+				</Button>
 				<Button
 					loading={loading}
 					loadingComponent={<ActivityIndicator color={theme['--background']} />}
@@ -96,9 +99,6 @@ const PhoneNumberEditSheet = ({ closeHandler, initialPhoneNumber }: Props) => {
 					<Typography color={theme['--background']}>
 						{translations.tabs.account.profile.save}
 					</Typography>
-				</Button>
-				<Button onPress={closeHandler} className='flex-1 h-[45]' borderStyle='ghost'>
-					<Typography>{translations.tabs.account.profile.cancel}</Typography>
 				</Button>
 			</View>
 		</View>

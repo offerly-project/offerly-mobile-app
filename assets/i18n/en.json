@@ -134,7 +134,7 @@
 			},
 			"change_password": {
 				"title": "Change Password",
-				"changePasswordButton": "Change password"
+				"changePasswordButton": "Save"
 			},
 			"terms_and_conditions": {
 				"title": "Terms and Conditions",
@@ -255,13 +255,13 @@
 	},
 	"placeholders": {
 		"email": "Email Address",
-		"homePageSearchPlaceholder" : "Enter text to start looking for offers",
-		"homePageSearchNoDataPlaceholder" : "No offers found for your search query",
+		"homePageSearchPlaceholder": "Enter text to start looking for offers",
+		"homePageSearchNoDataPlaceholder": "No offers found for your search query",
 		"password": "Password",
 		"fullName": "Full name",
-		"oldPasswordPlaceholder": "Type your old password",
-		"newPasswordPlaceholder": "Type new password",
-		"retypeNewPasswordPlaceholder": "Retype the new password",
+		"oldPasswordPlaceholder": "Old Password",
+		"newPasswordPlaceholder": "New Password",
+		"retypeNewPasswordPlaceholder": "Confirm New Password",
 		"search": "Search..",
 		"selectBank": "Select Bank",
 		"selectCard": "Select Card",

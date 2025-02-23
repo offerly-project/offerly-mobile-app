@@ -123,7 +123,7 @@ const Offers = observer(() => {
 			);
 		};
 		setHeaderText();
-	}, [offersFilter.card, userCards]);
+	}, [offersFilter.card, userCards, translations]);
 
 	const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
 		const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;

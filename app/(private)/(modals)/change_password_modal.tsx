@@ -63,27 +63,25 @@ const ChangePasswordModal = (props: Props) => {
 
 	return (
 		<ModalLayout title={translations.tabs.account.change_password.title}>
-			<View className='gap-10 p-6'>
+			<View className='gap-8 p-6'>
 				<Input
 					placeholder={translations.placeholders.oldPasswordPlaceholder}
 					value={values.old_password}
 					onChangeText={onOldPasswordChange}
 					error={errors.old_password}
 				/>
-				<View className='gap-5'>
-					<Input
-						placeholder={translations.placeholders.newPasswordPlaceholder}
-						value={values.new_password}
-						onChangeText={onNewPasswordChange}
-						error={errors.new_password}
-					/>
-					<Input
-						placeholder={translations.placeholders.retypeNewPasswordPlaceholder}
-						value={values.confirm_password}
-						onChangeText={onConfirmPasswordChange}
-						error={errors.confirm_password}
-					/>
-				</View>
+				<Input
+					placeholder={translations.placeholders.newPasswordPlaceholder}
+					value={values.new_password}
+					onChangeText={onNewPasswordChange}
+					error={errors.new_password}
+				/>
+				<Input
+					placeholder={translations.placeholders.retypeNewPasswordPlaceholder}
+					value={values.confirm_password}
+					onChangeText={onConfirmPasswordChange}
+					error={errors.confirm_password}
+				/>
 			</View>
 			<Button
 				loading={loading}
@@ -93,7 +91,7 @@ const ChangePasswordModal = (props: Props) => {
 				onPress={handleSubmit}
 			>
 				<Typography color={theme['--background']}>
-					{translations.tabs.account.change_password.title}
+					{translations.tabs.account.change_password.changePasswordButton}
 				</Typography>
 			</Button>
 			{serverError && (

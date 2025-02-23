@@ -138,7 +138,7 @@
 			},
 			"change_password": {
 				"title": "تغيير كلمة المرور",
-				"changePasswordButton": "تغيير كلمة المرور"
+				"changePasswordButton": "حفظ"
 			},
 			"terms_and_conditions": {
 				"title": "الشروط والأحكام",
@@ -259,8 +259,8 @@
 	},
 	"placeholders": {
 		"email": "البريد الإلكتروني",
-		"homePageSearchPlaceholder" :"أدخل النص للبدء في البحث عن العروض",
-		"homePageSearchNoDataPlaceholder" : "لم يتم العثور على عروض لطلب البحث الخاص بك",
+		"homePageSearchPlaceholder": "أدخل النص للبدء في البحث عن العروض",
+		"homePageSearchNoDataPlaceholder": "لم يتم العثور على عروض لطلب البحث الخاص بك",
 		"password": "كلمة المرور",
 		"fullName": "الاسم الكامل",
 		"oldPasswordPlaceholder": "اكتب كلمة المرور القديمة",

@@ -9,18 +9,17 @@ import { languageStore, rootStore } from '@/stores';
 import Ionicons from '@expo/vector-icons/build/Ionicons';
 import { observer } from 'mobx-react-lite';
 import { View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ConfigurationItem } from '../../features/Configuration/components/ConfigurationItem';
+import { ACCOUNT_ICON_SIZE } from './tabs/account';
 
 export const EditProfile = observer(() => {
-	const { bottom } = useSafeAreaInsets();
 	const { translations } = languageStore();
 	const phoneNumber = rootStore.userStore.user.phone_number || '';
 
 	return (
 		<TabLayout title={translations.tabs.account.profile.title} leading={<BackButton />}>
-			<View style={{ paddingBottom: bottom }} className='p-4 flex-1'>
-				<View className='w-full gap-6 flex-1'>
+			<View className='flex-1'>
+				<View className='w-full gap-2 flex-1'>
 					<View className='overflow-hidden rounded-2xl'>
 						<ConfigurationItem
 							disabled
@@ -37,7 +36,7 @@ export const EditProfile = observer(() => {
 									color='white'
 									style={{ borderRadius: 12 }}
 									name='information'
-									size={18}
+									size={ACCOUNT_ICON_SIZE}
 								/>
 							}
 						/>
@@ -70,7 +69,7 @@ export const EditProfile = observer(() => {
 										color='white'
 										style={{ borderRadius: 12 }}
 										name='person'
-										size={18}
+										size={ACCOUNT_ICON_SIZE}
 									/>
 								}
 							/>
@@ -102,7 +101,7 @@ export const EditProfile = observer(() => {
 										color='white'
 										style={{ borderRadius: 12 }}
 										name='phone-portrait'
-										size={18}
+										size={ACCOUNT_ICON_SIZE}
 									/>
 								}
 							/>
