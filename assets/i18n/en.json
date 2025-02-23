@@ -69,6 +69,7 @@
 			}
 		},
 		"offers": {
+			"valid": "Valid until",
 			"types": {
 				"Online": "Online",
 				"In-Store": "In-Store"

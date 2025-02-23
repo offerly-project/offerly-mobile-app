@@ -3,13 +3,13 @@ import { IOffer } from '@/entities/offer.entity';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { banksStore, favoritesStore, languageStore } from '@/stores';
 import { formatUploadPath } from '@/utils/utils';
-import Ionicons from '@expo/vector-icons/AntDesign';
 import { Image } from 'expo-image';
 import { observer } from 'mobx-react-lite';
 import moment from 'moment';
 import { useState } from 'react';
 import { Modal, Pressable, StyleProp, StyleSheet, TextStyle, View } from 'react-native';
 
+import { AntDesign } from '@expo/vector-icons';
 import Toast from 'react-native-toast-message';
 import OfferModalContent from './OfferModalContent';
 
@@ -59,7 +59,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false, highlighted }: P
 		<>
 			<Pressable
 				onPress={() => setModalVisible(true)}
-				className={`flex-row items-center justify-between rounded-2xl py-4 gap-5 ${cardBg} px-5`}
+				className={`flex-row justify-between rounded-2xl py-4 gap-5 ${cardBg} px-5`}
 			>
 				<View className='border-2 border-secondary rounded-2xl overflow-hidden'>
 					<Image
@@ -78,18 +78,6 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false, highlighted }: P
 						>
 							{offer.title[langKey]}
 						</Typography>
-						<Pressable
-							onPress={() => {
-								toggleFavorite({ modal: false });
-							}}
-							hitSlop={20}
-						>
-							<Ionicons
-								size={22}
-								name={favorite ? 'heart' : 'hearto'}
-								color={theme['--primary']}
-							/>
-						</Pressable>
 					</View>
 					<Typography
 						numberOfLines={2}
@@ -101,6 +89,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false, highlighted }: P
 					</Typography>
 
 					<Typography variant='label' color={theme['--primary']} weight='bold'>
+						{translations.tabs.offers.valid}{' '}
 						{moment(offer.expiry_date.toString()).format('DD/MM/YYYY')}
 					</Typography>
 
@@ -118,7 +107,19 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false, highlighted }: P
 						</View>
 					)}
 				</View>
-				<View className='absolute bottom-3 right-3' style={styles.customShadow}>
+				<View className='flex-col justify-between items-center'>
+					<Pressable
+						onPress={() => {
+							toggleFavorite({ modal: false });
+						}}
+						hitSlop={20}
+					>
+						<AntDesign
+							size={22}
+							name={favorite ? 'heart' : 'hearto'}
+							color={theme['--primary']}
+						/>
+					</Pressable>
 					<Image
 						source={formatUploadPath(getBankById(offer.bankId)?.logo)}
 						style={styles.bankLogo}
