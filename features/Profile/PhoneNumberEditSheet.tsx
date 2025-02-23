@@ -6,7 +6,7 @@ import { createCustomError } from '@/entities/error.entity';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { languageStore, staticDataStore, userStore } from '@/stores';
 import { translateInvalidError } from '@/utils/utils';
-import parsePhoneNumber, { ParseError, parsePhoneNumberWithError } from 'libphonenumber-js';
+import { ParseError, parsePhoneNumberWithError } from 'libphonenumber-js';
 import { useState } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import Toast from 'react-native-toast-message';
@@ -39,10 +39,7 @@ const PhoneNumberEditSheet = ({ closeHandler, initialPhoneNumber }: Props) => {
 						placeholder={translations.placeholders.phoneNumber}
 						value={phoneNumber}
 						onChangeText={(value) => {
-							const fullPhoneNumber = [country.phone_code, value].join('');
-							const phoneNumb = parsePhoneNumber(fullPhoneNumber);
-
-							setPhoneNumber(phoneNumb ? phoneNumb.formatNational() : value);
+							setPhoneNumber(value);
 							setError('');
 						}}
 					/>
