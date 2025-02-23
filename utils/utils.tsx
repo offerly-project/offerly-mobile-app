@@ -130,3 +130,13 @@ export const formatExpiryMessage = (expiryDate: Date, translations: Translations
 			);
 	}
 };
+
+export const openLoadingModal = async (cb: () => Promise<void>) => {
+	return new Promise<void>((resolve) => {
+		router.push('/loading_modal');
+		cb().finally(() => {
+			router.back();
+			resolve();
+		});
+	});
+};
