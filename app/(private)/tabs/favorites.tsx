@@ -2,11 +2,7 @@ import NoData from '@/components/Fallback/NoData';
 import { CARDS_GAP } from '@/constants/layout';
 import { FLATLIST_TRANSITION, SKELETON_TRANSITIONS } from '@/constants/transitions';
 import OfferCard from '@/features/Offers/OfferCard';
-import {
-	NotificationActions,
-	notificationsEventsEmitter,
-	readyEvent,
-} from '@/hooks/useNotifications';
+import { DeepLinkHandler, useDeepLinkHandler } from '@/hooks/useDeepLinkHandler';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { favoritesStore, userStore } from '@/stores';
 import { observer } from 'mobx-react-lite';
@@ -49,23 +45,17 @@ const Favorites = observer((props: Props) => {
 		}
 	}, [highlighted]);
 
-	useEffect(() => {
-		if (!offers) return;
-		const handler = (offersData: string) => {
-			if (offersData.length === 0) return;
+	const deepLinkHandler: DeepLinkHandler = ({ queryParams }) => {
+		if (!queryParams) return;
 
-			const offersArr = offersData.split(',');
-			if (!offers.some((offer) => offersArr.includes(offer.id))) {
-				return;
-			}
-			setHighlighted(offersArr);
-		};
-		notificationsEventsEmitter.on(NotificationActions.EXPIRING_FAVOURITES, handler);
-		notificationsEventsEmitter.emit(readyEvent(NotificationActions.EXPIRING_FAVOURITES));
-		return () => {
-			notificationsEventsEmitter.off(NotificationActions.EXPIRING_FAVOURITES, handler);
-		};
-	}, [offers]);
+		const { highlighted_offers } = queryParams;
+
+		if (typeof highlighted_offers === 'string') {
+			setHighlighted(highlighted_offers.split(','));
+		}
+	};
+
+	useDeepLinkHandler({ handler: deepLinkHandler });
 
 	return (
 		<>

@@ -8,21 +8,13 @@ import React, { useEffect } from 'react';
 import { Platform } from 'react-native';
 import Toast from 'react-native-toast-message';
 
-export enum NotificationActions {
-	SHOW_SORTED_BY_NEW_ORDERS = 'SHOW_SORTED_BY_NEW_ORDERS',
-	EXPIRING_FAVOURITES = 'EXPIRING_FAVOURITES',
-}
+export type NotificationBasePayload<T extends object = {}> = {
+	link: string;
+} & T;
 
-export const readyEvent = (action: NotificationActions) => action + '-ready';
+export type NewOffersNotificationData = NotificationBasePayload;
 
-export type NewOffersNotificationData = {
-	action: NotificationActions.SHOW_SORTED_BY_NEW_ORDERS;
-};
-
-export type ExpiringOffersNotificationData = {
-	action: NotificationActions.EXPIRING_FAVOURITES;
-	offers: string;
-};
+export type ExpiringOffersNotificationData = NotificationBasePayload;
 
 export type NotificationPayload = NewOffersNotificationData | ExpiringOffersNotificationData;
 
@@ -36,50 +28,7 @@ export const useNotifications = () => {
 
 	const pathname = usePathname();
 	const notificationPressHandler = async (data: NotificationPayload) => {
-		if (data.action === NotificationActions.SHOW_SORTED_BY_NEW_ORDERS) {
-			const isInOffers = pathname === '/tabs/offers';
-
-			if (!isInOffers) {
-				router.push('/tabs/offers');
-			}
-			if (!isInOffers) {
-				notificationsEventsEmitter.on(
-					readyEvent(NotificationActions.SHOW_SORTED_BY_NEW_ORDERS),
-					() => {
-						notificationsEventsEmitter.emit(
-							NotificationActions.SHOW_SORTED_BY_NEW_ORDERS,
-						);
-					},
-				);
-			} else {
-				notificationsEventsEmitter.emit(NotificationActions.SHOW_SORTED_BY_NEW_ORDERS);
-			}
-		}
-		if (data.action === NotificationActions.EXPIRING_FAVOURITES) {
-			const isInFavorites = pathname === '/tabs/favorites';
-
-			if (!isInFavorites) {
-				router.push('/tabs/favorites');
-			}
-
-			if (!isInFavorites) {
-				notificationsEventsEmitter.on(
-					readyEvent(NotificationActions.EXPIRING_FAVOURITES),
-
-					() => {
-						notificationsEventsEmitter.emit(
-							NotificationActions.EXPIRING_FAVOURITES,
-							data.offers,
-						);
-					},
-				);
-			} else {
-				notificationsEventsEmitter.emit(
-					NotificationActions.EXPIRING_FAVOURITES,
-					data.offers,
-				);
-			}
-		}
+		router.push(data.link as any);
 	};
 
 	const unsubRef = React.useRef<() => void>();
@@ -104,6 +53,7 @@ export const useNotifications = () => {
 
 			unsubRef.current = messaging().onMessage((message) => {
 				const data = message.data as NotificationPayload;
+				console.log(data);
 				Toast.show({
 					text1: message.notification?.title,
 					text2: message.notification?.body,
@@ -118,6 +68,7 @@ export const useNotifications = () => {
 				.getInitialNotification()
 				.then((message) => {
 					if (!message) return;
+
 					const data = message.data as NotificationPayload;
 
 					notificationPressHandler(data);

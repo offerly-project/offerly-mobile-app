@@ -6,17 +6,13 @@ import { CARDS_GAP } from '@/constants/layout';
 import { SCREEN_HEIGHT } from '@/constants/screens';
 import { SKELETON_TRANSITIONS } from '@/constants/transitions';
 import { IOffer, IOfferFilter } from '@/entities/offer.entity';
-import {
-	NotificationActions,
-	notificationsEventsEmitter,
-	readyEvent,
-} from '@/hooks/useNotifications';
+import { useDeepLinkHandler } from '@/hooks/useDeepLinkHandler';
 import usePagination from '@/hooks/usePagination';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { cardsStore, languageStore } from '@/stores';
 import { observer } from 'mobx-react-lite';
 import { Skeleton } from 'moti/skeleton';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
 	FlatList,
 	NativeScrollEvent,
@@ -52,20 +48,16 @@ const Offers = observer(() => {
 
 	const [search, setSearch] = useState<string>('');
 
-	useLayoutEffect(() => {
-		const handler = () => {
+	useDeepLinkHandler({
+		handler: () => {
 			setOffersFilter({
-				...offersFilter,
+				card: [],
+				category: [],
 				sortKey: 'created_at',
 				sortDirection: 'desc',
 			});
-		};
-		notificationsEventsEmitter.on(NotificationActions.SHOW_SORTED_BY_NEW_ORDERS, handler);
-		notificationsEventsEmitter.emit(readyEvent(NotificationActions.SHOW_SORTED_BY_NEW_ORDERS));
-		return () => {
-			notificationsEventsEmitter.off(NotificationActions.SHOW_SORTED_BY_NEW_ORDERS, handler);
-		};
-	}, []);
+		},
+	});
 
 	const { data, refreshing, loadingMore, handleRefresh, loadMore, initialLoader, totalResult } =
 		usePagination<IOffer>({
