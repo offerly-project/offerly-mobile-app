@@ -1,10 +1,10 @@
 import { OffersApi } from '@/api/offers.api';
 import GoTopLayout from '@/components/Button/GoTopButton';
 import NoCards from '@/components/Messages/NoCards';
+import OfferSkeleton from '@/components/Skeletons/OfferSkeleton';
 import Typography from '@/components/Typography/Typography';
 import { CARDS_GAP } from '@/constants/layout';
 import { SCREEN_HEIGHT } from '@/constants/screens';
-import { SKELETON_TRANSITIONS } from '@/constants/transitions';
 import { IOffer, IOfferFilter } from '@/entities/offer.entity';
 import { useDeepLinkHandler } from '@/hooks/useDeepLinkHandler';
 import usePagination from '@/hooks/usePagination';
@@ -193,13 +193,7 @@ const Offers = observer(() => {
 		<Skeleton.Group show={true}>
 			{new Array(count).fill(0).map((_, i) => (
 				<View className='my-4' key={i}>
-					<Skeleton
-						colors={theme.skeleton}
-						height={110}
-						width='100%'
-						disableExitAnimation
-						transition={SKELETON_TRANSITIONS}
-					/>
+					<OfferSkeleton />
 				</View>
 			))}
 		</Skeleton.Group>

@@ -1,6 +1,7 @@
 import NoData from '@/components/Fallback/NoData';
+import OfferSkeleton from '@/components/Skeletons/OfferSkeleton';
 import { CARDS_GAP } from '@/constants/layout';
-import { FLATLIST_TRANSITION, SKELETON_TRANSITIONS } from '@/constants/transitions';
+import { FLATLIST_TRANSITION } from '@/constants/transitions';
 import OfferCard from '@/features/Offers/OfferCard';
 import { DeepLinkHandler, useDeepLinkHandler } from '@/hooks/useDeepLinkHandler';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
@@ -60,18 +61,13 @@ const Favorites = observer((props: Props) => {
 	return (
 		<>
 			{loading ? (
-				new Array(Math.floor(3)).fill(0).map((_, i) => (
-					<View className='m-6' key={i}>
-						<Skeleton
-							radius={20}
-							transition={SKELETON_TRANSITIONS}
-							colors={theme.skeleton}
-							show={true}
-							height={125}
-							width={'100%'}
-						/>
-					</View>
-				))
+				<Skeleton.Group show={true}>
+					{new Array(4).fill(0).map((_, i) => (
+						<View className='my-4' key={i}>
+							<OfferSkeleton />
+						</View>
+					))}
+				</Skeleton.Group>
 			) : offers.length === 0 ? (
 				<NoData message='No Favorites' />
 			) : (

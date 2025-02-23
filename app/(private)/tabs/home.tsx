@@ -2,8 +2,8 @@ import { OffersApi } from '@/api/offers.api';
 import CloseButton from '@/components/Button/CloseButton';
 import GoTopLayout from '@/components/Button/GoTopButton';
 import Input from '@/components/Input/Input';
+import OfferSkeleton from '@/components/Skeletons/OfferSkeleton';
 import Typography from '@/components/Typography/Typography';
-import { SKELETON_TRANSITIONS } from '@/constants/transitions';
 import { IOffer } from '@/entities/offer.entity';
 import BanksList from '@/features/Home/BanksList';
 import RecenetlyAddedList from '@/features/Home/RecenetlyAddedList';
@@ -25,6 +25,11 @@ import Animated, {
 	useSharedValue,
 	withTiming,
 } from 'react-native-reanimated';
+
+export const SLIDERS_HEIGHT = 275;
+
+export const SLIDER_SKELETON_HEIGHT = 215;
+export const SLIDER_SKELETON_WIDTH = 140;
 
 const Home = () => {
 	const theme = useThemeStyles();
@@ -111,13 +116,7 @@ const Home = () => {
 		<Skeleton.Group show={true}>
 			{new Array(count).fill(0).map((_, i) => (
 				<View className='mx-4 my-2' key={i}>
-					<Skeleton
-						colors={theme.skeleton}
-						height={130}
-						width='100%'
-						disableExitAnimation
-						transition={SKELETON_TRANSITIONS}
-					/>
+					<OfferSkeleton />
 				</View>
 			))}
 		</Skeleton.Group>

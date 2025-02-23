@@ -7,7 +7,6 @@ import LanguageSwitchList from '@/features/Configuration/LanguageSwitchList';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { version as AppVersion } from '@/package.json';
 import { cardsStore, favoritesStore, languageStore, userStore } from '@/stores';
-import { openLoadingModal, wait } from '@/utils/utils';
 import { Ionicons } from '@expo/vector-icons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { router } from 'expo-router';
@@ -147,10 +146,7 @@ const AccountPage = observer(() => {
 								<ThemeSwitchList
 									onSelect={(selected) => {
 										if (selected === theme) return;
-										openLoadingModal(async () => {
-											await wait(100);
-											switchTheme(selected);
-										});
+										switchTheme(selected);
 									}}
 									selectedTheme={theme}
 								/>
