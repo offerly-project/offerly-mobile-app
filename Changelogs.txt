@@ -1,17 +1,7 @@
-Bugfixes:
-- Email lowercasing
-- Email sent logo width fixed
-- Cards Banks title language translation fixed
+Release Notes:
 
-
-Enhancements:
-- Offers toolbar transition
-- Dark theme colors
-- Categories Selection Transition
-
-
-Features:
-- New Offers Notification Press: Go to new offers
-- Favorite Offers Notification: Go to favorites and highlight
-- Trending Offers'
-- Home Offers Search with Pagination
+- Notifications Redirection: fixed
+- Phone Number prefix: complete
+- Search Stuck in offers: fixed
+- bank logo favorites: complete
+- guest mode: removed
