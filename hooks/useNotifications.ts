@@ -74,6 +74,12 @@ export const useNotifications = () => {
 					notificationPressHandler(data);
 				});
 
+			messaging().onNotificationOpenedApp((message) => {
+				if (!message.data) return;
+				const data = message.data as NotificationPayload;
+				notificationPressHandler(data);
+			});
+
 			messaging()
 				.getToken()
 				.then(async (token) => {
