@@ -27,7 +27,7 @@ const BankOffers = ({ bank, closeHandler }: Props) => {
 	const [offersFilter, setOffersFilter] = useState<IOfferFilter>({
 		card: [],
 		category: [],
-		sortKey: '' as SortKey,
+		sortKey: 'created_at' as SortKey,
 		sortDirection: 'asc' as sortDirection,
 	});
 
