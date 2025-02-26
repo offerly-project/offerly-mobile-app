@@ -189,6 +189,7 @@ const styles = StyleSheet.create({
 		width: 125,
 		height: 125,
 		borderRadius: 8,
+		backgroundColor: 'white',
 	},
 	bankLogo: {
 		width: 18,

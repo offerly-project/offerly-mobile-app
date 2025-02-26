@@ -64,7 +64,12 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false, highlighted }: P
 				<View className='border-2 border-secondary rounded-2xl overflow-hidden'>
 					<Image
 						source={formatUploadPath(offer.logo)}
-						style={{ height: 100, width: 100, resizeMode: 'contain' }}
+						style={{
+							height: 100,
+							width: 100,
+							resizeMode: 'contain',
+							backgroundColor: 'white',
+						}}
 					/>
 				</View>
 				<View className='flex-1 justify-between'>
