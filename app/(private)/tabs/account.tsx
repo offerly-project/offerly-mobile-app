@@ -236,23 +236,19 @@ const AccountPage = observer(() => {
 					</View>
 				</View>
 			</View>
-			<View className='flex-row items-center justify-center py-4'>
+			<View className='flex-col items-center justify-center py-4 gap-2'>
 				<Typography variant={'body'} color={styles['--text']}>
 					{translations.tabs.account.version} : {AppVersion}
 				</Typography>
-			</View>
-			<View
-				aria-label='footer'
-				className='flex-row mt-2 items-center gap-4 w-full justify-center py-6 flex-1 absolute bottom-0'
-			>
-				<View className='flex flex-row gap-1 items-center justify-start w-[100px]'>
-					<Typography variant='label' color={styles['--text']}>
+
+				<View className='flex flex-row gap-2 items-center justify-start w-[100px]'>
+					<Typography variant='label' color={styles['--text']} numeric>
 						{getCardsAndFavCount()[0]}
 					</Typography>
 					<Ionicons
 						size={21}
 						className='h-[25]'
-						name='heart-outline'
+						name='heart'
 						color={styles['--primary']}
 					/>
 					<Typography variant='label' color={styles['--text']}>
@@ -260,8 +256,8 @@ const AccountPage = observer(() => {
 					</Typography>
 				</View>
 
-				<View className='flex flex-row gap-1 items-center justify-start w-[100px]'>
-					<Typography variant='label' color={styles['--text']}>
+				<View className='flex flex-row gap-2 flex-start justify-start w-[100px]'>
+					<Typography variant='label' color={styles['--text']} numeric>
 						{getCardsAndFavCount()[1]}
 					</Typography>
 					<Ionicons

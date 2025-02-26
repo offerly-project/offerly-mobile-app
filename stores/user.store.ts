@@ -2,7 +2,7 @@ import { AuthApi } from '@/api/auth.api';
 import { OtpApi } from '@/api/otp.api';
 import { UserApi } from '@/api/user.api';
 import { AxiosAuthInterceptorManager } from '@/configs/axios';
-import { PatchUserData, User } from '@/entities/user.entity';
+import { IUser, PatchUserData, User } from '@/entities/user.entity';
 import { PlainStorage, SecureStorage } from '@/services/storage.services';
 import messaging from '@react-native-firebase/messaging';
 import _ from 'lodash';
@@ -65,6 +65,11 @@ export class UserStore {
 		}
 	};
 
+	switchToAuthenticated = (user: IUser, token: string) => {
+		this.authenticated = true;
+		this.user = new User(_.omit(user, ['favorites', 'cards']), token);
+		this.rootStore.favoritesStore.setFavorites(user.favorites);
+	};
 	@action
 	login = async (email: string, password: string) => {
 		const { user, token } = await AuthApi.login(email, password);
@@ -72,12 +77,7 @@ export class UserStore {
 		PlainStorage.deleteItem('guest');
 		AxiosAuthInterceptorManager.addInterceptor(token);
 		await this.rootStore.banksStore.fetchBanks();
-
-		runInAction(() => {
-			this.authenticated = true;
-			this.user = new User(_.omit(user, ['favorites', 'cards']), token);
-			this.rootStore.favoritesStore.setFavorites(user.favorites);
-		});
+		return { user, token };
 	};
 
 	@action

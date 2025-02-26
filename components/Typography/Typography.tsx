@@ -1,6 +1,6 @@
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import React from 'react';
-import { StyleSheet, Text, TextProps } from 'react-native';
+import { StyleProp, StyleSheet, Text, TextProps, TextStyle } from 'react-native';
 
 const fontFamilyMap = {
 	light: 'Tajawal-Light',
@@ -14,6 +14,7 @@ type TypographyProps = TextProps & {
 	color?: string;
 	align?: 'left' | 'center' | 'right' | 'justify';
 	weight?: 'light' | 'regular' | 'medium' | 'bold';
+	numeric?: boolean;
 };
 
 const Typography: React.FC<TypographyProps> = ({
@@ -23,6 +24,7 @@ const Typography: React.FC<TypographyProps> = ({
 	style,
 	children,
 
+	numeric,
 	...rest
 }) => {
 	const theme = useThemeStyles();
@@ -31,10 +33,11 @@ const Typography: React.FC<TypographyProps> = ({
 		fontFamily: fontFamilyMap[weight],
 		color: rest.color ? rest.color : theme['--text'],
 		textAlign: align,
+		...(numeric ? { fontVariant: ['tabular-nums'] } : {}),
 	};
 
 	return (
-		<Text style={[fontStyles, style]} {...rest}>
+		<Text style={[fontStyles as StyleProp<TextStyle>, style]} {...rest}>
 			{children}
 		</Text>
 	);
