@@ -13,7 +13,7 @@ const BackButton = (props: Props) => {
 	const iconName = isRtl ? 'chevron-forward' : 'chevron-back';
 	return (
 		<Pressable {...props} className='p-4 w-[50]' onPress={router.back}>
-			<Ionicons name={iconName} size={24} color={theme['--static']} />
+			<Ionicons name={iconName} size={24} color={theme['--text']} />
 		</Pressable>
 	);
 };

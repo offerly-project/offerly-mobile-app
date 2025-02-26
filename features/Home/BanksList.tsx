@@ -40,7 +40,10 @@ const BanksList = observer(() => {
 							className='w-[85px] flex flex-col items-center gap-3 rounded-2xl p-1.5'
 							onPress={() => handleBankPress(item)}
 						>
-							<Image source={formatUploadPath(item.logo)} style={styles.bankLogo} />
+							<Image
+								source={item.logo ? formatUploadPath(item.logo) : ''}
+								style={styles.bankLogo}
+							/>
 							<Typography
 								style={{ lineHeight: 22 }}
 								weight='medium'

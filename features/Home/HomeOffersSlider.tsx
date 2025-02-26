@@ -1,9 +1,9 @@
+import OfferSkeleton from '@/components/Skeletons/OfferSkeleton';
 import {
-	SLIDERS_HEIGHT,
 	SLIDER_SKELETON_HEIGHT,
 	SLIDER_SKELETON_WIDTH,
-} from '@/app/(private)/tabs/home';
-import OfferSkeleton from '@/components/Skeletons/OfferSkeleton';
+	SLIDERS_HEIGHT,
+} from '@/components/Toasts/constants';
 import Typography from '@/components/Typography/Typography';
 import { IOffer } from '@/entities/offer.entity';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
@@ -102,7 +102,9 @@ const HomeOffersSlider = observer(
 											}}
 										>
 											<Image
-												source={formatUploadPath(item.logo)}
+												source={
+													item.logo ? formatUploadPath(item.logo) : ''
+												}
 												style={styles.logo}
 												contentFit='cover'
 											/>

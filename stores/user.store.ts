@@ -68,15 +68,16 @@ export class UserStore {
 	@action
 	login = async (email: string, password: string) => {
 		const { user, token } = await AuthApi.login(email, password);
+		SecureStorage.setItem('token', token);
+		PlainStorage.deleteItem('guest');
+		AxiosAuthInterceptorManager.addInterceptor(token);
+		await this.rootStore.banksStore.fetchBanks();
+
 		runInAction(() => {
 			this.authenticated = true;
 			this.user = new User(_.omit(user, ['favorites', 'cards']), token);
 			this.rootStore.favoritesStore.setFavorites(user.favorites);
 		});
-		SecureStorage.setItem('token', token);
-		PlainStorage.deleteItem('guest');
-		AxiosAuthInterceptorManager.addInterceptor(token);
-		await this.rootStore.banksStore.fetchBanks();
 	};
 
 	@action

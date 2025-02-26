@@ -15,3 +15,6 @@ export const getToastStyles = (theme: ThemeStyle) =>
 export type CustomToastProps = ToastProps & BaseToastProps;
 
 export const TOAST_CLOSE_HIT_SLOP = 14;
+export const SLIDERS_HEIGHT = 290;
+export const SLIDER_SKELETON_HEIGHT = 215;
+export const SLIDER_SKELETON_WIDTH = 140;

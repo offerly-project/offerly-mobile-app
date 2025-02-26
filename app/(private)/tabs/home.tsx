@@ -26,11 +26,6 @@ import Animated, {
 	withTiming,
 } from 'react-native-reanimated';
 
-export const SLIDERS_HEIGHT = 290;
-
-export const SLIDER_SKELETON_HEIGHT = 215;
-export const SLIDER_SKELETON_WIDTH = 140;
-
 const Home = () => {
 	const theme = useThemeStyles();
 	const [search, setSearch] = useState('');

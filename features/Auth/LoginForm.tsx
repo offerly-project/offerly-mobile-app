@@ -8,6 +8,7 @@ import { useThemeStyles } from '@/hooks/useThemeStyles';
 import KeyboardAvoidingLayout from '@/layouts/KeyboardAvoidingLayout';
 import { languageStore, userStore } from '@/stores';
 import { translateInvalidError, translateRequiredError } from '@/utils/utils';
+
 import { ActivityIndicator, View } from 'react-native';
 import z from 'zod';
 
@@ -33,7 +34,7 @@ const LoginForm = () => {
 			schema,
 			onSubmit: async (values) => {
 				const { email, password } = values;
-				return await userStore().login(email, password);
+				await userStore().login(email, password);
 			},
 		});
 	const onInputChange = (key: keyof FormValues) => (value: string) => {
