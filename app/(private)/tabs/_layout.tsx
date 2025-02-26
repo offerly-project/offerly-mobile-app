@@ -15,6 +15,7 @@ export const Layout = observer(() => {
 	const theme = useThemeStyles();
 	const { translations } = languageStore();
 	const [activeTab, setActiveTab] = useState(INITIAL_TAB);
+
 	return (
 		<View style={{ flex: 1, backgroundColor: theme['--background'] }}>
 			<ScreensLayout name={activeTab}>
@@ -37,6 +38,7 @@ export const Layout = observer(() => {
 							backgroundColor: theme['--background'],
 							borderTopWidth: 1,
 							borderTopColor: theme['--shade'],
+							paddingBottom: 0,
 						},
 					}}
 					initialRouteName={INITIAL_TAB}

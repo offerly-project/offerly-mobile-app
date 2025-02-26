@@ -54,7 +54,7 @@ const LoginForm = () => {
 	useEffect(() => {
 		if (userData) {
 			animateLogin().then(() => {
-				userStore().switchToAuthenticated(userData.user, userData.token);
+				userStore().applyLogin(userData.user, userData.token);
 			});
 		}
 	}, [userData]);

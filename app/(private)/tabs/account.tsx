@@ -5,8 +5,10 @@ import ConfigurationRouteChevronIcon from '@/features/Configuration/components/C
 import DeleteAccount from '@/features/Configuration/DeleteAccount';
 import LanguageSwitchList from '@/features/Configuration/LanguageSwitchList';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import TabTransitionLayout from '@/layouts/TabTransitionLayout';
 import { version as AppVersion } from '@/package.json';
 import { cardsStore, favoritesStore, languageStore, userStore } from '@/stores';
+import { authEmitter } from '@/stores/user.store';
 import { Ionicons } from '@expo/vector-icons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { router } from 'expo-router';
@@ -29,7 +31,7 @@ const AccountPage = observer(() => {
 	const { isGuest } = userStore();
 
 	return (
-		<>
+		<TabTransitionLayout>
 			<View>
 				<View className='items-center justify-center'>
 					<View className='w-full'>
@@ -142,11 +144,12 @@ const AccountPage = observer(() => {
 						</BottomSheetWrapper>
 
 						<BottomSheetWrapper
-							sheet={() => (
+							sheet={(closeHandler) => (
 								<ThemeSwitchList
 									onSelect={(selected) => {
 										if (selected === theme) return;
 										switchTheme(selected);
+										closeHandler();
 									}}
 									selectedTheme={theme}
 								/>
@@ -215,6 +218,9 @@ const AccountPage = observer(() => {
 								router.push('/(private)/(fullscreen_modals)/loading_modal');
 								userStore()
 									.logout()
+									.then(() => {
+										authEmitter.emit('logout');
+									})
 									.catch(() => {
 										Toast.show({
 											type: 'error',
@@ -271,7 +277,7 @@ const AccountPage = observer(() => {
 					</Typography>
 				</View>
 			</View>
-		</>
+		</TabTransitionLayout>
 	);
 });
 

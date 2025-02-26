@@ -5,9 +5,12 @@ import { AxiosAuthInterceptorManager } from '@/configs/axios';
 import { IUser, PatchUserData, User } from '@/entities/user.entity';
 import { PlainStorage, SecureStorage } from '@/services/storage.services';
 import messaging from '@react-native-firebase/messaging';
+import EventEmitter from 'eventemitter3';
 import _ from 'lodash';
 import { action, makeAutoObservable, observable, runInAction } from 'mobx';
 import { RootStore } from '.';
+
+export const authEmitter = new EventEmitter();
 
 export class UserStore {
 	private rootStore: RootStore;
@@ -65,11 +68,18 @@ export class UserStore {
 		}
 	};
 
-	switchToAuthenticated = (user: IUser, token: string) => {
+	applyLogin = (user: IUser, token: string) => {
 		this.authenticated = true;
 		this.user = new User(_.omit(user, ['favorites', 'cards']), token);
 		this.rootStore.favoritesStore.setFavorites(user.favorites);
 	};
+
+	applyLogout = () => {
+		this.authenticated = false;
+		this.user = null as unknown as User;
+		this.isGuest = false;
+	};
+
 	@action
 	login = async (email: string, password: string) => {
 		const { user, token } = await AuthApi.login(email, password);
@@ -126,14 +136,5 @@ export class UserStore {
 		}
 		AxiosAuthInterceptorManager.removeInterceptor();
 		await SecureStorage.deleteItem('token');
-		try {
-			runInAction(() => {
-				this.authenticated = false;
-				this.user = null as unknown as User;
-				this.isGuest = false;
-			});
-		} catch (e) {
-			console.log('Error during logout:', e);
-		}
 	};
 }

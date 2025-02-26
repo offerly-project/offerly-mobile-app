@@ -8,10 +8,10 @@ import BottomSheet from '../BottomSheet/BottomSheet';
 import Input from '../Input/Input';
 import Typography from '../Typography/Typography';
 
-type ItemType<T> = {
+export type SelectItemType<T> = {
 	name: string;
 	value: string;
-	data: T;
+	data: any;
 };
 
 type Props<T> = {
@@ -19,11 +19,15 @@ type Props<T> = {
 	snapPoints?: string[];
 	onChange?: (value: T) => void;
 	placeHolder?: string;
-	items: ItemType<T>[];
-	itemRenderer?: (item: ItemType<T>, index: number, closeHandler: () => void) => JSX.Element;
+	items: SelectItemType<T>[];
+	itemRenderer?: (
+		item: SelectItemType<T>,
+		index: number,
+		closeHandler: () => void,
+	) => JSX.Element;
 	className?: string;
 	styles?: StyleProp<ViewStyle>;
-	searchResolver?: (item: ItemType<T>, search: string) => boolean;
+	searchResolver?: (item: SelectItemType<T>, search: string) => boolean;
 	children?: (content?: string) => React.ReactNode;
 };
 

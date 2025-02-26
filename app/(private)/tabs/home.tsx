@@ -11,6 +11,7 @@ import TrendingOffersList from '@/features/Home/TrendingOffersList';
 import OfferCard from '@/features/Offers/OfferCard';
 import usePagination from '@/hooks/usePagination';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import TabTransitionLayout from '@/layouts/TabTransitionLayout';
 import { languageStore } from '@/stores';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
@@ -123,7 +124,7 @@ const Home = () => {
 	};
 
 	return (
-		<>
+		<TabTransitionLayout>
 			<Animated.View
 				className='py-2 absolute top-0 left-0 w-full bg-transparent z-20'
 				style={headerAnimation}
@@ -211,7 +212,7 @@ const Home = () => {
 					/>
 				</BlurView>
 			</Modal>
-		</>
+		</TabTransitionLayout>
 	);
 };
 

@@ -6,7 +6,7 @@ import { languageStore } from '@/stores';
 import { MaterialIcons } from '@expo/vector-icons';
 import { observer } from 'mobx-react-lite';
 import { StyleSheet, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type Props = {
 	children: React.ReactNode;
@@ -17,10 +17,18 @@ const AuthLayout = observer(({ children, hideBackButton }: Props) => {
 	const { theme, switchTheme } = useThemeContext();
 	const styles = useThemeStyles();
 	const { language, setLanguage } = languageStore();
-
+	const { top, bottom, left, right } = useSafeAreaInsets();
 	return (
-		<SafeAreaView className='px-10 flex-1 w-full h-full justify-center bg-background'>
-			<View className={`flex flex-row justify-between items-center h-[50]`}>
+		<View
+			style={{
+				paddingTop: top,
+				paddingBottom: bottom,
+				paddingLeft: left + 40,
+				paddingRight: right + 40,
+			}}
+			className='flex-1 w-full h-full justify-center bg-background'
+		>
+			<View className={`flex flex-row justify-between items-center h-[50px]`}>
 				<View>{!hideBackButton && <BackButton />}</View>
 
 				<View className='flex-row gap-8'>
@@ -43,7 +51,7 @@ const AuthLayout = observer(({ children, hideBackButton }: Props) => {
 				</View>
 			</View>
 			{children}
-		</SafeAreaView>
+		</View>
 	);
 });
 

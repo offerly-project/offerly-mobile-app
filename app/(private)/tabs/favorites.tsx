@@ -5,6 +5,7 @@ import { FLATLIST_TRANSITION } from '@/constants/transitions';
 import OfferCard from '@/features/Offers/OfferCard';
 import { DeepLinkHandler, useDeepLinkHandler } from '@/hooks/useDeepLinkHandler';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import TabTransitionLayout from '@/layouts/TabTransitionLayout';
 import { favoritesStore, userStore } from '@/stores';
 import { observer } from 'mobx-react-lite';
 import { Skeleton } from 'moti/skeleton';
@@ -59,7 +60,7 @@ const Favorites = observer((props: Props) => {
 	useDeepLinkHandler({ handler: deepLinkHandler });
 
 	return (
-		<>
+		<TabTransitionLayout>
 			{loading ? (
 				<Skeleton.Group show={true}>
 					{new Array(4).fill(0).map((_, i) => (
@@ -87,7 +88,7 @@ const Favorites = observer((props: Props) => {
 					/>
 				</View>
 			)}
-		</>
+		</TabTransitionLayout>
 	);
 });
 

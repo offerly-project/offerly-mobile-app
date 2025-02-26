@@ -8,7 +8,7 @@ import { BanksApi } from '@/api/banks.api';
 import { CardsApi } from '@/api/cards.api';
 import BackButton from '@/components/Button/BackButton';
 import Button from '@/components/Button/Buttton';
-import Select from '@/components/Select/Select';
+import Select, { SelectItemType } from '@/components/Select/Select';
 import Typography from '@/components/Typography/Typography';
 import { IBank } from '@/entities/bank.entity';
 import { ICard } from '@/entities/card.entity';
@@ -156,13 +156,15 @@ const SelectCards = observer(() => {
 					<ActivityIndicator color={theme['--primary']} />
 				</View>
 			) : (
-				<>
+				<View className='flex-1'>
 					<Select
-						items={banks.map((bank) => ({
-							name: bank.name[language],
-							value: bank.id,
-							data: bank,
-						}))}
+						items={banks.map(
+							(bank): SelectItemType<IBank> => ({
+								name: bank.name[language],
+								value: bank.id,
+								data: bank,
+							}),
+						)}
 						onChange={setSelectedBank}
 						value={selectedBank}
 						placeHolder={translations.placeholders.selectBank}
@@ -177,7 +179,7 @@ const SelectCards = observer(() => {
 							<ActivityIndicator color={theme['--primary']} />
 						</View>
 					) : (
-						<View style={{ height: '70%' }}>
+						<View className='flex-1'>
 							<FlatList
 								columnWrapperStyle={{
 									justifyContent: 'center',
@@ -225,20 +227,18 @@ const SelectCards = observer(() => {
 						<Animated.View style={[styles.hapticPressContainer, animatedStyle]}>
 							<Button
 								borderStyle='filled'
-								style={{ borderRadius: 20 }}
+								style={{ borderRadius: 20, backgroundColor: 'transparent' }}
 								loading={loading.adding}
 								className='px-10'
 								loadingComponent={<ActivityIndicator color={theme['--text']} />}
 								onPress={onAdd}
 								hapticFeedback
 							>
-								<Typography color={theme['--background']}>
-									{translations.buttons.add}
-								</Typography>
+								<Ionicons name='add-circle' color={theme['--primary']} size={40} />
 							</Button>
 						</Animated.View>
 					)}
-				</>
+				</View>
 			)}
 		</TabLayout>
 	);
@@ -274,5 +274,6 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		paddingTop: 10,
+		marginBottom: 25,
 	},
 });
