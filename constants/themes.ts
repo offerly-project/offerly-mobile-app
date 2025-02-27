@@ -12,7 +12,7 @@ export const themes = {
 		'--primary': '#927AFF',
 		'--secondary': '#6B4DBE',
 		'--background': '#0F0F0F',
-		'--light-background': '#2C2C2C',
+		'--light-background': '#1E1E1E',
 		'--text': '#E8E8E8',
 		'--selected': '#FFA726',
 		'--card': '#1E1E1E',

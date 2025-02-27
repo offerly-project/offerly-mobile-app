@@ -2,7 +2,7 @@ import { CardsApi } from '@/api/cards.api';
 import NoCards from '@/components/Messages/NoCards';
 import Typography from '@/components/Typography/Typography';
 import { SCREEN_WIDTH } from '@/constants/screens';
-import { FLATLIST_TRANSITION } from '@/constants/transitions';
+import { FLATLIST_SHIFT_TRANSITION } from '@/constants/transitions';
 import { useThemeContext } from '@/contexts/ThemeContext';
 import { ICard } from '@/entities/card.entity';
 import CardCard from '@/features/Cards/CardCard';
@@ -101,7 +101,7 @@ const Cards = observer(() => {
 					horizontal
 					showsHorizontalScrollIndicator={false}
 					data={cards}
-					itemLayoutAnimation={FLATLIST_TRANSITION}
+					itemLayoutAnimation={FLATLIST_SHIFT_TRANSITION}
 					contentContainerStyle={styles.cardRow}
 					renderItem={({ item: card }) => (
 						<View key={card.id} className='mx-2'>

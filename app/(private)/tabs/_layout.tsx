@@ -35,9 +35,8 @@ export const Layout = observer(() => {
 							paddingBottom: 0,
 						},
 						tabBarStyle: {
-							backgroundColor: theme['--background'],
-							borderTopWidth: 1,
-							borderTopColor: theme['--shade'],
+							backgroundColor: theme['--light-background'],
+							borderTopColor: 'transparent',
 							paddingBottom: 0,
 						},
 					}}

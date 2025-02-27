@@ -1,5 +1,5 @@
 import Typography from '@/components/Typography/Typography';
-import { FLATLIST_TRANSITION } from '@/constants/transitions';
+import { FLATLIST_SHIFT_TRANSITION } from '@/constants/transitions';
 import { IOfferFilter } from '@/entities/offer.entity';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { languageStore, staticDataStore } from '@/stores';
@@ -127,7 +127,7 @@ const Categories = ({ filter, setFilter }: Props) => {
 
 	return (
 		<Animated.FlatList
-			itemLayoutAnimation={FLATLIST_TRANSITION}
+			itemLayoutAnimation={FLATLIST_SHIFT_TRANSITION}
 			ref={flatListRef}
 			data={sortedCategories}
 			renderItem={renderItem}
