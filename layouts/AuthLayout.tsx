@@ -29,7 +29,7 @@ const AuthLayout = observer(({ children, hideBackButton }: Props) => {
 			className='flex-1 w-full h-full justify-center bg-background'
 		>
 			<View className={`flex flex-row justify-between items-center h-[50px]`}>
-				<View>{!hideBackButton && <BackButton />}</View>
+				<View>{!hideBackButton && <BackButton variant='auth' />}</View>
 
 				<View className='flex-row gap-8'>
 					<Typography

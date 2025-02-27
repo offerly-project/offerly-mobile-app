@@ -150,7 +150,10 @@ const SelectCards = observer(() => {
 	};
 
 	return (
-		<TabLayout title={translations.tabs.cards.addCards} leading={<BackButton />}>
+		<TabLayout
+			title={translations.tabs.cards.addCards}
+			leading={<BackButton variant='header' />}
+		>
 			{loading.banks ? (
 				<View className='h-full w-full flex flex-col items-center justify-center'>
 					<ActivityIndicator color={theme['--primary']} />

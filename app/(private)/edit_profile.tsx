@@ -17,7 +17,10 @@ export const EditProfile = observer(() => {
 	const phoneNumber = rootStore.userStore.user.phone_number || '';
 
 	return (
-		<TabLayout title={translations.tabs.account.profile.title} leading={<BackButton />}>
+		<TabLayout
+			title={translations.tabs.account.profile.title}
+			leading={<BackButton variant='header' />}
+		>
 			<View className='flex-1'>
 				<View className='w-full gap-2 flex-1'>
 					<View className='overflow-hidden rounded-2xl'>
