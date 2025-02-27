@@ -1,7 +1,4 @@
 Release Notes:
 
-- Notifications Redirection: fixed
-- Phone Number prefix: complete
-- Search Stuck in offers: fixed
-- bank logo favorites: complete
-- guest mode: removed
+-
+-
