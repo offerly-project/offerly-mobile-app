@@ -47,10 +47,11 @@ export const PrivateLayout = observer(() => {
 				if (!isGuest) {
 					await Promise.all([cardsStore().fetchUserCards()]);
 				}
-				setLoading(false);
 			} catch (e) {
 				await userStore().logout();
 				userStore().applyLogout();
+			} finally {
+				setLoading(false);
 			}
 
 			// Animate content after loading completes
