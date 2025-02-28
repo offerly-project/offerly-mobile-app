@@ -44,11 +44,7 @@ export const PrivateLayout = observer(() => {
 
 		(async function () {
 			if (!isGuest) {
-				try {
-					await Promise.all([cardsStore().fetchUserCards()]);
-				} catch (e) {
-					userStore().logout();
-				}
+				await Promise.all([cardsStore().fetchUserCards()]);
 			}
 			setLoading(false);
 

@@ -80,6 +80,8 @@ export const RootLayout = observer(() => {
 					setLoading(false);
 				}
 				if (error) throw new Error('Failed to load fonts');
+			} catch (e) {
+				await userStore().logout();
 			} finally {
 				setLoading(false);
 			}
