@@ -181,6 +181,9 @@ const AccountPage = observer(() => {
 										router.push('/loading_modal');
 										userStore()
 											.deleteAccount()
+											.then(() => {
+												userStore().applyLogout();
+											})
 											.catch(() => {
 												Toast.show({
 													type: 'error',
