@@ -82,6 +82,7 @@ export const RootLayout = observer(() => {
 				if (error) throw new Error('Failed to load fonts');
 			} catch (e) {
 				await userStore().logout();
+				userStore().applyLogout();
 			} finally {
 				setLoading(false);
 			}

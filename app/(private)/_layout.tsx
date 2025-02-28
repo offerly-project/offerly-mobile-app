@@ -43,10 +43,15 @@ export const PrivateLayout = observer(() => {
 		}).start();
 
 		(async function () {
-			if (!isGuest) {
-				await Promise.all([cardsStore().fetchUserCards()]);
+			try {
+				if (!isGuest) {
+					await Promise.all([cardsStore().fetchUserCards()]);
+				}
+				setLoading(false);
+			} catch (e) {
+				await userStore().logout();
+				userStore().applyLogout();
 			}
-			setLoading(false);
 
 			// Animate content after loading completes
 			Animated.timing(wrapperFadeAnim, {
