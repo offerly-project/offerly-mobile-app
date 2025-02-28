@@ -12,7 +12,7 @@ axiosInstance.interceptors.request.use(
 		if (config.url) {
 			config.url = encodeURI(config.url);
 		}
-		console.log('Request:', config.url);
+		console.log('Request:', config.method, config.url);
 
 		return config;
 	},

@@ -189,7 +189,7 @@ const SelectCards = observer(() => {
 									gap: GAP,
 								}}
 								contentContainerStyle={{
-									gap: GAP,
+									gap: GAP + 8,
 								}}
 								className='pt-3'
 								numColumns={COLUMNS_NUMBER}
@@ -233,7 +233,7 @@ const SelectCards = observer(() => {
 								style={{ borderRadius: 20, backgroundColor: 'transparent' }}
 								loading={loading.adding}
 								className='px-10'
-								loadingComponent={<ActivityIndicator color={theme['--text']} />}
+								loadingComponent={<ActivityIndicator color={theme['--primary']} />}
 								onPress={onAdd}
 								hapticFeedback
 							>

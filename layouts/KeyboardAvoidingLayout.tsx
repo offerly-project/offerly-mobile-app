@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { KeyboardAvoidingView, Platform } from 'react-native';
+import Animated, { useAnimatedKeyboard, useAnimatedStyle } from 'react-native-reanimated';
 
 interface KeyboardAvoidingLayoutProps {
 	children: ReactNode;
@@ -10,12 +10,13 @@ export default function KeyboardAvoidingLayout({
 	children,
 	className,
 }: KeyboardAvoidingLayoutProps) {
+	const animation = useAnimatedKeyboard();
+	const paddingBottomStyle = useAnimatedStyle(() => ({
+		paddingBottom: animation.height.value,
+	}));
 	return (
-		<KeyboardAvoidingView
-			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-			className={className}
-		>
+		<Animated.View style={paddingBottomStyle} className={className}>
 			{children}
-		</KeyboardAvoidingView>
+		</Animated.View>
 	);
 }

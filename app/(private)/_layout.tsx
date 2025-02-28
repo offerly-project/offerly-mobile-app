@@ -102,7 +102,7 @@ export const PrivateLayout = observer(() => {
 					flex: 1,
 				}}
 			>
-				<Stack screenOptions={getBaseScreenLayout(theme)}>
+				<Stack screenOptions={getBaseScreenLayout(theme)} initialRouteName={'tabs'}>
 					<Stack.Screen name='tabs' />
 					<Stack.Screen name='edit_profile' />
 					<Stack.Screen name='select_cards' />

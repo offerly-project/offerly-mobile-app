@@ -25,7 +25,7 @@ const CardCard = ({ card, onPress, selected, small, userCard }: Props) => {
 		: 'bg-primary items-center';
 
 	return (
-		<View className={`${small ? 'w-[80px]' : 'w-[120px]'} `}>
+		<View className={`${small ? 'w-[80px]' : 'w-[110px]'} `}>
 			<Animated.View
 				className={`${!small && 'aspect-square'}`}
 				style={[

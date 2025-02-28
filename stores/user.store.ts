@@ -54,6 +54,7 @@ export class UserStore {
 			const isGuest = (await PlainStorage.getItem('guest')) === 'true';
 			if (token && !isGuest) {
 				AxiosAuthInterceptorManager.addInterceptor(token);
+
 				const user = await UserApi.me();
 				await this.rootStore.banksStore.fetchBanks();
 				runInAction(() => {
