@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const axiosInstance = axios.create({
 	baseURL: process.env.EXPO_PUBLIC_BASE_API_URL,
+	timeout: 10000,
 });
 
 // Log requests and URLs
