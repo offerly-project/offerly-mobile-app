@@ -1,7 +1,5 @@
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { FontAwesome } from '@expo/vector-icons';
-import * as Haptics from 'expo-haptics';
-import { useEffect } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import Toast from 'react-native-toast-message';
 import Typography from '../Typography/Typography';
@@ -12,9 +10,7 @@ type Props = CustomToastProps;
 const ErrorToast = (props: Props) => {
 	const theme = useThemeStyles();
 	const toastStyles = getToastStyles(theme);
-	useEffect(() => {
-		Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
-	}, []);
+
 	const hideHandler = () => {
 		Toast.hide();
 	};

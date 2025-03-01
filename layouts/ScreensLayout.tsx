@@ -34,7 +34,6 @@ const getTrailing = (name: string) => {
 				<Button
 					disabled={guest}
 					className='aspect-square '
-					hapticFeedback
 					style={{
 						backgroundColor: theme['--primary'],
 						height: 30,

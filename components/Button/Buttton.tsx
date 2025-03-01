@@ -1,6 +1,5 @@
-import * as Haptics from 'expo-haptics';
 import React from 'react';
-import { GestureResponderEvent, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 type Variants = 'primary' | 'secondary';
 type BorderStyles = 'filled' | 'outlined' | 'ghost';
@@ -43,18 +42,9 @@ const Button: React.FC<ButtonProps> = ({
 		return `${styles} ${BORDER_STYLE[borderStyle]}-${COLORING[variant]} ${isDisabled && 'opacity-60'}`;
 	})();
 
-	const handlePress = (event: GestureResponderEvent) => {
-		if (hapticFeedback) {
-			Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-		}
-		if (onPress) {
-			onPress(event);
-		}
-	};
-
 	return (
 		<TouchableOpacity
-			onPress={handlePress}
+			onPress={onPress}
 			disabled={isDisabled}
 			activeOpacity={0.8}
 			{...rest}

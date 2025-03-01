@@ -140,3 +140,24 @@ export const openLoadingModal = async (cb: () => Promise<void>) => {
 		});
 	});
 };
+
+import * as Haptics from 'expo-haptics';
+
+type HapticType = 'selection' | 'impact';
+
+export const haptic = (type: HapticType) => {
+	switch (type) {
+		case 'selection':
+			Haptics.selectionAsync();
+			break;
+		case 'impact':
+			Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+			break;
+	}
+};
+export const hapticify = (type: HapticType) => (cb: () => any) => {
+	console.log(type);
+
+	haptic(type);
+	return cb;
+};

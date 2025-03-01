@@ -1,4 +1,5 @@
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import { haptic } from '@/utils/utils';
 import { AntDesign } from '@expo/vector-icons';
 import { Pressable } from 'react-native';
 import Animated, {
@@ -25,6 +26,7 @@ const FavoriteButton = ({ favorite, onPress }: Props) => {
 
 	const handlePress = () => {
 		if (!favorite) {
+			haptic('impact');
 			scale.value = withSpring(1.3, { damping: 8, stiffness: 400 }, () => {
 				scale.value = withSpring(1);
 			});

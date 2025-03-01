@@ -235,7 +235,6 @@ const SelectCards = observer(() => {
 								className='px-10'
 								loadingComponent={<ActivityIndicator color={theme['--primary']} />}
 								onPress={onAdd}
-								hapticFeedback
 							>
 								<Ionicons name='add-circle' color={theme['--primary']} size={40} />
 							</Button>

@@ -1,4 +1,5 @@
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import { haptic } from '@/utils/utils';
 import { BottomSheetBackdropProps, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import { ComponentProps, useEffect, useRef } from 'react';
 import { Keyboard, Pressable, View } from 'react-native';
@@ -36,6 +37,9 @@ const BottomSheet = ({ open, children, ...rest }: Props) => {
 		} else {
 			ref.current?.dismiss();
 		}
+	}, [open]);
+	useEffect(() => {
+		if (open) haptic('selection');
 	}, [open]);
 	const insets = useSafeAreaInsets();
 
