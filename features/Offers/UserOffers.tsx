@@ -136,9 +136,17 @@ const Offers = observer(() => {
 		}
 	}, [data]);
 
-	const fadeAnimation = useAnimatedStyle(() => ({
-		opacity: fadeAnim.value,
-	}));
+	// Combined fade and view animation
+	const combinedAnimation = useAnimatedStyle(() => {
+		const isShowing = toolbarVisible.value === 1;
+		return {
+			opacity: fadeAnim.value,
+			paddingTop: withTiming(isShowing ? 150 : 0, {
+				duration: isShowing ? 600 : 150,
+				easing: isShowing ? Easing.out(Easing.exp) : Easing.linear,
+			}),
+		};
+	});
 
 	const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
 		const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
@@ -241,7 +249,7 @@ const Offers = observer(() => {
 					{initialLoader ? (
 						renderSkeleton(4)
 					) : (
-						<Animated.View style={[fadeAnimation, { flex: 1 }]}>
+						<Animated.View style={[combinedAnimation, { flex: 1 }]}>
 							{data.length === 0 ? (
 								<NoData message='No offers match' />
 							) : (

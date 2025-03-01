@@ -1,4 +1,5 @@
-Release Notes:
+Release Notes: 1.1.34
 
--
--
+- Better transitions
+- UI enhancements
+- Bugfixes
