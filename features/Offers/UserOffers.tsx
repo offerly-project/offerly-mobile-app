@@ -1,5 +1,6 @@
 import { OffersApi } from '@/api/offers.api';
 import GoTopLayout from '@/components/Button/GoTopButton';
+import NoData from '@/components/Fallback/NoData';
 import NoCards from '@/components/Messages/NoCards';
 import OfferSkeleton from '@/components/Skeletons/OfferSkeleton';
 import Typography from '@/components/Typography/Typography';
@@ -30,7 +31,7 @@ import Animated, {
 import OfferCard from './OfferCard';
 import OffersToolbar from './OffersToolbar';
 
-const ANIMATION_TRIGGER_ITEMS_THRESHHOLD = Math.floor(SCREEN_HEIGHT / 250);
+const ANIMATION_TRIGGER_ITEMS_THRESHOLD = Math.floor(SCREEN_HEIGHT / 250);
 
 const Offers = observer(() => {
 	const theme = useThemeStyles();
@@ -45,7 +46,6 @@ const Offers = observer(() => {
 		sortKey: 'created_at',
 		sortDirection: 'desc',
 	});
-
 	const [search, setSearch] = useState<string>('');
 
 	useDeepLinkHandler({
@@ -58,6 +58,8 @@ const Offers = observer(() => {
 			});
 		},
 	});
+
+	const fadeAnim = useSharedValue(0); // Shared value for fade animation
 
 	const { data, refreshing, loadingMore, handleRefresh, loadMore, initialLoader, totalResult } =
 		usePagination<IOffer>({
@@ -125,6 +127,19 @@ const Offers = observer(() => {
 		setHeaderText();
 	}, [offersFilter.card, userCards, translations]);
 
+	// Trigger fade-in animation when data is loaded
+	useEffect(() => {
+		if (!initialLoader) {
+			fadeAnim.value = withTiming(1, { duration: 500, easing: Easing.out(Easing.quad) });
+		} else {
+			fadeAnim.value = 0;
+		}
+	}, [data]);
+
+	const fadeAnimation = useAnimatedStyle(() => ({
+		opacity: fadeAnim.value,
+	}));
+
 	const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
 		const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
 		const currentY = contentOffset.y;
@@ -134,13 +149,12 @@ const Offers = observer(() => {
 		if (data.length === 0 || isAtTop) return;
 
 		if (
-			data.length <= ANIMATION_TRIGGER_ITEMS_THRESHHOLD &&
-			totalResult <= ANIMATION_TRIGGER_ITEMS_THRESHHOLD
+			data.length <= ANIMATION_TRIGGER_ITEMS_THRESHOLD &&
+			totalResult <= ANIMATION_TRIGGER_ITEMS_THRESHOLD
 		) {
 			runOnJS(() => {
 				toolbarVisible.value = 1;
 			})();
-
 			return;
 		}
 
@@ -161,34 +175,6 @@ const Offers = observer(() => {
 		lastScrollY.value = currentY;
 	};
 
-	const toolbarAnimation = useAnimatedStyle(() => {
-		const isShowing = toolbarVisible.value === 1;
-		return {
-			transform: [
-				{
-					translateY: withTiming(isShowing ? 0 : -500, {
-						duration: isShowing ? 600 : 150,
-						easing: isShowing ? Easing.out(Easing.exp) : Easing.linear,
-					}),
-				},
-			],
-			opacity: withTiming(toolbarVisible.value, {
-				duration: isShowing ? 400 : 100,
-				easing: isShowing ? Easing.out(Easing.exp) : Easing.linear,
-			}),
-		};
-	});
-
-	const viewAnimation = useAnimatedStyle(() => {
-		const isShowing = toolbarVisible.value === 1;
-		return {
-			paddingTop: withTiming(isShowing ? 150 : 0, {
-				duration: isShowing ? 600 : 150,
-				easing: isShowing ? Easing.out(Easing.exp) : Easing.linear,
-			}),
-		};
-	});
-
 	const renderSkeleton = (count: number) => (
 		<Skeleton.Group show={true}>
 			{new Array(count).fill(0).map((_, i) => (
@@ -208,60 +194,61 @@ const Offers = observer(() => {
 				<NoCards />
 			) : (
 				<View className='relative flex-1'>
-					{/* Floating Toolbar (Now fully animating in and out) */}
-					<Animated.View
-						className='absolute top-0 left-0 w-full z-20'
-						style={toolbarAnimation}
-					>
-						<OffersToolbar
-							offersFilter={offersFilter}
-							setOffersFilter={setOffersFilter}
-							appliedFilterCount={appliedFilterCount}
-							search={search}
-							setSearch={setSearch}
-						/>
-						{offersHeader && (
-							<View className='bg-background pb-2'>
-								<Typography
-									numberOfLines={1}
-									align='center'
-									variant='body'
-									className='m-auto border-b-2 border-selected'
-									weight='bold'
-								>
-									{offersHeader}
-								</Typography>
-							</View>
-						)}
-					</Animated.View>
-					<Animated.View className='flex-1 relative' style={[viewAnimation]}>
-						{initialLoader && renderSkeleton(4)}
+					<OffersToolbar
+						offersFilter={offersFilter}
+						setOffersFilter={setOffersFilter}
+						appliedFilterCount={appliedFilterCount}
+						search={search}
+						setSearch={setSearch}
+					/>
+					{offersHeader && (
+						<View className='bg-background pb-2'>
+							<Typography
+								numberOfLines={1}
+								align='center'
+								variant='body'
+								className='m-auto border-b-2 border-selected'
+								weight='bold'
+							>
+								{offersHeader}
+							</Typography>
+						</View>
+					)}
 
-						<FlatList
-							data={data}
-							keyExtractor={(item) => item.id.toString()}
-							renderItem={({ item }) => <OfferCard offer={item} />}
-							refreshControl={
-								<RefreshControl
-									tintColor={theme['--selected']}
-									refreshing={refreshing}
-									onRefresh={handleRefresh}
+					{initialLoader ? (
+						renderSkeleton(4)
+					) : (
+						<Animated.View style={[fadeAnimation, { flex: 1 }]}>
+							{data.length === 0 ? (
+								<NoData message='No offers match' />
+							) : (
+								<FlatList
+									data={data}
+									keyExtractor={(item) => item.id.toString()}
+									renderItem={({ item }) => <OfferCard offer={item} />}
+									refreshControl={
+										<RefreshControl
+											tintColor={theme['--selected']}
+											refreshing={refreshing}
+											onRefresh={handleRefresh}
+										/>
+									}
+									onScroll={handleScroll}
+									scrollEventThrottle={16}
+									ref={flatlistRef}
+									ListFooterComponent={renderFooter}
+									contentContainerStyle={{ gap: CARDS_GAP }}
+									onEndReached={loadMore}
+									onEndReachedThreshold={0.1}
 								/>
-							}
-							onScroll={handleScroll}
-							scrollEventThrottle={16}
-							ref={flatlistRef}
-							ListFooterComponent={renderFooter}
-							contentContainerStyle={{ gap: CARDS_GAP }}
-							onEndReached={loadMore}
-							onEndReachedThreshold={0.1}
-						/>
+							)}
+						</Animated.View>
+					)}
 
-						<GoTopLayout
-							scrollY={lastScrollY}
-							onPress={() => flatlistRef.current?.scrollToOffset({ offset: 0 })}
-						/>
-					</Animated.View>
+					<GoTopLayout
+						scrollY={lastScrollY}
+						onPress={() => flatlistRef.current?.scrollToOffset({ offset: 0 })}
+					/>
 				</View>
 			)}
 		</View>

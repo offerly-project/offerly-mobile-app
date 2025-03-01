@@ -5,9 +5,9 @@ import { SCREEN_WIDTH } from '@/constants/screens';
 import { FLATLIST_SHIFT_TRANSITION } from '@/constants/transitions';
 import { useThemeContext } from '@/contexts/ThemeContext';
 import { ICard } from '@/entities/card.entity';
-import CardCard from '@/features/Cards/CardCard';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { cardsStore, languageStore } from '@/stores';
+import { wait } from '@/utils/utils';
 import { Ionicons } from '@expo/vector-icons';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useMemo, useState } from 'react';
@@ -15,6 +15,7 @@ import { ActivityIndicator, Alert, Pressable, StyleSheet, View } from 'react-nat
 import { ScrollView } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
+import UserCardAnimated from './UserCardAnimated';
 
 const Cards = observer(() => {
 	const theme = useThemeStyles();
@@ -53,10 +54,11 @@ const Cards = observer(() => {
 					style: 'destructive',
 					text: translations.buttons.confirm,
 					onPress: async () => {
-						setRemoving(true);
 						try {
 							await CardsApi.deleteUserCards(selectedCards);
-							await cardsStore().fetchUserCards();
+							setRemoving(true);
+							await wait(250);
+							await cardsStore().removeUserCards(selectedCards);
 							setSelectedCards([]);
 							Toast.show({
 								type: 'success',
@@ -104,14 +106,13 @@ const Cards = observer(() => {
 					itemLayoutAnimation={FLATLIST_SHIFT_TRANSITION}
 					contentContainerStyle={styles.cardRow}
 					renderItem={({ item: card }) => (
-						<View key={card.id} className='mx-2'>
-							<CardCard
-								key={card.id}
-								card={card}
-								selected={selectedCards.includes(card.id)}
-								onPress={() => handleCardSelect(card.id)}
-							/>
-						</View>
+						<UserCardAnimated
+							key={card.id}
+							card={card}
+							selected={selectedCards.includes(card.id)}
+							onPress={() => handleCardSelect(card.id)}
+							removing={selectedCards.includes(card.id) && removing}
+						/>
 					)}
 				/>
 			</View>

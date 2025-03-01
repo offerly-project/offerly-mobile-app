@@ -29,7 +29,6 @@ export class CardsStore {
 
 	@action
 	removeUserCards = async (cards: string[]) => {
-		await CardsApi.deleteUserCards(cards);
 		runInAction(() => {
 			cards.forEach((cardId) => {
 				delete this._cards[cardId];

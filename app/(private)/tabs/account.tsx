@@ -249,35 +249,50 @@ const AccountPage = observer(() => {
 				<Typography variant={'body'} color={styles['--text']}>
 					{translations.tabs.account.version} : {AppVersion}
 				</Typography>
+				<View className='mr-8 gap-2'>
+					<View className='flex flex-row gap-2 items-center justify-start w-[100px]'>
+						<Typography
+							variant='label'
+							color={styles['--text']}
+							numeric
+							style={{ textAlign: 'right' }}
+							className='w-6'
+							numberOfLines={1}
+						>
+							{getCardsAndFavCount()[0]}
+						</Typography>
+						<Ionicons
+							size={21}
+							className='h-[25]'
+							name='heart'
+							color={styles['--primary']}
+						/>
+						<Typography variant='label' color={styles['--text']}>
+							{translations.tabs.account.favorites}
+						</Typography>
+					</View>
 
-				<View className='flex flex-row gap-2 items-center justify-start w-[100px]'>
-					<Typography variant='label' color={styles['--text']} numeric>
-						{getCardsAndFavCount()[0]}
-					</Typography>
-					<Ionicons
-						size={21}
-						className='h-[25]'
-						name='heart'
-						color={styles['--primary']}
-					/>
-					<Typography variant='label' color={styles['--text']}>
-						{translations.tabs.account.favorites}
-					</Typography>
-				</View>
-
-				<View className='flex flex-row gap-2 flex-start justify-start w-[100px]'>
-					<Typography variant='label' color={styles['--text']} numeric>
-						{getCardsAndFavCount()[1]}
-					</Typography>
-					<Ionicons
-						size={21}
-						className='h-[25]'
-						color={styles['--primary']}
-						name='card-outline'
-					/>
-					<Typography variant='label' color={styles['--text']}>
-						{translations.tabs.account.cards}
-					</Typography>
+					<View className='flex flex-row gap-2 flex-start justify-start w-[100px]'>
+						<Typography
+							variant='label'
+							color={styles['--text']}
+							numeric
+							style={{ textAlign: 'right' }}
+							numberOfLines={1}
+							className='w-6'
+						>
+							{getCardsAndFavCount()[1]}
+						</Typography>
+						<Ionicons
+							size={21}
+							className='h-[25]'
+							color={styles['--primary']}
+							name='card-outline'
+						/>
+						<Typography variant='label' color={styles['--text']}>
+							{translations.tabs.account.cards}
+						</Typography>
+					</View>
 				</View>
 			</View>
 		</TabTransitionLayout>

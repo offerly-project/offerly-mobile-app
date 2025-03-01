@@ -35,6 +35,7 @@ const Favorites = observer(() => {
 	const scrollY = useSharedValue(0);
 	const resetTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 	const flatlistRef = useRef<Animated.FlatList<any>>(null);
+	const fadeIn = useSharedValue(0);
 
 	useEffect(() => {
 		if (!isGuest) {
@@ -43,6 +44,12 @@ const Favorites = observer(() => {
 				.finally(() => setLoading(false));
 		}
 	}, []);
+
+	useEffect(() => {
+		if (!loading) {
+			fadeIn.value = withTiming(1, { duration: 500, easing: Easing.out(Easing.quad) });
+		}
+	}, [loading]);
 
 	useEffect(() => {
 		if (highlighted !== null) {
@@ -75,6 +82,11 @@ const Favorites = observer(() => {
 		return { transform: [{ translateY }], opacity };
 	});
 
+	// Fade-in effect for main content
+	const fadeInAnimation = useAnimatedStyle(() => ({
+		opacity: fadeIn.value,
+	}));
+
 	const offersList = useMemo(() => {
 		if (!search) return favoritesStore().offers;
 		return favoritesStore().offers.filter(
@@ -94,38 +106,46 @@ const Favorites = observer(() => {
 						</View>
 					))}
 				</Skeleton.Group>
-			) : offers.length === 0 ? (
-				<NoData message='No Favorites' />
 			) : (
-				<Animated.FlatList
-					ref={flatlistRef}
-					data={offersList}
-					itemLayoutAnimation={FLATLIST_FADE_TRANSITION}
-					keyExtractor={(item) => item.id}
-					contentContainerStyle={{ gap: CARDS_GAP, paddingBottom: 40 }}
-					renderItem={({ item }) => (
-						<OfferCard
-							offer={item}
-							closeOnUnfavorite
-							highlighted={highlighted?.includes(item.id)}
+				<Animated.View style={fadeInAnimation}>
+					{offers.length === 0 ? (
+						<NoData message='No Favorites' />
+					) : (
+						<Animated.FlatList
+							ref={flatlistRef}
+							data={offersList}
+							itemLayoutAnimation={FLATLIST_FADE_TRANSITION}
+							keyExtractor={(item) => item.id}
+							contentContainerStyle={{ gap: CARDS_GAP, paddingBottom: 40 }}
+							renderItem={({ item }) => (
+								<OfferCard
+									offer={item}
+									closeOnUnfavorite
+									highlighted={highlighted?.includes(item.id)}
+								/>
+							)}
+							onScroll={handleScroll}
+							scrollEventThrottle={16}
+							ListHeaderComponent={
+								<Animated.View className='px-4 pb-2' style={headerAnimation}>
+									<Input
+										trailingIcon={() => (
+											<Ionicons
+												size={22}
+												color={theme['--primary']}
+												name='search'
+											/>
+										)}
+										value={search}
+										onChangeText={setSearch}
+										placeholder={translations.placeholders.search}
+										variant='primary'
+									/>
+								</Animated.View>
+							}
 						/>
 					)}
-					onScroll={handleScroll}
-					scrollEventThrottle={16}
-					ListHeaderComponent={
-						<Animated.View className='px-4 pb-2' style={headerAnimation}>
-							<Input
-								trailingIcon={() => (
-									<Ionicons size={22} color={theme['--primary']} name='search' />
-								)}
-								value={search}
-								onChangeText={setSearch}
-								placeholder={translations.placeholders.search}
-								variant='primary'
-							/>
-						</Animated.View>
-					}
-				/>
+				</Animated.View>
 			)}
 		</TabTransitionLayout>
 	);
