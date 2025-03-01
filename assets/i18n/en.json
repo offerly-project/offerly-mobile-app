@@ -271,15 +271,15 @@
 		"homePagePlaceholder": "Search for offers or shops.."
 	},
 	"toast": {
-		"discountCopied": "Discount code copied to clipboard",
-		"addCards": "Selected Cards added successfully",
-		"deleteCards": "Selected Cards deleted successfully",
-		"addFavorite": "Offer added to favorites",
-		"passwordChanged": "Password changed successfully",
-		"contactMessageSent": "Message sent successfully",
-		"signupSuccess": "Signup successful",
-		"nameUpdated": "Name updated successfully",
-		"phoneNumberUpdated": "Phone number updated successfully"
+		"discountCopied": "Discount code copied!",
+		"addCards": "Cards added successfully.",
+		"deleteCards": "Cards removed successfully.",
+		"addFavorite": "Added to favorites.",
+		"passwordChanged": "Password updated.",
+		"contactMessageSent": "Message sent.",
+		"signupSuccess": "Welcome aboard!",
+		"nameUpdated": "Name updated.",
+		"phoneNumberUpdated": "Phone number updated."
 	},
 	"warning": {
 		"deleteCards": {

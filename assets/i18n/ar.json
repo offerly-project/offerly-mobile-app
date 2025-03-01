@@ -275,15 +275,15 @@
 		"homePagePlaceholder": "ابحث عن العروض أو المتاجر.."
 	},
 	"toast": {
-		"discountCopied": "تم نسخ الرمز الترويجي بنجاح",
-		"addCards": "تمت إضافة البطاقات المحددة بنجاح",
-		"deleteCards": "تم حذف البطاقات المحددة بنجاح",
-		"addFavorite": "تمت إضافة العرض إلى المفضلة",
-		"passwordChanged": "تم تغيير كلمة المرور بنجاح",
-		"contactMessageSent": "تم إرسال الرسالة بنجاح",
-		"signupSuccess": "تم التسجيل بنجاح",
-		"nameUpdated": "تم تحديث الاسم بنجاح",
-		"phoneNumberUpdated": "تم تحديث رقم الجوال بنجاح"
+		"discountCopied": "تم نسخ الرمز الترويجي!",
+		"addCards": "تمت إضافة البطاقات بنجاح.",
+		"deleteCards": "تم حذف البطاقات بنجاح.",
+		"addFavorite": "تمت إضافة العرض إلى المفضلة.",
+		"passwordChanged": "تم تحديث كلمة المرور.",
+		"contactMessageSent": "تم إرسال الرسالة.",
+		"signupSuccess": "مرحباً بك في التطبيق!",
+		"nameUpdated": "تم تحديث الاسم.",
+		"phoneNumberUpdated": "تم تحديث رقم الجوال."
 	},
 	"warning": {
 		"deleteCards": {
