@@ -43,8 +43,9 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false, highlighted }: P
 			addFavorite(offer);
 			if (!modal)
 				Toast.show({
-					type: 'success',
-					text1: translations.toast.addFavorite,
+					type: 'info',
+					text2: translations.toast.addFavorite,
+					autoHide: false,
 				});
 		}
 	};

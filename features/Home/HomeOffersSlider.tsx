@@ -1,10 +1,6 @@
 import OfferSkeleton from '@/components/Skeletons/OfferSkeleton';
-import {
-	SLIDER_SKELETON_HEIGHT,
-	SLIDER_SKELETON_WIDTH,
-	SLIDERS_HEIGHT,
-} from '@/components/Toasts/constants';
 import Typography from '@/components/Typography/Typography';
+import { SLIDER_SKELETON_HEIGHT, SLIDER_SKELETON_WIDTH, SLIDERS_HEIGHT } from '@/constants/layout';
 import { IOffer } from '@/entities/offer.entity';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { banksStore, favoritesStore, languageStore } from '@/stores';
