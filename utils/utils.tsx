@@ -156,8 +156,6 @@ export const haptic = (type: HapticType) => {
 	}
 };
 export const hapticify = (type: HapticType) => (cb: () => any) => {
-	console.log(type);
-
 	haptic(type);
 	return cb;
 };

@@ -1,10 +1,16 @@
 import { getBaseScreenLayout } from '@/constants/screens';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
+import { haptic } from '@/utils/utils';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { Stack } from 'expo-router';
+import { useEffect } from 'react';
 
 export default function ModalsLayout() {
 	const theme = useThemeStyles();
+
+	useEffect(() => {
+		haptic('selection');
+	}, []);
 
 	return (
 		<BottomSheetModalProvider>
