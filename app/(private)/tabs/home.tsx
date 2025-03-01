@@ -1,6 +1,5 @@
 import { OffersApi } from '@/api/offers.api';
 import CloseButton from '@/components/Button/CloseButton';
-import GoTopLayout from '@/components/Button/GoTopButton';
 import Input from '@/components/Input/Input';
 import OfferSkeleton from '@/components/Skeletons/OfferSkeleton';
 import Typography from '@/components/Typography/Typography';
@@ -202,14 +201,6 @@ const Home = () => {
 							}}
 						/>
 					}
-
-					<GoTopLayout
-						style={{ bottom: 50 }}
-						onPress={() => {
-							flatlistRef.current?.scrollToOffset({ offset: 0 });
-						}}
-						scrollY={scrollY}
-					/>
 				</BlurView>
 			</Modal>
 		</TabTransitionLayout>

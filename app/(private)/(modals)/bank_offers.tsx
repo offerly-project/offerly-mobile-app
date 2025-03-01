@@ -117,7 +117,8 @@ const BankOffers = ({ bank, closeHandler }: Props) => {
 			)}
 
 			<GoTopLayout
-				style={{ bottom: 50 }}
+				offsetY={50}
+				offsetX={5}
 				onPress={() => {
 					flatlistRef.current?.scrollToOffset({ offset: 0 });
 				}}

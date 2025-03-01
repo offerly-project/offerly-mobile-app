@@ -94,7 +94,10 @@ const SelectCards = observer(() => {
 			onPress={() => handleBankSelection(item.value, closeHandler)}
 		>
 			<View style={styles.itemContent}>
-				<Image source={formatUploadPath(item.data.logo)} style={styles.bankLogo} />
+				<Image
+					source={item.data?.logo ? formatUploadPath(item.data.logo) : ''}
+					style={styles.bankLogo}
+				/>
 				<View>
 					<Typography variant='body' color={theme['--text']}>
 						{language == 'ar' ? item.data.name.ar : item.data.name.en}

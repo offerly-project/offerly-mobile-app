@@ -63,7 +63,7 @@ const ChangePasswordModal = (props: Props) => {
 
 	return (
 		<ModalLayout title={translations.tabs.account.change_password.title}>
-			<View className='gap-8 p-6'>
+			<View className='gap-6 px-6 pb-6'>
 				<Input
 					placeholder={translations.placeholders.oldPasswordPlaceholder}
 					value={values.old_password}

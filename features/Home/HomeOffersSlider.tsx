@@ -119,9 +119,14 @@ const HomeOffersSlider = observer(
 
 													<View style={styles.customShadow}>
 														<Image
-															source={formatUploadPath(
-																getBankById(item.bankId).logo,
-															)}
+															source={
+																getBankById(item.bankId)?.logo
+																	? formatUploadPath(
+																			getBankById(item.bankId)
+																				?.logo,
+																		)
+																	: ''
+															}
 															style={styles.bankLogo}
 														/>
 													</View>

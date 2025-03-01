@@ -32,7 +32,7 @@ const AboutModal = (props: Props) => {
 
 	return (
 		<ModalLayout>
-			<ScrollView>
+			<ScrollView className='px-4 mb-8'>
 				<Typography
 					style={{ fontWeight: '800' }}
 					className='my-2'

@@ -82,9 +82,9 @@ const OffersFilter = ({ filter, setFilter, closeHandler }: Props) => {
 								}}
 								className='flex-1 flex flex-row items-center gap-4 '
 							>
-								{item.data.logo ? (
+								{item.data?.logo ? (
 									<Image
-										source={formatUploadPath(item.data.logo)}
+										source={formatUploadPath(item.data?.logo)}
 										style={{ height: 25, width: 50 }}
 									/>
 								) : (

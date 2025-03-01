@@ -12,12 +12,12 @@ const TermsAndConditionsModal = (props: Props) => {
 	const { translations } = languageStore();
 	return (
 		<ModalLayout>
-			<ScrollView>
+			<ScrollView className='flex-1 mb-[14px] px-4'>
 				<Typography className='my-4' variant='h3' color={theme['--primary']}>
 					{translations.tabs.account.terms_and_conditions.title}
 				</Typography>
 				{translations.tabs.account.terms_and_conditions.terms.map((section, index) => (
-					<View key={index} className='mt-6'>
+					<View key={index} className={index === 0 ? '' : 'mt-6'}>
 						<Typography variant='h3' weight='bold' color={theme['--primary']}>
 							{index + 1}. {section.title}
 						</Typography>

@@ -8,13 +8,22 @@ type Props = {
 	onPress: () => void;
 	scrollY: SharedValue<number>;
 	style?: StyleProp<ViewStyle>;
+	offsetX?: number;
+	offsetY?: number;
 };
 
-const GoTopLayout = observer(({ onPress, scrollY, style }: Props) => {
+const GoTopLayout = observer(({ onPress, scrollY, style, offsetX = 0, offsetY = 0 }: Props) => {
 	const theme = useThemeStyles();
 
 	const goTopAnimation = useAnimatedStyle(() => {
-		return { opacity: withTiming(scrollY.value > 150 ? 1 : 0, { duration: 250 }) };
+		return {
+			opacity: withTiming(scrollY.value > 150 ? 1 : 0, { duration: 250 }),
+			transform: [
+				{
+					translateY: withTiming(scrollY.value > 150 ? 0 : 25, { duration: 250 }),
+				},
+			],
+		};
 	});
 
 	return (
@@ -24,6 +33,10 @@ const GoTopLayout = observer(({ onPress, scrollY, style }: Props) => {
 				goTopAnimation,
 				{ backgroundColor: theme['--primary'] },
 				style,
+				{
+					bottom: 25 + offsetY,
+					right: 25 + offsetX,
+				},
 			]}
 		>
 			<Pressable hitSlop={25} onTouchEnd={onPress}>
@@ -37,8 +50,6 @@ export default GoTopLayout;
 const styles = StyleSheet.create({
 	container: {
 		position: 'absolute',
-		bottom: 25,
-		right: 25,
 		height: 35,
 		width: 35,
 		borderRadius: 25,

@@ -175,6 +175,24 @@ const Offers = observer(() => {
 		lastScrollY.value = currentY;
 	};
 
+	const toolbarAnimation = useAnimatedStyle(() => {
+		const isShowing = toolbarVisible.value === 1;
+		return {
+			transform: [
+				{
+					translateY: withTiming(isShowing ? 0 : -500, {
+						duration: isShowing ? 600 : 150,
+						easing: isShowing ? Easing.out(Easing.exp) : Easing.linear,
+					}),
+				},
+			],
+			opacity: withTiming(toolbarVisible.value, {
+				duration: isShowing ? 400 : 100,
+				easing: isShowing ? Easing.out(Easing.exp) : Easing.linear,
+			}),
+		};
+	});
+
 	const renderSkeleton = (count: number) => (
 		<Skeleton.Group show={true}>
 			{new Array(count).fill(0).map((_, i) => (
@@ -194,26 +212,31 @@ const Offers = observer(() => {
 				<NoCards />
 			) : (
 				<View className='relative flex-1'>
-					<OffersToolbar
-						offersFilter={offersFilter}
-						setOffersFilter={setOffersFilter}
-						appliedFilterCount={appliedFilterCount}
-						search={search}
-						setSearch={setSearch}
-					/>
-					{offersHeader && (
-						<View className='bg-background pb-2'>
-							<Typography
-								numberOfLines={1}
-								align='center'
-								variant='body'
-								className='m-auto border-b-2 border-selected'
-								weight='bold'
-							>
-								{offersHeader}
-							</Typography>
-						</View>
-					)}
+					<Animated.View
+						className='absolute top-0 left-0 w-full z-20'
+						style={toolbarAnimation}
+					>
+						<OffersToolbar
+							offersFilter={offersFilter}
+							setOffersFilter={setOffersFilter}
+							appliedFilterCount={appliedFilterCount}
+							search={search}
+							setSearch={setSearch}
+						/>
+						{offersHeader && (
+							<View className='bg-background pb-2'>
+								<Typography
+									numberOfLines={1}
+									align='center'
+									variant='body'
+									className='m-auto border-b-2 border-selected'
+									weight='bold'
+								>
+									{offersHeader}
+								</Typography>
+							</View>
+						)}
+					</Animated.View>
 
 					{initialLoader ? (
 						renderSkeleton(4)
@@ -247,6 +270,8 @@ const Offers = observer(() => {
 
 					<GoTopLayout
 						scrollY={lastScrollY}
+						offsetX={-12}
+						offsetY={25}
 						onPress={() => flatlistRef.current?.scrollToOffset({ offset: 0 })}
 					/>
 				</View>

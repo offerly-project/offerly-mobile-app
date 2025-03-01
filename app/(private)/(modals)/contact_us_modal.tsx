@@ -66,7 +66,7 @@ const ContactUsModal = (props: Props) => {
 
 	return (
 		<ModalLayout title={translations.tabs.account.contact_us.title}>
-			<View className='gap-5 p-6'>
+			<View className='gap-5 px-4'>
 				<Input
 					value={user.full_name}
 					className={INPUT_CLASS}
@@ -98,7 +98,7 @@ const ContactUsModal = (props: Props) => {
 				/>
 				<Button
 					loading={loading}
-					loadingComponent={<ActivityIndicator />}
+					loadingComponent={<ActivityIndicator color={theme['--text']} />}
 					className='h-[55]'
 					borderStyle='filled'
 					onPress={handleSubmit}

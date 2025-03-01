@@ -109,7 +109,7 @@ const OfferModalContent = ({ offer, toggleFavorite, favorite, closeHandler }: Pr
 				<View className='flex-1 gap-4'>
 					<ScrollView contentContainerClassName='gap-4'>
 						<Image
-							source={formatUploadPath(offer.logo)}
+							source={offer?.logo ? formatUploadPath(offer.logo) : ''}
 							style={{
 								height: 200,
 								width: 200,

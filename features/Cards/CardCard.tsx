@@ -39,7 +39,7 @@ const CardCard = ({ card, onPress, selected, small, userCard }: Props) => {
 					className={`gap-2 px-2 py-1 items-center ${userCard && 'opacity-50'}`}
 				>
 					<Image
-						source={formatUploadPath(card.logo)}
+						source={card?.logo ? formatUploadPath(card.logo) : ''}
 						style={[
 							{
 								resizeMode: 'contain',

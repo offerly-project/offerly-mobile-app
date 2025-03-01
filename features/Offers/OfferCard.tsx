@@ -64,7 +64,7 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false, highlighted }: P
 			>
 				<View className='border-2 border-secondary rounded-2xl overflow-hidden'>
 					<Image
-						source={formatUploadPath(offer.logo)}
+						source={offer?.logo ? formatUploadPath(offer.logo) : ''}
 						style={{
 							height: 100,
 							width: 100,
@@ -121,7 +121,11 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false, highlighted }: P
 						}}
 					/>
 					<Image
-						source={formatUploadPath(getBankById(offer.bankId)?.logo)}
+						source={
+							getBankById(offer.bankId)?.logo
+								? formatUploadPath(getBankById(offer.bankId)?.logo)
+								: ''
+						}
 						style={styles.bankLogo}
 					/>
 				</View>
