@@ -1,4 +1,5 @@
 import CloseButton from '@/components/Button/CloseButton';
+import FavoriteButton from '@/components/Button/FavoriteButton';
 import Link from '@/components/Typography/Link';
 import Typography from '@/components/Typography/Typography';
 import { ThemeStyle } from '@/constants/themes';
@@ -6,7 +7,6 @@ import { IOffer } from '@/entities/offer.entity';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { languageStore } from '@/stores';
 import { formatUploadPath } from '@/utils/utils';
-import Ionicons from '@expo/vector-icons/AntDesign';
 import * as Clipboard from 'expo-clipboard';
 import { Image } from 'expo-image';
 import moment from 'moment';
@@ -102,17 +102,7 @@ const OfferModalContent = ({ offer, toggleFavorite, favorite, closeHandler }: Pr
 		<>
 			<View className='flex-1 px-10 py-4 bg-background'>
 				<View className='flex-row items-end justify-between py-6'>
-					<Pressable
-						onPress={toggleFavorite}
-						className='flex-[0.2] items-center'
-						hitSlop={20}
-					>
-						<Ionicons
-							size={25}
-							name={favorite ? 'heart' : 'hearto'}
-							color={theme['--primary']}
-						/>
-					</Pressable>
+					<FavoriteButton favorite={favorite} onPress={toggleFavorite} />
 					<CloseButton onTouchEnd={closeHandler} />
 				</View>
 

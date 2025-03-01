@@ -9,7 +9,7 @@ import moment from 'moment';
 import { useState } from 'react';
 import { Modal, Pressable, StyleProp, StyleSheet, TextStyle, View } from 'react-native';
 
-import { AntDesign } from '@expo/vector-icons';
+import FavoriteButton from '@/components/Button/FavoriteButton';
 import Toast from 'react-native-toast-message';
 import OfferModalContent from './OfferModalContent';
 
@@ -113,18 +113,12 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false, highlighted }: P
 					)}
 				</View>
 				<View className='flex-col justify-between items-center'>
-					<Pressable
+					<FavoriteButton
+						favorite={favorite}
 						onPress={() => {
 							toggleFavorite({ modal: false });
 						}}
-						hitSlop={20}
-					>
-						<AntDesign
-							size={22}
-							name={favorite ? 'heart' : 'hearto'}
-							color={theme['--primary']}
-						/>
-					</Pressable>
+					/>
 					<Image
 						source={formatUploadPath(getBankById(offer.bankId)?.logo)}
 						style={styles.bankLogo}
