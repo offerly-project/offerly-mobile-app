@@ -11,7 +11,7 @@
 		"ios": {
 			"supportsTablet": true,
 			"bundleIdentifier": "me.offerly.app",
-			"backgroundColor": "#6633cc",
+
 			"icon": "./assets/icons/app-icon-ios.png",
 			"infoPlist": {
 				"NSAppTransportSecurity": {
