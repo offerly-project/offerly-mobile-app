@@ -45,7 +45,6 @@ const OfferCard = observer(({ offer, closeOnUnfavorite = false, highlighted }: P
 				Toast.show({
 					type: 'info',
 					text2: translations.toast.addFavorite,
-					autoHide: false,
 				});
 		}
 	};
