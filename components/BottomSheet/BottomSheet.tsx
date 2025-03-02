@@ -57,7 +57,6 @@ const BottomSheet = ({ open, children, ...rest }: Props) => {
 				keyboardBehavior='interactive'
 				keyboardBlurBehavior='restore'
 				stackBehavior='switch'
-				snapPoints={['50%', '90%']}
 				enableDynamicSizing
 				containerStyle={{
 					zIndex: 10,

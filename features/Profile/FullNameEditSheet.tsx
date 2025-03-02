@@ -22,6 +22,7 @@ const FullNameEditSheet = ({ closeHandler, initialFullName }: Props) => {
 	return (
 		<View className='gap-4'>
 			<Input
+				sheeted
 				placeholder={translations.placeholders.fullName}
 				value={fullName}
 				onChangeText={(value) => {
